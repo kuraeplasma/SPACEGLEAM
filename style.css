@@ -352,6 +352,16 @@ select {
     letter-spacing: -0.015em;
 }
 
+.hero-search-label {
+    display: inline-flex;
+    align-items: center;
+    margin-bottom: 14px;
+    color: rgba(255, 255, 255, .78);
+    font-size: .78rem;
+    font-weight: 800;
+    letter-spacing: .08em;
+}
+
 .nowrap {
     display: inline-block;
     white-space: nowrap;
