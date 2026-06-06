@@ -42,7 +42,8 @@ function timingSafeEqualString(left, right) {
 
 function isAuthorized(event) {
     if (!ADMIN_PASSWORD) return false;
-    const credentials = decodeBasicAuth(event.headers.authorization);
+    const headers = event.headers || {};
+    const credentials = decodeBasicAuth(headers.authorization || headers.Authorization);
     if (!credentials) return false;
     return timingSafeEqualString(credentials.user, ADMIN_USER)
         && timingSafeEqualString(credentials.password, ADMIN_PASSWORD);
