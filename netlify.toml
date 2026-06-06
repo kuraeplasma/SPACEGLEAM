@@ -78,6 +78,18 @@
   status = 200
 
 [[redirects]]
+  from = "/blog/ai-2026/"
+  to = "/blog/ai-mvp-first-decisions/"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/blog/ai-2026/*"
+  to = "/blog/ai-mvp-first-decisions/"
+  status = 301
+  force = true
+
+[[redirects]]
   from = "/*"
   to = "/index.html"
   status = 200
