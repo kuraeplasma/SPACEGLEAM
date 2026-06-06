@@ -58,8 +58,349 @@ function page() {
     <title>Blog Admin | SPACE GLEAM</title>
     <link rel="icon" href="https://spacegleam.co.jp/favicon.png">
     <link rel="stylesheet" href="https://spacegleam.co.jp/style.css?v=blog-editor-20260602-admin">
+    <style>
+        :root {
+            --admin-bg: #f5f3ef;
+            --admin-ink: #111111;
+            --admin-muted: #62615d;
+            --admin-line: rgba(17, 17, 17, 0.10);
+            --admin-panel: rgba(255, 255, 255, 0.88);
+            --admin-panel-solid: #ffffff;
+            --admin-radius: 8px;
+        }
+
+        body.blog-admin-body {
+            min-height: 100vh;
+            color: var(--admin-ink);
+            background:
+                radial-gradient(circle at 12% 8%, rgba(255,255,255,0.92), transparent 34%),
+                radial-gradient(circle at 82% 0%, rgba(225,218,205,0.75), transparent 32%),
+                linear-gradient(180deg, #faf8f3 0%, var(--admin-bg) 48%, #efebe4 100%);
+        }
+
+        .blog-admin-body .header {
+            background: rgba(250, 248, 243, 0.82);
+            border-bottom: 1px solid var(--admin-line);
+            backdrop-filter: blur(18px);
+        }
+
+        .blog-admin-main {
+            padding: 118px 0 80px;
+        }
+
+        .blog-admin-shell {
+            display: grid;
+            gap: 26px;
+        }
+
+        .blog-admin-hero {
+            display: grid;
+            grid-template-columns: minmax(0, 1fr) auto;
+            gap: 24px;
+            align-items: end;
+            padding: 32px;
+            background: rgba(255,255,255,0.58);
+            border: 1px solid var(--admin-line);
+            border-radius: var(--admin-radius);
+            box-shadow: 0 22px 70px rgba(17,17,17,0.08);
+        }
+
+        .blog-admin-kicker {
+            display: inline-flex;
+            width: fit-content;
+            align-items: center;
+            gap: 8px;
+            margin: 0 0 14px;
+            padding: 6px 10px;
+            color: #2d2b27;
+            background: #ffffff;
+            border: 1px solid var(--admin-line);
+            border-radius: 999px;
+            font-size: 0.78rem;
+            font-weight: 800;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+        }
+
+        .blog-admin-kicker::before {
+            content: "";
+            width: 8px;
+            height: 8px;
+            background: #32c36c;
+            border-radius: 999px;
+            box-shadow: 0 0 0 5px rgba(50,195,108,0.14);
+        }
+
+        .blog-admin-title {
+            max-width: 760px;
+            margin: 0;
+            color: var(--admin-ink);
+            font-size: clamp(2.2rem, 5vw, 4.7rem);
+            line-height: 0.96;
+            letter-spacing: 0;
+        }
+
+        .blog-admin-lead {
+            max-width: 690px;
+            margin: 18px 0 0;
+            color: var(--admin-muted);
+            font-size: 1rem;
+            line-height: 1.85;
+        }
+
+        .blog-admin-quick {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(150px, 1fr));
+            gap: 10px;
+            min-width: 330px;
+        }
+
+        .blog-admin-stat {
+            padding: 18px;
+            background: #111111;
+            color: #ffffff;
+            border-radius: var(--admin-radius);
+        }
+
+        .blog-admin-stat:nth-child(2) {
+            background: #ffffff;
+            color: var(--admin-ink);
+            border: 1px solid var(--admin-line);
+        }
+
+        .blog-admin-stat span {
+            display: block;
+            margin-bottom: 14px;
+            color: currentColor;
+            opacity: 0.68;
+            font-size: 0.76rem;
+            font-weight: 800;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+        }
+
+        .blog-admin-stat strong {
+            display: block;
+            font-size: 1.2rem;
+            line-height: 1.35;
+            letter-spacing: 0;
+        }
+
+        .blog-admin-guide {
+            max-width: none;
+            margin: 0;
+            padding: 0;
+        }
+
+        .blog-admin-guide h2 {
+            margin: 0 0 14px;
+            font-size: 1rem;
+            letter-spacing: 0;
+        }
+
+        .blog-admin-guide ol {
+            display: grid;
+            grid-template-columns: repeat(4, minmax(0, 1fr));
+            gap: 10px;
+            padding: 0;
+            list-style: none;
+            counter-reset: admin-step;
+        }
+
+        .blog-admin-guide li {
+            counter-increment: admin-step;
+            min-height: 122px;
+            padding: 18px;
+            color: #4f4d48;
+            background: var(--admin-panel);
+            border: 1px solid var(--admin-line);
+            border-radius: var(--admin-radius);
+            line-height: 1.75;
+        }
+
+        .blog-admin-guide li::before {
+            content: counter(admin-step, decimal-leading-zero);
+            display: block;
+            margin-bottom: 14px;
+            color: #111111;
+            font-size: 0.72rem;
+            font-weight: 900;
+            letter-spacing: 0.12em;
+        }
+
+        .blog-admin-body .blog-editor-layout {
+            grid-template-columns: minmax(430px, 0.86fr) minmax(0, 1.14fr);
+            gap: 18px;
+            align-items: start;
+        }
+
+        .blog-admin-body .blog-editor-form,
+        .blog-admin-body .blog-editor-output {
+            padding: 20px;
+            background: var(--admin-panel-solid);
+            border: 1px solid var(--admin-line);
+            border-radius: var(--admin-radius);
+            box-shadow: 0 18px 52px rgba(17,17,17,0.06);
+        }
+
+        .blog-editor-section-title {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 12px;
+            margin: 0 0 4px;
+            padding-bottom: 14px;
+            border-bottom: 1px solid var(--admin-line);
+        }
+
+        .blog-editor-section-title h2 {
+            margin: 0;
+            font-size: 1.1rem;
+            letter-spacing: 0;
+        }
+
+        .blog-editor-section-title span {
+            color: var(--admin-muted);
+            font-size: 0.78rem;
+            font-weight: 800;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+        }
+
+        .blog-admin-body .blog-editor-form label,
+        .blog-admin-body .blog-editor-output label,
+        .blog-admin-body .blog-editor-image-field {
+            color: #24231f;
+            font-size: 0.82rem;
+            letter-spacing: 0.02em;
+        }
+
+        .blog-admin-body .blog-editor-form input,
+        .blog-admin-body .blog-editor-form select,
+        .blog-admin-body .blog-editor-form textarea,
+        .blog-admin-body .blog-editor-output textarea {
+            min-height: 48px;
+            background: #f7f5f0;
+            border: 1px solid rgba(17,17,17,0.09);
+            border-radius: var(--admin-radius);
+            transition: border-color 0.18s ease, box-shadow 0.18s ease, background 0.18s ease;
+        }
+
+        .blog-admin-body .blog-editor-form input:focus,
+        .blog-admin-body .blog-editor-form select:focus,
+        .blog-admin-body .blog-editor-form textarea:focus,
+        .blog-admin-body .blog-editor-output textarea:focus {
+            background: #ffffff;
+            border-color: rgba(17,17,17,0.34);
+            box-shadow: 0 0 0 4px rgba(17,17,17,0.06);
+        }
+
+        .blog-admin-body .blog-editor-drafts {
+            padding: 14px;
+            background: #f7f5f0;
+            border: 1px solid var(--admin-line);
+            border-radius: var(--admin-radius);
+        }
+
+        .blog-admin-body .blog-editor-draft-actions button,
+        .blog-admin-body .blog-editor-slug-row button,
+        .blog-admin-body .blog-editor-actions button,
+        .blog-admin-body .blog-editor-image-clear {
+            border-radius: var(--admin-radius);
+            background: #ffffff;
+            transition: transform 0.18s ease, border-color 0.18s ease;
+        }
+
+        .blog-admin-body button:hover {
+            transform: translateY(-1px);
+        }
+
+        .blog-admin-body .blog-editor-image-dropzone {
+            min-height: 116px;
+            background:
+                linear-gradient(135deg, rgba(255,255,255,0.72), transparent 44%),
+                #f0ede6;
+            border-radius: var(--admin-radius);
+        }
+
+        .blog-admin-body .blog-editor-image-preview {
+            min-height: 220px;
+            border-radius: var(--admin-radius);
+        }
+
+        .blog-admin-body .blog-editor-submit,
+        .blog-admin-body .blog-editor-publish-panel button,
+        .blog-admin-body .blog-editor-notify button {
+            width: 100%;
+            justify-content: center;
+            min-height: 52px;
+            border-radius: var(--admin-radius);
+        }
+
+        .blog-admin-body .blog-editor-publish-panel,
+        .blog-admin-body .blog-editor-notify,
+        .blog-admin-body .blog-editor-manual-output {
+            border-radius: var(--admin-radius);
+            border-color: var(--admin-line);
+        }
+
+        .blog-admin-body .blog-editor-publish-panel {
+            background:
+                linear-gradient(135deg, rgba(255,255,255,0.88), transparent 44%),
+                #111111;
+            color: #ffffff;
+        }
+
+        .blog-admin-body .blog-editor-publish-panel h2,
+        .blog-admin-body .blog-editor-publish-panel p,
+        .blog-admin-body .blog-editor-publish-panel p[data-state="success"],
+        .blog-admin-body .blog-editor-publish-panel p[data-state="error"] {
+            color: #ffffff;
+        }
+
+        .blog-admin-body .blog-editor-publish-panel p {
+            opacity: 0.74;
+        }
+
+        .blog-admin-body .blog-editor-publish-panel button {
+            color: #111111;
+            background: #ffffff;
+        }
+
+        @media (max-width: 1080px) {
+            .blog-admin-hero,
+            .blog-admin-body .blog-editor-layout {
+                grid-template-columns: 1fr;
+            }
+
+            .blog-admin-quick {
+                min-width: 0;
+            }
+
+            .blog-admin-guide ol {
+                grid-template-columns: repeat(2, minmax(0, 1fr));
+            }
+        }
+
+        @media (max-width: 640px) {
+            .blog-admin-main {
+                padding-top: 92px;
+            }
+
+            .blog-admin-hero,
+            .blog-admin-body .blog-editor-form,
+            .blog-admin-body .blog-editor-output {
+                padding: 18px;
+            }
+
+            .blog-admin-guide ol,
+            .blog-admin-quick {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
 </head>
-<body class="blog-page-body">
+<body class="blog-page-body blog-admin-body">
     <header class="header">
         <div class="container header-inner">
                 <a href="https://spacegleam.co.jp/" class="brand" aria-label="SPACE GLEAM ホーム">
@@ -75,11 +416,28 @@ function page() {
         </div>
     </header>
 
-    <main class="blog-main">
-        <div class="container">
+    <main class="blog-main blog-admin-main">
+        <div class="container blog-admin-shell">
+            <section class="blog-admin-hero">
+                <div>
+                    <p class="blog-admin-kicker">Blog Admin Console</p>
+                    <h1 class="blog-admin-title">記事を整え、公開準備まで一気に。</h1>
+                    <p class="blog-admin-lead">下書き、OGP画像、公開用HTML、購読者向け通知を一画面で管理できます。生成した内容はCodexに渡しやすい形でまとめます。</p>
+                </div>
+                <div class="blog-admin-quick" aria-label="管理画面の状態">
+                    <div class="blog-admin-stat">
+                        <span>Mode</span>
+                        <strong>Draft first</strong>
+                    </div>
+                    <div class="blog-admin-stat">
+                        <span>Output</span>
+                        <strong>HTML / posts.js / Mail JSON</strong>
+                    </div>
+                </div>
+            </section>
             <section class="blog-admin-guide">
                 <p class="blog-eyebrow">Blog Admin</p>
-                <h1>使い方</h1>
+                <h2>公開フロー</h2>
                 <ol>
                     <li>記事を書いて、下書き保存します。</li>
                     <li>公開する時は「公開準備をまとめてコピー」を押します。</li>
@@ -90,6 +448,10 @@ function page() {
 
             <section class="blog-editor-layout">
                 <form class="blog-editor-form" data-blog-editor>
+                    <div class="blog-editor-section-title">
+                        <h2>編集</h2>
+                        <span>Compose</span>
+                    </div>
                     <div class="blog-editor-drafts">
                         <label>下書き<select data-draft-list><option value="">新規作成</option></select></label>
                         <div class="blog-editor-draft-actions">
@@ -154,6 +516,10 @@ MVPは公開して終わりではありません。問い合わせ、ログ、�
                 </form>
 
                 <div class="blog-editor-output">
+                    <div class="blog-editor-section-title">
+                        <h2>出力</h2>
+                        <span>Publish</span>
+                    </div>
                     <div class="blog-editor-publish-panel">
                         <h2>公開準備</h2>
                         <p>記事を書き終えたら、このボタンで公開に必要な内容をまとめてコピーします。</p>
