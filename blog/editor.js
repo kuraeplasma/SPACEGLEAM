@@ -271,8 +271,8 @@ ${bodyHtml}
 
 公開状態: ${data.status}
 記事URL: https://spacegleam.co.jp/blog/${data.slug}/
-記事HTMLの保存先: spacegleam_corp/blog/${data.slug}/index.html
-posts.jsへの追加先: spacegleam_corp/blog/posts.js
+記事HTMLの保存先: blog/${data.slug}/index.html
+posts.jsへの追加先: blog/posts.js
 
 予約投稿の場合は publishAt の時刻まで一覧に表示されないようにしてください。
 公開後、必要なら以下の配信用JSONで購読者へ通知してください。

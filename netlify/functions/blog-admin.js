@@ -187,7 +187,7 @@ MVPは公開して終わりではありません。問い合わせ、ログ、�
         </div>
     </main>
 
-    <script src="https://spacegleam.co.jp/blog/editor.js?v=20260603-ga"></script>
+    <script src="https://spacegleam.co.jp/blog/editor.js?v=20260606-header-template"></script>
 </body>
 </html>`;
 }
