@@ -197,8 +197,8 @@
     <title>${escapeHtml(data.title)} | SPACE GLEAM</title>
     <meta name="description" content="${escapeHtml(data.description)}">
     <link rel="canonical" href="https://spacegleam.co.jp/blog/${data.slug}/">
-    <link rel="icon" href="../../favicon.png">
-    <link rel="stylesheet" href="../../style.css?v=blog-20260602">
+    <link rel="icon" href="/favicon.png">
+    <link rel="stylesheet" href="/style.css?v=blog-20260602">
     <meta property="og:type" content="article">
     <meta property="og:title" content="${escapeHtml(data.title)}">
     <meta property="og:description" content="${escapeHtml(data.description)}">
@@ -214,6 +214,34 @@
     <script type="application/ld+json">{"@context":"https://schema.org","@type":"Article","headline":"${data.title.replace(/"/g, '\\"')}","description":"${data.description.replace(/"/g, '\\"')}","datePublished":"${data.date}","dateModified":"${data.date}","author":{"@type":"Organization","name":"SPACE GLEAM"},"publisher":{"@type":"Organization","name":"SPACE GLEAM","logo":{"@type":"ImageObject","url":"https://spacegleam.co.jp/favicon.png"}},"mainEntityOfPage":"https://spacegleam.co.jp/blog/${data.slug}/","image":"${imageMeta}","articleSection":"${data.category}"}</script>
 </head>
 <body class="blog-page-body" data-article-slug="${data.slug}">
+    <div class="site-bg" aria-hidden="true"></div>
+
+    <header class="header">
+        <div class="container header-inner">
+            <a href="/index.html" class="brand" aria-label="SPACE GLEAM ホーム">
+                <span class="brand-name">SPACE GLEAM</span>
+            </a>
+
+            <button class="nav-toggle" type="button" aria-label="メニューを開く" aria-controls="global-nav" aria-expanded="false">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+
+            <nav id="global-nav" class="nav" aria-label="グローバルナビゲーション">
+                <a href="/services.html">AI プロダクト開発</a>
+                <a href="/pricing.html">料金</a>
+                <a href="/works.html">実績</a>
+                <a href="/faq.html">FAQ</a>
+                <a href="/blog/">Blog</a>
+            </nav>
+
+            <div class="header-ctas">
+                <a href="/index.html#contact" class="header-cta">無料相談する<span class="arrow">→</span></a>
+            </div>
+        </div>
+    </header>
+
     <main class="blog-main"><div class="container">
         <article>
             <header class="article-header">
@@ -225,10 +253,10 @@
 ${bodyHtml}
             </div>
         </article>
-        <div class="article-cta"><div><strong>AIシステム開発のご相談はこちら</strong><p>AI MVP、SaaS、業務システムの初期設計からご相談いただけます。</p></div><a href="../../index.html#contact">問い合わせる</a></div>
+        <div class="article-cta"><div><strong>AIシステム開発のご相談はこちら</strong><p>AI MVP、SaaS、業務システムの初期設計からご相談いただけます。</p></div><a href="/index.html#contact">問い合わせる</a></div>
         <section class="related-section"><h2>関連記事</h2><div class="related-grid" data-related-posts></div></section>
     </div></main>
-    <script src="../../script.js"></script><script src="../posts.js"></script><script src="../blog.js?v=20260602-subscribe-fix"></script>
+    <script src="/script.js"></script><script src="/blog/posts.js"></script><script src="/blog/blog.js?v=20260602-subscribe-fix"></script>
 </body>
 </html>`;
 
