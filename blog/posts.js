@@ -8,8 +8,7 @@ window.SPACEGLEAM_BLOG_POSTS = [
         category: 'Business',
         description: 'AI受託開発の費用相場は、PoCで数十万〜300万円、中規模システムで300万〜1,000万円が一般的。でも2026年、AIを使った開発なら25万円〜・最短2〜4週間で"いきなり商用レベル"が作れる時代になりました。ただし「安いから」で選ぶと本番で苦労します。この記事では費用相場・なぜ安くなったのか・失敗しないAI開発会社の選び方を、自社でSaaSを運用する立場から正直に解説します。',
         excerpt: 'AI受託開発の費用相場は、PoCで数十万〜300万円、中規模システムで300万〜1,000万円が一般的。でも2026年、AIを使った開発なら25万円〜・最短2〜4週間で"いきなり商用レベル"が作れる時代になりました。',
-        url: 'https://spacegleam.co.jp/blog/ai-mvp-first-decisions/',
-        thumbnail: 'https://spacegleam.co.jp/blog-ogp.png'
+        url: 'https://spacegleam.co.jp/blog/ai-mvp-first-decisions/'
     },
     {
         slug: 'ai-mvp-first-decisions-guide',
@@ -20,8 +19,7 @@ window.SPACEGLEAM_BLOG_POSTS = [
         category: 'Development',
         description: 'AIによってMVP開発のスピードは大きく向上しました。重要なのは、開発前に課題、ターゲットユーザー、成功条件を明確にすることです。',
         excerpt: 'AIによってMVP開発のスピードは大きく向上しました。重要なのは、開発前に課題、ターゲットユーザー、成功条件を明確にすることです。',
-        url: 'https://spacegleam.co.jp/blog/ai-mvp-first-decisions-guide/',
-        thumbnail: 'https://spacegleam.co.jp/blog-ogp.png'
+        url: 'https://spacegleam.co.jp/blog/ai-mvp-first-decisions-guide/'
     },
     {
         slug: 'why-space-gleam-builds-own-services',
