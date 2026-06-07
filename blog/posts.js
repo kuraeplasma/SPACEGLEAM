@@ -3,24 +3,13 @@ window.SPACEGLEAM_BLOG_POSTS = [
         slug: 'ai-2026',
         title: 'AI受託開発の費用相場と、失敗しない会社の選び方【2026年版】',
         date: '2026-06-07',
-        publishAt: '2026-06-07T20:00:00+09:00',
+        publishAt: '2026-06-07T16:18:00+09:00',
         status: 'published',
         category: 'Business',
         description: 'AI受託開発の費用相場（PoC 数十万〜・中規模 300万〜・大規模 1000万円〜）と、2026年現在AIで25万円〜・最短2〜4週間で商用レベルが作れる背景、失敗しない開発会社の5つの選び方を、自社プロダクト運用の立場から正直に解説します。',
         excerpt: 'AI受託開発の費用相場（PoC 数十万〜・中規模 300万〜・大規模 1000万円〜）と、2026年現在AIで25万円〜・最短2〜4週間で商用レベルが作れる背景、失敗しない開発会社の5つの選び方を、自社プロダクト運用の立場から正直に解説します。',
         url: 'https://spacegleam.co.jp/blog/ai-2026/',
         thumbnail: 'https://spacegleam.co.jp/blog/ai-2026/ogp.png'
-    },
-    {
-        slug: 'ai-2026',
-        title: 'AI受託開発の費用相場と、失敗しない会社の選び方【2026年版】',
-        date: '2026-06-04',
-        publishAt: '2026-06-04T11:44:00+09:00',
-        status: 'draft',
-        category: 'Business',
-        description: 'AI受託開発の費用相場は、PoCで数十万〜300万円、中規模システムで300万〜1,000万円が一般的。でも2026年、AIを使った開発なら25万円〜・最短2〜4週間で"いきなり商用レベル"が作れる時代になりました。ただし「安いから」で選ぶと本番で苦労します。この記事では費用相場・なぜ安くなったのか・失敗しないAI開発会社の選び方を、自社でSaaSを運用する立場から正直に解説します。',
-        excerpt: 'AI受託開発の費用相場は、PoCで数十万〜300万円、中規模システムで300万〜1,000万円が一般的。でも2026年、AIを使った開発なら25万円〜・最短2〜4週間で"いきなり商用レベル"が作れる時代になりました。ただし「安いから」で選ぶと本番で苦労します。この記事では費用相場・なぜ安くなったのか・失敗しないAI開発会社の選び方を、自社でSaaSを運用する立場から正直に解説します。',
-        url: 'https://spacegleam.co.jp/blog/ai-2026/'
     },
     {
         slug: 'ai-mvp-first-decisions',
@@ -44,4 +33,3 @@ window.SPACEGLEAM_BLOG_POSTS = [
         url: 'https://spacegleam.co.jp/blog/why-space-gleam-builds-own-services/'
     }
 ];
-
