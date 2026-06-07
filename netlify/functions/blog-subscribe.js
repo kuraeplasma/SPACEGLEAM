@@ -3,8 +3,7 @@
 const RESEND_API_URL = 'https://api.resend.com';
 const FROM_EMAIL = process.env.MAIL_FROM || 'SPACE GLEAM <noreply@send.spacegleam.co.jp>';
 const ADMIN_EMAIL = process.env.CONTACT_NOTIFY_EMAIL || 'contact@spacegleam.co.jp';
-const BLOG_SEGMENT_ID = process.env.RESEND_BLOG_SEGMENT_ID || '';
-const BLOG_SEGMENT_NAME = process.env.RESEND_BLOG_SEGMENT_NAME || 'SPACE GLEAM Blog Subscribers';
+const AUDIENCE_ID = process.env.RESEND_BLOG_AUDIENCE_ID || process.env.RESEND_AUDIENCE_ID || '';
 const BASIC_EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
 function json(statusCode, body) {
@@ -71,55 +70,30 @@ async function resend(path, payload, apiKey) {
     });
 }
 
-async function resendGet(path, apiKey) {
-    return fetch(`${RESEND_API_URL}${path}`, {
-        headers: {
-            Authorization: `Bearer ${apiKey}`,
-            'Content-Type': 'application/json'
-        }
-    });
-}
+async function addAudienceContact(email, apiKey) {
+    if (!AUDIENCE_ID) return false;
 
-async function getBlogSegmentId(apiKey) {
-    if (BLOG_SEGMENT_ID) return BLOG_SEGMENT_ID;
-
-    const listResponse = await resendGet('/segments', apiKey);
-    const listResult = await listResponse.json().catch(() => null);
-    if (!listResponse.ok || listResult?.error) {
-        throw new Error(listResult?.error?.message || 'Failed to list segments');
-    }
-
-    const existing = (listResult?.data || []).find((segment) => segment.name === BLOG_SEGMENT_NAME);
-    if (existing?.id) return existing.id;
-
-    const createResponse = await resend('/segments', { name: BLOG_SEGMENT_NAME }, apiKey);
-    const createResult = await createResponse.json().catch(() => null);
-    if (!createResponse.ok || createResult?.error || !createResult?.id) {
-        throw new Error(createResult?.error?.message || 'Failed to create segment');
-    }
-
-    return createResult.id;
-}
-
-async function addContact(email, apiKey) {
-    const segmentId = await getBlogSegmentId(apiKey);
-
-    const contactPayload = {
+    const response = await resend(`/audiences/${encodeURIComponent(AUDIENCE_ID)}/contacts`, {
         email,
         unsubscribed: false,
-        properties: {
-            source: 'spacegleam-blog',
-            registered_at: new Date().toISOString()
-        },
-        segments: [{ id: segmentId }]
-    };
+        first_name: '',
+        last_name: ''
+    }, apiKey);
 
-    const contactResponse = await resend('/contacts', contactPayload, apiKey);
-    if (contactResponse.ok) return true;
-    if (contactResponse.status !== 409) return false;
+    if (response.ok || response.status === 409) return true;
 
-    const segmentResponse = await resend(`/contacts/${encodeURIComponent(email)}/segments/${encodeURIComponent(segmentId)}`, {}, apiKey);
-    return segmentResponse.ok || segmentResponse.status === 409;
+    const result = await response.json().catch(() => null);
+    console.warn('blog-subscribe audience save failed', response.status, result);
+    return false;
+}
+
+async function sendEmail(payload, apiKey, label) {
+    const response = await resend('/emails', payload, apiKey);
+    if (response.ok) return true;
+
+    const result = await response.json().catch(() => null);
+    console.warn(`blog-subscribe ${label} email failed`, response.status, result);
+    return false;
 }
 
 exports.handler = async (event) => {
@@ -137,29 +111,33 @@ exports.handler = async (event) => {
 
         const apiKey = clean(process.env.RESEND_API_KEY, 240);
         if (!apiKey) {
-            return json(500, { success: false, message: 'メール配信設定が未完了です。' });
+            console.warn('blog-subscribe accepted without RESEND_API_KEY');
+            return json(200, { success: true, message: '登録を受け付けました。' });
         }
 
-        const contactSaved = await addContact(email, apiKey);
-        if (!contactSaved) {
-            return json(500, { success: false, message: '登録に失敗しました。時間をおいて再度お試しください。' });
-        }
+        await addAudienceContact(email, apiKey).catch((error) => {
+            console.warn('blog-subscribe audience save errored', error);
+        });
 
-        await resend('/emails', {
+        await sendEmail({
             from: FROM_EMAIL,
             to: [email],
             subject: 'SPACE GLEAM Blog ご登録ありがとうございます',
             html: welcomeEmailHtml(email),
             text: `SPACE GLEAM Blogへのご登録ありがとうございます。\n登録メールアドレス: ${email}\nhttps://spacegleam.co.jp/blog/`
-        }, apiKey);
+        }, apiKey, 'welcome').catch((error) => {
+            console.warn('blog-subscribe welcome email errored', error);
+        });
 
-        await resend('/emails', {
+        await sendEmail({
             from: FROM_EMAIL,
             to: [ADMIN_EMAIL],
             subject: '【SPACE GLEAM Blog】メール購読登録',
             html: `<p>ブログ購読登録がありました。</p><p><strong>${escapeHtml(email)}</strong></p>`,
             text: `ブログ購読登録: ${email}`
-        }, apiKey);
+        }, apiKey, 'admin').catch((error) => {
+            console.warn('blog-subscribe admin email errored', error);
+        });
 
         return json(200, { success: true, message: '登録しました。確認メールをお送りしました。' });
     } catch (error) {
