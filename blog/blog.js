@@ -1,17 +1,7 @@
 (function () {
     const style = document.createElement('style');
     style.textContent = `
-        .article-hero {
-            min-height: clamp(180px, 34vw, 360px);
-            margin: 24px 0;
-            border-radius: 8px;
-            overflow: hidden;
-            background:
-                repeating-radial-gradient(ellipse at 62% 58%, rgba(0, 0, 0, 0.12) 0 1px, transparent 1px 14px),
-                radial-gradient(circle at 63% 55%, rgba(255, 255, 255, 0.96), transparent 11%),
-                linear-gradient(145deg, #f7f8f9, #eef1f4 54%, #ffffff);
-            border: 1px solid rgba(0, 0, 0, 0.08);
-        }
+        .article-hero,
         .article-hero img { display: none !important; }
         .blog-card-art img,
         .blog-latest-thumb img { display: none !important; }
