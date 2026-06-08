@@ -1,13 +1,4 @@
 (function () {
-    const style = document.createElement('style');
-    style.textContent = `
-        .article-hero,
-        .article-hero img { display: none !important; }
-        .blog-card-art img,
-        .blog-latest-thumb img { display: none !important; }
-    `;
-    document.head.appendChild(style);
-
     const allPosts = window.SPACEGLEAM_BLOG_POSTS || [];
     const now = Date.now();
     const posts = allPosts.filter((post) => post.status !== 'draft' && (!post.publishAt || new Date(post.publishAt).getTime() <= now));
@@ -24,7 +15,7 @@
     const mailForms = document.querySelectorAll('.blog-mail-cta form');
     const heroVideo = document.querySelector('.blog-hero-video');
     const articleSlug = document.body.dataset.articleSlug;
-    const perPage = 3;
+    const perPage = 8;
     let currentPage = 1;
     let query = '';
     let activeCategory = 'All';
@@ -43,13 +34,25 @@
     }[char]));
 
     const postHref = (post) => `/blog/${escapeHtml(post.slug)}/`;
+
     const compactDate = (value) => formatDate(value).replace(/年|月/g, '.').replace('日', '');
-    const createThumbnail = (className) => `<div class="${className}" aria-hidden="true"></div>`;
+
+    const createThumbnail = (post, className) => {
+        if (!post.thumbnail) {
+            return `<div class="${className}" aria-hidden="true"></div>`;
+        }
+
+        return `
+            <div class="${className}">
+                <img src="${escapeHtml(post.thumbnail)}" alt="" loading="lazy">
+            </div>
+        `;
+    };
 
     const createFeaturedCard = (post, index) => `
         <article class="blog-featured-card ${index === 0 ? 'is-primary' : ''}">
             <a href="${postHref(post)}" aria-label="${escapeHtml(post.title)}を読む">
-                ${createThumbnail('blog-card-art')}
+                ${createThumbnail(post, 'blog-card-art')}
                 <div class="blog-featured-body">
                     <div class="blog-card-meta">
                         <time datetime="${escapeHtml(post.date)}">${compactDate(post.date)}</time>
@@ -66,7 +69,7 @@
     const createLatestRow = (post) => `
         <article class="blog-latest-row">
             <a href="${postHref(post)}" aria-label="${escapeHtml(post.title)}を読む">
-                ${createThumbnail('blog-latest-thumb')}
+                ${createThumbnail(post, 'blog-latest-thumb')}
                 <time datetime="${escapeHtml(post.date)}">${compactDate(post.date)}</time>
                 <span>${escapeHtml(post.category)}</span>
                 <h2>${escapeHtml(post.title)}</h2>
@@ -85,14 +88,21 @@
         </a>
     `;
 
-    const createCard = (post) => `
+    const createCard = (post, index) => `
         <article class="blog-card">
-            <div class="blog-card-meta">
-                <time datetime="${escapeHtml(post.date)}">${formatDate(post.date)}</time>
-                <span>${escapeHtml(post.category)}</span>
-            </div>
-            <h2><a href="${postHref(post)}">${escapeHtml(post.title)}</a></h2>
-            <p>${escapeHtml(post.excerpt)}</p>
+            <a class="blog-card-link" href="${postHref(post)}" aria-label="${escapeHtml(post.title)}を読む">
+                <div class="blog-card-image">
+                    ${post.thumbnail ? `<img src="${escapeHtml(post.thumbnail)}" alt="" loading="lazy">` : '<div class="blog-card-image-placeholder" aria-hidden="true"></div>'}
+                    ${index === 0 && currentPage === 1 ? '<span class="blog-card-badge">NEW</span>' : ''}
+                    <time class="blog-card-date" datetime="${escapeHtml(post.date)}">${compactDate(post.date)}</time>
+                </div>
+                <div class="blog-card-body">
+                    <span class="blog-card-tag">${escapeHtml(post.category)}</span>
+                    <h2>${escapeHtml(post.title)}</h2>
+                    <p>${escapeHtml(post.excerpt)}</p>
+                    <span class="blog-card-more">続きを見る<em aria-hidden="true">→</em></span>
+                </div>
+            </a>
         </article>
     `;
 
@@ -121,19 +131,26 @@
                 : '<p class="blog-empty">該当する記事はありません。</p>';
         }
 
-        if (countRoot) countRoot.textContent = `${filtered.length} article${filtered.length === 1 ? '' : 's'}`;
+        if (countRoot) {
+            countRoot.textContent = `${filtered.length} article${filtered.length === 1 ? '' : 's'}`;
+        }
 
         if (popularRoot) {
-            popularRoot.innerHTML = posts.slice().sort((a, b) => {
-                const aTime = new Date(a.publishAt || `${a.date}T00:00:00+09:00`).getTime();
-                const bTime = new Date(b.publishAt || `${b.date}T00:00:00+09:00`).getTime();
-                return bTime - aTime;
-            }).slice(0, 5).map(createPopularRow).join('');
+            const popularPosts = posts
+                .slice()
+                .sort((a, b) => {
+                    const aTime = new Date(a.publishAt || `${a.date}T00:00:00+09:00`).getTime();
+                    const bTime = new Date(b.publishAt || `${b.date}T00:00:00+09:00`).getTime();
+                    return bTime - aTime;
+                })
+                .slice(0, 5);
+            popularRoot.innerHTML = popularPosts.map(createPopularRow).join('');
         }
 
         if (!paginationRoot) return;
         paginationRoot.innerHTML = '';
         if (pageCount <= 1) return;
+
         for (let index = 1; index <= pageCount; index += 1) {
             const button = document.createElement('button');
             button.type = 'button';
@@ -173,6 +190,7 @@
             .filter((post) => post.slug !== articleSlug)
             .sort((a, b) => Number(b.category === current?.category) - Number(a.category === current?.category))
             .slice(0, 3);
+
         relatedRoot.innerHTML = related.map((post) => `
             <a class="related-card" href="/blog/${escapeHtml(post.slug)}/">
                 <span>${escapeHtml(post.category)}</span>
@@ -229,21 +247,30 @@
             const websiteInput = form.querySelector('input[name="website"]');
             const email = emailInput ? emailInput.value.trim() : '';
             if (!button || !emailInput) return;
+
             if (!emailInput.checkValidity()) {
                 emailInput.reportValidity();
                 return;
             }
+
             button.disabled = true;
             button.textContent = '登録中';
             setNewsletterStatus(form, '登録しています。', 'pending');
+
             try {
                 const response = await fetch('/.netlify/functions/blog-subscribe', {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ email, website: websiteInput ? websiteInput.value : '', source: 'blog-top' })
+                    body: JSON.stringify({
+                        email,
+                        website: websiteInput ? websiteInput.value : '',
+                        source: 'blog-top'
+                    })
                 });
                 const result = await response.json().catch(() => ({}));
-                if (!response.ok || result.success === false) throw new Error(result.message || '登録に失敗しました。');
+                if (!response.ok || result.success === false) {
+                    throw new Error(result.message || '登録に失敗しました。');
+                }
                 setNewsletterStatus(form, result.message || '登録しました。', 'success');
                 form.reset();
             } catch (error) {
@@ -252,8 +279,10 @@
                     try {
                         const key = 'spacegleam_blog_subscribers';
                         const saved = JSON.parse(window.localStorage.getItem(key) || '[]');
-                        if (!saved.includes(email)) saved.push(email);
-                        window.localStorage.setItem(key, JSON.stringify(saved));
+                        if (!saved.includes(email)) {
+                            saved.push(email);
+                            window.localStorage.setItem(key, JSON.stringify(saved));
+                        }
                         setNewsletterStatus(form, 'ローカルで登録しました。', 'success');
                         form.reset();
                     } catch (_) {
