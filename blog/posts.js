@@ -2,9 +2,9 @@ window.SPACEGLEAM_BLOG_POSTS = [
     {
         slug: 'no-more-throwaway-mvp',
         title: 'もう「作り捨ての試作品」に、お金と時間をかけなくていい',
-        date: '2026-06-09',
-        publishAt: '2026-06-09T22:39:00+09:00',
-        status: 'draft',
+        date: '2026-06-08',
+        publishAt: '2026-06-08T22:55:00+09:00',
+        status: 'published',
         category: 'Development',
         description: 'これまでの開発では、まず安く小さく試作し、後から作り直すのが常識でした。AIによってこの前提は変わります。最初から本番品質で作れる時代の、新しい開発の進め方をお伝えします。',
         excerpt: 'これまでの開発では、まず安く小さく試作し、後から作り直すのが常識でした。AIによってこの前提は変わります。最初から本番品質で作れる時代の、新しい開発の進め方をお伝えします。',
