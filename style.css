@@ -3941,13 +3941,22 @@ body.legal-page-body #lightning-container {
 }
 
 body.legal-page-body .header {
-    background: rgba(255, 255, 255, 0.88) !important;
+    background: rgba(255, 255, 255, 0.95) !important;
     backdrop-filter: blur(16px);
-    border-bottom: 1px solid rgba(0, 0, 0, 0.06) !important;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.08) !important;
+    z-index: 9999 !important;
+    display: block !important;
+    visibility: visible !important;
+    opacity: 1 !important;
 }
 
-body.legal-page-body .brand-name {
+body.legal-page-body .brand-name,
+body.legal-page-body .brand,
+body.legal-page-body .header .brand-name {
     color: #111111 !important;
+    -webkit-text-fill-color: #111111 !important;
+    visibility: visible !important;
+    opacity: 1 !important;
 }
 
 body.legal-page-body .page-header,
@@ -4137,13 +4146,22 @@ body.company-page-body #lightning-container {
 }
 
 body.company-page-body .header {
-    background: rgba(255, 255, 255, 0.8) !important;
+    background: rgba(255, 255, 255, 0.95) !important;
     backdrop-filter: blur(16px);
-    border-bottom: 1px solid rgba(0, 0, 0, 0.06) !important;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.08) !important;
+    z-index: 9999 !important;
+    display: block !important;
+    visibility: visible !important;
+    opacity: 1 !important;
 }
 
-body.company-page-body .brand-name {
+body.company-page-body .brand-name,
+body.company-page-body .brand,
+body.company-page-body .header .brand-name {
     color: #111111 !important;
+    -webkit-text-fill-color: #111111 !important;
+    visibility: visible !important;
+    opacity: 1 !important;
 }
 
 .company-main-content {
@@ -4173,6 +4191,22 @@ body.company-page-body .brand-name {
 
 .company-grid-v2 .company-header-v2 {
     margin-bottom: 16px;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.company-grid-v2 .company-header-v2 .back-link {
+    color: #555555;
+    font-size: 0.9rem;
+    font-weight: 600;
+    text-decoration: none;
+    transition: color 0.2s ease;
+    align-self: flex-start;
+}
+
+.company-grid-v2 .company-header-v2 .back-link:hover {
+    color: #111111;
 }
 
 .company-grid-v2 .company-header-v2 h2 {
