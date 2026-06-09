@@ -4153,11 +4153,38 @@ body.company-page-body .brand-name {
 }
 
 .company-grid-v2 {
-    display: grid;
-    grid-template-columns: 1.1fr 1fr;
-    gap: 80px;
-    align-items: start;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 48px;
+    max-width: 880px;
+    margin: 0 auto;
     position: relative;
+}
+
+.company-grid-v2 .company-left-col,
+.company-grid-v2 .company-right-col {
+    width: 100%;
+}
+
+.company-grid-v2 .company-left-col {
+    text-align: left;
+}
+
+.company-grid-v2 .company-header-v2 {
+    margin-bottom: 16px;
+}
+
+.company-grid-v2 .company-header-v2 h2 {
+    font-size: clamp(1.8rem, 3vw, 2.4rem);
+    font-weight: 800;
+    color: #111111;
+    margin: 12px 0 0;
+    letter-spacing: -0.01em;
+}
+
+.company-grid-v2 .company-details-table {
+    margin-top: 0;
 }
 
 /* Left Column */
@@ -4270,6 +4297,70 @@ body.company-page-body .brand-name {
     position: absolute;
     left: 0;
     color: #888888;
+}
+
+/* Full-width hero banner with overlay */
+.company-hero-fullwidth {
+    position: relative;
+    width: 100%;
+    height: 70vh;
+    min-height: 480px;
+    max-height: 780px;
+    overflow: hidden;
+    margin-top: -130px;
+    margin-bottom: 80px;
+}
+
+.company-hero-fullwidth img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center top;
+    display: block;
+}
+
+.company-hero-overlay {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    background: linear-gradient(90deg, rgba(0, 0, 0, 0.55) 0%, rgba(0, 0, 0, 0.30) 50%, rgba(0, 0, 0, 0.10) 100%);
+}
+
+.company-hero-inner {
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 48px;
+    color: #ffffff;
+}
+
+.company-hero-inner .company-heading-v2 {
+    color: #ffffff;
+    font-size: clamp(2.2rem, 4.5vw, 3.8rem);
+    line-height: 1.3;
+    text-shadow: 0 2px 16px rgba(0, 0, 0, 0.35);
+    margin-bottom: 24px;
+}
+
+.company-hero-inner .company-lead-text {
+    color: rgba(255, 255, 255, 0.95);
+    font-size: clamp(1rem, 1.4vw, 1.2rem);
+    max-width: 640px;
+    margin-bottom: 0;
+    text-shadow: 0 1px 8px rgba(0, 0, 0, 0.3);
+}
+
+@media (max-width: 900px) {
+    .company-hero-fullwidth {
+        height: 55vh;
+        min-height: 380px;
+        margin-top: -90px;
+        margin-bottom: 48px;
+    }
+    .company-hero-inner {
+        padding: 0 24px;
+    }
 }
 
 /* Concrete Image Visual in Left Column */
