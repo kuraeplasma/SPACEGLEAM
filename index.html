@@ -151,8 +151,10 @@
         <section id="hero" class="hero">
             <!-- 全画面背景ビジュアル -->
             <div class="hero-bg-visual">
-                <img src="hero_visual_dark.png?v=no-problem-logo-polish-v46-20260530" alt="" aria-hidden="true" fetchpriority="high">
-                <canvas id="hero-light-shafts" style="position: absolute; inset: 0; width: 100%; height: 100%; z-index: 2; pointer-events: none; mix-blend-mode: screen;"></canvas>
+                <picture>
+                    <source srcset="hero-curved-light.webp" type="image/webp">
+                    <img src="hero-curved-light.jpg" alt="" aria-hidden="true" fetchpriority="high">
+                </picture>
                 <div class="hero-bg-overlay"></div>
             </div>
 
