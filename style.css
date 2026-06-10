@@ -306,11 +306,19 @@ select {
     pointer-events: none;
 }
 
-.hero-bg-visual img {
+.hero-bg-visual img,
+.hero-bg-visual .hero-bg-video {
     width: 100%;
     height: 100%;
     object-fit: cover;
     opacity: 1.0;
+}
+
+.hero-bg-visual .hero-bg-video {
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+    pointer-events: none;
 }
 
 .hero-bg-overlay {
@@ -2326,6 +2334,11 @@ select {
     50% { transform: translateX(6px); opacity: 0.6; }
 }
 
+@keyframes arrowPulseDown {
+    0%, 100% { transform: rotate(90deg) translateX(0); opacity: 0.35; }
+    50% { transform: rotate(90deg) translateX(6px); opacity: 0.6; }
+}
+
 /* Card 2: SPACE GLEAM */
 .pricing-card-spacegleam-v4 {
     background: linear-gradient(to bottom, #222222 188px, #ae8e71 188px);
@@ -2725,6 +2738,7 @@ select {
     .pricing-arrow-v4 {
         transform: rotate(90deg);
         margin: 6px 0;
+        animation: arrowPulseDown 2s infinite ease-in-out;
     }
 
     .benefits-grid-v4 {
@@ -3600,6 +3614,10 @@ select {
     .works-cta-right-v2 {
         width: 100%;
         align-items: stretch;
+    }
+
+    .works-cta-right-v2 .works-cta-btn-v2 {
+        justify-content: center;
     }
 
     .works-cta-badges-v2 {
