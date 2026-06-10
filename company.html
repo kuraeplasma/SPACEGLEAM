@@ -21,6 +21,7 @@
     <link rel="stylesheet" href="style.css?v=diag-top-white-wide-20260605-v25">
     <link rel="icon" type="image/png" href="favicon.png">
     <link rel="canonical" href="https://spacegleam.co.jp/company">
+    <link rel="preload" as="image" href="company-hero.webp" type="image/webp" fetchpriority="high">
 
     <!-- OGP Settings -->
     <meta property="og:title" content="会社概要 | SPACE GLEAM" />
@@ -75,7 +76,10 @@
     <main class="company-main-content">
         <!-- Full-width hero with overlay text -->
         <section class="company-hero-fullwidth">
-            <img src="filipe-freitas-DUMnlGofTg0-unsplash.jpg" alt="Modern Tech Workspace">
+            <picture>
+                <source srcset="company-hero.webp" type="image/webp">
+                <img src="company-hero.jpg" alt="Modern Tech Workspace" fetchpriority="high" loading="eager" decoding="async">
+            </picture>
             <div class="company-hero-overlay">
                 <div class="company-hero-inner">
                     <h1 class="company-heading-v2">事業の可能性を、最短距離で形に。</h1>
