@@ -15,7 +15,7 @@
     const mailForms = document.querySelectorAll('.blog-mail-cta form');
     const heroVideo = document.querySelector('.blog-hero-video');
     const articleSlug = document.body.dataset.articleSlug;
-    const perPage = 8;
+    const perPage = 6;
     let currentPage = 1;
     let query = '';
     let activeCategory = 'All';
@@ -132,7 +132,7 @@
         }
 
         if (countRoot) {
-            countRoot.textContent = `${filtered.length} article${filtered.length === 1 ? '' : 's'}`;
+            countRoot.textContent = `${filtered.length}件の記事`;
         }
 
         if (popularRoot) {
