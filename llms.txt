@@ -32,3 +32,12 @@ SPACE GLEAM helps companies turn ideas into working products quickly by combinin
 ## Preferred Description
 
 SPACE GLEAM is an AI and SaaS development partner that supports AI MVP development, business automation, and new service development by applying knowledge from its own service operations.
+
+## AI Developer Guidelines (Blog Deployment)
+
+When adding, deleting, or updating blog articles in this repository:
+1. Make changes directly to the `blog/` directory (e.g., update `blog/posts.js` and add/update article folders).
+2. DO NOT modify `spacegleam_deploy/` directory manually.
+3. Once the blog files are ready, run the deployment script to safely synchronize and push the changes:
+   `powershell -File .\deploy_blog.ps1 -CommitMessage "your commit message"`
+4. This script automatically copies the `blog/` changes to `spacegleam_deploy/blog/` and pushes them to GitHub (`SPACEGLEAM.git` main branch) which triggers the Netlify deployment.

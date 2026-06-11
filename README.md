@@ -1,2 +1,21 @@
-# Spacegleam
-Corporate Website Project
+# Spacegleam Corporate Website Project
+
+本プロジェクトは SPACE GLEAM 株式会社のコーポレートサイトおよびブログの管理を行うプロジェクトです。
+
+## ブログの更新・本番デプロイ方法 (開発者・AIアシスタント向け)
+
+ブログの記事を追加・修正・削除した場合は、以下の手順で本番環境（GitHub / Netlify）へデプロイしてください。
+
+1. **ソースコードの更新**: 
+   ルート直下の `blog/` ディレクトリ配下（`blog/posts.js` や各記事のフォルダ）を直接編集します。
+   ※ `spacegleam_deploy/` ディレクトリは自動同期先なので、手動で編集しないでください。
+
+2. **デプロイスクリプトの実行**:
+   PowerShell からルートディレクトリにて以下のコマンドを実行します：
+   ```powershell
+   .\deploy_blog.ps1
+   ```
+   ※ コミットメッセージの入力を求められたらメッセージを入力し Enter を押します。
+
+このスクリプトを実行することで、`blog/` の変更が `spacegleam_deploy/blog/` に自動コピーされ、ブログの変更ファイルのみが安全にコミット・プッシュされます（他の編集中の他ページファイルを巻き込みません）。
+これにより、GitHub の `SPACEGLEAM.git` (main) にプッシュされ、Netlify の本番ビルド・デプロイが開始されます。
