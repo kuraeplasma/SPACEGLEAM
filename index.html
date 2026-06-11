@@ -156,12 +156,14 @@
 
     <main>
         <section id="hero" class="hero">
-            <!-- 全画面背景ビジュアル -->
+            <!-- 全画面背景ビジュアル（ループ動画 / poster=静止画で初期表示は軽量） -->
             <div class="hero-bg-visual">
-                <picture>
-                    <source srcset="hero-curved-light.webp" type="image/webp">
-                    <img src="hero-curved-light.jpg" alt="" aria-hidden="true" fetchpriority="high">
-                </picture>
+                <video class="hero-bg-video"
+                       autoplay muted loop playsinline preload="metadata"
+                       poster="hero-curved-light.jpg"
+                       aria-hidden="true">
+                    <source src="hero-loop.mp4" type="video/mp4">
+                </video>
                 <div class="hero-bg-overlay"></div>
             </div>
 
