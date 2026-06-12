@@ -1,5 +1,17 @@
 window.SPACEGLEAM_BLOG_POSTS = [
     {
+        slug: 'will-todays-ai-companies-survive',
+        title: '5年後、今のAI企業は残っているのか。それでも今AI投資を始めるべき理由',
+        date: '2026-06-12',
+        publishAt: '2026-06-12T12:00:00+09:00',
+        status: 'published',
+        category: 'Business',
+        description: 'OpenAI、Anthropic、Google Geminiなど、現在の生成AI市場を牽引する企業は今後も存在し続けるのでしょうか。実際のところ、それは誰にも分かりません。しかしAI活用そのものは今後さらに広がる可能性が高いと考えられます。本記事では、AI企業の将来ではなく「AIを活用する企業になること」が重要な理由について解説します。',
+        excerpt: 'OpenAI、Anthropic、Google Geminiなど、現在の生成AI市場を牽引する企業は今後も存在し続けるのでしょうか。実際のところ、それは誰にも分かりません。しかしAI活用そのものは今後さらに広がる可能性が高いと考えられます。本記事では、AI企業の将来ではなく「AIを活用する企業になること」が重要な理由について解説します。',
+        url: 'https://spacegleam.co.jp/blog/will-todays-ai-companies-survive/',
+        thumbnail: '/blog/will-todays-ai-companies-survive/ogp.png'
+    },
+    {
         slug: 'diffsense-three-days',
         title: 'なぜDIFFsenseは3日で作れたのか',
         date: '2026-06-11',
