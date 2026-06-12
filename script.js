@@ -515,24 +515,7 @@ document.addEventListener('DOMContentLoaded', () => {
             shotHtml = `<img src="${detail.image}" alt="${detail.imageAlt}">${previewStrip}`;
         }
 
-        worksDetailMain.innerHTML = `
-            <div class="works-detail-heading-v2">
-                <div>
-                    <h3>${detail.title} <span>${detail.tag}</span></h3>
-                    <p>${detail.lead}</p>
-                </div>
-            </div>
-            <div class="works-detail-body-v2">
-                <div class="works-detail-shot-v2${shotClass}">${shotHtml}</div>
-                <div class="works-detail-copy-v2">
-                    <section><h4>開発の背景</h4><p>${detail.background}</p></section>
-                    <section><h4>主な機能</h4><div class="works-detail-tags-v2">${detail.features.map(feature => `<span>${feature}</span>`).join('')}</div></section>
-                </div>
-            </div>
-            <div class="works-detail-info-v2">
-                <div><h4>公開可能な構成</h4><p>${detail.stack}</p></div>
-                <div><h4>開発範囲</h4><p>${detail.period}</p></div>
-                <div><h4>現在の状況</h4><p>${detail.status}</p></div>
+
         const hasSingleAction = detail.href === 'contact.html';
         const actionsHtml = hasSingleAction
             ? `<a class="works-detail-link-v2" href="${detail.href}">${detail.linkText} <span>→</span></a>`
