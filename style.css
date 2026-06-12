@@ -10143,3 +10143,93 @@ html.diag-enabled .diag-modal.is-open { display: flex !important; }
     }
 }
 
+
+
+/* ===== Blog NEW badge (header nav) ===== */
+.nav a { position: relative; }
+.nav-new-badge {
+    display: inline-block;
+    margin-left: 6px;
+    padding: 1px 6px;
+    font-size: 0.58rem;
+    font-weight: 800;
+    line-height: 1.5;
+    letter-spacing: 0.04em;
+    color: #ffffff;
+    background: #e0322d;
+    border-radius: 999px;
+    vertical-align: super;
+    transform: translateY(-1px);
+    animation: navNewPulse 1.8s ease-in-out infinite;
+}
+@keyframes navNewPulse {
+    0%, 100% { box-shadow: 0 0 0 0 rgba(224, 50, 45, 0.45); }
+    50% { box-shadow: 0 0 0 4px rgba(224, 50, 45, 0); }
+}
+
+/* ===== PR TIMES banner (hero) ===== */
+.prtimes-banner-wrapper {
+    margin-top: -32px;
+    margin-bottom: -16px;
+    display: flex;
+    justify-content: center;
+    width: 100%;
+}
+.prtimes-banner-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 12px;
+    background: rgba(110, 168, 255, 0.05);
+    border: 1px solid rgba(110, 168, 255, 0.15);
+    padding: 6px 18px 6px 8px;
+    border-radius: 99px;
+    color: var(--text);
+    font-size: 0.88rem;
+    font-weight: 500;
+    transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+    box-shadow: 0 4px 24px rgba(0, 0, 0, 0.25), inset 0 1px 0 rgba(255, 255, 255, 0.03), 0 0 20px rgba(110, 168, 255, 0.03);
+    max-width: 100%;
+}
+.prtimes-banner-badge {
+    background: #ffffff;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 4px 10px;
+    border-radius: 99px;
+    line-height: 1;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
+    flex-shrink: 0;
+}
+.prtimes-logo-svg { display: block; color: #294c7a; }
+.prtimes-banner-text {
+    color: #ffffff;
+    font-weight: 600;
+    transition: opacity 0.3s ease;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+.prtimes-banner-arrow {
+    display: inline-block;
+    color: #ffffff;
+    font-weight: 800;
+    transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.3s ease;
+}
+.prtimes-banner-link:hover {
+    background: rgba(110, 168, 255, 0.09);
+    border-color: rgba(110, 168, 255, 0.32);
+    transform: translateY(-2px);
+    box-shadow: 0 8px 32px rgba(110, 168, 255, 0.08), inset 0 1px 0 rgba(255, 255, 255, 0.05), 0 0 24px rgba(110, 168, 255, 0.08);
+}
+.prtimes-banner-link:hover .prtimes-banner-text { opacity: 0.85; }
+.prtimes-banner-link:hover .prtimes-banner-arrow { transform: translateX(4px); opacity: 0.85; }
+@media (max-width: 768px) {
+    .prtimes-banner-wrapper { margin-top: -24px; margin-bottom: -32px; justify-content: center; }
+    .prtimes-banner-link { padding: 5px 14px 5px 6px; gap: 8px; font-size: 0.82rem; }
+    .prtimes-banner-badge { padding: 3px 8px; }
+    .prtimes-logo-svg { width: 64px; height: 12px; }
+}
+@media (max-width: 480px) {
+    .prtimes-banner-text { max-width: 180px; }
+}

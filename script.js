@@ -335,3 +335,25 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 });
+
+/* ===== Blog NEW badge on header nav ===== */
+(function () {
+    var LATEST_POST_DATE = '2026-06-12'; // ← 新記事追加時はこの日付を更新
+    var NEW_WINDOW_DAYS = 14;
+
+    function daysSince(d) {
+        return (Date.now() - new Date(d + 'T00:00:00+09:00').getTime()) / 86400000;
+    }
+
+    // 最新記事が公開から NEW_WINDOW_DAYS 日以内なら NEW を表示
+    if (daysSince(LATEST_POST_DATE) > NEW_WINDOW_DAYS) return;
+
+    document.querySelectorAll('.nav a').forEach(function (a) {
+        if (a.textContent.trim() === 'Blog' && !a.querySelector('.nav-new-badge')) {
+            var b = document.createElement('span');
+            b.className = 'nav-new-badge';
+            b.textContent = 'NEW';
+            a.appendChild(b);
+        }
+    });
+})();
