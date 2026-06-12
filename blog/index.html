@@ -238,9 +238,28 @@
         </div>
     </footer>
 
-    <script src="/script.js?v=diag-pause-background-20260604-v2"></script>
+    <script src="/script.js?v=diag-pause-background-20260612-v3"></script>
     <script src="/blog/posts.js"></script>
-    <script src="/blog/blog.js?v=blog-grid-20260608-v1"></script>
+    <script src="/blog/blog.js?v=blog-grid-20260612-v2"></script>
+    <script>
+        /* iOSで再生ボタンが出ないよう、背景動画の自動再生を強制 */
+        (function () {
+            var v = document.querySelector('.blog-hero-video');
+            if (!v) return;
+            v.muted = true;
+            v.defaultMuted = true;
+            v.setAttribute('muted', '');
+            v.playsInline = true;
+            var tryPlay = function () {
+                var p = v.play();
+                if (p && p.catch) p.catch(function () {});
+            };
+            tryPlay();
+            v.addEventListener('loadedmetadata', tryPlay, { once: true });
+            v.addEventListener('canplay', tryPlay, { once: true });
+            document.addEventListener('touchstart', tryPlay, { once: true });
+        })();
+    </script>
 </body>
 
 </html>

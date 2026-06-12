@@ -93,11 +93,13 @@
             <a class="blog-card-link" href="${postHref(post)}" aria-label="${escapeHtml(post.title)}を読む">
                 <div class="blog-card-image">
                     ${post.thumbnail ? `<img src="${escapeHtml(post.thumbnail)}" alt="" loading="lazy">` : '<div class="blog-card-image-placeholder" aria-hidden="true"></div>'}
-                    ${index === 0 && currentPage === 1 ? '<span class="blog-card-badge">NEW</span>' : ''}
                     <time class="blog-card-date" datetime="${escapeHtml(post.date)}">${compactDate(post.date)}</time>
                 </div>
                 <div class="blog-card-body">
-                    <span class="blog-card-tag">${escapeHtml(post.category)}</span>
+                    <span class="blog-card-tagrow">
+                        <span class="blog-card-tag">${escapeHtml(post.category)}</span>
+                        ${index === 0 && currentPage === 1 ? '<span class="blog-card-badge">新着</span>' : ''}
+                    </span>
                     <h2>${escapeHtml(post.title)}</h2>
                     <p>${escapeHtml(post.excerpt)}</p>
                     <span class="blog-card-more">続きを見る<em aria-hidden="true">→</em></span>
