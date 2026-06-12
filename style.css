@@ -3861,6 +3861,10 @@ select {
     gap: 14px;
 }
 
+.works-detail-actions-v2.has-single-action {
+    grid-template-columns: 1fr;
+}
+
 .works-detail-actions-v2 a,
 .works-cta-btn-v2 {
     min-height: 48px;
@@ -3879,6 +3883,17 @@ select {
     border: 1px solid #2563eb;
     color: #1d4ed8;
     background: #ffffff;
+}
+
+.works-detail-actions-v2.has-single-action .works-detail-link-v2 {
+    color: #ffffff;
+    background: #2563eb;
+    border: 1px solid #2563eb;
+}
+
+.works-detail-actions-v2.has-single-action .works-detail-link-v2:hover {
+    background: #1d4ed8;
+    border: 1px solid #1d4ed8;
 }
 
 .works-detail-contact-v2,
