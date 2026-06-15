@@ -10862,3 +10862,27 @@ html.diag-enabled .diag-modal.is-open { display: flex !important; }
 .image-lightbox.is-open .image-lightbox__image {
     transform: scale(1);
 }
+
+/* ==========================================================================
+   LIGHT THEME HEADERS CORRECTIONS (COMPANY & LEGAL PAGES)
+   ========================================================================== */
+body.company-page-body .nav a,
+body.legal-page-body .nav a,
+body.recruit-page-body .nav a {
+    color: #111111 !important;
+}
+
+body.company-page-body .nav a:hover,
+body.legal-page-body .nav a:hover,
+body.recruit-page-body .nav a:hover {
+    color: #666666 !important;
+}
+
+@media (max-width: 900px) {
+    body.company-page-body .nav,
+    body.legal-page-body .nav,
+    body.recruit-page-body .nav {
+        background: rgba(255, 255, 255, 0.96) !important;
+        border-color: rgba(0, 0, 0, 0.08) !important;
+    }
+}
