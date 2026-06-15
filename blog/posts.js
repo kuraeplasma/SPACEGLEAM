@@ -1,5 +1,17 @@
 window.SPACEGLEAM_BLOG_POSTS = [
     {
+        slug: 'ai-adoption-gap',
+        title: 'AIを使う企業と使わない企業の差',
+        date: '2026-06-15',
+        publishAt: '2026-06-15T00:00:00+09:00',
+        status: 'published',
+        category: 'Business',
+        description: 'AIの普及によって、多くの企業が業務効率化を検討するようになりました。しかし実際には、積極的に活用を進める企業と、様子見を続ける企業に分かれています。その差はAIツールの性能ではありません。企業の中に蓄積される経験値です。本記事では、AIを使う企業が実際に何を手に入れているのかを解説します。',
+        excerpt: 'AIの普及によって、多くの企業が業務効率化を検討するようになりました。しかし実際には、積極的に活用を進める企業と、様子見を続ける企業に分かれています。その差はAIツールの性能ではありません。企業の中に蓄積される経験値です。',
+        url: 'https://spacegleam.co.jp/blog/ai-adoption-gap/',
+        thumbnail: '/blog/ai-adoption-gap/ogp.png'
+    },
+    {
         slug: 'will-todays-ai-companies-survive',
         title: '5年後、今のAI企業は残っているのか。それでも今AI投資を始めるべき理由',
         date: '2026-06-12',
