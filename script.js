@@ -88,8 +88,8 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         });
     }, {
-        rootMargin: '0px 0px -12% 0px',
-        threshold: 0.12
+        rootMargin: '0px 0px 80px 0px',
+        threshold: 0.01
     });
 
     document.querySelectorAll('.reveal').forEach((element) => observer.observe(element));
@@ -298,14 +298,14 @@ document.addEventListener('DOMContentLoaded', () => {
             tag: 'AI契約レビューSaaS',
             lead: '契約書の変更箇所を検出し、AIでリスク・要点・修正案を整理。電子署名や期限管理までつなげる契約業務SaaS。',
             images: [
-                { src: 'images/diffsense-site-hero.png?v=20260612-site', alt: 'DIFFsenseサービスサイトのファーストビュー' },
-                { src: 'images/diffsense-site-one-step-analysis.png?v=20260612-site', alt: '契約書取り込み一括生成画面' },
-                { src: 'images/diffsense-site-dashboard.png?v=20260612-site', alt: 'DIFFsenseダッシュボードのサービス画面' },
-                { src: 'images/diffsense-ui-diff-latest.png?v=20260612-ui', alt: '契約書差分比較画面' },
-                { src: 'images/diffsense-ui-contracts-latest.png?v=20260612-ui', alt: '契約書一覧画面' },
-                { src: 'images/diffsense-ui-history-latest.png?v=20260612-ui', alt: '解析履歴画面' },
-                { src: 'images/diffsense-ui-alert-latest.png?v=20260612-ui', alt: '期限アラート管理画面' },
-                { src: 'images/diffsense-ui-signature-latest.png?v=20260612-ui', alt: '署名管理画面' }
+                { src: 'images/diffsense-site-hero.webp?v=20260612-site', alt: 'DIFFsenseサービスサイトのファーストビュー' },
+                { src: 'images/diffsense-site-one-step-analysis.webp?v=20260612-site', alt: '契約書取り込み一括生成画面' },
+                { src: 'images/diffsense-site-dashboard.webp?v=20260612-site', alt: 'DIFFsenseダッシュボードのサービス画面' },
+                { src: 'images/diffsense-ui-diff-latest.webp?v=20260612-ui', alt: '契約書差分比較画面' },
+                { src: 'images/diffsense-ui-contracts-latest.webp?v=20260612-ui', alt: '契約書一覧画面' },
+                { src: 'images/diffsense-ui-history-latest.webp?v=20260612-ui', alt: '解析履歴画面' },
+                { src: 'images/diffsense-ui-alert-latest.webp?v=20260612-ui', alt: '期限アラート管理画面' },
+                { src: 'images/diffsense-ui-signature-latest.webp?v=20260612-ui', alt: '署名管理画面' }
             ],
             background: '契約書をアップロードするだけ。<br><br>DIFFsenseは、AIによる要約、リスク分析、修正案の提案、契約期限の管理、電子署名、契約台帳への自動登録までを一括で実行します。<br><br>従来は複数のツールや担当者をまたいで行われていた契約業務を、ひとつの画面で完結できるよう設計されています。',
             features: ['契約書差分比較', 'AI要約・リスク判定', '修正案の生成', '電子署名', '期限・履歴管理', 'MCP連携'],
@@ -320,9 +320,9 @@ document.addEventListener('DOMContentLoaded', () => {
             tag: '通知システム',
             lead: '法律・制度の期限管理を自動化する通知サービス。',
             images: [
-                { src: 'images/merki-site-hero.png?v=20260613-site', alt: 'MERKIサービスサイトのファーストビュー' },
-                { src: 'images/merki-site-flow.png?v=20260613-site', alt: 'MERKIの導入フロー・使い方説明画面' },
-                { src: 'images/merki-site-dashboard.png?v=20260613-site', alt: 'MERKI期限管理ダッシュボードのサービス画面' }
+                { src: 'images/merki-site-hero.webp?v=20260613-site', alt: 'MERKIサービスサイトのファーストビュー' },
+                { src: 'images/merki-site-flow.webp?v=20260613-site', alt: 'MERKIの導入フロー・使い方説明画面' },
+                { src: 'images/merki-site-dashboard.webp?v=20260613-site', alt: 'MERKI期限管理ダッシュボードのサービス画面' }
             ],
             background: '制度変更や期限管理は確認漏れが起きやすく、担当者の手作業に依存しがちでした。情報収集から通知までを仕組み化し、必要な対応を見落とさない運用を支えるために開発しました。',
             features: ['法改正・期限の自動収集', 'カレンダー連携・通知', 'カスタムルール設定', 'チーム共有・権限管理'],
@@ -337,8 +337,8 @@ document.addEventListener('DOMContentLoaded', () => {
             tag: 'アイデア整理ツール',
             lead: 'アイデア整理・構造化を効率化するデジタルツール。',
             images: [
-                { src: 'images/xdraft-site-workspace.png?v=20260613-site', alt: 'XDraftの投稿作成・編集画面ワークスペース' },
-                { src: 'images/xdraft-site-features.png?v=20260613-site', alt: 'XDraftの主な機能説明画面' }
+                { src: 'images/xdraft-site-workspace.webp?v=20260613-site', alt: 'XDraftの投稿作成・編集画面ワークスペース' },
+                { src: 'images/xdraft-site-features.webp?v=20260613-site', alt: 'XDraftの主な機能説明画面' }
             ],
             background: '事業アイデアや企画メモは散らばりやすく、次のアクションに落とし込みにくい課題があります。発想を階層化し、ドラフト化まで進めやすくするために開発しました。',
             features: ['アイデアの階層化・可視化', 'ドラフトの自動生成支援', 'タグ付け・関連付け', 'チームでの共同編集'],
@@ -354,9 +354,9 @@ document.addEventListener('DOMContentLoaded', () => {
             tag: 'パーツ開発・受託',
             lead: 'LP、管理画面、データ構造化システム、決済導線などの実装知見を蓄積。',
             images: [
-                { src: 'images/misc-app-development.jpg?v=20260613-site', alt: 'スマホアプリ開発受託の紹介' },
-                { src: 'images/misc-saas-development.jpg?v=20260613-site', alt: 'SaaS開発受託の紹介' },
-                { src: 'images/misc-web-development.jpg?v=20260613-site', alt: 'ホームページ・LP制作の紹介' }
+                { src: 'images/misc-app-development.webp?v=20260613-site', alt: 'スマホアプリ開発受託 of 紹介' },
+                { src: 'images/misc-saas-development.webp?v=20260613-site', alt: 'SaaS開発受託 of 紹介' },
+                { src: 'images/misc-web-development.webp?v=20260613-site', alt: 'ホームページ・LP制作 of 紹介' }
             ],
             background: '自社プロダクトで培った実装パターンを活かし、LP、管理画面、データ構造化、決済導線など、事業検証に必要な部品を短期間で構築しています。',
             features: ['LP / コーポレートサイト', '管理画面・ダッシュボード', 'データ構造化・可視化', '決済・外部サービス連携'],
