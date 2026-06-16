@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-1T9HP3BLMP"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'G-1T9HP3BLMP');
+    </script>
+    <title>AIで作ったシステムは本当に安全なのか？ 生成AI時代だからこそ重要になる「運用品質」 | SPACE GLEAM</title>
+    <meta name="description" content="ChatGPTやClaudeなどの生成AIの進化によって、システム開発のスピードは飛躍的に向上しました。しかし「AIで作ったから安全」と考えるのは危険です。npmハックやサプライチェーン攻撃の実例を交えながら、AI開発時代に求められるセキュリティと運用品質を解説します。">
+    <link rel="canonical" href="https://spacegleam.co.jp/blog/is-ai-generated-software-secure/">
+    <link rel="icon" href="../../favicon.png">
+    <link rel="stylesheet" href="../../style.css?v=blog-grid-20260608-v1">
+    <meta property="og:type" content="article">
+    <meta property="og:title" content="AIで作ったシステムは本当に安全なのか？ 生成AI時代だからこそ重要になる「運用品質」">
+    <meta property="og:description" content="「AIで作ったから安全」は危険です。npmハックやサプライチェーン攻撃の実例を交えながら、AI開発時代に求められるセキュリティと運用品質を、自社サービス運営の知見から解説します。">
+    <meta property="og:url" content="https://spacegleam.co.jp/blog/is-ai-generated-software-secure/">
+    <meta property="og:site_name" content="SPACE GLEAM">
+    <meta property="og:image" content="https://spacegleam.co.jp/blog/is-ai-generated-software-secure/ogp.png">
+    <meta property="og:image:secure_url" content="https://spacegleam.co.jp/blog/is-ai-generated-software-secure/ogp.png">
+    <meta property="og:image:type" content="image/png">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:image" content="https://spacegleam.co.jp/blog/is-ai-generated-software-secure/ogp.png">
+    <script type="application/ld+json">
+        {
+            "@context": "https://schema.org",
+            "@type": "Article",
+            "headline": "AIで作ったシステムは本当に安全なのか？ 生成AI時代だからこそ重要になる「運用品質」",
+            "description": "「AIで作ったから安全」は危険です。npmハックやサプライチェーン攻撃の実例を交えながら、AI開発時代に求められるセキュリティと運用品質を、自社サービス運営の知見から解説します。",
+            "datePublished": "2026-06-16",
+            "dateModified": "2026-06-16",
+            "author": {
+                "@type": "Organization",
+                "name": "SPACE GLEAM"
+            },
+            "publisher": {
+                "@type": "Organization",
+                "name": "SPACE GLEAM",
+                "logo": {
+                    "@type": "ImageObject",
+                    "url": "https://spacegleam.co.jp/favicon.png"
+                }
+            },
+            "mainEntityOfPage": "https://spacegleam.co.jp/blog/is-ai-generated-software-secure/",
+            "image": "https://spacegleam.co.jp/blog/is-ai-generated-software-secure/ogp.png",
+            "articleSection": "Development"
+        }
+    </script>
+</head>
+
+<body class="blog-page-body" data-article-slug="is-ai-generated-software-secure">
+    <div class="site-bg" aria-hidden="true"></div>
+
+    <header class="header">
+        <div class="container header-inner">
+            <a href="../../index.html" class="brand" aria-label="SPACE GLEAM ホーム">
+                <span class="brand-name">SPACE GLEAM</span>
+            </a>
+            <button class="nav-toggle" type="button" aria-label="メニューを開く" aria-controls="global-nav" aria-expanded="false">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+            <nav id="global-nav" class="nav" aria-label="グローバルナビゲーション">
+                <a href="../../services.html">AI プロダクト開発</a>
+                <a href="../../pricing.html">料金</a>
+                <a href="../../works.html">実績</a>
+                <a href="../../faq.html">FAQ</a>
+                <a href="../index.html">Blog</a>
+            </nav>
+            <div class="header-ctas">
+                <a href="../../index.html#contact" class="header-cta">無料相談する<span class="arrow">→</span></a>
+            </div>
+        </div>
+    </header>
+
+    <main class="blog-main">
+        <div class="container">
+            <article>
+                <header class="article-header">
+                    <div class="article-meta">
+                        <time datetime="2026-06-16">2026年6月16日</time>
+                        <span class="article-category">Development</span>
+                    </div>
+                    <h1>AIで作ったシステムは本当に安全なのか？ 生成AI時代だからこそ重要になる「運用品質」</h1>
+                    <p class="article-lead">ChatGPTやClaudeなどの生成AIの進化によって、システム開発のスピードは飛躍的に向上しました。しかし、「AIで作ったから安全」「AIが書いたコードだから品質が高い」と考えるのは危険です。本記事では、npmハックやサプライチェーン攻撃といった実例を交えながら、AI開発時代に求められるセキュリティと運用品質について解説します。また、SPACE GLEAMが自社サービス運営を通じて実践している取り組みについてもご紹介します。</p>
+                </header>
+
+                <div class="article-share" aria-label="記事を共有">
+                    <button type="button" class="article-share-icon is-x" aria-label="Xでシェア" title="Xでシェア" data-share data-share-title="AIで作ったシステムは本当に安全なのか？ 生成AI時代だからこそ重要になる「運用品質」" data-share-url="https://spacegleam.co.jp/blog/is-ai-generated-software-secure/">
+                        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24h-6.657l-5.214-6.817-5.966 6.817H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231Zm-1.161 17.52h1.833L7.084 4.126H5.117Z"></path></svg>
+                    </button>
+                    <a href="mailto:?subject=AI%E3%81%A7%E4%BD%9C%E3%81%A3%E3%81%9F%E3%82%B7%E3%82%B9%E3%83%86%E3%83%A0%E3%81%AF%E6%9C%AC%E5%BD%93%E3%81%AB%E5%AE%89%E5%85%A8%E3%81%AA%E3%81%AE%E3%81%8B%EF%BC%9F&body=https%3A//spacegleam.co.jp/blog/is-ai-generated-software-secure/" class="article-share-icon is-mail" aria-label="メールでシェア" title="メールでシェア">
+                        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 5h16a2 2 0 0 1 2 2v10a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V7a2 2 0 0 1 2-2Zm0 2v.4l8 5.15 8-5.15V7H4Zm0 2.78V17h16V9.78l-8 5.15-8-5.15Z"></path></svg>
+                    </a>
+                    <button type="button" class="article-share-icon" aria-label="URLをコピー" title="URLをコピー" data-copy-url="https://spacegleam.co.jp/blog/is-ai-generated-software-secure/">
+                        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 9.5A1.5 1.5 0 0 1 10.5 8h8A1.5 1.5 0 0 1 20 9.5v8A1.5 1.5 0 0 1 18.5 19h-8A1.5 1.5 0 0 1 9 17.5v-8Z"></path><path d="M6 15H5.5A1.5 1.5 0 0 1 4 13.5v-8A1.5 1.5 0 0 1 5.5 4h8A1.5 1.5 0 0 1 15 5.5V6"></path></svg>
+                    </button>
+                </div>
+
+                <div class="article-content">
+
+                    <h2>AIでシステム開発できる時代になった</h2>
+                    <p>
+                    ChatGPTやClaude、Geminiなどの生成AIによって、システム開発のスピードは大きく向上しました。<br>以前であれば数週間から数か月かかっていた開発作業も、今では数日で形になることがあります。<br>実際にSPACE GLEAMでも日々の開発業務に生成AIを活用しています。
+                    </p>
+                    <p>
+                    しかし最近、<strong>「AIで作れば安くて早く作れる」</strong>という認識だけが先行しているように感じます。<br>確かにAIによって開発速度は向上しました。<br>しかし、その裏側にある重要なポイントが見落とされがちです。<br>それは、<strong>“動くシステム”と“安全に運用できるシステム”は別物である</strong>ということです。
+                    </p>
+
+                    <h2>動くシステムと安全なシステムは別物</h2>
+                    <p>生成AIはコードを書くことができます。しかし、</p>
+                    <ul>
+                        <li>セキュリティを保証する</li>
+                        <li>将来の運用を保証する</li>
+                        <li>障害発生時の対応を保証する</li>
+                        <li>システムの品質を担保する</li>
+                    </ul>
+                    <p>わけではありません。例えば近年では、</p>
+                    <ul>
+                        <li>npmパッケージの乗っ取り</li>
+                        <li>サプライチェーン攻撃</li>
+                        <li>APIキーの漏洩</li>
+                        <li>クラウド設定ミス</li>
+                        <li>認証処理の不備</li>
+                    </ul>
+                    <p>などが問題になっています。<br>見た目は同じサービスでも、裏側の設計によって安全性は大きく変わります。<br>ユーザーからは見えない部分ですが、実際には事業継続に直結する重要な要素です。</p>
+
+                    <h2>実際に起きているnpmハックとは</h2>
+                    <p>
+                    近年増加している攻撃手法の一つに、サプライチェーン攻撃があります。<br>特にWebサービス開発で利用されるnpmパッケージは非常に便利な反面、第三者が管理しているコードを利用することになります。
+                    </p>
+                    <p>
+                    開発者は日常的に <code>npm install</code> のようなコマンドを実行します。<br>しかし、もし導入したライブラリの中に悪意のあるコードが含まれていた場合、開発者のPCやサーバーそのものが攻撃対象になります。
+                    </p>
+                    <p>攻撃者が狙うものは、</p>
+                    <ul>
+                        <li>決済サービスのシークレットキー</li>
+                        <li>認証情報</li>
+                        <li>ソースコード管理サービスのトークン</li>
+                        <li>クラウドのアクセスキー</li>
+                        <li>顧客情報</li>
+                    </ul>
+                    <p>などです。<br>つまり、システム本体ではなく、<strong>システムを構成する部品が狙われる時代</strong>になっています。</p>
+
+                    <h2>AIが提案したコードをそのまま使ってはいけない理由</h2>
+                    <p>生成AIは便利なライブラリや実装方法を提案してくれます。しかしAIは、</p>
+                    <ul>
+                        <li>ライブラリの運営状況</li>
+                        <li>セキュリティリスク</li>
+                        <li>メンテナの信頼性</li>
+                        <li>将来的な保守性</li>
+                    </ul>
+                    <p>まで保証してくれるわけではありません。<br>そのため、<strong>「AIが提案したから採用する」</strong>ではなく、<strong>「安全性を確認した上で採用する」</strong>というプロセスが必要になります。<br>AIは優秀な開発支援ツールですが、最終的な責任を負うのは開発者です。</p>
+
+                    <h2>なぜSPACE GLEAMは運用品質を重視するのか</h2>
+                    <p>私たちは受託開発だけを行っている会社ではありません。<br>現在、SPACE GLEAMでは複数の自社サービスを開発・運営しています。</p>
+                    <ul>
+                        <li>DIFFsense</li>
+                        <li>MERKI</li>
+                        <li>XDraft</li>
+                        <li>SnackDrop</li>
+                        <li>MIHARI</li>
+                    </ul>
+                    <p>
+                    これらはすべて実際にユーザーへ提供しているサービスです。<br>つまり私たちは、<strong>「納品して終わり」</strong>ではなく、<strong>「公開後も継続して運用し続ける立場」</strong>でもあります。
+                    </p>
+                    <p>サービス運営者だからこそ、</p>
+                    <ul>
+                        <li>障害対応</li>
+                        <li>セキュリティ対応</li>
+                        <li>ライブラリ更新</li>
+                        <li>クラウド監視</li>
+                        <li>コスト最適化</li>
+                    </ul>
+                    <p>といった運用面の重要性を理解しています。</p>
+
+                    <h2>SPACE GLEAMが実際に行っている取り組み</h2>
+                    <h3>依存ライブラリの監査</h3>
+                    <p>導入するnpmパッケージについては、</p>
+                    <ul>
+                        <li>利用実績</li>
+                        <li>更新頻度</li>
+                        <li>メンテナ状況</li>
+                        <li>脆弱性情報</li>
+                    </ul>
+                    <p>を確認しています。<br>AIが提案したライブラリであっても、そのまま採用することはありません。</p>
+
+                    <h3>機密情報の管理</h3>
+                    <p>APIキーや認証情報については、</p>
+                    <ul>
+                        <li>環境変数管理</li>
+                        <li>権限制御</li>
+                        <li>クラウド側のアクセス管理</li>
+                    </ul>
+                    <p>を行っています。<br>ソースコードへの直接埋め込みは避け、運用面も考慮した設計を行っています。</p>
+
+                    <h3>継続的なアップデート</h3>
+                    <p>サービス公開後も、</p>
+                    <ul>
+                        <li>セキュリティアップデート</li>
+                        <li>ライブラリ更新</li>
+                        <li>障害監視</li>
+                        <li>ログ分析</li>
+                    </ul>
+                    <p>を継続的に実施しています。<br>公開した瞬間がゴールではなく、そこからが本当のスタートだと考えています。</p>
+
+                    <h2>AI開発で本当に重要なのは「作ること」ではなく「運用すること」</h2>
+                    <p>
+                    今後はAIを活用して誰でもシステムを作れる時代になります。<br>実際、初期版であれば数日で完成するケースも珍しくありません。<br>しかし事業として運営する場合は、
+                    </p>
+                    <ul>
+                        <li>セキュリティ</li>
+                        <li>保守性</li>
+                        <li>拡張性</li>
+                        <li>運用品質</li>
+                    </ul>
+                    <p>が重要になります。<br>システム開発の価値は、単にコードを書くことではありません。<br><strong>そのシステムを安心して運営し続けられる状態を作ること</strong>にあります。</p>
+
+                    <h2>SPACE GLEAMが目指す開発</h2>
+                    <p>
+                    私たちはAIを積極的に活用しています。<br>だからこそ、<strong>AIに任せる部分と、人が責任を持って確認する部分を明確に分けています。</strong>
+                    </p>
+                    <p>開発速度だけを追求するのではなく、</p>
+                    <ul>
+                        <li>安全に運用できること</li>
+                        <li>長く使い続けられること</li>
+                        <li>事業として成長できること</li>
+                    </ul>
+                    <p>を重視しています。<br>受託開発であっても、自社サービス開発で培った知見を活かしながら、運用まで見据えた設計をご提案しています。</p>
+
+                    <h2>まとめ</h2>
+                    <p>
+                    生成AIによってシステム開発のハードルは大きく下がりました。<br>一方で、<strong>「作れること」と「安心して運営できること」は別の話</strong>です。
+                    </p>
+                    <p>AIを活用したシステム開発を検討する際は、機能や価格だけでなく、</p>
+                    <ul>
+                        <li>セキュリティ</li>
+                        <li>運用品質</li>
+                        <li>保守体制</li>
+                    </ul>
+                    <p>にも目を向けることが重要です。<br>SPACE GLEAMでは、自社サービス運営で培った経験を活かしながら、AIを活用したWebサービス開発・業務システム開発をご支援しています。</p>
+                    <p>
+                    「AIを活用したサービスを作りたい」<br>「新規事業としてWebサービスを立ち上げたい」<br>「業務をシステム化したい」
+                    </p>
+                    <p>そのようなご相談がございましたら、お気軽にお問い合わせください。開発だけでなく、公開後の運用まで見据えたご提案をいたします。</p>
+                    <p><br></p>
+
+                </div>
+            </article>
+
+            <div class="article-cta">
+                <div>
+                    <strong>AIシステム開発のご相談はこちら</strong>
+                    <p>開発だけでなく、公開後の運用・セキュリティまで見据えてご提案します。</p>
+                </div>
+                <a href="../../index.html#contact">問い合わせる</a>
+            </div>
+
+            <div class="article-share article-share-bottom" aria-label="記事を共有">
+                <button type="button" class="article-share-icon is-x" aria-label="Xでシェア" title="Xでシェア" data-share data-share-title="AIで作ったシステムは本当に安全なのか？ 生成AI時代だからこそ重要になる「運用品質」" data-share-url="https://spacegleam.co.jp/blog/is-ai-generated-software-secure/">
+                    <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24h-6.657l-5.214-6.817-5.966 6.817H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231Zm-1.161 17.52h1.833L7.084 4.126H5.117Z"></path></svg>
+                </button>
+                <a href="mailto:?subject=AI%E3%81%A7%E4%BD%9C%E3%81%A3%E3%81%9F%E3%82%B7%E3%82%B9%E3%83%86%E3%83%A0%E3%81%AF%E6%9C%AC%E5%BD%93%E3%81%AB%E5%AE%89%E5%85%A8%E3%81%AA%E3%81%AE%E3%81%8B%EF%BC%9F&body=https%3A//spacegleam.co.jp/blog/is-ai-generated-software-secure/" class="article-share-icon is-mail" aria-label="メールでシェア" title="メールでシェア">
+                    <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 5h16a2 2 0 0 1 2 2v10a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V7a2 2 0 0 1 2-2Zm0 2v.4l8 5.15 8-5.15V7H4Zm0 2.78V17h16V9.78l-8 5.15-8-5.15Z"></path></svg>
+                </a>
+                <button type="button" class="article-share-icon" aria-label="URLをコピー" title="URLをコピー" data-copy-url="https://spacegleam.co.jp/blog/is-ai-generated-software-secure/">
+                    <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 9.5A1.5 1.5 0 0 1 10.5 8h8A1.5 1.5 0 0 1 20 9.5v8A1.5 1.5 0 0 1 18.5 19h-8A1.5 1.5 0 0 1 9 17.5v-8Z"></path><path d="M6 15H5.5A1.5 1.5 0 0 1 4 13.5v-8A1.5 1.5 0 0 1 5.5 4h8A1.5 1.5 0 0 1 15 5.5V6"></path></svg>
+                </button>
+            </div>
+
+            <p class="article-back-link"><a href="../index.html">ブログ一覧へ戻る</a></p>
+        </div>
+    </main>
+
+    <script src="../../script.js?v=diag-pause-background-20260612-v3"></script>
+    <script src="../posts.js"></script>
+    <script src="../blog.js?v=local-routing-20260613-v2"></script>
+</body>
+
+</html>

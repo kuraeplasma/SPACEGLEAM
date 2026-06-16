@@ -1,5 +1,17 @@
 window.SPACEGLEAM_BLOG_POSTS = [
     {
+        slug: 'is-ai-generated-software-secure',
+        title: 'AIで作ったシステムは本当に安全なのか？ 生成AI時代だからこそ重要になる「運用品質」',
+        date: '2026-06-16',
+        publishAt: '2026-06-16T00:00:00+09:00',
+        status: 'published',
+        category: 'Development',
+        description: 'ChatGPTやClaudeなどの生成AIの進化によって、システム開発のスピードは飛躍的に向上しました。しかし「AIで作ったから安全」と考えるのは危険です。npmハックやサプライチェーン攻撃の実例を交えながら、AI開発時代に求められるセキュリティと運用品質を解説します。',
+        excerpt: 'ChatGPTやClaudeなどの生成AIの進化によって、システム開発のスピードは飛躍的に向上しました。しかし「AIで作ったから安全」「AIが書いたコードだから品質が高い」と考えるのは危険です。npmハックやサプライチェーン攻撃の実例を交えながら、AI開発時代に求められる運用品質を解説します。',
+        url: 'https://spacegleam.co.jp/blog/is-ai-generated-software-secure/',
+        thumbnail: '/blog/is-ai-generated-software-secure/ogp.png'
+    },
+    {
         slug: 'ai-adoption-gap',
         title: 'AIを使う企業と使わない企業の差',
         date: '2026-06-15',
