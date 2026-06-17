@@ -678,17 +678,21 @@
             '<div class="diag-rv2__formhead"><span class="diag-rv2__formico">' + I.doc + '</span><div><div class="diag-rv2__formtitle">あなた専用の提案資料を受け取る</div><div class="diag-rv2__formsub">想定機能・開発期間・概算費用・推奨構成をまとめた提案資料（PDF）をお送りします。</div></div></div>' +
             '<form class="diag-form" id="diagLeadForm">' +
               '<div class="diag-rv2__frow">' +
-                '<div class="diag-field"><label><span>会社名・屋号（任意）</span><input type="text" name="company" autocomplete="organization" placeholder="例）株式会社SPACE GLEAM"></label></div>' +
+                '<div class="diag-field"><label><span>会社名・屋号（任意）</span><input type="text" name="company" autocomplete="organization" placeholder="例）SPACE GLEAM株式会社"></label></div>' +
                 '<div class="diag-field"><label><span>お名前 <em>必須</em></span><input type="text" name="name" autocomplete="name" placeholder="例）山田 太郎" required></label></div>' +
               '</div>' +
               '<div class="diag-field"><label><span>メールアドレス <em>必須</em></span><input type="email" name="email" autocomplete="email" placeholder="例）yamada@example.com" required></label></div>' +
-              '<label class="diag-consent"><input type="checkbox" name="consent" required> <span><a href="privacy.html" target="_blank" rel="noopener">プライバシーポリシー</a>に同意する</span></label>' +
+              '<label class="diag-consent"><input type="checkbox" name="consent" id="diagConsent" required> <span><a href="privacy.html" target="_blank" rel="noopener">プライバシーポリシー</a>に同意する</span></label>' +
               '<p class="diag-lead-status" id="diagLeadStatus" role="status" aria-live="polite"></p>' +
-              '<button type="submit" class="diag-btn-primary" id="diagLeadBtn">診断レポートを受け取る　→</button>' +
+              '<button type="submit" class="diag-btn-primary" id="diagLeadBtn" disabled>診断レポートを受け取る　→</button>' +
             '</form>' +
             '<div class="diag-lead-done" id="diagLeadDone" hidden>' +
-              '<a class="diag-btn-primary" id="diagDownload" href="' + ASSET[key] + '" download style="text-decoration:none">資料をダウンロード（PDF）</a>' +
-              '<p class="diag-lead-sent" id="diagLeadSent"></p>' +
+              '<div class="diag-rv2__sent">' +
+                '<div class="diag-rv2__sent-ico">✓</div>' +
+                '<div class="diag-rv2__sent-title">送信が完了しました</div>' +
+                '<p class="diag-lead-sent" id="diagLeadSent"></p>' +
+                '<a class="diag-btn-primary diag-rv2__sent-dl" id="diagDownload" href="' + ASSET[key] + '" download="' + p.name + '.pdf">資料をダウンロード（PDF）</a>' +
+              '</div>' +
             '</div>' +
             '<p class="diag-rv2__formnotes">🔒 ご入力情報は資料送付・ご連絡のみに利用します。営業電話はいたしません。法人・個人いずれもご相談いただけます。</p>' +
           '</div>' +
@@ -722,6 +726,8 @@
     if (consentEl && leadBtn) {
       consentEl.addEventListener('change', function () { leadBtn.disabled = !consentEl.checked; });
     }
+    var dl = panel.querySelector('#diagDownload');
+    if (dl) dl.addEventListener('click', function () { track('diag_download', { pattern: key, pattern_name: p.name }); });
   }
 
   /* ---------------- リード送信 → ダウンロード解放 ---------------- */
@@ -749,13 +755,16 @@
     }, answersParams()));
 
     var reveal = function (sent, attached) {
-      form.style.display = 'none'; // display:grid を確実に上書き（送信中表示の残留防止）
+      // フォーム・見出し・注意書きを隠し、完了画面だけに切替（display:grid を確実に上書き）
+      form.style.display = 'none';
+      var head = panel.querySelector('.diag-rv2__formhead'); if (head) head.style.display = 'none';
+      var notes = panel.querySelector('.diag-rv2__formnotes'); if (notes) notes.style.display = 'none';
       var done = panel.querySelector('#diagLeadDone');
       done.hidden = false;
       var msg;
-      if (sent && attached) msg = 'ご入力のメール（' + email + '）に提案資料（PDF）を添付してお送りしました。ご確認ください。';
-      else if (sent) msg = 'ご入力のメール（' + email + '）に診断結果をお送りしました。ご確認ください。';
-      else msg = 'まもなくメールでお送りします。数分待っても届かない場合は迷惑メールをご確認のうえ、お問い合わせください。';
+      if (sent && attached) msg = 'ご入力のメール（' + email + '）に提案資料（PDF）を添付してお送りしました。下のボタンからもダウンロードできます。';
+      else if (sent) msg = 'ご入力のメール（' + email + '）に診断結果をお送りしました。資料は下のボタンからダウンロードいただけます。';
+      else msg = 'まもなくメールでお送りします。資料は今すぐ下のボタンからダウンロードできます。';
       panel.querySelector('#diagLeadSent').textContent = msg;
     };
 
@@ -807,6 +816,17 @@
     renderResult();
   }
 
+  // プレビュー用: 送信完了画面を直接表示（?diagsent=1）
+  function showSentPreview() {
+    openResultDirect();
+    var f = panel.querySelector('#diagLeadForm'); if (f) f.style.display = 'none';
+    var head = panel.querySelector('.diag-rv2__formhead'); if (head) head.style.display = 'none';
+    var notes = panel.querySelector('.diag-rv2__formnotes'); if (notes) notes.style.display = 'none';
+    var done = panel.querySelector('#diagLeadDone'); if (done) done.hidden = false;
+    var sent = panel.querySelector('#diagLeadSent');
+    if (sent) sent.textContent = 'ご入力のメール（you@example.com）に提案資料（PDF）を添付してお送りしました。下のボタンからもダウンロードできます。';
+  }
+
   function init() {
     injectCSS();
     loadSaved();
@@ -814,9 +834,9 @@
     buildCard();
     window.addEventListener('resize', handleResize);
     try {
-      if (/diagresult|diag=result/.test(location.search + location.hash)) {
-        openResultDirect();
-      }
+      var qs = location.search + location.hash;
+      if (/diagsent/.test(qs)) showSentPreview();
+      else if (/diagresult|diag=result/.test(qs)) openResultDirect();
     } catch (e) {}
   }
   if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', init);
