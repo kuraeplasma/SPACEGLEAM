@@ -147,7 +147,15 @@ exports.handler = async (event) => {
         `<td style="padding:10px 14px;border:1px solid #eceeed;font-size:14px;"><a href="mailto:${escapeHtml(email)}" style="color:${BRAND};">${escapeHtml(email)}</a></td></tr>`,
         `</table>`,
         `<p style="margin:0 0 6px;font-size:12px;color:#555;font-weight:700;">回答内容</p>`,
-        `<pre style="margin:0 0 12px;padding:12px;background:#f4f4f4;border-radius:8px;font-size:11px;color:#333;white-space:pre-wrap;word-break:break-all;">${escapeHtml(JSON.stringify(body.answers || {}, null, 2))}</pre>`,
+        (Array.isArray(body.answersText) && body.answersText.length
+            ? `<table role="presentation" cellpadding="0" cellspacing="0" style="border-collapse:collapse;margin:0 0 12px;width:100%;">` +
+              body.answersText.map((r) =>
+                  `<tr>` +
+                  `<td style="padding:8px 12px;background:#f6f8f7;border:1px solid #eceeed;font-size:12px;color:#555;vertical-align:top;width:44%;">${escapeHtml(clean(r && r.q, 140))}</td>` +
+                  `<td style="padding:8px 12px;border:1px solid #eceeed;font-size:13px;color:#111;font-weight:700;">${escapeHtml(clean(r && r.a, 180))}</td>` +
+                  `</tr>`).join('') +
+              `</table>`
+            : `<pre style="margin:0 0 12px;padding:12px;background:#f4f4f4;border-radius:8px;font-size:11px;color:#333;white-space:pre-wrap;word-break:break-all;">${escapeHtml(JSON.stringify(body.answers || {}, null, 2))}</pre>`),
         `<p style="margin:0;font-size:12px;color:#555;">資料URL：<a href="${escapeHtml(assetUrl)}" style="color:${BRAND};">${escapeHtml(assetUrl)}</a>　${attachment ? '（このリードへ送信したメールにもPDFを添付済み）' : '（PDF取得に失敗：添付なし）'}</p>`
     ].join('');
 

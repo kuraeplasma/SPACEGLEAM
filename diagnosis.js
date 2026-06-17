@@ -145,6 +145,15 @@
     }
     return p;
   }
+  // 運営メール用: 設問文＋選んだ選択肢の文章
+  function answersReadable() {
+    var list = [];
+    for (var i = 0; i < QUESTIONS.length; i++) {
+      var q = QUESTIONS[i];
+      if (answers[q.id]) list.push({ q: q.title, a: answerLabel(q.id, answers[q.id]) });
+    }
+    return list;
+  }
 
   // 「この資料でわかること」= 実際の提案資料「AI開発計画書に含まれる構成」（全6パターン共通）
   // 出典: AIkaiseki/*.pptx 最終スライド「AI開発計画書に含まれる構成」
@@ -721,7 +730,7 @@
     var lead = {
       pattern: key, patternName: p.name, cost: p.cost, period: p.period,
       company: (form.company.value || '').trim(), name: (form.name.value || '').trim(),
-      email: email, answers: answers,
+      email: email, answers: answers, answersText: answersReadable(),
       assetUrl: location.origin + '/' + ASSET[key],
       pageUrl: location.href, ts: new Date().toISOString()
     };
