@@ -1,5 +1,17 @@
 window.SPACEGLEAM_BLOG_POSTS = [
     {
+        slug: 'why-custom-business-systems-are-growing',
+        title: 'なぜ今、自社専用の業務システムを持つ企業が増えているのか？',
+        date: '2026-06-18',
+        publishAt: '2026-06-18T00:00:00+09:00',
+        status: 'published',
+        category: 'Business',
+        description: '以前は業務システムの開発といえば、大企業だけが取り組める高額な投資でした。しかし生成AIの登場によって、企業ごとの業務に合わせたシステムを、これまでよりも現実的なコストで構築できる時代になっています。本記事では、既製品のSaaSだけでは解決できない課題と、自社専用システムを持つメリット、そしてAI時代ならではの新しい開発の考え方について解説します。',
+        excerpt: '以前は業務システムの開発といえば、大企業だけが取り組める高額な投資でした。しかし生成AIの登場によって、企業ごとの業務に合わせたシステムを、これまでよりも現実的なコストで構築できる時代になっています。',
+        url: 'https://spacegleam.co.jp/blog/why-custom-business-systems-are-growing/',
+        thumbnail: '/blog/why-custom-business-systems-are-growing/ogp.png'
+    },
+    {
         slug: 'why-business-systems-fail-and-how-ai-solves-it',
         title: 'なぜ多くの業務システムは使われなくなるのか？AI開発で解決できる本当の課題',
         date: '2026-06-17',
