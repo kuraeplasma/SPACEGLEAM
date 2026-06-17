@@ -281,6 +281,10 @@
       '.diag-rv2 .diag-consent input{margin-top:1px;accent-color:var(--dg);width:16px;height:16px;flex:0 0 16px}' +
       '.diag-rv2 .diag-btn-primary{width:100%;padding:15px;border:0;border-radius:10px;background:#111;color:#fff;font-weight:800;font-size:14px;cursor:pointer;font-family:inherit;text-align:center;display:block}' +
       '.diag-rv2__formnotes{margin-top:12px;font-size:10.5px;color:#9a9a9a;line-height:1.65}' +
+      '.diag-rv2__sent{text-align:center;padding:20px 8px}' +
+      '.diag-rv2__sent-ico{width:48px;height:48px;margin:0 auto 12px;border-radius:50%;background:#e8f2eb;color:#2f7d4f;font-size:24px;font-weight:900;display:flex;align-items:center;justify-content:center}' +
+      '.diag-rv2__sent-title{font-size:16px;font-weight:800;color:#1a1a1a;margin-bottom:8px}' +
+      '.diag-rv2__sent .diag-lead-sent{font-size:13px;color:#555;line-height:1.8;margin:0;text-align:center}' +
       '.diag-rv2 .diag-lead-status:empty{display:none}' +
       '.diag-rv2__list{padding:6px 2px}' +
       '.diag-rv2__listtitle{font-size:15px;font-weight:800;color:#1a1a1a;padding-bottom:10px;border-bottom:2px solid var(--dgl);margin-bottom:16px}' +
@@ -712,10 +716,12 @@
       e.preventDefault();
       submitLead(e.target, key, p);
     });
-    var dl = panel.querySelector('#diagDownload');
-    if (dl) dl.addEventListener('click', function () {
-      track('diag_download', { pattern: key, pattern_name: p.name });
-    });
+    // 同意チェックが入るまで送信ボタンを無効化（未同意での送信を確実に防止）
+    var consentEl = panel.querySelector('#diagConsent');
+    var leadBtn = panel.querySelector('#diagLeadBtn');
+    if (consentEl && leadBtn) {
+      consentEl.addEventListener('change', function () { leadBtn.disabled = !consentEl.checked; });
+    }
   }
 
   /* ---------------- リード送信 → ダウンロード解放 ---------------- */
@@ -743,17 +749,14 @@
     }, answersParams()));
 
     var reveal = function (sent, attached) {
-      form.hidden = true;
+      form.style.display = 'none'; // display:grid を確実に上書き（送信中表示の残留防止）
       var done = panel.querySelector('#diagLeadDone');
       done.hidden = false;
       var msg;
-      if (sent && attached) msg = '✅ ご入力のメール（' + email + '）に提案資料（PDF）を添付してお送りしました。下のボタンからもダウンロードできます。';
-      else if (sent) msg = '✅ ご入力のメール（' + email + '）に診断結果をお送りしました。資料は下のボタンからダウンロードしてください。';
-      else msg = '※ メール送信は環境により後ほど届く場合があります。今すぐ下のボタンからダウンロードできます。';
-      var el = panel.querySelector('#diagLeadSent');
-      el.textContent = msg;
-      el.style.color = sent ? '#1a7a3a' : '#888';
-      panel.querySelector('#diagDownload').focus();
+      if (sent && attached) msg = 'ご入力のメール（' + email + '）に提案資料（PDF）を添付してお送りしました。ご確認ください。';
+      else if (sent) msg = 'ご入力のメール（' + email + '）に診断結果をお送りしました。ご確認ください。';
+      else msg = 'まもなくメールでお送りします。数分待っても届かない場合は迷惑メールをご確認のうえ、お問い合わせください。';
+      panel.querySelector('#diagLeadSent').textContent = msg;
     };
 
     fetch(LEAD_ENDPOINT, {
