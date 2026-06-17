@@ -107,7 +107,7 @@
 
   var STORE_KEY = 'diag_answers';
   var CARD_HIDDEN_KEY = 'diag_card_hidden';
-  var CONTACT_URL = 'index.html#contact';
+  var CONTACT_URL = 'contact.html';
   // 診断パターン → 専用提案資料(PDF)
   var ASSET = {
     P1: 'assets/diagnosis/p1.pdf', P2: 'assets/diagnosis/p2.pdf', P3: 'assets/diagnosis/p3.pdf',
@@ -704,7 +704,7 @@
         '<div class="diag-rv2__consult">' +
           '<span class="diag-rv2__consultico">' + I.users + '</span>' +
           '<div class="diag-rv2__consulttxt"><div class="diag-rv2__consulttitle">すぐに相談したい方はこちら</div><div class="diag-rv2__consultsub">診断結果をもとに、専門家が30分無料でご相談に対応します。</div></div>' +
-          '<a class="diag-rv2__consultbtn" href="' + CONTACT_URL + '" id="diagToContact">無料相談を予約する　→</a>' +
+          '<a class="diag-rv2__consultbtn" href="' + CONTACT_URL + '" target="_blank" rel="noopener noreferrer" id="diagToContact">無料相談を予約する　→</a>' +
         '</div>' +
         '<p class="diag-rv2__foot">※ 本診断は簡易的な目安です。詳細は個別にご相談ください。　<button type="button" class="diag-rv2__redo" id="diagRedo">もう一度診断する</button></p>' +
       '</div>';
