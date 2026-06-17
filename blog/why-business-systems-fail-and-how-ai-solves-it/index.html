@@ -1,0 +1,727 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-1T9HP3BLMP"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'G-1T9HP3BLMP');
+    </script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800&family=Inter:wght@400;700&display=swap" rel="stylesheet">
+    <title>なぜ多くの業務システムは使われなくなるのか？AI開発で解決できる本当の課題 | SPACE GLEAM</title>
+    <meta name="description" content="多くの企業が業務システムを導入しても、数か月後にはExcelやチャットでの運用に戻ってしまいます。問題はシステムの性能ではなく、業務とのズレにあります。本記事では、なぜ業務システムが定着しないのか、その原因とAI開発による解決方法について解説します。">
+    <link rel="canonical" href="https://spacegleam.co.jp/blog/why-business-systems-fail-and-how-ai-solves-it/">
+    <link rel="icon" href="../../favicon.png">
+    <link rel="stylesheet" href="../../style.css?v=blog-grid-20260608-v1">
+    <meta property="og:type" content="article">
+    <meta property="og:title" content="なぜ多くの業務システムは使われなくなるのか？AI開発で解決できる本当の課題">
+    <meta property="og:description" content="多くの企業が業務システムを導入しても、数か月後にはExcelやチャットでの運用に戻ってしまいます。問題はシステムの性能ではなく、業務とのズレにあります。本記事では、なぜ業務システムが定着しないのか、その原因とAI開発による解決方法について解説します。">
+    <meta property="og:url" content="https://spacegleam.co.jp/blog/why-business-systems-fail-and-how-ai-solves-it/">
+    <meta property="og:site_name" content="SPACE GLEAM">
+    <meta property="og:image" content="https://spacegleam.co.jp/blog/why-business-systems-fail-and-how-ai-solves-it/ogp.png">
+    <meta property="og:image:secure_url" content="https://spacegleam.co.jp/blog/why-business-systems-fail-and-how-ai-solves-it/ogp.png">
+    <meta property="og:image:type" content="image/png">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:image" content="https://spacegleam.co.jp/blog/why-business-systems-fail-and-how-ai-solves-it/ogp.png">
+    <script type="application/ld+json">
+        {
+            "@context": "https://schema.org",
+            "@type": "Article",
+            "headline": "なぜ多くの業務システムは使われなくなるのか？AI開発で解決できる本当の課題",
+            "description": "多くの企業が業務システムを導入しても、数か月後にはExcelやチャットでの運用に戻ってしまいます。問題はシステムの性能ではなく、業務とのズレにあります。本記事では、なぜ業務システムが定着しないのか、その原因とAI開発による解決方法について解説します。",
+            "datePublished": "2026-06-17",
+            "dateModified": "2026-06-17",
+            "author": {
+                "@type": "Organization",
+                "name": "SPACE GLEAM"
+            },
+            "publisher": {
+                "@type": "Organization",
+                "name": "SPACE GLEAM",
+                "logo": {
+                    "@type": "ImageObject",
+                    "url": "https://spacegleam.co.jp/favicon.png"
+                }
+            },
+            "mainEntityOfPage": "https://spacegleam.co.jp/blog/why-business-systems-fail-and-how-ai-solves-it/",
+            "image": "https://spacegleam.co.jp/blog/why-business-systems-fail-and-how-ai-solves-it/ogp.png",
+            "articleSection": "Business"
+        }
+    </script>
+    <style>
+        /* Process flow/timeline design system */
+        .article-process {
+            position: relative;
+            margin: 2.5rem auto;
+            padding: 0;
+            max-width: 460px;
+            width: 100%;
+        }
+
+        /* Adjustments for nested process inside comparison column */
+        .article-process-compare-col .article-process {
+            margin: 1.25rem 0 0 0;
+            max-width: 100%;
+        }
+
+        /* Individual process item/step card */
+        .article-process-item {
+            position: relative;
+            display: flex;
+            align-items: flex-start;
+            gap: 16px;
+            margin-bottom: 24px;
+            padding: 20px 24px;
+            background: #ffffff;
+            border: 1px solid #e2e8f0;
+            border-radius: 12px;
+            box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.02);
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .article-process-item:last-child {
+            margin-bottom: 0;
+        }
+
+        /* Hover animation - Subtle elevation */
+        .article-process-item:hover {
+            transform: translateY(-2px);
+            border-color: #cbd5e1;
+            box-shadow: 0 12px 20px -8px rgba(0, 0, 0, 0.08);
+        }
+
+        /* Solid timeline connector line */
+        .article-process-item::after {
+            content: '';
+            position: absolute;
+            left: 39.5px; /* Aligned with badge center */
+            top: 52px;  /* Below badge edge */
+            bottom: -44px; /* Reach down to the next badge */
+            width: 1px;
+            background: #cbd5e1;
+            z-index: 1;
+            transition: background 0.3s ease;
+        }
+
+        .article-process-item:last-child::after {
+            display: none;
+        }
+
+        /* Step Badge (holds icon) */
+        .article-process-badge {
+            position: relative;
+            z-index: 2;
+            flex-shrink: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            background: #f8fafc;
+            color: #64748b;
+            border: 2px solid #ffffff;
+            box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.08);
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .article-process-item:hover .article-process-badge {
+            transform: scale(1.05);
+        }
+
+        .process-icon {
+            width: 14px;
+            height: 14px;
+            stroke: currentColor;
+            stroke-width: 2.2;
+            fill: none;
+        }
+
+        /* Text content layout */
+        .article-process-body {
+            flex: 1;
+            display: flex;
+            align-items: center;
+            min-height: 32px; /* Align text with badge center */
+        }
+
+        .article-process-title {
+            font-size: 0.95rem;
+            font-weight: 600;
+            color: #1e293b;
+            line-height: 1.5;
+            display: flex;
+            align-items: center;
+        }
+
+        /* Step Number prefix styling */
+        .article-process-step-num {
+            font-family: 'Outfit', 'Inter', sans-serif;
+            font-size: 0.8rem;
+            font-weight: 700;
+            color: #94a3b8;
+            margin-right: 8px;
+            user-select: none;
+            letter-spacing: 0.03em;
+        }
+
+        /* --- Theme overrides --- */
+
+        /* 1. Danger Theme (Failing Flow) */
+        .article-process.is-danger .article-process-item {
+            border-color: #fee2e2;
+            background: #fffcfc;
+        }
+        .article-process.is-danger .article-process-item:hover {
+            border-color: #fca5a5;
+            background: #ffffff;
+            box-shadow: 0 12px 24px -10px rgba(239, 68, 68, 0.08);
+        }
+        .article-process.is-danger .article-process-badge {
+            background: #fee2e2;
+            color: #ef4444;
+            border-color: #fecaca;
+        }
+        .article-process.is-danger .article-process-step-num {
+            color: #ef4444;
+        }
+
+        /* 2. Success Theme (Good Cycle) */
+        .article-process.is-success .article-process-item {
+            border-color: #d1fae5;
+            background: #fafdfb;
+        }
+        .article-process.is-success .article-process-item:hover {
+            border-color: #a7f3d0;
+            background: #ffffff;
+            box-shadow: 0 12px 24px -10px rgba(16, 185, 129, 0.08);
+        }
+        .article-process.is-success .article-process-badge {
+            background: #d1fae5;
+            color: #10b981;
+            border-color: #a7f3d0;
+        }
+        .article-process.is-success .article-process-step-num {
+            color: #10b981;
+        }
+
+        /* 3. Primary Theme (SPACE GLEAM Indigo - AI flow) */
+        .article-process.is-primary .article-process-item {
+            border-color: #e0e7ff;
+            background: #fafaff;
+        }
+        .article-process.is-primary .article-process-item:hover {
+            border-color: #c7d2fe;
+            background: #ffffff;
+            box-shadow: 0 12px 24px -10px rgba(99, 102, 241, 0.1);
+        }
+        .article-process.is-primary .article-process-badge {
+            background: #e0e7ff;
+            color: #6366f1;
+            border-color: #c7d2fe;
+        }
+        .article-process.is-primary .article-process-step-num {
+            color: #6366f1;
+        }
+
+        /* --- Side-by-side comparison layout --- */
+        .article-process-compare {
+            display: flex;
+            gap: 24px;
+            margin: 3rem 0;
+            width: 100%;
+        }
+
+        .article-process-compare-col {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            background: #f8fafc;
+            padding: 1.75rem;
+            border-radius: 16px;
+            border: 1px solid #e2e8f0;
+            box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.02);
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        /* Dull/flat styling for conventional systems column */
+        .article-process-compare-col:not(.is-success) {
+            opacity: 0.85;
+            background: #f1f5f9;
+        }
+        .article-process-compare-col:not(.is-success) .article-process-item {
+            background: #f8fafc;
+            box-shadow: none;
+            border: 1px solid #e2e8f0;
+        }
+        .article-process-compare-col:not(.is-success) .article-process-item:hover {
+            transform: translateY(-1px);
+            background: #ffffff;
+            border-color: #cbd5e1;
+            box-shadow: 0 6px 12px -4px rgba(0, 0, 0, 0.04);
+        }
+
+        /* Clean highlight for AI system column */
+        .article-process-compare-col.is-success {
+            background: #f5f3ff;
+            border-color: #ddd6fe;
+            box-shadow: 0 4px 20px -2px rgba(99, 102, 241, 0.04);
+        }
+        .article-process-compare-col.is-success:hover {
+            box-shadow: 0 8px 30px -4px rgba(99, 102, 241, 0.08);
+        }
+
+        .article-process-compare-title {
+            font-size: 1rem;
+            font-weight: 800;
+            color: #475569;
+            margin-bottom: 1.25rem;
+            text-align: center;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 6px;
+            letter-spacing: -0.01em;
+        }
+
+        .article-process-compare-title.is-success {
+            color: #6366f1;
+        }
+
+        /* Mobile styling */
+        @media (max-width: 640px) {
+            .article-process-compare {
+                flex-direction: column;
+                gap: 20px;
+            }
+        }
+    </style>
+</head>
+
+<body class="blog-page-body" data-article-slug="why-business-systems-fail-and-how-ai-solves-it">
+    <div class="site-bg" aria-hidden="true"></div>
+
+    <header class="header">
+        <div class="container header-inner">
+            <a href="../../index.html" class="brand" aria-label="SPACE GLEAM ホーム">
+                <span class="brand-name">SPACE GLEAM</span>
+            </a>
+            <button class="nav-toggle" type="button" aria-label="メニューを開く" aria-controls="global-nav" aria-expanded="false">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+            <nav id="global-nav" class="nav" aria-label="グローバルナビゲーション">
+                <a href="../../services.html">AI プロダクト開発</a>
+                <a href="../../pricing.html">料金</a>
+                <a href="../../works.html">実績</a>
+                <a href="../../faq.html">FAQ</a>
+                <a href="../index.html">Blog</a>
+            </nav>
+            <div class="header-ctas">
+                <a href="../../index.html#contact" class="header-cta">無料相談する<span class="arrow">→</span></a>
+            </div>
+        </div>
+    </header>
+
+    <main class="blog-main">
+        <div class="container">
+            <article>
+                <header class="article-header">
+                    <div class="article-meta">
+                        <time datetime="2026-06-17">2026年6月17日</time>
+                        <span class="article-category">Business</span>
+                    </div>
+                    <h1>なぜ多くの業務システムは使われなくなるのか？AI開発で解決できる本当の課題</h1>
+                    <p class="article-lead">多くの企業が業務システムを導入しても、数か月後にはExcelやチャットでの運用に戻ってしまいます。問題はシステムの性能ではなく、業務とのズレにあります。本記事では、なぜ業務システムが定着しないのか、その原因とAI開発による解決方法について解説します。</p>
+                </header>
+
+                <div class="article-share" aria-label="記事を共有">
+                    <button type="button" class="article-share-icon is-x" aria-label="Xでシェア" title="Xでシェア" data-share data-share-title="なぜ多くの業務システムは使われなくなるのか？AI開発で解決できる本当の課題" data-share-url="https://spacegleam.co.jp/blog/why-business-systems-fail-and-how-ai-solves-it/">
+                        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24h-6.657l-5.214-6.817-5.966 6.817H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231Zm-1.161 17.52h1.833L7.084 4.126H5.117Z"></path></svg>
+                    </button>
+                    <a href="mailto:?subject=%E3%81%AA%E3%81%9C%E5%A4%9A%E3%81%8F%E3%81%AE%E6%A5%AD%E5%8B%99%E3%82%B7%E3%82%B9%E3%83%86%E3%83%A0%E3%81%AF%E4%BD%BF%E3%82%8F%E3%82%8C%E3%81%AA%E3%81%8F%E3%81%AA%E3%82%8B%E3%81%AE%E3%81%8B%EF%BC%9F&body=https%3A//spacegleam.co.jp/blog/why-business-systems-fail-and-how-ai-solves-it/" class="article-share-icon is-mail" aria-label="メールでシェア" title="メールでシェア">
+                        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 5h16a2 2 0 0 1 2 2v10a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V7a2 2 0 0 1 2-2Zm0 2v.4l8 5.15 8-5.15V7H4Zm0 2.78V17h16V9.78l-8 5.15-8-5.15Z"></path></svg>
+                    </a>
+                    <button type="button" class="article-share-icon" aria-label="URLをコピー" title="URLをコピー" data-copy-url="https://spacegleam.co.jp/blog/why-business-systems-fail-and-how-ai-solves-it/">
+                        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 9.5A1.5 1.5 0 0 1 10.5 8h8A1.5 1.5 0 0 1 20 9.5v8A1.5 1.5 0 0 1 18.5 19h-8A1.5 1.5 0 0 1 9 17.5v-8Z"></path><path d="M6 15H5.5A1.5 1.5 0 0 1 4 13.5v-8A1.5 1.5 0 0 1 5.5 4h8A1.5 1.5 0 0 1 15 5.5V6"></path></svg>
+                    </button>
+                </div>
+
+                <div class="article-content">
+
+                    <h2>業務システムを導入したのに使われなくなる理由</h2>
+                    <div style="margin: 2rem 0; border-radius: 8px; overflow: hidden; border: 1px solid rgba(0, 0, 0, 0.08);">
+                        <img src="./office_frustration.png" alt="業務システムへの入力作業に頭を抱える担当者" style="width: 100%; height: auto; display: block;">
+                    </div>
+                    <p>
+                    企業のDXや業務改善の取り組みの中で、多くの会社が業務システムを導入しています。
+                    </p>
+                    <p>
+                    しかし実際には、
+                    </p>
+                    <ul>
+                        <li>現場が入力してくれない</li>
+                        <li>Excel管理に戻ってしまう</li>
+                        <li>チャットで確認する運用が残る</li>
+                        <li>一部の担当者しか使わない</li>
+                    </ul>
+                    <p>
+                    といったケースは少なくありません。
+                    </p>
+                    <p>
+                    導入時は期待されていたシステムが、気づけば誰も開かなくなっている。<br>これは珍しい話ではありません。
+                    </p>
+                    <p>
+                    では、なぜこのようなことが起きるのでしょうか。
+                    </p>
+
+                    <h2>問題はシステムの性能ではない</h2>
+                    <p>
+                    業務システムが定着しない原因として、
+                    </p>
+                    <ul>
+                        <li>機能不足</li>
+                        <li>動作速度</li>
+                        <li>デザイン</li>
+                    </ul>
+                    <p>
+                    が挙げられることがあります。もちろんそれらも重要です。
+                    </p>
+                    <p>
+                    しかし実際の現場を見ると、もっと根本的な問題があります。<br>それは、<strong>「現場の業務フローとシステムが合っていない」</strong>ということです。
+                    </p>
+                    <p>
+                    例えば、以下のような流れに陥っていないでしょうか。
+                    </p>
+                    <div class="article-process is-danger">
+                        <div class="article-process-item">
+                            <div class="article-process-badge">
+                                <svg class="process-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M23 21v-2a4 4 0 0 0-3-3.87"></path><path d="M16 3.13a4 4 0 0 1 0 7.75"></path></svg>
+                            </div>
+                            <div class="article-process-body">
+                                <div class="article-process-title">
+                                    <span class="article-process-step-num">01.</span>営業担当は顧客対応で忙しい
+                                </div>
+                            </div>
+                        </div>
+                        <div class="article-process-item">
+                            <div class="article-process-badge">
+                                <svg class="process-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="12" y1="18" x2="12" y2="12"></line><line x1="9" y1="15" x2="15" y2="15"></line></svg>
+                            </div>
+                            <div class="article-process-body">
+                                <div class="article-process-title">
+                                    <span class="article-process-step-num">02.</span>システムへの入力が増える
+                                </div>
+                            </div>
+                        </div>
+                        <div class="article-process-item">
+                            <div class="article-process-badge">
+                                <svg class="process-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
+                            </div>
+                            <div class="article-process-body">
+                                <div class="article-process-title">
+                                    <span class="article-process-step-num">03.</span>入力が後回しになる
+                                </div>
+                            </div>
+                        </div>
+                        <div class="article-process-item">
+                            <div class="article-process-badge">
+                                <svg class="process-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"></path><line x1="12" y1="9" x2="12" y2="13"></line><line x1="12" y1="17" x2="12.01" y2="17"></line></svg>
+                            </div>
+                            <div class="article-process-body">
+                                <div class="article-process-title">
+                                    <span class="article-process-step-num">04.</span>情報が古くなる
+                                </div>
+                            </div>
+                        </div>
+                        <div class="article-process-item">
+                            <div class="article-process-badge">
+                                <svg class="process-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><line x1="15" y1="9" x2="9" y2="15"></line><line x1="9" y1="9" x2="15" y2="15"></line></svg>
+                            </div>
+                            <div class="article-process-body">
+                                <div class="article-process-title">
+                                    <span class="article-process-step-num">05.</span>誰も信用しなくなる
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <p>
+                    システム自体は正常に動いていても、業務に自然に組み込まれていなければ、最終的には使われなくなります。
+                    </p>
+
+                    <h2>現場は機能を求めているわけではない</h2>
+                    <p>
+                    システム導入時には、
+                    </p>
+                    <ul>
+                        <li>管理画面</li>
+                        <li>分析機能</li>
+                        <li>レポート機能</li>
+                        <li>承認機能</li>
+                    </ul>
+                    <p>
+                    などが追加されがちです。
+                    </p>
+                    <p>
+                    しかし現場の担当者が求めているのは、<strong>「楽になること」</strong>です。<br>入力項目が増えたり、確認作業が増えたりすると、どれだけ高機能でも利用率は下がります。
+                    </p>
+                    <p>
+                    実際には、
+                    </p>
+                    <ul>
+                        <li>クリック数を減らす</li>
+                        <li>入力を減らす</li>
+                        <li>探す時間を減らす</li>
+                    </ul>
+                    <p>
+                    といったアプローチの方が、定着に向けては遥かに重要です。
+                    </p>
+
+                    <h2>AI開発が解決できること</h2>
+                    <div style="margin: 2rem 0; border-radius: 8px; overflow: hidden; border: 1px solid rgba(0, 0, 0, 0.08);">
+                        <img src="./office_satisfaction.png" alt="AIのサポートにより快適に業務を行う様子" style="width: 100%; height: auto; display: block;">
+                    </div>
+                    <p>
+                    ここでAIが大きな効果を発揮します。
+                    </p>
+                    <p>
+                    従来のシステムは、<strong>「人が入力する」</strong>ことを前提に設計されていました。
+                    </p>
+                    <p>
+                    一方でAIは、以下のような処理が得意です。
+                    </p>
+                    <ul>
+                        <li>自動要約</li>
+                        <li>自動分類</li>
+                        <li>自動入力補助</li>
+                        <li>文書検索</li>
+                        <li>ナレッジ検索</li>
+                    </ul>
+                    <p>
+                    例えば営業日報であれば、次のように変化します。
+                    </p>
+                    <div class="article-process-compare">
+                        <div class="article-process-compare-col">
+                            <div class="article-process-compare-title">
+                                <svg class="process-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="width: 16px; height: 16px; color: #64748b; margin-right: 4px;"><rect x="2" y="3" width="20" height="14" rx="2" ry="2"></rect><line x1="8" y1="21" x2="16" y2="21"></line><line x1="12" y1="17" x2="12" y2="21"></line></svg>
+                                従来のシステム
+                            </div>
+                            <div class="article-process">
+                                <div class="article-process-item">
+                                    <div class="article-process-badge">
+                                        <svg class="process-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-7"></path><path d="M18.5 2.5a2.121 2.121 0 1 1 3 3L12 15l-4 1 1-4z"></path></svg>
+                                    </div>
+                                    <div class="article-process-body">
+                                        <div class="article-process-title">
+                                            <span class="article-process-step-num">01.</span>訪問内容を入力
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="article-process-item">
+                                    <div class="article-process-badge">
+                                        <svg class="process-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>
+                                    </div>
+                                    <div class="article-process-body">
+                                        <div class="article-process-title">
+                                            <span class="article-process-step-num">02.</span>報告を書く
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="article-process-item">
+                                    <div class="article-process-badge">
+                                        <svg class="process-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path><circle cx="12" cy="12" r="3"></circle></svg>
+                                    </div>
+                                    <div class="article-process-body">
+                                        <div class="article-process-title">
+                                            <span class="article-process-step-num">03.</span>管理者が確認
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="article-process-compare-col is-success">
+                            <div class="article-process-compare-title is-success">
+                                <svg class="process-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="width: 16px; height: 16px; color: #6366f1; margin-right: 4px;"><polygon points="12 2 2 7 12 12 22 7 12 2"></polygon><polyline points="2 17 12 22 22 17"></polyline><polyline points="2 12 12 17 22 12"></polyline></svg>
+                                AIを活用したシステム
+                            </div>
+                            <div class="article-process is-primary">
+                                <div class="article-process-item">
+                                    <div class="article-process-badge">
+                                        <svg class="process-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20h9"></path><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"></path></svg>
+                                    </div>
+                                    <div class="article-process-body">
+                                        <div class="article-process-title">
+                                            <span class="article-process-step-num">01.</span>メモを入力
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="article-process-item">
+                                    <div class="article-process-badge">
+                                        <svg class="process-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"></path><circle cx="12" cy="12" r="4"></circle></svg>
+                                    </div>
+                                    <div class="article-process-body">
+                                        <div class="article-process-title">
+                                            <span class="article-process-step-num">02.</span>AIが日報化（自動要約・分類）
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="article-process-item">
+                                    <div class="article-process-badge">
+                                        <svg class="process-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path><polyline points="22 4 12 14.01 9 11.01"></polyline></svg>
+                                    </div>
+                                    <div class="article-process-body">
+                                        <div class="article-process-title">
+                                            <span class="article-process-step-num">03.</span>確認して保存
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <p>
+                    AIが下書きや入力を補助することで、現場の入力負荷が大幅に減ります。
+                    </p>
+
+                    <h2>AI開発は「人を減らすため」ではない</h2>
+                    <p>
+                    AIというと、「人員削減」をイメージする人もいます。
+                    </p>
+                    <p>
+                    しかし実際に効果が大きいのは、<strong>人がやらなくても良い作業を減らすこと</strong>です。
+                    </p>
+                    <ul>
+                        <li>転記作業</li>
+                        <li>検索作業</li>
+                        <li>要約作業</li>
+                        <li>確認作業</li>
+                    </ul>
+                    <p>
+                    これらを削減することで、本来注力すべきコア業務に時間を使えるようになります。
+                    </p>
+                    <p>
+                    結果として、以下のような良い循環が生まれます。
+                    </p>
+                    <div class="article-process is-success">
+                        <div class="article-process-item">
+                            <div class="article-process-badge">
+                                <svg class="process-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"></polyline></svg>
+                            </div>
+                            <div class="article-process-body">
+                                <div class="article-process-title">
+                                    <span class="article-process-step-num">01.</span>システムが使われる
+                                </div>
+                            </div>
+                        </div>
+                        <div class="article-process-item">
+                            <div class="article-process-badge">
+                                <svg class="process-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><ellipse cx="12" cy="5" rx="9" ry="3"></ellipse><path d="M3 5v14c0 1.66 4 3 9 3s9-1.34 9-3V5"></path><path d="M3 12c0 1.66 4 3 9 3s9-1.34 9-3"></path></svg>
+                            </div>
+                            <div class="article-process-body">
+                                <div class="article-process-title">
+                                    <span class="article-process-step-num">02.</span>データが蓄積される
+                                </div>
+                            </div>
+                        </div>
+                        <div class="article-process-item">
+                            <div class="article-process-badge">
+                                <svg class="process-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 22V10a6 6 0 0 1 12 0v12"></path><path d="M6 12H2a8 8 0 0 0 8 8v-4"></path><path d="M18 12h4a8 8 0 0 1-8 8v-4"></path></svg>
+                            </div>
+                            <div class="article-process-body">
+                                <div class="article-process-title">
+                                    <span class="article-process-step-num">03.</span>さらにAI活用が進む
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <h2>SPACE GLEAMが重視していること</h2>
+                    <p>
+                    私たちは開発の相談を受ける際、最初からシステムの話をすることはほとんどありません。
+                    </p>
+                    <p>
+                    まず確認するのは、以下の点です。
+                    </p>
+                    <ul>
+                        <li>どの業務に時間がかかっているのか</li>
+                        <li>どの作業が負担になっているのか</li>
+                        <li>本当にシステム開発が必要なのか</li>
+                    </ul>
+                    <p>
+                    場合によっては、既存のSaaSを利用するだけで解決することもあります。
+                    </p>
+                    <p>
+                    また開発する場合でも、最初から大規模なシステムを作るのではなく、小さく始めて改善を繰り返す方法をご提案しています。
+                    </p>
+
+                    <h2>まとめ</h2>
+                    <p>
+                    業務システムが使われなくなる原因は、システムの性能不足ではありません。多くの場合、<strong>現場の業務と合っていないこと</strong>が原因です。
+                    </p>
+                    <p>
+                    AI開発によって、
+                    </p>
+                    <ul>
+                        <li>入力負荷を減らす</li>
+                        <li>検索時間を減らす</li>
+                        <li>確認作業を減らす</li>
+                    </ul>
+                    <p>
+                    ことができれば、システムは定着しやすくなります。
+                    </p>
+                    <p>
+                    重要なのは高機能なシステムを作ることではなく、現場が自然に使い続けられる仕組みを作ることです。
+                    </p>
+                    <p>
+                    SPACE GLEAMでは、業務整理からAI活用の検討、Webサービス開発・業務システム開発までご相談いただけます。
+                    </p>
+                    <p>
+                    「業務を効率化したい」<br>
+                    「AIを活用したい」<br>
+                    「システム化したいが何から始めればよいか分からない」
+                    </p>
+                    <p>
+                    そのような場合は、お気軽にご相談ください。
+                    </p>
+
+                </div>
+            </article>
+
+            <div class="article-cta">
+                <div>
+                    <strong>AI system開発のご相談はこちら</strong>
+                    <p>AI MVP、SaaS、業務システムの初期設計からご相談いただけます。</p>
+                </div>
+                <a href="../../index.html#contact">問い合わせる</a>
+            </div>
+
+            <div class="article-share article-share-bottom" aria-label="記事を共有">
+                <button type="button" class="article-share-icon is-x" aria-label="Xでシェア" title="Xでシェア" data-share data-share-title="なぜ多くの業務システムは使われなくなるのか？AI開発で解決できる本当の課題" data-share-url="https://spacegleam.co.jp/blog/why-business-systems-fail-and-how-ai-solves-it/">
+                    <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24h-6.657l-5.214-6.817-5.966 6.817H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231Zm-1.161 17.52h1.833L7.084 4.126H5.117Z"></path></svg>
+                </button>
+                <a href="mailto:?subject=%E3%81%AA%E3%81%9C%E5%A4%9A%E3%81%8F%E3%81%AE%E6%A5%AD%E5%8B%99%E3%82%B7%E3%82%B9%E3%83%86%E3%83%A0%E3%81%AF%E4%BD%BF%E3%82%8F%E3%82%8C%E3%81%AA%E3%81%8F%E3%81%AA%E3%82%8B%E3%81%AE%E3%81%8B%EF%BC%9F&body=https%3A//spacegleam.co.jp/blog/why-business-systems-fail-and-how-ai-solves-it/" class="article-share-icon is-mail" aria-label="メールでシェア" title="メールでシェア">
+                    <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 5h16a2 2 0 0 1 2 2v10a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V7a2 2 0 0 1 2-2Zm0 2v.4l8 5.15 8-5.15V7H4Zm0 2.78V17h16V9.78l-8 5.15-8-5.15Z"></path></svg>
+                </a>
+                <button type="button" class="article-share-icon" aria-label="URLをコピー" title="URLをコピー" data-copy-url="https://spacegleam.co.jp/blog/why-business-systems-fail-and-how-ai-solves-it/">
+                    <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 9.5A1.5 1.5 0 0 1 10.5 8h8A1.5 1.5 0 0 1 20 9.5v8A1.5 1.5 0 0 1 18.5 19h-8A1.5 1.5 0 0 1 9 17.5v-8Z"></path><path d="M6 15H5.5A1.5 1.5 0 0 1 4 13.5v-8A1.5 1.5 0 0 1 5.5 4h8A1.5 1.5 0 0 1 15 5.5V6"></path></svg>
+                </button>
+            </div>
+
+            <p class="article-back-link"><a href="../index.html">ブログ一覧へ戻る</a></p>
+        </div>
+    </main>
+
+    <script src="../../script.js?v=diag-pause-background-20260612-v3"></script>
+    <script src="../posts.js"></script>
+    <script src="../blog.js?v=local-routing-20260613-v2"></script>
+</body>
+
+</html>

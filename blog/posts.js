@@ -1,5 +1,17 @@
 window.SPACEGLEAM_BLOG_POSTS = [
     {
+        slug: 'why-business-systems-fail-and-how-ai-solves-it',
+        title: 'なぜ多くの業務システムは使われなくなるのか？AI開発で解決できる本当の課題',
+        date: '2026-06-17',
+        publishAt: '2026-06-17T00:00:00+09:00',
+        status: 'published',
+        category: 'Business',
+        description: '多くの企業が業務システムを導入しても、数か月後にはExcelやチャットでの運用に戻ってしまいます。問題はシステムの性能ではなく、業務とのズレにあります。本記事では、なぜ業務システムが定着しないのか、その原因とAI開発による解決方法について解説します。',
+        excerpt: '多くの企業が業務システムを導入しても、数か月後にはExcelやチャットでの運用に戻ってしまいます。問題はシステムの性能ではなく、業務とのズレにあります。本記事では、なぜ業務システムが定着しないのか、その原因とAI開発による解決方法について解説します。',
+        url: 'https://spacegleam.co.jp/blog/why-business-systems-fail-and-how-ai-solves-it/',
+        thumbnail: '/blog/why-business-systems-fail-and-how-ai-solves-it/ogp.png'
+    },
+    {
         slug: 'is-ai-generated-software-secure',
         title: 'AIで作ったシステムは本当に安全なのか？ 生成AI時代だからこそ重要になる「運用品質」',
         date: '2026-06-16',
