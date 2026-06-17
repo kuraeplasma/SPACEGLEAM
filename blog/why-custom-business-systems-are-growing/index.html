@@ -53,6 +53,275 @@
             "articleSection": "Business"
         }
     </script>
+    <style>
+        /* Custom styled visual elements */
+        .custom-visual-wrapper {
+            margin: 2.5rem 0;
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+        }
+        
+        .custom-comparison-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1.5rem;
+        }
+        
+        @media (max-width: 768px) {
+            .custom-comparison-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+        
+        .comparison-card {
+            background: #ffffff;
+            border: 1px solid rgba(0, 0, 0, 0.08);
+            border-radius: 16px;
+            padding: 1.5rem;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.02);
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+            position: relative;
+            overflow: hidden;
+            text-align: left;
+        }
+        
+        .comparison-card.is-saas {
+            border-top: 4px solid #9ca3af;
+        }
+        
+        .comparison-card.is-custom {
+            border-top: 4px solid #6366f1;
+            background: linear-gradient(180deg, #ffffff 0%, #fafaff 100%);
+        }
+        
+        .card-title {
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: #1f2937;
+            margin: 0;
+        }
+        
+        .card-badge {
+            display: inline-block;
+            padding: 0.25rem 0.75rem;
+            border-radius: 9999px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            width: fit-content;
+        }
+        
+        .is-saas .card-badge {
+            background: #f3f4f6;
+            color: #4b5563;
+        }
+        
+        .is-custom .card-badge {
+            background: #e0e7ff;
+            color: #4f46e5;
+        }
+        
+        .visual-placeholder {
+            height: 100px;
+            border-radius: 8px;
+            background: #fafafa;
+            border: 1px dashed rgba(0, 0, 0, 0.1);
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.85rem;
+            color: #9ca3af;
+        }
+        
+        .is-saas .visual-placeholder {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            padding: 12px;
+            justify-content: center;
+        }
+        
+        .saas-grid-item {
+            width: 100%;
+            height: 8px;
+            background: #e5e7eb;
+            border-radius: 4px;
+        }
+        
+        .saas-grid-item.is-restricted {
+            background: #fee2e2;
+            position: relative;
+        }
+        
+        .saas-grid-item.is-restricted::after {
+            content: "既製品の制限";
+            position: absolute;
+            right: 8px;
+            top: -4px;
+            font-size: 0.6rem;
+            color: #ef4444;
+            font-weight: bold;
+        }
+        
+        .is-custom .visual-placeholder {
+            background: linear-gradient(135deg, #e0e7ff 0%, #e0f2fe 100%);
+            border: none;
+            color: #4f46e5;
+            font-weight: bold;
+        }
+        
+        .custom-flow-line {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            width: 90%;
+            justify-content: center;
+        }
+        
+        .flow-node {
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            background: #ffffff;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+            font-size: 0.75rem;
+            color: #4f46e5;
+        }
+        
+        .flow-arrow {
+            flex-grow: 1;
+            height: 2px;
+            background: #818cf8;
+            position: relative;
+        }
+        
+        .flow-arrow::after {
+            content: "";
+            position: absolute;
+            right: 0;
+            top: -3px;
+            width: 0;
+            height: 0;
+            border-style: solid;
+            border-width: 4px 0 4px 6px;
+            border-color: transparent transparent transparent #818cf8;
+        }
+        
+        /* Arched Image Container */
+        .arched-image-wrapper {
+            position: relative;
+            width: 100%;
+            max-width: 500px;
+            margin: 1.5rem auto 0 auto;
+            border-radius: 200px 200px 24px 24px;
+            overflow: hidden;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.08);
+            border: 1px solid rgba(0, 0, 0, 0.05);
+        }
+        
+        .arched-image-wrapper img {
+            width: 100%;
+            height: auto;
+            display: block;
+            transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        
+        .arched-image-wrapper:hover img {
+            transform: scale(1.03);
+        }
+        
+        /* Feature Showcase Layout */
+        .feature-showcase-container {
+            margin: 2.5rem 0;
+            display: grid;
+            grid-template-columns: 1.1fr 1fr;
+            gap: 2rem;
+            align-items: center;
+            background: linear-gradient(135deg, #ffffff 0%, #f9fafb 100%);
+            padding: 2rem;
+            border-radius: 24px;
+            border: 1px solid rgba(0, 0, 0, 0.06);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.02);
+            text-align: left;
+        }
+        
+        @media (max-width: 768px) {
+            .feature-showcase-container {
+                grid-template-columns: 1fr;
+                padding: 1.5rem;
+            }
+        }
+        
+        /* Organic Shaped Image Container */
+        .organic-image-wrapper {
+            position: relative;
+            width: 100%;
+            border-radius: 24px 160px 24px 160px;
+            overflow: hidden;
+            box-shadow: 0 20px 40px rgba(99, 102, 241, 0.12);
+            border: 4px solid #ffffff;
+        }
+        
+        .organic-image-wrapper img {
+            width: 100%;
+            height: auto;
+            display: block;
+            transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        
+        .organic-image-wrapper:hover img {
+            transform: scale(1.03);
+        }
+        
+        .feature-list-editorial {
+            display: flex;
+            flex-direction: column;
+            gap: 1.25rem;
+        }
+        
+        .editorial-item {
+            display: flex;
+            gap: 1rem;
+            align-items: flex-start;
+        }
+        
+        .editorial-number {
+            font-size: 1.1rem;
+            font-weight: 800;
+            color: #6366f1;
+            background: #e0e7ff;
+            padding: 0.25rem 0.5rem;
+            border-radius: 8px;
+            line-height: 1;
+            display: inline-block;
+        }
+        
+        .editorial-text-group {
+            display: flex;
+            flex-direction: column;
+            gap: 0.25rem;
+        }
+        
+        .editorial-title {
+            font-weight: 700;
+            color: #1f2937;
+            font-size: 1rem;
+            margin: 0;
+        }
+        
+        .editorial-desc {
+            font-size: 0.875rem;
+            color: #4b5563;
+            line-height: 1.5;
+            margin: 0;
+        }
+    </style>
 </head>
 
 <body class="blog-page-body" data-article-slug="why-custom-business-systems-are-growing">
@@ -133,9 +402,47 @@
                     </p>
 
                     <h2>なぜ既製品だけでは解決できないのか</h2>
-                    <div style="margin: 2rem 0; border-radius: 8px; overflow: hidden; border: 1px solid rgba(0, 0, 0, 0.08);">
-                        <img src="./system_planning.png" alt="システム開発の要件定義や設計を話し合うミーティング" style="width: 100%; height: auto; display: block;">
+                    
+                    <div class="custom-visual-wrapper">
+                        <div class="custom-comparison-grid">
+                            <!-- SaaS Card -->
+                            <div class="comparison-card is-saas">
+                                <span class="card-badge">業務をシステムに合わせる</span>
+                                <h3 class="card-title">既製品SaaSの制限</h3>
+                                <div class="visual-placeholder">
+                                    <div class="saas-grid-item"></div>
+                                    <div class="saas-grid-item is-restricted"></div>
+                                    <div class="saas-grid-item"></div>
+                                </div>
+                                <p style="font-size: 0.85rem; color: #6b7280; margin: 0; line-height: 1.5;">
+                                    多くの企業向けに標準化されているため、独自の運用フローや入力項目を柔軟に変更できません。
+                                </p>
+                            </div>
+                            <!-- Custom Card -->
+                            <div class="comparison-card is-custom">
+                                <span class="card-badge">システムを業務に合わせる</span>
+                                <h3 class="card-title">自社専用システム</h3>
+                                <div class="visual-placeholder">
+                                    <div class="custom-flow-line">
+                                        <div class="flow-node">入力</div>
+                                        <div class="flow-arrow"></div>
+                                        <div class="flow-node">自動</div>
+                                        <div class="flow-arrow"></div>
+                                        <div class="flow-node">完了</div>
+                                    </div>
+                                </div>
+                                <p style="font-size: 0.85rem; color: #4b5563; margin: 0; line-height: 1.5;">
+                                    自社独自のフローに合わせて完全に設計。不要な項目を削ぎ落とし、圧倒的な操作性を実現します。
+                                </p>
+                            </div>
+                        </div>
+
+                        <!-- Arched Image showing real human element -->
+                        <div class="arched-image-wrapper">
+                            <img src="./system_planning.png" alt="システム開発の要件定義や設計を話し合うミーティング">
+                        </div>
                     </div>
+
                     <p>
                     SaaSは非常に優れたサービスです。
                     </p>
@@ -224,9 +531,39 @@
                     </p>
 
                     <h2>自社専用システムのメリット</h2>
-                    <div style="margin: 2rem 0; border-radius: 8px; overflow: hidden; border: 1px solid rgba(0, 0, 0, 0.08);">
-                        <img src="./dashboard_view.png" alt="自社専用に設計されたクリーンなシステムダッシュボード画面" style="width: 100%; height: auto; display: block;">
+                    
+                    <div class="feature-showcase-container">
+                        <!-- Asymmetrical image shape -->
+                        <div class="organic-image-wrapper">
+                            <img src="./dashboard_view.png" alt="自社専用に設計されたクリーンなシステムダッシュボード画面">
+                        </div>
+
+                        <!-- Editorial feature merits -->
+                        <div class="feature-list-editorial">
+                            <div class="editorial-item">
+                                <span class="editorial-number">01</span>
+                                <div class="editorial-text-group">
+                                    <h4 class="editorial-title">業務の完全マッチング</h4>
+                                    <p class="editorial-desc">見積・契約・承認など、自社独自の入力項目やフローを100%再現します。</p>
+                                </div>
+                            </div>
+                            <div class="editorial-item">
+                                <span class="editorial-number">02</span>
+                                <div class="editorial-text-group">
+                                    <h4 class="editorial-title">二重管理・無駄な入力の撤廃</h4>
+                                    <p class="editorial-desc">不要なクリックやExcelとの転記作業をゼロにし、ミスと時間を大幅に削減します。</p>
+                                </div>
+                            </div>
+                            <div class="editorial-item">
+                                <span class="editorial-number">03</span>
+                                <div class="editorial-text-group">
+                                    <h4 class="editorial-title">属人化の解消と引き継ぎの自動化</h4>
+                                    <p class="editorial-desc">ルールや判断基準をシステムに組み込むことで、誰が担当しても同じ品質で運用できます。</p>
+                                </div>
+                            </div>
+                        </div>
                     </div>
+
                     <p>
                     自社専用システムの最大の強みは、
                     </p>
