@@ -9523,14 +9523,7 @@ br.sp-only {
 }
 
 .hero .diag-card::before {
-    content: "" !important;
-    position: absolute !important;
-    inset: 0 auto 0 0 !important;
-    width: 8px !important;
-    background: linear-gradient(180deg, rgba(255, 255, 255, .95), rgba(17, 24, 39, .16), rgba(255, 255, 255, .8)) !important;
-    box-shadow: 0 0 26px rgba(255, 255, 255, .9) !important;
-    opacity: .85 !important;
-    pointer-events: none !important;
+    display: none !important;
 }
 
 .hero .diag-card__eyebrow {
