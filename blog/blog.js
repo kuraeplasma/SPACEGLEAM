@@ -33,7 +33,19 @@
         "'": '&#039;'
     }[char]));
 
-    const postHref = (post) => `/blog/${escapeHtml(post.slug)}/`;
+    const blogPath = (value) => {
+        if (!value || /^(https?:|mailto:|tel:|#)/.test(value)) return value;
+
+        const prefix = articleSlug ? '../' : './';
+        if (value.startsWith('/blog/')) {
+            const localPath = `${prefix}${value.slice('/blog/'.length)}`;
+            return value.endsWith('/') ? `${localPath}index.html` : localPath;
+        }
+        if (value.startsWith('/')) return `${articleSlug ? '../../' : '../'}${value.slice(1)}`;
+        return value;
+    };
+
+    const postHref = (post) => escapeHtml(blogPath(`/blog/${post.slug}/`));
 
     const compactDate = (value) => formatDate(value).replace(/年|月/g, '.').replace('日', '');
 
@@ -44,7 +56,7 @@
 
         return `
             <div class="${className}">
-                <img src="${escapeHtml(post.thumbnail)}" alt="" loading="lazy">
+                <img src="${escapeHtml(blogPath(post.thumbnail))}" alt="" loading="lazy">
             </div>
         `;
     };
@@ -92,7 +104,7 @@
         <article class="blog-card">
             <a class="blog-card-link" href="${postHref(post)}" aria-label="${escapeHtml(post.title)}を読む">
                 <div class="blog-card-image">
-                    ${post.thumbnail ? `<img src="${escapeHtml(post.thumbnail)}" alt="" loading="lazy">` : '<div class="blog-card-image-placeholder" aria-hidden="true"></div>'}
+                    ${post.thumbnail ? `<img src="${escapeHtml(blogPath(post.thumbnail))}" alt="" loading="lazy">` : '<div class="blog-card-image-placeholder" aria-hidden="true"></div>'}
                     <time class="blog-card-date" datetime="${escapeHtml(post.date)}">${compactDate(post.date)}</time>
                 </div>
                 <div class="blog-card-body">
