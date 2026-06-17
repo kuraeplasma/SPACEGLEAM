@@ -1219,21 +1219,20 @@
         window.SPACEGLEAM_RECAPTCHA_SITE_KEY = '';
         window.SPACEGLEAM_BOOKING_URL = 'https://calendar.google.com/calendar/appointments/schedules/AcZssZ1w2wZgoCu0AzkJ8ZLLZQsYNjIX2bReoBaR5ZI9ibFR9JCUXhPROO8wRSQL9aYq1PXIxyFSpnHP';
 
-        // Conditional local-only AI Diagnosis feature
-        if (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1' || window.location.search.includes('diag=1')) {
+        // AI Diagnosis feature (公開：全訪問者に表示)
+        (function () {
             document.documentElement.classList.add('diag-enabled');
-            
-            // Dynamically load PDF and diagnosis scripts for local development
+
             const jspdfScript = document.createElement('script');
             jspdfScript.src = "https://cdn.jsdelivr.net/npm/jspdf@2.5.2/dist/jspdf.umd.min.js";
             jspdfScript.defer = true;
             document.body.appendChild(jspdfScript);
 
             const diagScript = document.createElement('script');
-            diagScript.src = "diagnosis.js?v=diag-pdf-final-20260617-v15";
+            diagScript.src = "diagnosis.js?v=diag-public-20260617-v16";
             diagScript.defer = true;
             document.body.appendChild(diagScript);
-        }
+        })();
     </script>
     <script src="script.js?v=diag-pause-background-20260613-v12"></script>
 </body>
