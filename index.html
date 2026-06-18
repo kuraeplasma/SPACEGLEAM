@@ -266,7 +266,10 @@
         <section id="problem" class="section problem-section">
             <!-- 全画面背景ビジュアル -->
             <div class="problem-bg-visual">
-                <img src="hero_visual_dark.png?v=restore-problem-v48-20260530" alt="" aria-hidden="true" loading="lazy">
+                <picture>
+                    <source srcset="hero_visual_dark.webp" type="image/webp">
+                    <img src="hero_visual_dark.png?v=restore-problem-v48-20260530" alt="" aria-hidden="true" loading="lazy">
+                </picture>
                 <canvas id="problem-light-shafts" style="position: absolute; inset: 0; width: 100%; height: 100%; z-index: 2; pointer-events: none; mix-blend-mode: screen;"></canvas>
             </div>
 
@@ -320,7 +323,7 @@
                         <div class="step-number">01</div>
                         <div class="step-name">仮説整理</div>
                         <div class="step-img-wrapper">
-                            <img src="sketch_hypothesis.png" alt="仮説整理" loading="lazy">
+                            <picture><source srcset="sketch_hypothesis.webp" type="image/webp"><img src="sketch_hypothesis.png" alt="仮説整理" loading="lazy"></picture>
                         </div>
                         <p class="step-desc">課題の本質を見極め、<br class="pc-only">事業仮説を設計します。</p>
                     </div>
@@ -330,7 +333,7 @@
                         <div class="step-number">02</div>
                         <div class="step-name">システム設計</div>
                         <div class="step-img-wrapper">
-                            <img src="sketch_mvp_design.png" alt="システム設計" loading="lazy">
+                            <picture><source srcset="sketch_mvp_design.webp" type="image/webp"><img src="sketch_mvp_design.png" alt="システム設計" loading="lazy"></picture>
                         </div>
                         <p class="step-desc">最小限の機能に絞り、<br class="pc-only">検証可能な形に設計します。</p>
                     </div>
@@ -340,7 +343,7 @@
                         <div class="step-number">03</div>
                         <div class="step-name">開発</div>
                         <div class="step-img-wrapper">
-                            <img src="sketch_development.png" alt="開発" loading="lazy">
+                            <picture><source srcset="sketch_development.webp" type="image/webp"><img src="sketch_development.png" alt="開発" loading="lazy"></picture>
                         </div>
                         <p class="step-desc">スピーディに開発し、<br class="pc-only">すぐに試せるプロダクトへ。</p>
                     </div>
@@ -350,7 +353,7 @@
                         <div class="step-number">04</div>
                         <div class="step-name">検証</div>
                         <div class="step-img-wrapper">
-                            <img src="sketch_validation.png" alt="検証" loading="lazy">
+                            <picture><source srcset="sketch_validation.webp" type="image/webp"><img src="sketch_validation.png" alt="検証" loading="lazy"></picture>
                         </div>
                         <p class="step-desc">データとユーザーの反応から、<br class="pc-only">仮説を検証します。</p>
                     </div>
@@ -360,7 +363,7 @@
                         <div class="step-number">05</div>
                         <div class="step-name">改善・拡張</div>
                         <div class="step-img-wrapper">
-                            <img src="sketch_growth.png" alt="改善・拡張" loading="lazy">
+                            <picture><source srcset="sketch_growth.webp" type="image/webp"><img src="sketch_growth.png" alt="改善・拡張" loading="lazy"></picture>
                         </div>
                         <p class="step-desc">検証結果をもとに、<br class="pc-only">改善し、成長へつなげます。</p>
                     </div>
@@ -545,7 +548,7 @@
                     </div>
                     <div class="pricing-header-right">
                         <div class="pricing-header-image">
-                            <img src="hero_visual_light.png" alt="PRICING Visual">
+                            <picture><source srcset="hero_visual_light.webp" type="image/webp"><img src="hero_visual_light.png" alt="PRICING Visual"></picture>
                         </div>
                     </div>
                 </div>
@@ -1230,7 +1233,7 @@
             document.body.appendChild(jspdfScript);
 
             const diagScript = document.createElement('script');
-            diagScript.src = "diagnosis.js?v=diag-sent-screen-20260617-v20";
+            diagScript.src = "diagnosis.js?v=diag-sent-screen-20260617-v21";
             diagScript.defer = true;
             document.body.appendChild(diagScript);
         })();
