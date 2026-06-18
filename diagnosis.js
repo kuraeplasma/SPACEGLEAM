@@ -297,14 +297,15 @@
       '.diag-rv2__consult{display:flex;align-items:center;gap:16px;background:#f3f7f4;border:1px solid #e4ece7;border-radius:14px;padding:18px 22px;margin:8px 0 14px}' +
       '.diag-rv2__consultico{display:inline-flex;align-items:center;justify-content:center;width:44px;height:44px;flex:0 0 44px;border-radius:50%;background:var(--dgl);color:var(--dg)}' +
       '.diag-rv2__consultico svg{width:22px;height:22px}' +
-      '.diag-rv2__consulttxt{flex:1}' +
-      '.diag-rv2__consulttitle{font-size:15px;font-weight:800;color:#1a1a1a}' +
+      '.diag-rv2__consulttxt{flex:1;min-width:0}' +
+      '.diag-rv2__consulttitle{font-size:15px;font-weight:800;color:#1a1a1a;line-height:1.5}' +
       '.diag-rv2__consultsub{font-size:12px;color:#777;margin-top:3px;line-height:1.6}' +
-      '.diag-rv2__consultbtn{flex:0 0 auto;display:inline-flex;align-items:center;justify-content:center;padding:13px 22px;border:1.5px solid #333;border-radius:10px;background:#fff;color:#111;font-weight:800;font-size:13.5px;text-decoration:none;white-space:nowrap}' +
+      '.diag-rv2__consultbtn{flex:0 0 auto;display:inline-flex;align-items:center;justify-content:center;padding:13px 22px;border:1.5px solid #333;border-radius:10px;background:#fff;color:#111;font-weight:800;font-size:13.5px;text-decoration:none;white-space:nowrap;box-sizing:border-box}' +
       '.diag-rv2__consultbtn:hover{background:#111;color:#fff;border-color:#111}' +
       '.diag-rv2__foot{text-align:center;font-size:11px;color:#aaa;margin:6px 0 0}' +
       '.diag-rv2__redo{border:0;background:none;color:#888;font-size:11px;text-decoration:underline;cursor:pointer;font-family:inherit;padding:0;margin-left:6px}' +
       '.diag-rv2__redo:hover{color:#111}' +
+      '@media (max-width:640px){.diag-rv2__consult{display:grid;grid-template-columns:34px minmax(0,1fr);align-items:start;gap:10px 12px;padding:16px}.diag-rv2__consultico{grid-column:1;width:34px;height:34px;flex-basis:34px}.diag-rv2__consulttxt{grid-column:2}.diag-rv2__consulttitle{font-size:14px;line-height:1.55}.diag-rv2__consultsub{font-size:11.5px;line-height:1.65}.diag-rv2__consultbtn{grid-column:1/-1;width:100%;min-height:48px;margin-top:2px;padding:12px 14px;font-size:13px}}' +
       '@media (min-width:900px){' +
         '.diag-modal .diag-panel:has(.diag-rv2){max-width:1040px !important;max-height:94vh;padding:34px 40px}' +
         '.diag-rv2__summary{grid-template-columns:1fr 1fr 1.2fr;gap:0;align-items:center}' +
