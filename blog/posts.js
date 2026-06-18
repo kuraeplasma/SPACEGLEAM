@@ -1,5 +1,17 @@
 window.SPACEGLEAM_BLOG_POSTS = [
     {
+        slug: 'free-ai-development-diagnosis',
+        title: 'AI開発診断を公開しました。30秒で開発の方向性が見えてくる無料診断です',
+        date: '2026-06-19',
+        publishAt: '2026-06-19T00:00:00+09:00',
+        status: 'published',
+        category: 'Business',
+        description: '「AIを活用したい」「業務を効率化したい」「サービスを作りたい」。そう考えたとき、多くの方が最初に悩むのは技術ではなく“何から始めるべきか”です。SPACE GLEAMでは、開発の方向性や予算感、進め方を整理できるAI開発診断を公開しました。本記事では、診断を作った背景と診断で分かることをご紹介します。',
+        excerpt: 'SPACE GLEAMでは、開発の方向性や予算感、進め方を整理できるAI開発診断を公開しました。30秒で開発の方向性が見えてくる無料診断です。',
+        url: 'https://spacegleam.co.jp/blog/free-ai-development-diagnosis/',
+        thumbnail: '/blog/free-ai-development-diagnosis/ai-diagnosis-card-ogp-1200x630-white.png'
+    },
+    {
         slug: 'why-custom-business-systems-are-growing',
         title: 'なぜ今、自社専用の業務システムを持つ企業が増えているのか？',
         date: '2026-06-18',
