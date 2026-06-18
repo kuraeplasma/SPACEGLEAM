@@ -9,7 +9,7 @@ window.SPACEGLEAM_BLOG_POSTS = [
         description: '「AIを活用したい」「業務を効率化したい」「サービスを作りたい」。そう考えたとき、多くの方が最初に悩むのは技術ではなく“何から始めるべきか”です。SPACE GLEAMでは、開発の方向性や予算感、進め方を整理できるAI開発診断を公開しました。本記事では、診断を作った背景と診断で分かることをご紹介します。',
         excerpt: 'SPACE GLEAMでは、開発の方向性や予算感、進め方を整理できるAI開発診断を公開しました。30秒で開発の方向性が見えてくる無料診断です。',
         url: 'https://spacegleam.co.jp/blog/free-ai-development-diagnosis/',
-        thumbnail: '/blog/free-ai-development-diagnosis/ai-diagnosis-card-ogp-1200x630-white.png'
+        thumbnail: '/blog/free-ai-development-diagnosis/card.webp'
     },
     {
         slug: 'why-custom-business-systems-are-growing',
@@ -21,7 +21,7 @@ window.SPACEGLEAM_BLOG_POSTS = [
         description: '以前は業務システムの開発といえば、大企業だけが取り組める高額な投資でした。しかし生成AIの登場によって、企業ごとの業務に合わせたシステムを、これまでよりも現実的なコストで構築できる時代になっています。本記事では、既製品のSaaSだけでは解決できない課題と、自社専用システムを持つメリット、そしてAI時代ならではの新しい開発の考え方について解説します。',
         excerpt: '以前は業務システムの開発といえば、大企業だけが取り組める高額な投資でした。しかし生成AIの登場によって、企業ごとの業務に合わせたシステムを、これまでよりも現実的なコストで構築できる時代になっています。',
         url: 'https://spacegleam.co.jp/blog/why-custom-business-systems-are-growing/',
-        thumbnail: '/blog/why-custom-business-systems-are-growing/ogp.png'
+        thumbnail: '/blog/why-custom-business-systems-are-growing/card.webp'
     },
     {
         slug: 'why-business-systems-fail-and-how-ai-solves-it',
@@ -33,7 +33,7 @@ window.SPACEGLEAM_BLOG_POSTS = [
         description: '多くの企業が業務システムを導入しても、数か月後にはExcelやチャットでの運用に戻ってしまいます。問題はシステムの性能ではなく、業務とのズレにあります。本記事では、なぜ業務システムが定着しないのか、その原因とAI開発による解決方法について解説します。',
         excerpt: '多くの企業が業務システムを導入しても、数か月後にはExcelやチャットでの運用に戻ってしまいます。問題はシステムの性能ではなく、業務とのズレにあります。本記事では、なぜ業務システムが定着しないのか、その原因とAI開発による解決方法について解説します。',
         url: 'https://spacegleam.co.jp/blog/why-business-systems-fail-and-how-ai-solves-it/',
-        thumbnail: '/blog/why-business-systems-fail-and-how-ai-solves-it/ogp.png'
+        thumbnail: '/blog/why-business-systems-fail-and-how-ai-solves-it/card.webp'
     },
     {
         slug: 'is-ai-generated-software-secure',
@@ -45,7 +45,7 @@ window.SPACEGLEAM_BLOG_POSTS = [
         description: 'ChatGPTやClaudeなどの生成AIの進化によって、システム開発のスピードは飛躍的に向上しました。しかし「AIで作ったから安全」と考えるのは危険です。npmハックやサプライチェーン攻撃の実例を交えながら、AI開発時代に求められるセキュリティと運用品質を解説します。',
         excerpt: 'ChatGPTやClaudeなどの生成AIの進化によって、システム開発のスピードは飛躍的に向上しました。しかし「AIで作ったから安全」「AIが書いたコードだから品質が高い」と考えるのは危険です。npmハックやサプライチェーン攻撃の実例を交えながら、AI開発時代に求められる運用品質を解説します。',
         url: 'https://spacegleam.co.jp/blog/is-ai-generated-software-secure/',
-        thumbnail: '/blog/is-ai-generated-software-secure/ogp.png'
+        thumbnail: '/blog/is-ai-generated-software-secure/card.webp'
     },
     {
         slug: 'ai-adoption-gap',
@@ -57,7 +57,7 @@ window.SPACEGLEAM_BLOG_POSTS = [
         description: 'AIの普及によって、多くの企業が業務効率化を検討するようになりました。しかし実際には、積極的に活用を進める企業と、様子見を続ける企業に分かれています。その差はAIツールの性能ではありません。企業の中に蓄積される経験値です。本記事では、AIを使う企業が実際に何を手に入れているのかを解説します。',
         excerpt: 'AIの普及によって、多くの企業が業務効率化を検討するようになりました。しかし実際には、積極的に活用を進める企業と、様子見を続ける企業に分かれています。その差はAIツールの性能ではありません。企業の中に蓄積される経験値です。',
         url: 'https://spacegleam.co.jp/blog/ai-adoption-gap/',
-        thumbnail: '/blog/ai-adoption-gap/ogp.png'
+        thumbnail: '/blog/ai-adoption-gap/card.webp'
     },
     {
         slug: 'will-todays-ai-companies-survive',
@@ -69,7 +69,7 @@ window.SPACEGLEAM_BLOG_POSTS = [
         description: 'OpenAI、Anthropic、Google Geminiなど、現在の生成AI市場を牽引する企業は今後も存在し続けるのでしょうか。実際のところ、それは誰にも分かりません。しかしAI活用そのものは今後さらに広がる可能性が高いと考えられます。本記事では、AI企業の将来ではなく「AIを活用する企業になること」が重要な理由について解説します。',
         excerpt: 'OpenAI、Anthropic、Google Geminiなど、現在の生成AI市場を牽引する企業は今後も存在し続けるのでしょうか。実際のところ、それは誰にも分かりません。しかしAI活用そのものは今後さらに広がる可能性が高いと考えられます。本記事では、AI企業の将来ではなく「AIを活用する企業になること」が重要な理由について解説します。',
         url: 'https://spacegleam.co.jp/blog/will-todays-ai-companies-survive/',
-        thumbnail: '/blog/will-todays-ai-companies-survive/ogp.png'
+        thumbnail: '/blog/will-todays-ai-companies-survive/card.webp'
     },
     {
         slug: 'diffsense-three-days',
@@ -81,7 +81,7 @@ window.SPACEGLEAM_BLOG_POSTS = [
         description: 'DIFFsenseは、契約書や利用規約の変更をAIで比較・管理するサービスです。現在では、AI差分比較、AI要約、URL監視、電子署名、通知機能など複数の機能を提供しています。しかし最初からこの形だったわけではありません。実はDIFFsen...',
         excerpt: 'DIFFsenseは、契約書や利用規約の変更をAIで比較・管理するサービスです。現在では、AI差分比較、AI要約、URL監視、電子署名、通知機能など複数の機能を提供しています。しかし最初からこの形だったわけではありません。実はDIFFsen...',
         url: 'https://spacegleam.co.jp/blog/diffsense-three-days/',
-        thumbnail: '/blog/assets/n2585507fcce6_4a4b9b9aa97707a0fa6bd7895b601a99.png'
+        thumbnail: '/blog/assets/n2585507fcce6_card.webp'
     },
     {
         slug: 'ai-development-outsourcing',
@@ -93,7 +93,7 @@ window.SPACEGLEAM_BLOG_POSTS = [
         description: 'AIの活用が広がる中で、「AIを使った業務効率化を進めたい」「自社サービスにAI機能を組み込みたい」と考える企業が増えています。その一方で、「社内で開発するべきか、それとも外注するべきか」という悩みを抱えるケースも少なくありません。結論から...',
         excerpt: 'AIの活用が広がる中で、「AIを使った業務効率化を進めたい」「自社サービスにAI機能を組み込みたい」と考える企業が増えています。その一方で、「社内で開発するべきか、それとも外注するべきか」という悩みを抱えるケースも少なくありません。結論から...',
         url: 'https://spacegleam.co.jp/blog/ai-development-outsourcing/',
-        thumbnail: '/blog/assets/n4de10aef1158_2a3e5db823a90163c972b9e3b2264b68.png'
+        thumbnail: '/blog/assets/n4de10aef1158_card.webp'
     },
     {
         slug: 'ai-development-real-bottleneck',
@@ -105,7 +105,7 @@ window.SPACEGLEAM_BLOG_POSTS = [
         description: 'AIサービスを作っていると言うと、よく聞かれることがあります。「やっぱりAIの部分が一番大変なんですか？」実は違います。もちろんAIにも難しさはあります。しかし、複数のAIサービスを企画・開発・運営してきた中で感じるのは、AIは意外と早く動...',
         excerpt: 'AIサービスを作っていると言うと、よく聞かれることがあります。「やっぱりAIの部分が一番大変なんですか？」実は違います。もちろんAIにも難しさはあります。しかし、複数のAIサービスを企画・開発・運営してきた中で感じるのは、AIは意外と早く動...',
         url: 'https://spacegleam.co.jp/blog/ai-development-real-bottleneck/',
-        thumbnail: '/blog/assets/n6050e37f96fa_d6772beaf29a5592e4b32b26313aae31.png'
+        thumbnail: '/blog/assets/n6050e37f96fa_card.webp'
     },
     {
         slug: 'no-more-throwaway-mvp',
@@ -117,7 +117,7 @@ window.SPACEGLEAM_BLOG_POSTS = [
         description: 'これまでの開発では、まず安く小さく試作し、後から作り直すのが常識でした。AIによってこの前提は変わります。最初から本番品質で作れる時代の、新しい開発の進め方をお伝えします。',
         excerpt: 'これまでの開発では、まず安く小さく試作し、後から作り直すのが常識でした。AIによってこの前提は変わります。最初から本番品質で作れる時代の、新しい開発の進め方をお伝えします。',
         url: 'https://spacegleam.co.jp/blog/no-more-throwaway-mvp/',
-        thumbnail: '/blog/assets/n52ecb67c16f3_52205bcf6f2e4f129cf2d4701747ad0d.png'
+        thumbnail: '/blog/assets/n52ecb67c16f3_card.webp'
     },
     {
         slug: 'ai-mvp-first-decisions',
@@ -129,7 +129,7 @@ window.SPACEGLEAM_BLOG_POSTS = [
         description: 'AI受託開発の費用相場は、PoCで数十万〜300万円、中規模システムで300万〜1,000万円が一般的。でも2026年, AIを使った開発なら25万円〜・最短2〜4週間で"いきなり商用レベル"が作れる時代になりました。ただし「安いから」で選ぶと本番で苦労します。この記事では費用相場・なぜ安くなったのか・失敗しないAI開発会社の選び方を、自社でSaaSを運用する立場から正直に解説します。',
         excerpt: 'AI受託開発の費用相場は、PoCで数十万〜300万円、中規模システムで300万〜1,000万円が一般的。でも2026年, AIを使った開発なら25万円〜・最短2〜4週間で"いきなり商用レベル"が作れる時代になりました。',
         url: 'https://spacegleam.co.jp/blog/ai-mvp-first-decisions/',
-        thumbnail: '/blog/assets/naeb8187a566e_2c391674e48e72f6368a4495ba51da04.png'
+        thumbnail: '/blog/assets/naeb8187a566e_card.webp'
     },
     {
         slug: 'why-space-gleam-builds-own-services',
@@ -141,6 +141,11 @@ window.SPACEGLEAM_BLOG_POSTS = [
         description: 'SPACE GLEAMが自社サービスを作り続ける理由と、運営から得られる知見、AI時代のプロダクトづくりへの考え方を紹介します。',
         excerpt: 'SPACE GLEAMは単なる開発会社ではなく、自社サービスを企画・開発・運営しながら、作る、運営する、改善するサイクルを続けています。',
         url: 'https://spacegleam.co.jp/blog/why-space-gleam-builds-own-services/',
-        thumbnail: '/blog/assets/nce9566eed6ea_5fa57d4633c946fd62794892e836aff4.png'
+        thumbnail: '/blog/assets/nce9566eed6ea_card.webp'
     }
 ];
+
+
+
+
+

@@ -119,7 +119,6 @@
             </a>
         </article>
     `;
-
     const renderList = () => {
         if (!listRoot && !featuredRoot && !popularRoot) return;
         const filtered = posts.filter((post) => {
@@ -319,3 +318,6 @@
         heroVideo.playbackRate = 0.45;
     }
 }());
+
+
+
