@@ -2573,6 +2573,7 @@ select {
     display: flex;
     align-items: center;
     gap: 16px;
+    padding-right: 36px;
 }
 
 .footer-banner-icon-wrapper {
@@ -2636,6 +2637,7 @@ select {
 .footer-banner-right {
     display: flex;
     justify-content: flex-end;
+    padding-left: 36px;
 }
 
 .footer-banner-cta-btn {
