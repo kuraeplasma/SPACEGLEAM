@@ -1,5 +1,17 @@
 window.SPACEGLEAM_BLOG_POSTS = [
     {
+        slug: 'ai-small-team-productivity',
+        title: 'AIを使う会社は、なぜ少ない人数でも仕事が進むのか？',
+        date: '2026-06-20',
+        publishAt: '2026-06-20T00:00:00+09:00',
+        status: 'published',
+        category: 'Business',
+        description: '生成AIの活用によって、少人数でも企画・調査・資料作成・開発・情報整理を進めやすい時代になっています。本記事では、SPACE GLEAMが実際にClaude Code、Gemini、ChatGPTなどを活用しながら受託開発や自社サービス開発を進めている実例をもとに、AIが企業の仕事の進め方をどう変えているのかを解説します。',
+        excerpt: '生成AIの活用によって、少人数でも企画・調査・資料作成・開発・情報整理を進めやすい時代に。SPACE GLEAMがClaude Code・Gemini・ChatGPTを活用しながら開発を進める実例から解説します。',
+        url: 'https://spacegleam.co.jp/blog/ai-small-team-productivity/',
+        thumbnail: '/blog/ai-small-team-productivity/card.webp'
+    },
+    {
         slug: 'free-ai-development-diagnosis',
         title: 'AI開発診断を公開しました。30秒で開発の方向性が見えてくる無料診断です',
         date: '2026-06-19',
