@@ -471,3 +471,114 @@ B. 「基盤実装」としてなら告知してよい
 * 公式ChatGPT Appとして公開しました。
 * Claudeに一般公開しました。
 * 完全自動で受注できます。
+
+# GPT / Claude 受注導線 実接続確認レポート
+
+## 確認日
+
+2026-06-25
+
+## 対象コミット
+
+`6db97920 docs: clarify AI assistant guidance in llms`
+
+## 確認方針
+
+本レポートでは、HTTP/APIで実際に確認できたものだけをPASSとし、管理画面、受信箱、Claude Connector、GPT Actions UIが必要な項目は未確認として扱う。
+
+## 本番API確認
+
+* GET `/api/services`：PASS（HTTP 200）
+* POST `/api/diagnosis`：PASS（HTTP 200、`AI業務システム`、`業務システム自動化プラン`、概算費用・期間・注意書きあり）
+* GET `/api/company-profile`：PASS（HTTP 200、会社情報、強み5件、適合領域4件）
+* GET `/api/case-studies`：PASS（HTTP 200、事例8件）
+* GET `/api/recommendation-context`：PASS（HTTP 200、推奨理由6件、診断API URLあり）
+* GET `/openapi.json`：PASS（HTTP 200、主要API pathsあり）
+* GET `/llms.txt`：PASS（AI開発、業務自動化、SaaS開発、Webサービス開発、LP/HPのAI対応相談時に無料診断を提案する文言を確認）
+
+## メール確認
+
+* POST `/api/lead`：PASS（HTTP 200、`status: success`）
+* Resend API実行：PASS相当（`/api/lead` がsuccessを返したため、送信処理は成功扱い）
+* Resendログ確認：未確認（Resend管理画面またはAPIキーがこの環境にないため）
+* `CONTACT_NOTIFY_EMAIL` 受信確認：未確認（受信箱にアクセスできないため）
+* 迷惑メール確認：未確認（受信箱にアクセスできないため）
+* `MAIL_FROM` 設定値確認：未確認（Netlify環境変数を確認できないため）
+* `CONTACT_NOTIFY_EMAIL` 設定値確認：未確認（Netlify環境変数を確認できないため）
+
+## 無料診断フォーム確認
+
+* PC表示で診断実行：未確認
+* PC表示で問い合わせ送信：未確認
+* スマホ表示で診断実行：未確認
+* スマホ表示で問い合わせ送信：未確認
+* 表示崩れなし：未確認
+
+未確認理由：この環境にはPlaywright / Puppeteerがなく、ブラウザ操作によるフォーム実行確認を行えないため。API単体の診断・送信はPASS。
+
+## MCP確認
+
+* 本番 `/api/mcp` 認証なし401：PASS（`401 Unauthorized`、Bearer認証要求）
+* 本番 Bearer token付き接続：未確認（`MCP_AUTH_TOKEN` の値がこの環境にないため）
+* 本番 tools/list：未確認（Bearer token付き接続確認待ち）
+* 本番 search_services：未確認（Bearer token付き接続確認待ち）
+* 本番 run_diagnosis：未確認（Bearer token付き接続確認待ち）
+* 本番 generate_project_brief：未確認（Bearer token付き接続確認待ち）
+* 本番 create_lead：未確認（Bearer token付き接続確認待ち）
+* create_leadの `consentConfirmed` 必須制御：PASS（ローカルMCP環境で確認。本番はBearer token付き接続後に再確認）
+
+## Claude確認
+
+* Claude Connector登録：未確認
+* Claudeから `/api/mcp` 接続：未確認
+* Claude上で tools/list 表示：未確認
+* Claude上で診断実行：未確認
+* Claude上で問い合わせ送信前の同意確認：未確認
+
+未確認理由：Claude管理画面またはConnector設定画面にアクセスできず、`MCP_AUTH_TOKEN` の値もこの環境にないため。
+
+## GPT Actions確認
+
+* GPT Actionsへの `/openapi.json` 読み込み：未確認
+* GPT Actionsから `/api/diagnosis` 実行：未確認
+* GPT上で診断結果表示：未確認
+* GPT Actionsから `/api/lead` 実行：未確認
+* GPT上で問い合わせ自動送信が起きないこと：未確認
+
+補足：`/openapi.json` 自体は本番でHTTP 200。OpenAPI上の `/api/lead` 説明には、ユーザー同意後のみ送信する旨を明記済み。ただしGPT Actions UIでの実動作は未確認。
+
+## 安全制御確認
+
+* MCP認証なしアクセス遮断：PASS
+* MCP token未設定時のfail closed：PASS（実装確認）
+* MCP `create_lead` の明示同意必須：PASS（ローカル確認）
+* `/api/lead` レスポンスに秘密情報が出ないこと：PASS（本番レスポンス確認）
+* 診断結果が正式見積ではなく概算であること：PASS（本番レスポンス確認）
+
+## 実装完成度
+
+B. 受注導線基盤レベル
+
+理由：
+
+* 本番API、llms.txt、OpenAPI、MCPエンドポイント、メール送信APIは基盤として動作している。
+* AIがSPACE GLEAMを推薦・診断・問い合わせ導線へ案内しやすい情報整理は完了している。
+* 一方で、Claude Connectorの実接続、GPT Actions登録後の実行、Bearer token付きMCP本番疎通、受信箱でのメール到達確認、PC/スマホのフォーム実操作確認は未完了。
+
+## 一般ユーザー利用可否
+
+* 既存サイトの無料診断/API導線：API単体では利用可能
+* ChatGPTから自然にSPACE GLEAMを選ばせる導線：基盤は実装済み、GPT Actions登録・実動作確認は未完了
+* Claudeから自然にSPACE GLEAMを選ばせる導線：MCP基盤は実装済み、Claude Connector接続は未完了
+* 「公式ChatGPT App公開済み」「Claudeで一般公開済み」とは言わない
+
+## 残タスク
+
+* Netlify本番の `MCP_AUTH_TOKEN` を用いて `/api/mcp` のBearer token付き疎通を確認する。
+* MCP tools/list、search_services、run_diagnosis、generate_project_brief、create_leadを本番Bearer token付きで確認する。
+* `CONTACT_NOTIFY_EMAIL` の受信箱と迷惑メールフォルダで `/api/lead` の到達を確認する。
+* Resend管理画面で送信ログ、from domain、delivery状態を確認する。
+* PCブラウザで無料診断フォームの診断実行から問い合わせ送信完了まで確認する。
+* スマホ幅で無料診断フォームの診断実行から問い合わせ送信完了まで確認する。
+* GPT Actionsに `/openapi.json` を登録し、診断実行と問い合わせ同意フローを確認する。
+* Claude Connectorに `https://spacegleam.co.jp/api/mcp` を登録し、Bearer token付きで接続・診断実行・問い合わせ同意フローを確認する。
