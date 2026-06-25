@@ -287,3 +287,78 @@ C. まだ告知しない方がよい
 * `CONTACT_NOTIFY_EMAIL` へのメール実送信を確認する。
 * PC / スマホで既存無料診断フォームの送信完了まで確認する。
 * Claude Connectorは「未確認」のままにし、実接続できた時点でレポートを更新する。
+
+# 本番反映・疎通確認レポート
+
+## 確認日
+
+2026-06-25
+
+## 本番反映状況
+
+* 最新commit反映：PASS（`spacegleam/main` に `3fb74e08 fix: fail closed when MCP token is missing` までpush済み。API/llms/FAQの本番反映をHTTPで確認）
+* Netlify Functions認識：PASS（`/api/services`、`/api/diagnosis`、`/api/lead` が本番で応答）
+* netlify.toml反映：PASS（`/api/*` rewrite が本番で有効）
+* llms.txt反映：PASS（`MCP Endpoint`、`Diagnosis API` 記載を本番で確認）
+* faq.html反映：PASS（追加FAQ文言とFAQPage JSON-LD相当の文言を本番で確認）
+
+## API確認
+
+* GET `/api/services`：PASS（HTTP 200、JSON、12サービス）
+* POST `/api/diagnosis`：PASS（HTTP 200、診断項目、概算disclaimerあり）
+* POST `/api/lead`：PASS（HTTP 200、`status: success`）
+* POST `/api/mcp` tools/list：未確認（MCPは認証必須化済み。認証なしは401。Bearer token値がこの環境にないため成功確認は未実施）
+
+## メール確認
+
+* `RESEND_API_KEY`設定：PASS相当（`/api/lead` が `status: success` を返したためResend送信APIは通過）
+* `MAIL_FROM`設定：未確認（値は確認不可。未設定でもデフォルト値で送信される可能性あり）
+* `CONTACT_NOTIFY_EMAIL`設定：未確認（値は確認不可。未設定でも `contact@spacegleam.co.jp` に送信される可能性あり）
+* 実送信確認：未確認（APIはsuccess。受信箱での到達確認はこの環境から不可）
+
+## MCP確認
+
+* 認証なし401：PASS（本番 `/api/mcp` で `401 Unauthorized`、`WWW-Authenticate: Bearer`）
+* Bearer token成功：未確認（`MCP_AUTH_TOKEN` の値がこの環境にないため）
+* tools/list：未確認（Bearer token成功確認待ち）
+* search_services：未確認（Bearer token成功確認待ち）
+* run_diagnosis：未確認（Bearer token成功確認待ち）
+* generate_project_brief：未確認（Bearer token成功確認待ち）
+* create_lead consentConfirmed必須：PASS（ローカルで確認。本番はMCP認証後に再確認）
+
+## Claude接続
+
+* Claude Connector想定URL：記載あり（`https://spacegleam.co.jp/api/mcp`）
+* Claude実接続：未確認
+* 未確認の場合の理由：`MCP_AUTH_TOKEN` のBearer token値がこの環境にないため、Claude Connectorからの実接続確認は未実施。
+
+## ChatGPT Apps
+
+* Apps SDK対応準備：PASS（MCP tools整理済み、tool responseに `structuredContent` 相当あり）
+* 公式公開申請：未実施
+* 表現上の注意：
+  * 「公式ChatGPT App公開済み」とは書かない
+  * 「ChatGPT Apps対応を見据えたMCP基盤」と書く
+
+## 告知判定
+
+B. 「基盤実装」としてなら告知してよい
+
+判定理由：
+
+* 本番API `/api/services`、`/api/diagnosis`、`/api/lead` は疎通確認済み。
+* `llms.txt` と `faq.html` の本番反映は確認済み。
+* MCPは認証なし401まで確認済みで、公開状態で開いていない。
+* ただしBearer token付きMCP疎通、Claude Connector実接続、受信箱でのメール到達確認、PC/スマホでの無料診断フォーム実操作は未確認。
+
+## 安全な告知表現
+
+* ChatGPT / Claude / MCP時代に向けた受注導線の基盤を実装しました。
+* 既存の無料診断をAPI化し、AIエージェントから呼び出しやすい構成にしました。
+* LPやHPを、AIに読まれるだけでなく、診断・概算見積・問い合わせにつながる入口として整備しました。
+
+## 避けるべき表現
+
+* 公式ChatGPT Appとして公開しました。
+* Claudeに一般公開しました。
+* 完全自動で受注できます。
