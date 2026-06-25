@@ -296,7 +296,7 @@ async function createLead(input = {}, context = {}) {
 
 function bearerAuthorized(event) {
     const expected = clean(process.env.MCP_AUTH_TOKEN, 240);
-    if (!expected) return !process.env.NETLIFY && process.env.NODE_ENV !== 'production';
+    if (!expected) return false;
     const header = event.headers?.authorization || event.headers?.Authorization || '';
     const token = clean(header.replace(/^Bearer\s+/i, ''), 240);
     const tokenBuffer = Buffer.from(token);
