@@ -113,7 +113,7 @@
     P1: 'assets/diagnosis/p1.pdf', P2: 'assets/diagnosis/p2.pdf', P3: 'assets/diagnosis/p3.pdf',
     P4: 'assets/diagnosis/p4.pdf', P5: 'assets/diagnosis/p5.pdf', P6: 'assets/diagnosis/p6.pdf'
   };
-  var LEAD_ENDPOINT = '/.netlify/functions/diagnosis-lead';
+  var LEAD_ENDPOINT = '/api/lead';
   var EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
   /* ---------------- GA4 計測（gtag: G-1T9HP3BLMP） ---------------- */
@@ -745,7 +745,17 @@
       company: (form.company.value || '').trim(), name: (form.name.value || '').trim(),
       email: email, answers: answers, answersText: answersReadable(),
       assetUrl: location.origin + '/' + ASSET[key],
-      pageUrl: location.href, ts: new Date().toISOString()
+      pageUrl: location.href, ts: new Date().toISOString(),
+      projectType: p.name,
+      budgetRange: p.cost,
+      deadline: p.period,
+      source: 'website-diagnosis',
+      message: 'AI開発診断レポート希望\n診断タイプ: ' + p.name + '\n回答: ' + JSON.stringify(answersReadable()),
+      diagnosisResult: {
+        recommendedPlan: p.name,
+        priceRange: p.cost,
+        timeline: p.period
+      }
     };
     try { localStorage.setItem('diag_lead', JSON.stringify(lead)); } catch (e) {}
 
@@ -772,8 +782,8 @@
     fetch(LEAD_ENDPOINT, {
       method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(lead)
     })
-      .then(function (r) { return r.ok ? r.json() : { ok: false }; })
-      .then(function (d) { reveal(!!(d && d.ok), !!(d && d.attached)); })
+      .then(function (r) { return r.ok ? r.json() : { status: 'error' }; })
+      .then(function (d) { reveal(!!(d && (d.ok || d.status === 'success')), !!(d && d.attached)); })
       .catch(function () { reveal(false, false); });
   }
 

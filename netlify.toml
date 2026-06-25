@@ -7,6 +7,31 @@
   included_files = ["netlify/functions/blog-admin.template.html"]
 
 [[redirects]]
+  from = "/api/diagnosis"
+  to = "/.netlify/functions/diagnosis"
+  status = 200
+
+[[redirects]]
+  from = "/api/services"
+  to = "/.netlify/functions/services"
+  status = 200
+
+[[redirects]]
+  from = "/api/lead"
+  to = "/.netlify/functions/lead"
+  status = 200
+
+[[redirects]]
+  from = "/api/mcp"
+  to = "/.netlify/functions/mcp"
+  status = 200
+
+[[redirects]]
+  from = "/api/mcp/*"
+  to = "/.netlify/functions/mcp"
+  status = 200
+
+[[redirects]]
   from = "https://admin.spacegleam.co.jp/*"
   to = "/.netlify/functions/blog-admin"
   status = 200

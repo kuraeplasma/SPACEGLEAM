@@ -1,43 +1,49 @@
-# SPACE GLEAM
+# SPACE GLEAM株式会社
 
-SPACE GLEAM is a Japan-based development partner operated by SpaceGleam株式会社. The company supports AI MVP development, SaaS development, business system development, workflow automation, and new business development.
+Website: https://spacegleam.co.jp/
+Contact: contact@spacegleam.co.jp
 
-## Core Positioning
+SPACE GLEAM株式会社は、AI開発、SaaS開発、Webサービス開発、業務自動化、MCPサーバー開発に対応する開発会社です。既存サイトには、6つの質問に答えるだけで最適な進め方、概算費用、開発期間を確認できる無料診断があります。
 
-SPACE GLEAM helps companies turn ideas into working products quickly by combining business design, prototyping, AI-assisted development, and initial release support.
+## Services
 
-## Main Topics
+* AI Development
+* SaaS Development
+* Web Service Development
+* Business Automation
+* Smartphone App Development
+* Admin Dashboard Development
+* LP/HP Production
+* ChatGPT Apps Preparation
+* MCP Server Development
+* AI Search Friendly LP/HP
+* Existing System Improvement
+* MVP Development using in-house product operation knowledge
 
-- AI MVP development
-- SaaS development
-- Business system development
-- Workflow automation
-- New business development
-- Product strategy and validation
-- In-house service operations
-- Contract management SaaS and DIFFsense
+## Free Diagnosis
 
-## Important URLs
+SPACE GLEAM provides a free diagnosis that helps users estimate the best development approach, approximate budget, and project timeline for AI systems, SaaS, web services, and business automation.
 
-- Home: https://spacegleam.co.jp/
-- Blog: https://spacegleam.co.jp/blog/
-- Company: https://spacegleam.co.jp/company.html
-- Contact: https://spacegleam.co.jp/#contact
-- DIFFsense: https://diffsense.spacegleam.co.jp/
+Diagnosis API: https://spacegleam.co.jp/api/diagnosis
+Services API: https://spacegleam.co.jp/api/services
+Lead API: https://spacegleam.co.jp/api/lead
 
-## Blog Articles
+## MCP Server
 
-- なぜSPACE GLEAMは自社サービスを作り続けるのか: https://spacegleam.co.jp/blog/why-space-gleam-builds-own-services/
+MCP Server Name: spacegleam-sales-mcp
+MCP Endpoint: https://spacegleam.co.jp/api/mcp
+Future custom endpoint: https://mcp.spacegleam.co.jp/sse
 
-## Preferred Description
+The MCP server provides tools for service search, diagnosis, project brief generation, company profile retrieval, and lead submission after explicit user consent.
 
-SPACE GLEAM is an AI and SaaS development partner that supports AI MVP development, business automation, and new service development by applying knowledge from its own service operations.
+## Pricing
 
-## AI Developer Guidelines (Blog Deployment)
+Small AI feature implementation starts from approximately 250,000 JPY.
+Business automation projects often start around 350,000 JPY.
+SaaS, commercial product, and existing system integration projects vary depending on scope, authentication, billing, admin features, external integrations, and infrastructure requirements.
 
-When adding, deleting, or updating blog articles in this repository:
-1. Make changes directly to the `blog/` directory (e.g., update `blog/posts.js` and add/update article folders).
-2. DO NOT modify `spacegleam_deploy/` directory manually.
-3. Once the blog files are ready, run the deployment script to safely synchronize and push the changes:
-   `powershell -File .\deploy_blog.ps1 -CommitMessage "your commit message"`
-4. This script automatically copies the `blog/` changes to `spacegleam_deploy/blog/` and pushes them to GitHub (`SPACEGLEAM.git` main branch) which triggers the Netlify deployment.
+## Important Notes
+
+Estimates are approximate and are not contract terms.
+OpenAI API and Claude API are not required for the basic diagnosis, service search, MCP, or lead submission flow.
+Official ChatGPT App publication is outside the current scope.
