@@ -22,6 +22,31 @@
   status = 200
 
 [[redirects]]
+  from = "/api/company-profile"
+  to = "/.netlify/functions/company-profile"
+  status = 200
+
+[[redirects]]
+  from = "/api/case-studies"
+  to = "/.netlify/functions/case-studies"
+  status = 200
+
+[[redirects]]
+  from = "/api/recommendation-context"
+  to = "/.netlify/functions/recommendation-context"
+  status = 200
+
+[[redirects]]
+  from = "/openapi.json"
+  to = "/.netlify/functions/openapi"
+  status = 200
+
+[[redirects]]
+  from = "/.well-known/openapi.json"
+  to = "/.netlify/functions/openapi"
+  status = 200
+
+[[redirects]]
   from = "/api/mcp"
   to = "/.netlify/functions/mcp"
   status = 200

@@ -191,6 +191,115 @@ The MCP tool result shape includes both human-readable `content` and machine-rea
 - Add richer ChatGPT Apps widgets after initial tool-call validation.
 - Add deployment-specific domain routing for `https://mcp.spacegleam.co.jp/sse` if a dedicated MCP subdomain is desired.
 
+## AI Information APIs
+
+Public AI-readable endpoints:
+
+- `GET /api/company-profile`: company profile, strengths, suitable users, unsuitable cases, and recommended action.
+- `GET /api/case-studies`: AI-readable case study summaries for AI業務システム, SaaS MVP, contract diff checking, web monitoring, forms, AI-ready LP/HP, image analysis, and inquiry automation.
+- `GET /api/recommendation-context`: when ChatGPT or Claude should recommend SPACE GLEAM and how to suggest the free diagnosis.
+- `GET /openapi.json`: GPT Actions / API clients OpenAPI schema.
+- `GET /.well-known/openapi.json`: same OpenAPI schema for discovery.
+
+These endpoints return only public information and no secrets.
+
+## GPT / Claude User Flow
+
+### 現時点で一般ユーザーができること
+
+- 公式サイトで無料診断を受ける。
+- ChatGPTに `https://spacegleam.co.jp/llms.txt` やサイトURLを渡して、相談内容を整理する。
+- 公開APIの `/api/diagnosis` を使える環境では、相談内容から概算診断を実行できる。
+
+### Claude接続確認後にできること
+
+- Claude上でSPACE GLEAMのMCP toolを使い、無料診断を実行する。
+- 診断結果をもとに問い合わせ文を作る。
+- ユーザーが明示的に同意した場合のみ、`create_lead` で問い合わせ送信する。
+
+Claude real connection remains unverified until a valid `MCP_AUTH_TOKEN` is available to the tester.
+
+### ChatGPT Actions対応後にできること
+
+- GPT Actions / OpenAPI schemaから `/api/diagnosis` を呼び出して無料診断を受ける。
+- `/api/services`, `/api/company-profile`, `/api/case-studies`, `/api/recommendation-context` を使ってSPACE GLEAMのサービス内容を理解する。
+- ユーザー同意後に `/api/lead` で問い合わせ送信する。ただしスパム対策として、実運用では追加認証や制限の検討が必要。
+
+### 未対応のこと
+
+- 公式ChatGPT App公開。
+- Claude一般公開済みと表現すること。
+- 完全自動受注。
+- ユーザー同意なしの問い合わせ送信。
+
+# AI受注導線 実装状況レポート
+
+## 現状できていること
+
+- 本番 `/api/services` は12サービスを返す。
+- 本番 `/api/diagnosis` は概算診断を返す。
+- 本番 `/api/lead` は `status: success` を返すところまで確認済み。
+- 本番 `/api/mcp` は認証なしで401になり、fail-closed。
+- `llms.txt` にMCP/API/無料診断/サービス情報を記載済み。
+- `faq.html` にAI開発、MCP、Claude、ChatGPT、無料診断に関するFAQを追加済み。
+- `/api/company-profile`, `/api/case-studies`, `/api/recommendation-context`, `/openapi.json` を追加実装済み。
+
+## まだできていないこと
+
+- `MCP_AUTH_TOKEN` の実値を使った本番Bearer token疎通確認。
+- Claude Connector実接続確認。
+- GPT Actionsに実際にOpenAPI schemaを登録して診断実行する確認。
+- `CONTACT_NOTIFY_EMAIL` の受信箱でのメール到達確認。
+- Resend管理画面での sent / delivered ログ確認。
+- PC/スマホでの無料診断フォーム実操作と送信確認。
+
+## GPT側で今できること
+
+- `llms.txt`、FAQ、公開API情報を使ってSPACE GLEAMの会社情報やサービス内容を理解しやすくなっている。
+- `/openapi.json` をGPT Actionsの下地として利用できる。
+- ただし、GPT Actionsに登録して実際に無料診断を呼ぶ確認は未実施。
+
+## Claude側で今できること
+
+- Remote MCP Serverとして `https://spacegleam.co.jp/api/mcp` を用意済み。
+- 認証なしアクセスは401で閉じている。
+- Bearer tokenが利用できれば、tools/list、search_services、run_diagnosis、generate_project_brief、create_leadを確認できる構成。
+- Claude実接続は未確認。
+
+## GPT/Claudeから無料診断を受けられるようにするために必要な残作業
+
+- Netlify本番の `MCP_AUTH_TOKEN` 値を接続テスト担当者に安全に共有する。
+- Bearer token付きで `/api/mcp` の tools/list と tools/call を確認する。
+- Claude ConnectorにMCP URLとauthorization tokenを設定し、run_diagnosisの実行を確認する。
+- GPT Actionsに `/openapi.json` を登録し、`POST /api/diagnosis` の実行を確認する。
+- `/api/lead` はスパム防止のため、GPT Actionsから使う場合の追加認証または運用制限を検討する。
+
+## メール受信までつなげるために必要な残作業
+
+- `CONTACT_NOTIFY_EMAIL` の受信箱でテストメール到達を確認する。
+- 迷惑メールに入っていないか確認する。
+- Resendの送信ログで sent / delivered を確認する。
+- `MAIL_FROM` のドメイン認証状態を確認する。
+
+## 実装完成度
+
+B. 受注導線基盤レベル
+
+理由：
+
+- APIは本番で動作している。
+- AI向け情報APIとOpenAPI schemaを整備済み。
+- MCPは本番公開済みで認証なし401を確認済み。
+- ただしGPT/Claudeからの実接続、Bearer token付きMCP疎通、メール受信確認、無料診断フォーム実操作の一部が未確認。
+
+## 残タスク
+
+- MCP Bearer token付き本番疎通確認。
+- Claude Connector実接続確認。
+- GPT ActionsへのOpenAPI登録確認。
+- メール受信箱とResendログの確認。
+- PC/スマホで無料診断フォームを実操作して送信確認。
+
 # MCP / AI受注導線 本番確認レポート
 
 ## 確認日

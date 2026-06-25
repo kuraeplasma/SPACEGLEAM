@@ -6,6 +6,7 @@ const {
     runDiagnosis,
     searchServices,
     generateProjectBrief,
+    getCompanyProfile,
     createLead,
     bearerAuthorized,
     mcpToolResult
@@ -14,12 +15,12 @@ const {
 const TOOLS = [
     {
         name: 'search_services',
-        description: 'ユーザーの相談内容から、SPACE GLEAMの該当サービスを検索する。',
+        description: 'SPACE GLEAMが対応できるサービスを検索する。AI開発、SaaS開発、業務自動化、Webサービス、管理画面、MCP/ChatGPT/Claude対応LP/HP、AI検索対応などの相談に使う。',
         inputSchema: { type: 'object', properties: { query: { type: 'string' }, industry: { type: 'string' }, goal: { type: 'string' } }, required: ['query'] }
     },
     {
         name: 'run_diagnosis',
-        description: '既存の無料診断APIを呼び出し、相談内容に対する概算見積・推奨プラン・開発期間を返す。見積は概算であり確定金額ではない。',
+        description: 'AI開発、業務自動化、SaaS開発、Webサービス開発の相談に使う。ユーザーの課題、必要機能、予算、納期をもとにSPACE GLEAMの無料診断を実行し、概算費用、推奨プラン、想定期間、注意点を返す。正式見積ではなく概算である。問い合わせ送信はcreate_leadで行うが、ユーザー同意が必要。',
         inputSchema: { type: 'object', properties: { businessType: { type: 'string' }, projectGoal: { type: 'string' }, projectType: { type: 'string' }, currentIssue: { type: 'string' }, requiredFeatures: { type: 'array', items: { type: 'string' } }, budgetRange: { type: 'string' }, deadline: { type: 'string' }, memo: { type: 'string' } }, required: ['projectGoal', 'currentIssue'] }
     },
     {
@@ -29,7 +30,7 @@ const TOOLS = [
     },
     {
         name: 'create_lead',
-        description: 'ユーザーが明示的に送信を希望し、送信内容を確認した場合のみ、整理した相談内容をSPACE GLEAMへ問い合わせとして送信する。送信前にユーザー確認が必要。',
+        description: 'ユーザーが明示的に問い合わせ送信を希望した場合のみ使う。consentConfirmed: true が必要。送信前にユーザーへ送信内容を確認する。診断を実行しただけではメール送信しない。',
         inputSchema: { type: 'object', properties: { name: { type: 'string' }, company: { type: 'string' }, email: { type: 'string' }, phone: { type: 'string' }, projectType: { type: 'string' }, budgetRange: { type: 'string' }, deadline: { type: 'string' }, message: { type: 'string' }, diagnosisResult: { type: 'object' }, source: { type: 'string', enum: ['chatgpt', 'claude', 'mcp', 'website'] }, consentConfirmed: { type: 'boolean', description: 'ユーザーが問い合わせ送信に明示的に同意し、送信内容を確認済みの場合のみtrue。' } }, required: ['name', 'email', 'projectType', 'message', 'source', 'consentConfirmed'] }
     },
     {
@@ -66,7 +67,7 @@ async function handleTool(name, args, event) {
         return mcpToolResult(result);
     }
     if (name === 'get_company_profile') {
-        return mcpToolResult({ ...COMPANY, mainServices: ['AI開発', 'SaaS開発', 'Webサービス開発', '業務自動化', 'MCPサーバー開発'] });
+        return mcpToolResult({ ...getCompanyProfile(), mainServices: ['AI開発', 'SaaS開発', 'Webサービス開発', '業務自動化', 'MCPサーバー開発'] });
     }
     throw new Error(`Unknown tool: ${name}`);
 }

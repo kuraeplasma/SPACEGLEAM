@@ -2,7 +2,7 @@
   "name": "xdraft-functions",
   "version": "1.0.0",
   "scripts": {
-    "build": "node --check diagnosis.js && node --check script.js && node --check netlify/functions/_spacegleam-core.js && node --check netlify/functions/diagnosis.js && node --check netlify/functions/services.js && node --check netlify/functions/lead.js && node --check netlify/functions/diagnosis-lead.js && node --check netlify/functions/mcp.js",
+    "build": "node --check diagnosis.js && node --check script.js && node --check netlify/functions/_spacegleam-core.js && node --check netlify/functions/diagnosis.js && node --check netlify/functions/services.js && node --check netlify/functions/lead.js && node --check netlify/functions/company-profile.js && node --check netlify/functions/case-studies.js && node --check netlify/functions/recommendation-context.js && node --check netlify/functions/openapi.js && node --check netlify/functions/diagnosis-lead.js && node --check netlify/functions/mcp.js",
     "check": "npm run build"
   },
   "dependencies": {
