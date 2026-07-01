@@ -1,5 +1,17 @@
 window.SPACEGLEAM_BLOG_POSTS = [
     {
+        slug: 'ai-era-business-judgment',
+        title: 'AI時代に企業が失うものは「情報」ではなく「判断力」かもしれない',
+        date: '2026-06-21',
+        publishAt: '2026-06-21T00:00:00+09:00',
+        status: 'published',
+        category: 'Business',
+        description: 'AIが情報収集や分析を担う時代、企業にとって本当に重要なのは「情報を持っているか」ではなく「判断できるか」です。本記事では、AI時代に企業が見落としがちな判断力の重要性と、それをどう守り育てるかについて解説します。',
+        excerpt: 'AIが情報収集や分析を担う時代、企業にとって本当に重要なのは「情報を持っているか」ではなく「判断できるか」です。AI時代に企業が見落としがちな判断力の重要性について解説します。',
+        url: 'https://spacegleam.co.jp/blog/ai-era-business-judgment/',
+        thumbnail: '/blog/ai-era-business-judgment/card.webp'
+    },
+    {
         slug: 'ai-small-team-productivity',
         title: 'AIを使う会社は、なぜ少ない人数でも仕事が進むのか？',
         date: '2026-06-20',
@@ -156,6 +168,7 @@ window.SPACEGLEAM_BLOG_POSTS = [
         thumbnail: '/blog/assets/nce9566eed6ea_card.webp'
     }
 ];
+
 
 
 
