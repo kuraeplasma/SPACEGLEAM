@@ -237,7 +237,7 @@
             </nav>
 
             <div class="header-ctas">
-                <a href="/index.html#contact" class="header-cta">無料相談する<span class="arrow">→</span></a>
+                <a href="/index.html#contact" class="header-cta">AI開発について相談する<span class="arrow">→</span></a>
             </div>
         </div>
     </header>

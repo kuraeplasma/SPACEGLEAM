@@ -1,5 +1,65 @@
 window.SPACEGLEAM_BLOG_POSTS = [
     {
+        slug: 'ai-adoption-failed-fix',
+        title: '「AIを導入したが、社内に浸透しない」という失敗を防ぐ、AI定着のための4つのステップ',
+        date: '2026-07-06',
+        publishAt: '2026-07-06T10:00:00+09:00',
+        status: 'published',
+        category: 'Business',
+        description: 'AIツールを導入したものの、社内で活用が進まない企業は少なくありません。定着を阻む「3つの壁」と、それを乗り越えて業務改善に繋げるための4つの実践的ステップについて解説します。',
+        excerpt: 'AIツールを導入したものの、社内で活用が進まない企業は少なくありません。定着を阻む「3つの壁」と、それを乗り越えて業務改善に繋げるための4つの実践的ステップについて解説します。',
+        url: 'https://spacegleam.co.jp/blog/ai-adoption-failed-fix/',
+        thumbnail: '/blog/ai-adoption-failed-fix/card.webp'
+    },
+    {
+        slug: 'custom-crm-sfa-versus-saas',
+        title: 'Excelや汎用SaaSの限界。独自業務に合わせた「自社専用AIシステム」へ移行する判断基準',
+        date: '2026-07-05',
+        publishAt: '2026-07-05T10:00:00+09:00',
+        status: 'published',
+        category: 'Business',
+        description: '高額なSaaSを導入しても、結局Excelでの運用に戻ってしまう企業は多いです。汎用SaaSの限界と、生成AI時代に「自社専用の業務システム」をカスタム開発すべき判断基準を解説します。',
+        excerpt: '高額なSaaSを導入しても、結局Excelでの運用に戻ってしまう企業は多いです。汎用SaaSの限界と、生成AI時代に「自社専用の業務システム」をカスタム開発すべき判断基準を解説します。',
+        url: 'https://spacegleam.co.jp/blog/custom-crm-sfa-versus-saas/',
+        thumbnail: '/blog/custom-crm-sfa-versus-saas/card.webp'
+    },
+    {
+        slug: 'ai-development-security-guide',
+        title: '「API経由のデータは学習されない」は本当？企業が生成AIシステムを開発する際に知っておくべきセキュリティと情報管理の基本',
+        date: '2026-07-04',
+        publishAt: '2026-07-04T10:00:00+09:00',
+        status: 'published',
+        category: 'Development',
+        description: '「社内データや顧客情報が漏洩するのではないか」という不安からAI開発に踏み切れない企業向けに、ChatGPT等のAPI接続のデータ処理の真実と、安全なシステム設計手法を分かりやすく解説します。',
+        excerpt: '「社内データや顧客情報が漏洩するのではないか」という不安からAI開発に踏み切れない企業向けに、API接続のデータ処理の真実と、安全なシステム設計手法を分かりやすく解説します。',
+        url: 'https://spacegleam.co.jp/blog/ai-development-security-guide/',
+        thumbnail: '/blog/ai-development-security-guide/card.webp'
+    },
+    {
+        slug: 'ai-product-mvp-value',
+        title: '“AIを載せただけ”にならない新規事業の設計方法。失敗するサービスと、真の顧客価値を生むプロダクトの違い',
+        date: '2026-07-03',
+        publishAt: '2026-07-03T10:00:00+09:00',
+        status: 'published',
+        category: 'Product',
+        description: 'AIブームの中で「AI搭載」を謳うも使われないサービスが増えています。新規事業を成功させるために、AIありきではなく顧客課題から逆算するMVP（最小限の製品）開発の正しいアプローチを解説します。',
+        excerpt: 'AIブームの中で「AI搭載」を謳うも使われないサービスが増えています。新規事業を成功させるために、AIありきではなく顧客課題から逆算するMVP開発の正しいアプローチを解説します。',
+        url: 'https://spacegleam.co.jp/blog/ai-product-mvp-value/',
+        thumbnail: '/blog/ai-product-mvp-value/card.webp'
+    },
+    {
+        slug: 'how-to-write-ai-rfp',
+        title: '失敗しない「AIシステム開発」のRFP（提案依頼書）の書き方と、開発会社を見極める3つのポイント',
+        date: '2026-07-02',
+        publishAt: '2026-07-02T10:00:00+09:00',
+        status: 'published',
+        category: 'Business',
+        description: 'AIシステム外注の成否は「RFP（提案依頼書）」の書き方で決まります。精度やデータの定義などAI開発特有の書き方と、開発会社の提案・見積もりを比較する際の重要なチェックポイントを解説します。',
+        excerpt: 'AIシステム外注の成否は「RFP（提案依頼書）」の書き方で決まります。精度やデータの定義などAI開発特有の書き方と、開発会社の提案・見積もりを比較する際の重要なチェックポイントを解説します。',
+        url: 'https://spacegleam.co.jp/blog/how-to-write-ai-rfp/',
+        thumbnail: '/blog/how-to-write-ai-rfp/card.webp'
+    },
+    {
         slug: 'ai-era-business-judgment',
         title: 'AI時代に企業が失うものは「情報」ではなく「判断力」かもしれない',
         date: '2026-06-21',

@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-1T9HP3BLMP"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'G-1T9HP3BLMP');
+    </script>
+    <title>「API経由のデータは学習されない」は本当？企業が生成AIシステムを開発する際に知っておくべきセキュリティと情報管理の基本 | SPACE GLEAM</title>
+    <meta name="description" content="「社内データや顧客情報が漏洩するのではないか」という不安からAI開発に踏み切れない企業向けに、ChatGPT等のAPI接続のデータ処理の真実と、安全なシステム設計手法を分かりやすく解説します。">
+    <link rel="canonical" href="https://spacegleam.co.jp/blog/ai-development-security-guide/">
+    <link rel="icon" href="../../favicon.png">
+    <link rel="stylesheet" href="../../style.css?v=blog-grid-20260608-v1">
+    <meta property="og:type" content="article">
+    <meta property="og:title" content="「API経由のデータは学習されない」は本当？企業が生成AIシステムを開発する際に知っておくべきセキュリティと情報管理の基本">
+    <meta property="og:description" content="「社内データや顧客情報が漏洩するのではないか」という不安からAI開発に踏み切れない企業向けに、ChatGPT等のAPI接続のデータ処理の真実と、安全なシステム設計手法を分かりやすく解説します。">
+    <meta property="og:url" content="https://spacegleam.co.jp/blog/ai-development-security-guide/">
+    <meta property="og:site_name" content="SPACE GLEAM">
+    <meta property="og:image" content="https://spacegleam.co.jp/blog/ai-development-security-guide/ogp.webp">
+    <meta property="og:image:secure_url" content="https://spacegleam.co.jp/blog/ai-development-security-guide/ogp.webp">
+    <meta property="og:image:type" content="image/webp">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:image" content="https://spacegleam.co.jp/blog/ai-development-security-guide/ogp.webp">
+    <script type="application/ld+json">
+        {
+            "@context": "https://schema.org",
+            "@type": "Article",
+            "headline": "「API経由 of データは学習されない」は本当？企業が生成AIシステムを開発する際に知っておくべきセキュリティと情報管理の基本",
+            "description": "「社内データや顧客情報が漏洩するのではないか」という不安からAI開発に踏み切れない企業向けに、ChatGPT等のAPI接続のデータ処理の真実と、安全なシステム設計手法を分かりやすく解説します。",
+            "datePublished": "2026-07-04",
+            "dateModified": "2026-07-04",
+            "author": {
+                "@type": "Organization",
+                "name": "SPACE GLEAM"
+            },
+            "publisher": {
+                "@type": "Organization",
+                "name": "SPACE GLEAM",
+                "logo": {
+                    "@type": "ImageObject",
+                    "url": "https://spacegleam.co.jp/favicon.png"
+                }
+            },
+            "mainEntityOfPage": "https://spacegleam.co.jp/blog/ai-development-security-guide/",
+            "image": "https://spacegleam.co.jp/blog/ai-development-security-guide/ogp.webp",
+            "articleSection": "Development"
+        }
+    </script>
+</head>
+
+<body class="blog-page-body" data-article-slug="ai-development-security-guide">
+    <div class="site-bg" aria-hidden="true"></div>
+
+    <header class="header">
+        <div class="container header-inner">
+            <a href="../../index.html" class="brand" aria-label="SPACE GLEAM ホーム">
+                <span class="brand-name">SPACE GLEAM</span>
+            </a>
+            <button class="nav-toggle" type="button" aria-label="メニューを開く" aria-controls="global-nav" aria-expanded="false">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+            <nav id="global-nav" class="nav" aria-label="グローバルナビゲーション">
+                <a href="../../services.html">AI プロダクト開発</a>
+                <a href="../../pricing.html">料金</a>
+                <a href="../../works.html">実績</a>
+                <a href="../../faq.html">FAQ</a>
+                <a href="../index.html">Blog</a>
+            </nav>
+            <div class="header-ctas">
+                <a href="../../index.html#contact" class="header-cta">AI開発について相談する<span class="arrow">→</span></a>
+            </div>
+        </div>
+    </header>
+
+    <main class="blog-main">
+        <div class="container">
+            <article>
+                <header class="article-header">
+                    <div class="article-meta">
+                        <time datetime="2026-07-04">2026年7月4日</time>
+                        <span class="article-category">Development</span>
+                    </div>
+                    <h1>「API経由のデータは学習されない」は本当？企業が生成AIシステムを開発する際に知っておくべきセキュリティと情報管理の基本</h1>
+                    <p class="article-lead">「ChatGPTを業務で使いたいけれど、社内データや顧客の個人情報がAIモデルに学習されて漏洩しないか心配だ」。これは、多くの企業のIT部門や法務・セキュリティ担当者から寄せられる最大の懸念です。本記事では、主要なAIプロバイダーのデータ取扱ポリシーの真実と、企業がAIシステムを安全に開発・運用するための基本について分かりやすく解説します。</p>
+                </header>
+
+                <div class="article-share" aria-label="記事を共有">
+                    <button type="button" class="article-share-icon is-x" aria-label="Xでシェア" title="Xでシェア" data-share data-share-title="「API経由のデータは学習されない」は本当？企業が生成AIシステムを開発する際に知っておくべきセキュリティと情報管理の基本" data-share-url="https://spacegleam.co.jp/blog/ai-development-security-guide/">
+                        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24h-6.657l-5.214-6.817-5.966 6.817H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231Zm-1.161 17.52h1.833L7.084 4.126H5.117Z"></path></svg>
+                    </button>
+                    <a href="mailto:?subject=%E3%80%8CAPI%E7%B5%8C%E7%94%B1%E3%81%AE%E3%83%87%E3%83%BC%E3%82%BF%E3%81%AF%E5%AD%A6%E7%BF%92%E3%81%95%E3%82%8C%E3%81%AA%E3%81%84%E3%80%8D%E3%81%AF%E6%9C%AC%E5%BD%93%EF%BC%9F%E4%BC%81%E6%A5%AD%E3%81%8C%E7%94%9F%E6%88%90AI%E3%82%B7%E3%82%B9%E3%83%86%E3%83%A0%E3%82%92%E9%96%8B%E7%99%BA%E3%81%99%E3%82%8B%E9%9A%9B%E3%81%AB%E7%9F%A5%E3%81%A3%E3%81%A6%E3%81%8A%E3%81%8F%E3%81%B9%E3%81%8D%E3%82%BB%E3%82%AD%E3%83%A5%E3%83%AA%E3%83%86%E3%82%A3%E3%81%A8%E6%83%85%E5%A0%B1%E7%AE%A1%E7%90%86%E3%81%AE%E5%9F%BA%E6%9C%AC&body=https%3A//spacegleam.co.jp/blog/ai-development-security-guide/" class="article-share-icon is-mail" aria-label="メールでシェア" title="メールでシェア">
+                        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 5h16a2 2 0 0 1 2 2v10a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V7a2 2 0 0 1 2-2Zm0 2v.4l8 5.15 8-5.15V7H4Zm0 2.78V17h16V9.78l-8 5.15-8-5.15Z"></path></svg>
+                    </a>
+                    <button type="button" class="article-share-icon" aria-label="URLをコピー" title="URLをコピー" data-copy-url="https://spacegleam.co.jp/blog/ai-development-security-guide/">
+                        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 9.5A1.5 1.5 0 0 1 10.5 8h8A1.5 1.5 0 0 1 20 9.5v8A1.5 1.5 0 0 1 18.5 19h-8A1.5 1.5 0 0 1 9 17.5v-8Z"></path><path d="M6 15H5.5A1.5 1.5 0 0 1 4 13.5v-8A1.5 1.5 0 0 1 5.5 4h8A1.5 1.5 0 0 1 15 5.5V6"></path></svg>
+                    </button>
+                </div>
+
+                <div class="article-content">
+                    <p>生成AI（LLM）の導入を進める上で、法務部やIT部門が最も目を光らせるのが「セキュリティ」と「情報管理」です。<br>
+                    特に顧客のデータや競合優位性に関わる独自の機密情報を扱う場合、情報漏洩は企業の信頼に直結する死活問題となります。</p>
+                    <p>よく「APIを使っていれば学習されないから安全だ」と言われますが、これは本当でしょうか。結論から言えば、<strong>半分正解で、半分はさらなる対策が必要</strong>です。AI開発におけるセキュリティの真実を解説します。</p>
+
+                    <h2>「Webチャット」と「API接続」でのデータ処理の違い</h2>
+                    <p>一般的に普及している「Webブラウザから使うChatGPTやClaude（無料版や標準的な有料個人アカウント）」と、プログラム経由で繋ぐ「API接続」では、送信されたデータの取り扱いポリシーが根本的に異なります。</p>
+
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>接続方法</th>
+                                <th>送信データのAIモデル学習</th>
+                                <th>主な用途</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Webチャット（通常設定）</td>
+                                <td>原則として学習に使用される（※オプトアウト設定をしていない場合）</td>
+                                <td>個人利用、一般的なリサーチや文章執筆など</td>
+                            </tr>
+                            <tr>
+                                <td>API接続（OpenAI / Anthropic等）</td>
+                                <td>原則として学習に使用されない（オプトアウト標準）</td>
+                                <td>自社アプリ開発、業務システムのAI機能など</td>
+                            </tr>
+                        </tbody>
+                    </table>
+
+                    <p>OpenAI社やAnthropic社、Google社などの主要プラットフォームは、開発者向けの「API」を通じて送られたデータを、基本モデルの再学習には使用しないと利用規約で明記しています。したがって、「APIを用いた社内AIシステム」を開発している場合、自社の入力データが競合他社のAI回答に使われてしまう、といったリスクは回避できます。</p>
+                    <p>しかし、これだけで「セキュリティは万全」と言い切ることはできません。プロバイダー側のデータ保存期間（不正監視目的で30日間サーバーに一時保存される等）があるため、社内ポリシーによっては別の安全策を講じる必要があります。</p>
+
+                    <hr>
+
+                    <h2>企業が取るべき3つのセキュリティ設計</h2>
+                    <p>社内のセキュリティ承認を通し、安全に運用するために開発側が実装すべき主要なアプローチは以下の3点です。</p>
+
+                    <h3>1. Azure OpenAIやVertex AIなどのエンタープライズ向けクラウド環境の利用</h3>
+                    <p>最も信頼性が高いのは、Microsoft（Azure）やGoogle（Google Cloud）が提供するエンタープライズ向けのAIゲートウェイを通すことです。<br>
+                    これらを利用すると、入力データは完全に自社のテナント（クラウド領域）内に閉じ込められ、第三者のアクセスはもちろん、AIプロバイダー側の不正監視目的の一時保存さえもオプトアウトできます。セキュリティ基準が極めて厳しい金融機関や大企業でも導入可能な標準構成です。</p>
+
+                    <h3>2. 個人情報・機密情報の自動検知・マスキング（前処理フィルター）</h3>
+                    <p>システムの入力フォームとAIのAPIの間に「セキュリティフィルター」を挟みます。<br>
+                    ユーザーがメールアドレスや電話番号、個人名などを誤って入力した場合に、プログラムがそれを検知して「[MASKED_EMAIL]」などの仮の文字列に置換してからAIに送信し、AIの返答を元に戻して画面に表示する仕組みです。これにより、万が一プラットフォーム側にデータが保存されたとしても、個人情報が流出することはありません。</p>
+
+                    <h3>3. ログの可視化と管理者監視</h3>
+                    <p>社内のユーザーが「いつ、どのようなプロンプトを入力し、AIがどう回答したか」のアクセスログをシステム内に保存し、監査可能にしておきます。これにより、不正な利用を抑止すると同時に、セキュリティ上の懸念が生じた際に迅速に調査できる体制を整えます。</p>
+
+                    <h2>セキュリティと使い勝手を両立する</h2>
+                    <p>セキュリティを厳しくしすぎると、今度は「使いづらい」「社外からアクセスできない」といった不満が現場から噴出し、結局こっそりと個人のスマホでChatGPTを使う（シャドーIT）といった状況を生み出してしまいます。</p>
+                    <p>大切なのは、ガチガチの規制をかけることではなく、システムデザインの力で「普通に使っているだけで、自動的に安全が担保される」環境を作ることです。</p>
+
+                    <h2>SPACE GLEAMのセキュリティ基準</h2>
+                    <p>私たちSPACE GLEAMは、ただ動くシステムを作るだけでなく、企業の機密情報を守るためのインフラ・ネットワーク設計、データ暗号化、APIのプライバシー管理を含めて開発を行います。</p>
+                    <p>「自社のセキュリティポリシーに合致するシステム構成を提案してほしい」「まずはローカル環境や専用クラウドで試したい」という開発担当者・IT部門の方は、ぜひ当社の開発サービスへご相談ください。</p>
+                </div>
+            </article>
+
+            <div class="article-cta">
+                <div>
+                    <strong>安全なAI開発・情報管理のご相談はこちら</strong>
+                    <p>貴社の社内ポリシーや業界基準に合わせた、セキュリティ重視のAIシステム設計をご提案します。</p>
+                </div>
+                <a href="../../contact.html" target="_blank" rel="noopener noreferrer">問い合わせる</a>
+            </div>
+
+            <div class="article-share article-share-bottom" aria-label="記事を共有">
+                <button type="button" class="article-share-icon is-x" aria-label="Xでシェア" title="Xでシェア" data-share data-share-title="「API経由のデータは学習されない」は本当？企業が生成AIシステムを開発する際に知っておくべきセキュリティと情報管理の基本" data-share-url="https://spacegleam.co.jp/blog/ai-development-security-guide/">
+                    <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24h-6.657l-5.214-6.817-5.966 6.817H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231Zm-1.161 17.52h1.833L7.084 4.126H5.117Z"></path></svg>
+                </button>
+                <a href="mailto:?subject=%E3%80%8CAPI%E7%B5%8C%E7%94%B1%E3%81%AE%E3%83%87%E3%83%BC%E3%82%BF%E3%81%AF%E5%AD%A6%E7%BF%92%E3%81%95%E3%82%8C%E3%81%AA%E3%81%84%E3%80%8D%E3%81%AF%E6%9C%AC%E5%BD%93%EF%BC%9F%E4%BC%81%E6%A5%AD%E3%81%8C%E7%94%9F%E6%88%90AI%E3%82%B7%E3%82%B9%E3%83%86%E3%83%A0%E3%82%92%E9%96%8B%E7%99%BA%E3%81%99%E3%82%8B%E9%9A%9B%E3%81%AB%E7%9F%A5%E3%81%A3%E3%81%A6%E3%81%8A%E3%81%8F%E3%81%B9%E3%81%8D%E3%82%BB%E3%82%AD%E3%83%A5%E3%83%AA%E3%83%86%E3%82%A3%E3%81%A8%E6%83%85%E5%A0%B1%E7%AE%A1%E7%90%86%E3%81%AE%E5%9F%BA%E6%9C%AC&body=https%3A//spacegleam.co.jp/blog/ai-development-security-guide/" class="article-share-icon is-mail" aria-label="メールでシェア" title="メールでシェア">
+                    <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 5h16a2 2 0 0 1 2 2v10a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V7a2 2 0 0 1 2-2Zm0 2v.4l8 5.15 8-5.15V7H4Zm0 2.78V17h16V9.78l-8 5.15-8-5.15Z"></path></svg>
+                </a>
+                <button type="button" class="article-share-icon" aria-label="URLをコピー" title="URLをコピー" data-copy-url="https://spacegleam.co.jp/blog/ai-development-security-guide/">
+                    <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 9.5A1.5 1.5 0 0 1 10.5 8h8A1.5 1.5 0 0 1 20 9.5v8A1.5 1.5 0 0 1 18.5 19h-8A1.5 1.5 0 0 1 9 17.5v-8Z"></path><path d="M6 15H5.5A1.5 1.5 0 0 1 4 13.5v-8A1.5 1.5 0 0 1 5.5 4h8A1.5 1.5 0 0 1 15 5.5V6"></path></svg>
+                </button>
+            </div>
+
+            <div class="article-nav">
+                <a href="../index.html" class="article-nav-back">一覧に戻る</a>
+            </div>
+        </div>
+    </main>
+
+    <footer class="footer">
+        <div class="container footer-top">
+            <div class="footer-brand-col">
+                <a href="../../index.html" class="footer-logo">SPACE GLEAM</a>
+                <div class="footer-logo-line"></div>
+                <p class="footer-tagline">アイデアを、<br class="pc-only">最短距離で事業にする。</p>
+            </div>
+            <div class="footer-nav-grid">
+                <div class="footer-nav-col">
+                    <h4><a href="../../services.html">SERVICE</a></h4>
+                    <ul>
+                        <li><a href="../../services.html">AI MVP開発</a></li>
+                        <li><a href="../../services.html">業務システム開発</a></li>
+                        <li><a href="../../services.html">AI導入支援</a></li>
+                        <li><a href="../../works.html">その他プロダクト</a></li>
+                    </ul>
+                </div>
+                <div class="footer-nav-col">
+                    <h4>COMPANY</h4>
+                    <ul>
+                        <li><a href="../../company.html">会社概要</a></li>
+                        <li><a href="../../profile.html">メンバー</a></li>
+                        <li><a href="../../recruit.html">採用情報</a></li>
+                    </ul>
+                </div>
+                <div class="footer-nav-col">
+                    <h4>LEGAL</h4>
+                    <ul>
+                        <li><a href="../../privacy.html">プライバシーポリシー</a></li>
+                        <li><a href="../../terms.html">利用規約</a></li>
+                        <li><a href="../../legal.html">特定商取引法に基づく表記</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="container footer-bottom">
+            <p class="copyright">&copy; 2026 SPACE GLEAM. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script src="../posts.js"></script>
+    <script src="../blog.js"></script>
+</body>
+
+</html>
