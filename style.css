@@ -1652,13 +1652,53 @@ select {
     }
 
     .header-inner {
-        grid-template-columns: auto auto;
-        min-height: 58px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        height: 60px;
+        min-height: 0;
+        padding: 0;
+        gap: 0;
+    }
+
+    .header-ctas {
+        display: none;
+    }
+
+    .brand::before {
+        width: 26px;
+        height: 26px;
+        flex: 0 0 26px;
+    }
+
+    .brand {
+        gap: 8px;
+    }
+
+    .brand-name {
+        font-size: 1.25rem;
     }
 
     .nav-toggle {
         display: inline-flex;
-        justify-self: end;
+        border: none;
+        background: transparent;
+        box-shadow: none;
+        flex-shrink: 0;
+    }
+
+    .nav-toggle span {
+        background: #111111;
+        height: 1px;
+        width: 16px;
+    }
+
+    .diag-card,
+    .hero .diag-card {
+        margin-inline: auto;
+        max-width: calc(100vw - 28px);
+        width: 100%;
+        box-sizing: border-box;
     }
 
     .nav {
