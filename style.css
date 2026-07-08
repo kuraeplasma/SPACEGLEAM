@@ -90,15 +90,15 @@ select {
     left: 0;
     width: 100%;
     z-index: 1000;
-    background: rgba(8, 8, 12, .72);
+    background: rgba(255, 255, 255, .96);
     backdrop-filter: blur(16px);
-    border-bottom: 1px solid rgba(255, 255, 255, .08);
+    border-bottom: 1px solid rgba(0, 0, 0, .08);
     transition: background .25s ease, box-shadow .25s ease;
 }
 
 .header.is-scrolled {
-    background: rgba(8, 8, 12, .86);
-    box-shadow: 0 12px 48px rgba(0, 0, 0, .28);
+    background: rgba(255, 255, 255, .98);
+    box-shadow: 0 12px 36px rgba(0, 0, 0, .08);
 }
 
 .header-inner {
@@ -106,14 +106,23 @@ select {
     grid-template-columns: auto 1fr auto;
     align-items: center;
     gap: 28px;
-    min-height: 52px;
+    min-height: 64px;
 }
 
 .brand {
     display: inline-flex;
-    flex-direction: column;
-    gap: 2px;
+    align-items: center;
+    gap: 12px;
+    color: #050509;
     line-height: 1;
+}
+
+.brand::before {
+    content: "";
+    width: 40px;
+    height: 40px;
+    flex: 0 0 40px;
+    background: url("assets/spacegleam-logo-official-transparent.png") center / contain no-repeat;
 }
 
 .brand-name {
@@ -121,6 +130,7 @@ select {
     font-size: clamp(1.45rem, 4vw, 1.85rem);
     font-weight: 800;
     letter-spacing: .08em;
+    color: #050509;
 }
 
 .brand-sub {
@@ -138,14 +148,14 @@ select {
 }
 
 .nav a {
-    color: var(--muted);
+    color: rgba(5, 5, 9, .62);
     font-size: .9rem;
     font-weight: 600;
     transition: color .2s ease;
 }
 
 .nav a:hover {
-    color: var(--text);
+    color: #050509;
 }
 
 .header-cta,
@@ -180,6 +190,16 @@ select {
     padding: 0 16px;
     font-size: 0.85rem;
     border-radius: 4px;
+    background: #050509;
+    color: #ffffff;
+    border-color: #050509;
+    box-shadow: 0 12px 26px rgba(0, 0, 0, .16);
+}
+
+.header-cta:hover {
+    background: #202027;
+    border-color: #202027;
+    color: #ffffff;
 }
 
 .header-ctas {
@@ -235,9 +255,9 @@ select {
     display: none;
     width: 40px;
     height: 40px;
-    border: none;
-    background: transparent;
-    color: var(--text);
+    border: 1px solid rgba(0, 0, 0, .12);
+    background: rgba(255, 255, 255, .92);
+    color: #050509;
     align-items: center;
     justify-content: center;
     flex-direction: column;
@@ -438,6 +458,117 @@ select {
     height: 100%;
     display: block;
     cursor: crosshair;
+}
+
+.quick-consult-section {
+    background: #ffffff;
+    color: #111111;
+    padding: 72px 0;
+    border-bottom: 1px solid rgba(0, 0, 0, .08);
+}
+
+.quick-consult-container {
+    display: grid;
+    gap: 30px;
+}
+
+.quick-consult-heading {
+    max-width: 780px;
+}
+
+.quick-consult-eyebrow {
+    margin-bottom: 12px;
+    color: #8a6a34;
+    font-size: .78rem;
+    font-weight: 900;
+    letter-spacing: .14em;
+}
+
+.quick-consult-heading h2 {
+    font-size: clamp(1.9rem, 3vw, 3rem);
+    line-height: 1.28;
+    letter-spacing: 0;
+}
+
+.quick-consult-heading p:not(.quick-consult-eyebrow) {
+    margin-top: 16px;
+    color: #4b5563;
+    font-size: 1rem;
+    line-height: 1.9;
+}
+
+.quick-consult-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 22px;
+}
+
+.quick-consult-panel {
+    padding: 28px;
+    border: 1px solid rgba(0, 0, 0, .09);
+    border-radius: 8px;
+    background: #fbfaf8;
+}
+
+.quick-consult-panel h3 {
+    margin-bottom: 18px;
+    font-size: 1.18rem;
+    line-height: 1.5;
+}
+
+.quick-consult-list {
+    display: grid;
+    gap: 12px;
+    list-style: none;
+}
+
+.quick-consult-list li {
+    position: relative;
+    padding-left: 20px;
+    color: #1f2937;
+    font-size: .96rem;
+    line-height: 1.75;
+}
+
+.quick-consult-list li::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: .72em;
+    width: 7px;
+    height: 7px;
+    border-radius: 999px;
+    background: #9a7440;
+}
+
+.quick-consult-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    align-items: center;
+}
+
+.quick-consult-actions .btn-primary {
+    background: #111111;
+    color: #ffffff;
+    border-color: #111111;
+    box-shadow: 0 14px 34px rgba(0, 0, 0, .18);
+}
+
+.quick-consult-actions .btn-primary:hover {
+    background: #2a2a2a;
+    color: #ffffff;
+}
+
+.quick-consult-actions .btn-secondary {
+    background: #ffffff;
+    color: #111111;
+    border-color: rgba(0, 0, 0, .16);
+}
+
+.quick-consult-actions .btn-secondary:hover {
+    background: #f5f5f5;
+    border-color: rgba(0, 0, 0, .28);
 }
 
 /* 最下部技術スタック */
@@ -1154,7 +1285,17 @@ select {
     letter-spacing: 0.1em;
     color: #111111;
     text-decoration: none;
-    display: inline-block;
+    display: inline-flex;
+    align-items: center;
+    gap: 11px;
+}
+
+.footer-logo::before {
+    content: "";
+    width: 38px;
+    height: 38px;
+    flex: 0 0 38px;
+    background: url("assets/spacegleam-logo-official-transparent.png") center / contain no-repeat;
 }
 
 .footer-logo-line {
@@ -1489,6 +1630,7 @@ select {
 }
 
 @media (max-width: 1040px) {
+    .quick-consult-grid,
     .problem-grid,
     .strength-grid,
     .works-grid {
@@ -1511,7 +1653,7 @@ select {
 
     .header-inner {
         grid-template-columns: auto auto;
-        min-height: 48px;
+        min-height: 58px;
     }
 
     .nav-toggle {
@@ -1527,15 +1669,12 @@ select {
         display: grid;
         gap: 6px;
         padding: 16px;
-        border: 1px solid rgba(255, 255, 255, 0.08);
+        border: 1px solid rgba(0, 0, 0, 0.08);
         border-radius: 16px;
-        background: linear-gradient(180deg, rgba(16, 16, 26, 0.94) 0%, rgba(8, 8, 12, 0.98) 100%);
+        background: rgba(255, 255, 255, 0.98);
         backdrop-filter: blur(24px);
         -webkit-backdrop-filter: blur(24px);
-        box-shadow: 
-            0 24px 80px rgba(0, 0, 0, 0.6), 
-            inset 0 1px 0 rgba(255, 255, 255, 0.05),
-            0 0 40px rgba(110, 168, 255, 0.03);
+        box-shadow: 0 20px 60px rgba(0, 0, 0, 0.16);
         opacity: 0;
         pointer-events: none;
         transform: translateY(-12px);
@@ -1552,7 +1691,7 @@ select {
 
     .nav a {
         padding: 14px 18px;
-        color: rgba(255, 255, 255, 0.76);
+        color: rgba(5, 5, 9, 0.76);
         font-size: 0.95rem;
         font-weight: 600;
         border-radius: 10px;
@@ -1577,8 +1716,8 @@ select {
 
     .nav a:hover,
     .nav a:active {
-        color: #ffffff;
-        background: rgba(255, 255, 255, 0.04);
+        color: #050509;
+        background: rgba(0, 0, 0, 0.05);
         padding-left: 22px;
     }
 
@@ -1647,6 +1786,7 @@ select {
     }
 
     .service-grid,
+    .quick-consult-grid,
     .pricing-grid {
         grid-template-columns: 1fr;
     }
@@ -1693,6 +1833,18 @@ select {
 @media (max-width: 620px) {
     .section {
         padding: 74px 0;
+    }
+
+    .quick-consult-section {
+        padding: 56px 0;
+    }
+
+    .quick-consult-panel {
+        padding: 22px;
+    }
+
+    .quick-consult-actions {
+        display: grid;
     }
 
     .hero h1 {
@@ -10604,17 +10756,19 @@ html.diag-enabled .diag-modal.is-open { display: flex !important; }
 /* ===== Blog NEW badge (header nav) ===== */
 .nav a { position: relative; }
 .nav-new-badge {
-    display: inline-block;
-    margin-left: 6px;
-    padding: 1px 6px;
-    font-size: 0.58rem;
+    display: inline-flex;
+    align-items: center;
+    margin-left: 8px;
+    padding: 3px 8px;
+    font-size: 0.68rem;
     font-weight: 800;
-    line-height: 1.5;
+    line-height: 1;
     letter-spacing: 0.04em;
     color: #ffffff;
     background: #e0322d;
     border-radius: 999px;
-    vertical-align: super;
+    vertical-align: middle;
+    white-space: nowrap;
     transform: translateY(-1px);
     animation: navNewPulse 1.8s ease-in-out infinite;
 }

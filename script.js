@@ -133,8 +133,8 @@ document.addEventListener('DOMContentLoaded', () => {
                 company: String(formData.get('company') || '').trim(),
                 name: String(formData.get('name') || '').trim(),
                 email: String(formData.get('email') || '').trim(),
-                category: 'AI MVP開発・無料相談',
-                subject: 'SPACE GLEAM 無料相談',
+                category: 'AI活用案・概算費用相談',
+                subject: 'SPACE GLEAM AI活用案・概算費用相談',
                 message: [
                     message,
                     '',
@@ -521,7 +521,7 @@ document.addEventListener('DOMContentLoaded', () => {
             ? `<a class="works-detail-link-v2" href="${detail.href}">${detail.linkText} <span>→</span></a>`
             : `
                 <a class="works-detail-link-v2" href="${detail.href}" target="_blank" rel="noopener noreferrer">${detail.linkText} <span>↗</span></a>
-                <a class="works-detail-contact-v2" href="contact.html">このようなAI開発を相談する <span>→</span></a>
+                <a class="works-detail-contact-v2" href="contact.html">このようなAI活用案を聞く <span>→</span></a>
             `;
 
         worksDetailMain.innerHTML = `
@@ -720,21 +720,11 @@ document.addEventListener('DOMContentLoaded', () => {
 
 /* ===== Blog NEW badge on header nav ===== */
 (function () {
-    var LATEST_POST_DATE = '2026-06-12'; // ← 新記事追加時はこの日付を更新
-    var NEW_WINDOW_DAYS = 14;
-
-    function daysSince(d) {
-        return (Date.now() - new Date(d + 'T00:00:00+09:00').getTime()) / 86400000;
-    }
-
-    // 最新記事が公開から NEW_WINDOW_DAYS 日以内なら NEW を表示
-    if (daysSince(LATEST_POST_DATE) > NEW_WINDOW_DAYS) return;
-
     document.querySelectorAll('.nav a').forEach(function (a) {
         if (a.textContent.trim() === 'Blog' && !a.querySelector('.nav-new-badge')) {
             var b = document.createElement('span');
             b.className = 'nav-new-badge';
-            b.textContent = 'NEW';
+            b.textContent = '新着記事あり';
             a.appendChild(b);
         }
     });
