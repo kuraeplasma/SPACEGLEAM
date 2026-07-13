@@ -32,6 +32,70 @@
   [headers.values]
     Cache-Control = "public, max-age=31536000, immutable"
 
+# Shared scripts change less frequently than HTML. Keep revalidation bounded so
+# fixes still propagate quickly even on pages that do not use a version query.
+[[headers]]
+  for = "/script.js"
+  [headers.values]
+    Cache-Control = "public, max-age=86400, stale-while-revalidate=604800"
+
+[[headers]]
+  for = "/site-shell.js"
+  [headers.values]
+    Cache-Control = "public, max-age=86400, stale-while-revalidate=604800"
+
+[[headers]]
+  for = "/faq-page.js"
+  [headers.values]
+    Cache-Control = "public, max-age=86400, stale-while-revalidate=604800"
+
+[[headers]]
+  for = "/diagnosis.js"
+  [headers.values]
+    Cache-Control = "public, max-age=86400, stale-while-revalidate=604800"
+
+# Optimized visual assets are safe to retain between page navigations. These
+# paths intentionally use a shorter lifetime than hashed blog thumbnails.
+[[headers]]
+  for = "/assets/*"
+  [headers.values]
+    Cache-Control = "public, max-age=2592000, stale-while-revalidate=2592000"
+
+[[headers]]
+  for = "/images/*"
+  [headers.values]
+    Cache-Control = "public, max-age=2592000, stale-while-revalidate=2592000"
+
+[[headers]]
+  for = "/favicon.png"
+  [headers.values]
+    Cache-Control = "public, max-age=604800, stale-while-revalidate=2592000"
+
+[[headers]]
+  for = "/*.webp"
+  [headers.values]
+    Cache-Control = "public, max-age=604800, stale-while-revalidate=2592000"
+
+[[headers]]
+  for = "/*.png"
+  [headers.values]
+    Cache-Control = "public, max-age=604800, stale-while-revalidate=2592000"
+
+[[headers]]
+  for = "/*.jpg"
+  [headers.values]
+    Cache-Control = "public, max-age=604800, stale-while-revalidate=2592000"
+
+[[headers]]
+  for = "/*.webm"
+  [headers.values]
+    Cache-Control = "public, max-age=604800, stale-while-revalidate=2592000"
+
+[[headers]]
+  for = "/*.mp4"
+  [headers.values]
+    Cache-Control = "public, max-age=604800, stale-while-revalidate=2592000"
+
 [[redirects]]
   from = "/api/diagnosis"
   to = "/.netlify/functions/diagnosis"

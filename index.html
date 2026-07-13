@@ -15,7 +15,7 @@
     <meta name="description" content="AI開発、生成AI開発、SaaS開発、業務自動化システム開発を企画・設計・開発・運用まで一貫支援。初期リリースから商用サービス開発まで対応するSPACE GLEAM株式会社。">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Noto+Sans+JP:wght@400;500;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Noto+Sans+JP:wght@400;500;700&family=Noto+Serif+JP:wght@400;700;900&family=Playfair+Display:ital,wght@0,400..900;1,400..900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css?v=mobile-header-fix-20260709-v1">
     <link rel="icon" type="image/png" href="favicon.png">
     <link rel="canonical" href="https://spacegleam.co.jp/">
@@ -169,11 +169,11 @@
             <!-- 全画面背景ビジュアル（ループ動画 / poster=静止画で初期表示は軽量） -->
             <div class="hero-bg-visual">
                 <video class="hero-bg-video"
-                       autoplay muted loop playsinline preload="metadata"
-                       poster="hero-curved-light.jpg"
+                       autoplay muted loop playsinline preload="none"
+                       poster="hero-curved-light.webp"
                        aria-hidden="true">
-                    <source src="hero-loop-light.webm" type="video/webm">
-                    <source src="hero-loop.mp4" type="video/mp4">
+                    <source data-src="hero-loop-light.webm" type="video/webm">
+                    <source data-src="hero-loop.mp4" type="video/mp4">
                 </video>
                 <div class="hero-bg-overlay"></div>
             </div>
@@ -1279,15 +1279,44 @@
         (function () {
             document.documentElement.classList.add('diag-enabled');
 
-            const jspdfScript = document.createElement('script');
-            jspdfScript.src = "https://cdn.jsdelivr.net/npm/jspdf@2.5.2/dist/jspdf.umd.min.js";
-            jspdfScript.defer = true;
-            document.body.appendChild(jspdfScript);
+            const runWhenIdle = (callback, timeout) => {
+                if ('requestIdleCallback' in window) {
+                    window.requestIdleCallback(callback, { timeout });
+                    return;
+                }
+                window.setTimeout(callback, 200);
+            };
 
-            const diagScript = document.createElement('script');
-            diagScript.src = "diagnosis.js?v=diag-sent-screen-20260617-v21";
-            diagScript.defer = true;
-            document.body.appendChild(diagScript);
+            const loadDiagnosis = () => {
+                if (document.querySelector('script[data-home-diagnosis]')) return;
+                const diagScript = document.createElement('script');
+                diagScript.src = "diagnosis.js?v=diag-sent-screen-20260617-v21";
+                diagScript.defer = true;
+                diagScript.dataset.homeDiagnosis = 'true';
+                document.body.appendChild(diagScript);
+            };
+
+            const previewRequested = /diagresult|diag=result|diagsent/.test(location.search + location.hash);
+            if (previewRequested) loadDiagnosis();
+            else runWhenIdle(loadDiagnosis, 1000);
+
+            const loadHeroVideo = () => {
+                const video = document.querySelector('.hero-bg-video');
+                if (!video || video.dataset.loaded === 'true') return;
+                if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+                if (navigator.connection && navigator.connection.saveData) return;
+
+                video.querySelectorAll('source[data-src]').forEach((source) => {
+                    source.src = source.dataset.src;
+                    source.removeAttribute('data-src');
+                });
+                video.dataset.loaded = 'true';
+                video.load();
+                const playPromise = video.play();
+                if (playPromise && typeof playPromise.catch === 'function') playPromise.catch(() => {});
+            };
+
+            window.addEventListener('load', () => runWhenIdle(loadHeroVideo, 1500), { once: true });
         })();
     </script>
     <script src="script.js?v=ai-consult-cta-20260708-v1"></script>

@@ -122,12 +122,30 @@
         cta.innerHTML = '';
 
         document.documentElement.classList.add('diag-enabled');
-        if (!document.querySelector('script[data-blog-diagnosis]')) {
+        const loadDiagnosis = () => {
+            if (document.querySelector('script[data-blog-diagnosis]')) return;
             const script = document.createElement('script');
             script.src = blogPath('/diagnosis.js');
             script.defer = true;
             script.dataset.blogDiagnosis = 'true';
             document.body.appendChild(script);
+        };
+
+        const previewRequested = /diagresult|diag=result|diagsent/.test(location.search + location.hash);
+        if (previewRequested) {
+            loadDiagnosis();
+            return;
+        }
+
+        if ('IntersectionObserver' in window) {
+            const observer = new IntersectionObserver((entries) => {
+                if (!entries.some((entry) => entry.isIntersecting)) return;
+                observer.disconnect();
+                loadDiagnosis();
+            }, { rootMargin: '1000px 0px' });
+            observer.observe(cta);
+        } else {
+            window.setTimeout(loadDiagnosis, 1500);
         }
     };
 
