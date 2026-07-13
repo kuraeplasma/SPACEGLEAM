@@ -16,7 +16,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Noto+Sans+JP:wght@400;500;700&family=Noto+Serif+JP:wght@400;700;900&family=Playfair+Display:ital,wght@0,400..900;1,400..900&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="style.css?v=mobile-header-fix-20260709-v1">
+    <link rel="stylesheet" href="style.css?v=home-diag-desktop-heading-lift-20260713-v26">
     <link rel="icon" type="image/png" href="favicon.png">
     <link rel="canonical" href="https://spacegleam.co.jp/">
 
@@ -206,8 +206,8 @@
                     <!-- 左カラム -->
                     <div class="hero-copy">
                         <h1><span class="nowrap">中小企業・新規事業の</span><br class="pc-only"><span class="nowrap">手作業をAIで減らす</span></h1>
-                        <p class="hero-sub-keywords" style="font-size: 1.05rem; font-weight: 800; color: #111111; margin-top: 18px; margin-bottom: -10px; letter-spacing: 0.04em;">AI開発 ｜ 業務自動化 ｜ 社内システム開発</p>
-                        <p class="hero-lead">Excel管理・問い合わせ対応・書類確認・社内ナレッジ検索など、属人化した業務をAIシステム化。<br><br><span style="font-size: 0.9em; opacity: 0.9; display: inline-block; margin-top: 10px;">要件整理から設計・開発・運用改善まで一貫対応。<br>現場で使えるAI業務システムを、2〜8週間で小さく始められます。</span></p>
+                        <p class="hero-sub-keywords" style="font-size: 1.05rem; font-weight: 800; color: #ffffff; margin-top: 18px; margin-bottom: -10px; letter-spacing: 0.04em;">AI開発｜業務自動化｜社内システム開発</p>
+                        <p class="hero-lead">Excel・問い合わせ・書類確認など、繰り返し業務をAIで自動化。<br>企画から開発・運用まで一貫対応します。</p>
                         <div class="hero-actions">
                             <a href="contact.html" class="btn btn-primary">AI活用案を無料で聞く<span class="arrow">→</span></a>
                             <a href="contact.html" class="btn btn-secondary">概算費用を聞く</a>
@@ -1290,7 +1290,7 @@
             const loadDiagnosis = () => {
                 if (document.querySelector('script[data-home-diagnosis]')) return;
                 const diagScript = document.createElement('script');
-                diagScript.src = "diagnosis.js?v=diag-sent-screen-20260617-v21";
+                diagScript.src = "diagnosis.js?v=home-diag-report-fixed-20260713-v26";
                 diagScript.defer = true;
                 diagScript.dataset.homeDiagnosis = 'true';
                 document.body.appendChild(diagScript);

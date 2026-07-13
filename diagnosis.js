@@ -481,34 +481,50 @@
       return;
     }
     host.innerHTML =
-      '<div class="diag-card">' +
+      '<section class="home-diag-showcase" aria-labelledby="homeDiagTitle">' +
         '<button type="button" class="diag-card__dismiss" id="diagDismiss" aria-label="診断カードを閉じる">×</button>' +
-        '<div class="diag-card__eyebrow">AI開発診断</div>' +
-        '<h3 class="diag-card__title">あなたのアイデアは、どの開発プランで進めるべきか。</h3>' +
-        '<p class="diag-card__sub">6つの質問に答えるだけで、AI業務システム・SaaS・自動化など、最適な進め方と概算費用を診断します。</p>' +
-        '<p class="diag-card__features-label">診断でわかること</p>' +
-        '<div class="diag-card__features">' +
-          '<div class="diag-card__feature">' +
-            '<span class="diag-card__feature-ico" aria-hidden="true">01</span>' +
-            '<span class="diag-card__feature-copy"><strong class="diag-card__feature-title">開発タイプ</strong><span class="diag-card__feature-sub">AI業務システム / SaaS / 自動化</span></span>' +
-          '</div>' +
-          '<div class="diag-card__feature">' +
-            '<span class="diag-card__feature-ico" aria-hidden="true">02</span>' +
-            '<span class="diag-card__feature-copy"><strong class="diag-card__feature-title">概算費用</strong><span class="diag-card__feature-sub">初期予算の目安を表示</span></span>' +
-          '</div>' +
-          '<div class="diag-card__feature">' +
-            '<span class="diag-card__feature-ico" aria-hidden="true">03</span>' +
-            '<span class="diag-card__feature-copy"><strong class="diag-card__feature-title">想定期間</strong><span class="diag-card__feature-sub">リリースまでの進め方</span></span>' +
-          '</div>' +
-          '<div class="diag-card__feature">' +
-            '<span class="diag-card__feature-ico" aria-hidden="true">04</span>' +
-            '<span class="diag-card__feature-copy"><strong class="diag-card__feature-title">技術構成</strong><span class="diag-card__feature-sub">おすすめの開発スタック</span></span>' +
-          '</div>' +
+        '<header class="home-diag-showcase__head">' +
+          '<span class="home-diag-showcase__kicker">30秒・無料のAI開発診断</span>' +
+          '<h2 id="homeDiagTitle">AI開発の第一歩は、<br>正しい現状把握から</h2>' +
+          '<p>6つの質問から、自社に合うAI活用の方向性と開発予算の目安を整理します。</p>' +
+        '</header>' +
+        '<div class="home-diag-download-callout">' +
+          '<span class="home-diag-download-callout__icon" aria-hidden="true"><svg viewBox="0 0 32 32"><path d="M8 3h11l6 6v20H8z"></path><path d="M19 3v7h6M12 18h8M12 22h8"></path></svg></span>' +
+          '<span class="home-diag-download-callout__copy"><small>診断完了後、追加料金なし</small><strong>診断結果をPDFで無料ダウンロード</strong><span>回答内容に合ったAI開発レポートを、その場で取得できます</span></span>' +
+          '<span class="home-diag-download-callout__badge">無料</span>' +
         '</div>' +
-        '<button type="button" class="diag-card__btn diag-btn-primary" id="diagStart"><span class="diag-card__btn-sparkle" aria-hidden="true">✦</span>' + (hasProgress ? '診断を再開する' : '無料で診断する') + '<span class="arrow" aria-hidden="true">→</span></button>' +
-        (hasProgress ? '<button type="button" class="diag-card__restart" id="diagRestart">最初からやり直す</button>' : '') +
-        '<p class="diag-card__note"><span class="diag-card__note-ico" aria-hidden="true">✓</span>入力不要・30秒で結果表示</p>' +
-      '</div>';
+        '<div class="home-diag-showcase__body">' +
+          '<div class="diag-card home-diag-card">' +
+            '<div class="diag-card__eyebrow">AI開発診断 <small>（無料）</small></div>' +
+            '<p class="diag-card__sub">最適な進め方・概算費用・想定期間を、回答内容に合わせて診断します。</p>' +
+            '<div class="diag-card__features" aria-label="診断でわかること">' +
+              '<div class="diag-card__feature">' +
+                '<span class="diag-card__feature-ico" aria-hidden="true"><svg viewBox="0 0 32 32"><circle cx="16" cy="16" r="9"></circle><circle cx="16" cy="16" r="3"></circle><path d="M16 3v4M16 25v4M3 16h4M25 16h4"></path></svg></span>' +
+                '<span class="diag-card__feature-copy"><strong class="diag-card__feature-title">開発タイプ</strong><span class="diag-card__feature-sub">最適なプラン</span></span>' +
+              '</div>' +
+              '<div class="diag-card__feature">' +
+                '<span class="diag-card__feature-ico" aria-hidden="true"><svg viewBox="0 0 32 32"><ellipse cx="16" cy="8" rx="8" ry="4"></ellipse><path d="M8 8v8c0 2.2 3.6 4 8 4s8-1.8 8-4V8M8 16v8c0 2.2 3.6 4 8 4s8-1.8 8-4v-8"></path></svg></span>' +
+                '<span class="diag-card__feature-copy"><strong class="diag-card__feature-title">概算費用</strong><span class="diag-card__feature-sub">開発予算の目安</span></span>' +
+              '</div>' +
+              '<div class="diag-card__feature">' +
+                '<span class="diag-card__feature-ico" aria-hidden="true"><svg viewBox="0 0 32 32"><path d="M5 26V7M5 26h22M9 21l5-6 4 3 7-9"></path><path d="M21 9h4v4"></path></svg></span>' +
+                '<span class="diag-card__feature-copy"><strong class="diag-card__feature-title">導入効果</strong><span class="diag-card__feature-sub">期待できる効果</span></span>' +
+              '</div>' +
+              '<div class="diag-card__feature">' +
+                '<span class="diag-card__feature-ico" aria-hidden="true"><svg viewBox="0 0 32 32"><path d="M6 7h20v14H15l-6 5v-5H6z"></path><path d="M11 13h10M11 17h7"></path></svg></span>' +
+                '<span class="diag-card__feature-copy"><strong class="diag-card__feature-title">個別アドバイス</strong><span class="diag-card__feature-sub">おすすめの進め方</span></span>' +
+              '</div>' +
+            '</div>' +
+            '<button type="button" class="diag-card__btn diag-btn-primary" id="diagStart"><span class="diag-card__btn-sparkle" aria-hidden="true">✦</span>' + (hasProgress ? '診断を再開する' : '無料で診断をはじめる') + '<span class="arrow" aria-hidden="true">→</span></button>' +
+            (hasProgress ? '<button type="button" class="diag-card__restart" id="diagRestart">最初からやり直す</button>' : '') +
+            '<p class="diag-card__note"><span class="diag-card__note-ico" aria-hidden="true">✓</span>入力不要・30秒で結果表示</p>' +
+          '</div>' +
+          '<aside class="home-diag-report" aria-label="診断結果PDFのサンプル">' +
+            '<div class="home-diag-report__badge">PDF<br>無料取得</div>' +
+            '<div class="home-diag-report__paper"><img src="/blog/assets/diagnosis-covers/p3.png" alt="実際にダウンロードできるAI開発診断PDFの表紙" loading="lazy" decoding="async"></div>' +
+          '</aside>' +
+        '</div>' +
+      '</section>';
     document.getElementById('diagStart').addEventListener('click', openModal);
     document.getElementById('diagDismiss').addEventListener('click', function () {
       setCardHidden(true);
