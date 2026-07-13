@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>社内文書をAI検索する前に。RAGの精度を左右するデータ整理の実務 | SPACE GLEAM</title>
+<meta name="description" content="社内規程やマニュアルを生成AIで検索するRAG。精度を左右する重複、版管理、権限、文書構造、評価質問の整え方を実務目線で解説します。">
+<link rel="canonical" href="https://spacegleam.co.jp/blog/rag-data-preparation/">
+<link rel="icon" href="../../favicon.png">
+<link rel="stylesheet" href="../../style.css">
+<meta property="og:type" content="article">
+<meta property="og:locale" content="ja_JP">
+<meta property="og:title" content="社内文書をAI検索する前に">
+<meta property="og:description" content="RAGの精度を左右するデータ整理の実務。">
+<meta property="og:url" content="https://spacegleam.co.jp/blog/rag-data-preparation/">
+<meta property="og:site_name" content="SPACE GLEAM">
+<meta property="og:image" content="https://spacegleam.co.jp/blog/rag-data-preparation/ogp.png">
+<meta property="og:image:width" content="1731">
+<meta property="og:image:height" content="909">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://spacegleam.co.jp/blog/rag-data-preparation/ogp.png">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"Article","headline":"社内文書をAI検索する前に。RAGの精度を左右するデータ整理の実務","datePublished":"2026-07-10","dateModified":"2026-07-10","author":{"@type":"Organization","name":"SPACE GLEAM"},"mainEntityOfPage":"https://spacegleam.co.jp/blog/rag-data-preparation/","image":"https://spacegleam.co.jp/blog/rag-data-preparation/ogp.png","articleSection":"Development"}</script>
+</head>
+<body class="blog-page-body" data-article-slug="rag-data-preparation">
+<div class="site-bg">
+</div>
+<header class="header">
+<div class="container header-inner">
+<a href="../../index.html" class="brand">
+<span class="brand-name">SPACE GLEAM</span>
+</a>
+<nav class="nav">
+<a href="../../services.html">AI プロダクト開発</a>
+<a href="../../pricing.html">料金</a>
+<a href="../../works.html">実績</a>
+<a href="../../faq.html">FAQ</a>
+<a href="../index.html">Blog</a>
+</nav>
+<div class="header-ctas">
+<a href="../../contact.html" class="header-cta">AI開発について相談する →</a>
+</div>
+</div>
+</header>
+<main class="blog-main">
+<div class="container">
+<article>
+<header class="article-header">
+<div class="article-meta">
+<time datetime="2026-07-10">2026年7月10日</time>
+<span class="article-category">Development</span>
+</div>
+<h1>社内文書をAI検索する前に。RAGの精度を左右するデータ整理の実務</h1>
+<p class="article-lead">「社内のPDFを読み込ませれば、質問に答えるAIができる」。方向としては正しいものの、文書を入れただけで実務に耐える回答が出るとは限りません。精度の土台は、モデルより先にデータの状態で決まります。</p>
+</header>
+<div class="article-content">
+<p>就業規則、商品マニュアル、過去の提案書、議事録。社内には答えの材料があるのに、必要な情報へたどり着けない。そこで検討されるのが、社内文書を検索して生成AIが回答するRAGという仕組みです。</p>
+<p>試作自体は難しくありません。難しいのは、社員が安心して使える回答に整えることです。実際のプロジェクトでは、次のような文書側の問題が見つかります。</p>
+<h2>精度を下げるのは、意外と身近な状態</h2>
+<h3>古い版と新しい版が両方残っている</h3>
+<p>規程の2024年版と2026年版が同じ場所にあれば、AIは古い記述も検索します。最新版を決め、改定日と失効日を持たせる必要があります。</p>
+<h3>ファイル名だけでは中身が分からない</h3>
+<p>「最終版」「最終版2」「確定_修正」のような名前では、人にもAIにも位置づけが伝わりません。文書種別、対象部署、有効期間、責任者などの属性を付けます。</p>
+<h3>表や図に重要情報が閉じている</h3>
+<p>料金表、承認フロー、製品仕様が画像や複雑な表だけで表現されていると、抽出時に関係が崩れることがあります。重要な条件は文章でも補足しておくと安定します。</p>
+<h3>文書ごとの閲覧権限が整理されていない</h3>
+<p>人事資料や顧客別資料を一括で検索対象にすると、回答を通じて情報が見える危険があります。元の保存場所だけでなく、回答時にも利用者の権限を反映する設計が必要です。</p>
+<h2>文書を入れる前に、質問の範囲を決める</h2>
+<p>「何でも聞ける社内AI」は魅力的ですが、評価できない仕組みになります。経費精算なら「申請できる費目、上限、必要な証憑、承認経路」、製品サポートなら「仕様、初期設定、既知の不具合」のように、答える領域を言葉にします。</p>
+<p>範囲外の質問には無理に答えず、担当窓口や検索先を案内します。回答できないことを明確にするほうが、もっともらしい誤答より信頼されます。利用者にも、どんな質問に向くのかを画面上で例示します。</p>
+<h2>最初に全社文書を集めない</h2>
+<p>いきなり数万件を投入するより、質問が多い1領域に絞ります。例えば「経費精算の社内ルール」なら、関連規程、申請手順、よくある質問を集め、実際の質問を20〜50件用意します。</p>
+<p>質問ごとに、期待する答えと根拠文書を人が確認します。答えが違ったときは、検索、文書の分割、指示文、そもそもの原文のどこに原因があるかを分けて直します。この評価セットがないと、改善しているのか判断できません。</p>
+<h2>文書の分割は「何文字ごと」では決めきれない</h2>
+<p>RAGでは、長い文書を検索しやすい単位へ分割します。一定文字数で機械的に切るだけでは、条件と例外、表の見出しと数値が別々になり、意味が欠けることがあります。</p>
+<p>規程なら条・項、マニュアルなら手順、FAQなら質問と回答の組を保ちます。章タイトルや対象製品、改定日などの情報も各断片へ持たせます。検索で見つかった一部分だけを見ても、何についての記述か判断できる状態が理想です。</p>
+<h3>PDFだから読めるとは限らない</h3>
+<p>紙をスキャンしたPDFは画像であり、文字認識が必要です。二段組み、注釈、縦書き、結合セルの多い表では読み順が崩れることがあります。数件を目視し、文字化けだけでなく、見出しと本文の関係が保たれているかを確認します。</p>
+<h2>回答を上手にするより、確認できるようにする</h2>
+<p>業務利用では、流暢な文章より「どの文書のどこを根拠にしたか」が重要です。出典リンク、文書の更新日、該当箇所を表示し、根拠が弱い場合は無理に答えない設計にします。</p>
+<p>また、利用ログを見ると、文書に書かれていない質問が分かります。RAGは検索ツールであると同時に、社内情報の不足を発見する仕組みにもなります。</p>
+<h2>精度は1つの数字にまとめない</h2>
+<p>「正答率90％」と聞いても、残り10％がどんな間違いかで意味は変わります。社内イベントの日付を間違えることと、契約条件や安全手順を間違えることは同じ重さではありません。</p>
+<p>評価では、正しい答え、根拠の正しさ、必要情報の漏れ、範囲外質問の拒否、権限違反の有無を分けます。重要な質問には重みを付け、重大な誤りは1件でも本番公開を止める条件にします。</p>
+<h3>評価質問は現場の言葉で作る</h3>
+<p>文書に書かれた正式名称だけでなく、「領収書なくした」「出張のホテルいくらまで」のような実際の聞き方を含めます。略称、表記揺れ、前提が抜けた質問、複数条件を含む質問も必要です。開発者が作ったきれいな質問だけでは、現場の精度を測れません。</p>
+<h2>運用開始後に必要な更新ルール</h2>
+<p>文書を追加する担当者、公開前に承認する人、古い版を外す方法、再評価の頻度を決めます。規程改定のたびに手作業で開発会社へ依頼する設計では、情報が古くなりやすくなります。</p>
+<p>一方で、誰でも自由に文書を追加できると、誤った資料が回答根拠になります。登録、承認、公開、廃止の流れを業務として設計し、変更履歴を残します。RAGの品質管理は、検索技術より文書管理の運用に近い仕事です。</p>
+<h2>準備状況を確認するチェックリスト</h2>
+<ul>
+<li>対象とする質問の範囲を一文で説明できる</li>
+<li>最新版と廃止文書を区別できる</li>
+<li>文書の責任者と更新日が分かる</li>
+<li>部署・役職ごとの閲覧条件がある</li>
+<li>実際の質問と期待回答を用意できる</li>
+<li>回答の確認・改善担当者を決めている</li>
+</ul>
+<p>すべて揃っていなくても始められます。むしろ小さな検証で不足を見つけ、整備の優先順位を決めるのが現実的です。SPACE GLEAMでは、データ調査から検索設計、評価、本番運用まで一つの工程として支援しています。</p>
+</div>
+</article>
+<div class="article-cta">
+<div>
+<strong>社内文書AIの実現性を確認する</strong>
+<p>文書の量や状態を伺い、小さく精度検証する範囲をご提案します。</p>
+</div>
+<a href="../../contact.html">相談する</a>
+</div>
+<section class="related-section">
+<h2>関連記事</h2>
+<div class="related-grid" data-related-posts>
+</div>
+</section>
+<div class="article-nav">
+<a href="../index.html" class="article-nav-back">一覧に戻る</a>
+</div>
+</div>
+</main>
+<footer class="footer">
+<div class="container footer-bottom">
+<p class="copyright">&copy; 2026 SPACE GLEAM. All rights reserved.</p>
+</div>
+</footer>
+<script src="../../script.js">
+</script>
+<script src="../posts.js">
+</script>
+<script src="../blog.js">
+</script>
+</body>
+</html>

@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>AIのPoCは動いたのに、本番導入できない。止まる理由と立て直し方 | SPACE GLEAM</title>
+<meta name="description" content="AIのPoCがデモで終わり、本番導入へ進めない理由を、評価・業務導線・セキュリティ・運用・責任分界から整理。作り直す前の立て直し方を解説します。">
+<link rel="canonical" href="https://spacegleam.co.jp/blog/ai-poc-to-production/">
+<link rel="icon" href="../../favicon.png">
+<link rel="stylesheet" href="../../style.css">
+<meta property="og:type" content="article">
+<meta property="og:locale" content="ja_JP">
+<meta property="og:title" content="AIのPoCは動いたのに、本番導入できない">
+<meta property="og:description" content="デモで止まる理由と、作り直す前の立て直し方。">
+<meta property="og:url" content="https://spacegleam.co.jp/blog/ai-poc-to-production/">
+<meta property="og:site_name" content="SPACE GLEAM">
+<meta property="og:image" content="https://spacegleam.co.jp/blog/ai-poc-to-production/ogp.png">
+<meta property="og:image:width" content="1731">
+<meta property="og:image:height" content="909">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://spacegleam.co.jp/blog/ai-poc-to-production/ogp.png">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"Article","headline":"AIのPoCは動いたのに、本番導入できない。止まる理由と立て直し方","datePublished":"2026-07-13","dateModified":"2026-07-13","author":{"@type":"Organization","name":"SPACE GLEAM"},"mainEntityOfPage":"https://spacegleam.co.jp/blog/ai-poc-to-production/","image":"https://spacegleam.co.jp/blog/ai-poc-to-production/ogp.png","articleSection":"Development"}</script>
+</head>
+<body class="blog-page-body" data-article-slug="ai-poc-to-production">
+<div class="site-bg">
+</div>
+<header class="header">
+<div class="container header-inner">
+<a href="../../index.html" class="brand">
+<span class="brand-name">SPACE GLEAM</span>
+</a>
+<nav class="nav">
+<a href="../../services.html">AI プロダクト開発</a>
+<a href="../../pricing.html">料金</a>
+<a href="../../works.html">実績</a>
+<a href="../../faq.html">FAQ</a>
+<a href="../index.html">Blog</a>
+</nav>
+<div class="header-ctas">
+<a href="../../contact.html" class="header-cta">AI開発について相談する →</a>
+</div>
+</div>
+</header>
+<main class="blog-main">
+<div class="container">
+<article>
+<header class="article-header">
+<div class="article-meta">
+<time datetime="2026-07-13">2026年7月13日</time>
+<span class="article-category">Development</span>
+</div>
+<h1>AIのPoCは動いたのに、本番導入できない。止まる理由と立て直し方</h1>
+<p class="article-lead">会議では好評だった。デモも動いた。それでも数か月後、現場では使われていない。AIのPoCが止まるのは、技術が失敗したからとは限りません。本番で必要な判断を後回しにした結果であることが多いのです。</p>
+</header>
+<div class="article-content">
+<p>PoCは「技術的にできるか」を確かめる手段です。しかし、本番導入には「業務として続けられるか」という別の問いがあります。ここを同じものとして扱うと、デモの完成がゴールになってしまいます。</p>
+<h2>本番へ進めない5つの理由</h2>
+<h3>1. 成功条件が「動いたこと」になっている</h3>
+<p>回答が返った、画像を判定できた、文章を作れた。これは動作確認であって事業効果ではありません。作業時間、修正率、処理件数、利用継続率など、導入判断に使う指標が必要です。</p>
+<h3>2. 普段の仕事から切り離されている</h3>
+<p>別URLを開き、毎回資料を貼り付けるデモは、発表では映えても日常業務では手間になります。既存システムから入力を受け取り、結果がいつもの場所へ戻る導線まで考えます。</p>
+<h3>3. 都合のよいデータだけで試している</h3>
+<p>整ったサンプル10件で成功しても、実データには欠損、表記揺れ、例外があります。本番判断の前に、難しいケースや失敗してはいけないケースを意図的に含めて評価します。</p>
+<h3>4. セキュリティ確認が最後に残っている</h3>
+<p>個人情報、機密情報、外部APIへの送信、ログ保存、閲覧権限。公開直前に情報システム部門へ相談すると、設計変更が必要になることがあります。PoC開始時から確認者を巻き込みます。</p>
+<h3>5. 誰が改善を続けるか決まっていない</h3>
+<p>AIの出力は、データやモデル、業務ルールの変化で品質が動きます。問い合わせを受け、ログを確認し、評価して更新する担当者と費用がなければ、公開後に劣化します。</p>
+<h2>「精度が足りない」をそのまま課題にしない</h2>
+<p>PoCの振り返りで最もよく出るのが「思ったより精度が低かった」という言葉です。しかし、これだけでは直しようがありません。誤った事実を答えたのか、必要な項目が抜けたのか、文章の調子が合わないのか、処理に時間がかかるのかを分けます。</p>
+<p>例えば提案書の下書きで、内容は正しいものの表現を毎回直しているなら、モデル変更よりも良い作例と文章ルールの整備が効くかもしれません。社内文書検索で根拠が違うなら、プロンプトではなく文書の版管理や検索条件が原因かもしれません。</p>
+<p>失敗した入力と期待する出力を並べ、原因を「データ」「検索」「生成」「画面」「業務ルール」に分類します。分類せずモデルだけを交換すると、同じ問題を繰り返します。</p>
+<h2>すぐに作り直す前に、残っている資産を確認する</h2>
+<p>止まったPoCにも、価値のあるものがあります。ヒアリング記録、画面、連携コード、評価データ、利用者の反応です。まず「技術」「データ」「業務」「運用」に分け、再利用できるものと不足を棚卸しします。</p>
+<p>特に利用者の発言は重要です。「精度が低い」という一言も、答えが間違うのか、根拠が見えないのか、待ち時間が長いのかで対策が変わります。抽象的な不満を具体的な失敗場面へ戻します。</p>
+<h2>既存コードを残すか、作り直すか</h2>
+<p>別会社や社内チームが作ったPoCでも、最初から捨てる必要はありません。まず、ソースコード、環境構築手順、利用サービス、データ処理、テスト、ライセンスを確認します。動いている画面より、再現できるか、秘密情報が適切に管理されているか、担当者が変わっても保守できるかが判断材料です。</p>
+<p>作り直しが合理的なのは、検証用の一時コードに本番機能を継ぎ足している、特定個人の環境でしか動かない、権限やログを後付けできない、利用ライブラリに重大な問題がある場合です。一方、AIへの指示、評価データ、利用者からのフィードバックは、コードを捨てても再利用できます。</p>
+<p>技術監査の結論は「全部残す／全部捨てる」の二択ではありません。画面は残して基盤を交換する、検索部分は残して認証を作り直す、といった切り分けが現実的です。</p>
+<h2>立て直しは1つの業務場面に絞る</h2>
+<p>全社展開を急がず、利用者、入力、出力、確認者が明確な1場面で再設計します。そして本番に近いデータで2〜4週間使い、次の数字を取ります。</p>
+<ul>
+<li>利用した人数と継続率</li>
+<li>AI出力をそのまま使えた割合</li>
+<li>人が修正した箇所と理由</li>
+<li>1件あたりの短縮時間</li>
+<li>重大な誤りと、その検知方法</li>
+</ul>
+<p>この結果を見て、継続、範囲変更、中止を判断します。中止も失敗ではありません。小さな範囲で「投資しない」と判断できれば、大きな損失を避けられます。</p>
+<h2>本番化の判断会議で決めること</h2>
+<p>検証終了時には、デモをもう一度見るだけでなく、数字と失敗例を共有します。目標に届かなかった項目も隠しません。そのうえで、対象業務を広げるのか、同じ範囲で改善するのか、別の用途へ転換するのかを決めます。</p>
+<ul><li>誰が最終的な出力責任を持つか</li><li>どの誤りまで許容し、何を公開停止条件にするか</li><li>月額のAPI・保守・改善費を誰が持つか</li><li>利用者教育と問い合わせ対応を誰が行うか</li><li>3か月後に何の数字で継続判断するか</li></ul>
+<p>責任者が曖昧なまま「まず全社公開」へ進むと、問題が起きたときに止まります。小規模な利用でも、責任分界と停止手順だけは先に決めておきます。</p>
+<h2>PoCを止める判断も、成果にできる</h2>
+<p>検証の結果、データ量が足りない、確認工数が減らない、誤りの影響が大きすぎると分かることもあります。そこで中止できれば、PoCは役割を果たしています。根拠なく追加投資を続けるより、学んだ条件を記録して別業務へ移すほうが健全です。</p>
+<p>中止時には「AIは使えなかった」で終わらせず、試した条件、失敗例、必要なデータ、再検討の条件を残します。半年後にモデルや社内データの状況が変わったとき、同じ調査を繰り返さずに済みます。</p>
+<h2>PoCから本番へは、橋を架ける仕事</h2>
+<p>必要なのはAIモデルの調整だけではなく、権限、監視、例外対応、既存業務との接続、責任者の合意です。SPACE GLEAMでは、既存PoCのコードや資料を確認し、何を残して何を直すべきかを整理するところから対応しています。「別会社で作ったので相談しづらい」という段階でも問題ありません。</p>
+</div>
+</article>
+<div class="article-cta">
+<div>
+<strong>止まっているAI PoCを一度整理する</strong>
+<p>既存成果物を確認し、本番化・縮小・再検証の現実的な選択肢をご提案します。</p>
+</div>
+<a href="../../contact.html">相談する</a>
+</div>
+<section class="related-section">
+<h2>関連記事</h2>
+<div class="related-grid" data-related-posts>
+</div>
+</section>
+<div class="article-nav">
+<a href="../index.html" class="article-nav-back">一覧に戻る</a>
+</div>
+</div>
+</main>
+<footer class="footer">
+<div class="container footer-bottom">
+<p class="copyright">&copy; 2026 SPACE GLEAM. All rights reserved.</p>
+</div>
+</footer>
+<script src="../../script.js">
+</script>
+<script src="../posts.js">
+</script>
+<script src="../blog.js">
+</script>
+</body>
+</html>

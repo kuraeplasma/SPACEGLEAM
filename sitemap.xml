@@ -61,6 +61,12 @@
     <priority>0.8</priority>
   </url>
   <url>
+    <loc>https://spacegleam.co.jp/blog/ai-mvp-first-decisions-guide/</loc>
+    <lastmod>2026-06-06</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
     <loc>https://spacegleam.co.jp/blog/no-more-throwaway-mvp/</loc>
     <lastmod>2026-06-08</lastmod>
     <changefreq>monthly</changefreq>
@@ -97,12 +103,6 @@
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://spacegleam.co.jp/blog/free-ai-development-diagnosis/</loc>
-    <lastmod>2026-06-18</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
     <loc>https://spacegleam.co.jp/blog/is-ai-generated-software-secure/</loc>
     <lastmod>2026-06-16</lastmod>
     <changefreq>monthly</changefreq>
@@ -115,8 +115,8 @@
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://spacegleam.co.jp/blog/why-custom-business-systems-are-growing/</loc>
-    <lastmod>2026-06-17</lastmod>
+    <loc>https://spacegleam.co.jp/blog/free-ai-development-diagnosis/</loc>
+    <lastmod>2026-06-18</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
@@ -144,10 +144,8 @@
     <changefreq>yearly</changefreq>
     <priority>0.3</priority>
   </url>
-  <url>
-    <loc>https://spacegleam.co.jp/blog/ai-small-team-productivity/</loc>
-    <lastmod>2026-06-20</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
-  </url>
+  <url><loc>https://spacegleam.co.jp/blog/ai-automation-first-process/</loc><lastmod>2026-07-08</lastmod></url>
+  <url><loc>https://spacegleam.co.jp/blog/after-ai-development-diagnosis/</loc><lastmod>2026-07-09</lastmod></url>
+  <url><loc>https://spacegleam.co.jp/blog/rag-data-preparation/</loc><lastmod>2026-07-10</lastmod></url>
+  <url><loc>https://spacegleam.co.jp/blog/ai-poc-to-production/</loc><lastmod>2026-07-13</lastmod></url>
 </urlset>

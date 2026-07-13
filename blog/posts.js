@@ -1,5 +1,37 @@
 window.SPACEGLEAM_BLOG_POSTS = [
     {
+        slug: 'ai-poc-to-production',
+        title: 'AIのPoCは動いたのに、本番導入できない。止まる理由と立て直し方',
+        date: '2026-07-13', publishAt: '2026-07-13T10:00:00+09:00', status: 'published', category: 'Development',
+        description: 'AIのPoCがデモで終わり、本番導入へ進めない理由を、評価・業務導線・セキュリティ・運用・責任分界から整理。作り直す前の立て直し方を解説します。',
+        excerpt: 'デモは動いたのに現場で使われない。AIのPoCが本番へ進めない5つの理由と、既存成果物を活かした現実的な立て直し方を解説します。',
+        url: 'https://spacegleam.co.jp/blog/ai-poc-to-production/', thumbnail: '/blog/ai-poc-to-production/ogp.png'
+    },
+    {
+        slug: 'rag-data-preparation',
+        title: '社内文書をAI検索する前に。RAGの精度を左右するデータ整理の実務',
+        date: '2026-07-10', publishAt: '2026-07-10T10:00:00+09:00', status: 'published', category: 'Development',
+        description: '社内規程やマニュアルを生成AIで検索するRAG。精度を左右する重複、版管理、権限、文書構造、評価質問の整え方を実務目線で解説します。',
+        excerpt: '社内文書を読み込ませるだけでは、実務に耐えるAI検索にはなりません。RAGの精度を左右するデータ整理と評価の進め方を解説します。',
+        url: 'https://spacegleam.co.jp/blog/rag-data-preparation/', thumbnail: '/blog/rag-data-preparation/ogp.png'
+    },
+    {
+        slug: 'after-ai-development-diagnosis',
+        title: 'AI開発診断の結果、次に何をする？社内検討を前に進める5つの整理',
+        date: '2026-07-09', publishAt: '2026-07-09T10:00:00+09:00', status: 'published', category: 'Business',
+        description: 'AI開発診断で方向性が見えた後、社内検討や開発相談へ進むために整理したい目的・対象業務・利用者・データ・判断条件を具体例とともに解説します。',
+        excerpt: 'AI開発診断の結果を見た後、何をすればよいのか。診断結果を自社の業務へ置き換え、社内説明や開発相談を前に進める5つの整理を紹介します。',
+        url: 'https://spacegleam.co.jp/blog/after-ai-development-diagnosis/', thumbnail: '/blog/after-ai-development-diagnosis/ogp.png'
+    },
+    {
+        slug: 'ai-automation-first-process',
+        title: 'AIで自動化する業務、最初の1つはどう選ぶ？失敗しない優先順位の決め方',
+        date: '2026-07-08', publishAt: '2026-07-08T10:00:00+09:00', status: 'published', category: 'Business',
+        description: 'AIによる業務自動化は、対象業務の選び方で成果が変わります。頻度・時間・判断の複雑さ・例外・データの5項目から、最初に着手すべき業務を見極める方法を解説します。',
+        excerpt: '何からAIで自動化するべきか。頻度、手順、確認、例外、データの5項目から、費用対効果が出やすい最初の業務を選ぶ方法を解説します。',
+        url: 'https://spacegleam.co.jp/blog/ai-automation-first-process/', thumbnail: '/blog/ai-automation-first-process/ogp.png'
+    },
+    {
         slug: 'ai-adoption-failed-fix',
         title: '「AIを導入したが、社内に浸透しない」という失敗を防ぐ、AI定着のための4つのステップ',
         date: '2026-07-06',
