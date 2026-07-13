@@ -11424,3 +11424,9 @@ body.blog-page-body[data-article-slug] .related-card-placeholder {
         padding: 22px;
     }
 }
+/* Blog rendering performance: defer below-the-fold layout work. */
+body.blog-page-body .blog-mail-cta,
+body.blog-page-body .footer {
+    content-visibility: auto;
+    contain-intrinsic-size: auto 520px;
+}

@@ -11,11 +11,36 @@
     const paginationRoot = document.querySelector('[data-blog-pagination]');
     const mailForms = document.querySelectorAll('.blog-mail-cta form');
     const heroVideo = document.querySelector('.blog-hero-video');
+    const header = document.querySelector('.header');
+    const navToggle = document.querySelector('.nav-toggle');
+    const nav = document.querySelector('.nav');
     const articleSlug = document.body.dataset.articleSlug;
     const perPage = 6;
     let currentPage = 1;
     let query = '';
     let activeCategory = 'All';
+
+    const setHeaderState = () => header?.classList.toggle('is-scrolled', window.scrollY > 12);
+    setHeaderState();
+    window.addEventListener('scroll', setHeaderState, { passive: true });
+
+    if (navToggle && nav) {
+        navToggle.addEventListener('click', () => {
+            const isOpen = nav.classList.toggle('is-open');
+            navToggle.classList.toggle('is-open', isOpen);
+            navToggle.setAttribute('aria-expanded', String(isOpen));
+            document.body.classList.toggle('nav-open', isOpen);
+        });
+    }
+
+    nav?.querySelectorAll('a').forEach((link) => {
+        if (link.textContent.trim() === 'Blog' && !link.querySelector('.nav-new-badge')) {
+            const badge = document.createElement('span');
+            badge.className = 'nav-new-badge';
+            badge.textContent = '新着記事あり';
+            link.appendChild(badge);
+        }
+    });
 
     const formatDate = (value) => {
         const date = new Date(`${value}T00:00:00+09:00`);
@@ -117,7 +142,7 @@
 
         return `
             <div class="${className}">
-                <img src="${escapeHtml(blogPath(post.thumbnail))}" alt="" loading="lazy">
+                <img src="${escapeHtml(blogPath(post.thumbnail))}" alt="" width="600" height="315" loading="lazy" decoding="async">
             </div>
         `;
     };
@@ -165,7 +190,7 @@
         <article class="blog-card">
             <a class="blog-card-link" href="${postHref(post)}" aria-label="${escapeHtml(post.title)}を読む">
                 <div class="blog-card-image">
-                    ${post.thumbnail ? `<img src="${escapeHtml(blogPath(post.thumbnail))}" alt="" loading="lazy">` : '<div class="blog-card-image-placeholder" aria-hidden="true"></div>'}
+                    ${post.thumbnail ? `<img src="${escapeHtml(blogPath(post.thumbnail))}" alt="" width="600" height="315" loading="lazy" decoding="async">` : '<div class="blog-card-image-placeholder" aria-hidden="true"></div>'}
                     <time class="blog-card-date" datetime="${escapeHtml(post.date)}">${compactDate(post.date)}</time>
                 </div>
                 <div class="blog-card-body">
@@ -268,7 +293,7 @@
         relatedRoot.innerHTML = related.map((post) => `
             <a class="related-card" href="${postHref(post)}" aria-label="${escapeHtml(post.title)}を読む">
                 ${post.thumbnail
-                    ? `<img src="${escapeHtml(blogPath(post.thumbnail))}" alt="${escapeHtml(post.title)}" loading="lazy">`
+                    ? `<img src="${escapeHtml(blogPath(post.thumbnail))}" alt="${escapeHtml(post.title)}" width="600" height="315" loading="lazy" decoding="async">`
                     : '<span class="related-card-placeholder" aria-hidden="true"></span>'}
             </a>
         `).join('');
@@ -372,11 +397,25 @@
         });
     });
 
-    if (heroVideo && window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
-        heroVideo.pause();
-        heroVideo.removeAttribute('autoplay');
-    } else if (heroVideo) {
-        heroVideo.playbackRate = 0.45;
+    if (heroVideo) {
+        const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+        const saveData = navigator.connection?.saveData;
+        const loadHeroVideo = () => {
+            const src = heroVideo.dataset.videoSrc;
+            if (!src || reducedMotion || saveData) return;
+            const source = document.createElement('source');
+            source.src = src;
+            source.type = 'video/mp4';
+            heroVideo.appendChild(source);
+            heroVideo.removeAttribute('data-video-src');
+            heroVideo.load();
+            heroVideo.playbackRate = 0.45;
+            heroVideo.play().catch(() => {});
+        };
+        window.addEventListener('load', () => {
+            if ('requestIdleCallback' in window) window.requestIdleCallback(loadHeroVideo, { timeout: 1800 });
+            else window.setTimeout(loadHeroVideo, 600);
+        }, { once: true });
     }
 }());
 

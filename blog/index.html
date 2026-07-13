@@ -15,7 +15,7 @@
     <meta name="description" content="SPACE GLEAMのブログ。自社サービス運営、AI開発、SaaS開発、新規事業開発の実践知を発信します。">
     <link rel="canonical" href="https://spacegleam.co.jp/blog/">
     <link rel="icon" href="../favicon.png?v=logo13-20260702">
-    <link rel="stylesheet" href="../style.css?v=mobile-header-fix-20260709-v1">
+    <link rel="stylesheet" href="../style.css?v=blog-perf-20260713">
     <meta property="og:type" content="website">
     <meta property="og:title" content="実践知 | SPACE GLEAM">
     <meta property="og:description" content="自社サービス運営、AI開発、SaaS開発、新規事業開発の実践知を発信するSPACE GLEAMのメディアです。">
@@ -75,8 +75,7 @@
 
     <main class="blog-main blog-media-main">
         <section class="blog-media-hero">
-            <video class="blog-hero-video" autoplay muted loop playsinline preload="metadata" aria-hidden="true">
-                <source src="./water-surface.mp4" type="video/mp4">
+            <video class="blog-hero-video" muted loop playsinline preload="none" aria-hidden="true" data-video-src="./water-surface.mp4">
             </video>
             <div class="container blog-media-hero-inner">
                 <div class="blog-media-copy">
@@ -252,28 +251,8 @@
         </div>
     </footer>
 
-    <script src="../script.js?v=diag-pause-background-20260612-v3"></script>
-    <script src="./posts.js?v=blog-sync-20260702"></script>
-    <script src="./blog.js?v=blog-sync-20260702"></script>
-    <script>
-        /* iOSで再生ボタンが出ないよう、背景動画の自動再生を強制 */
-        (function () {
-            var v = document.querySelector('.blog-hero-video');
-            if (!v) return;
-            v.muted = true;
-            v.defaultMuted = true;
-            v.setAttribute('muted', '');
-            v.playsInline = true;
-            var tryPlay = function () {
-                var p = v.play();
-                if (p && p.catch) p.catch(function () {});
-            };
-            tryPlay();
-            v.addEventListener('loadedmetadata', tryPlay, { once: true });
-            v.addEventListener('canplay', tryPlay, { once: true });
-            document.addEventListener('touchstart', tryPlay, { once: true });
-        })();
-    </script>
+    <script src="./posts.js?v=blog-perf-20260713"></script>
+    <script src="./blog.js?v=blog-perf-20260713"></script>
 </body>
 
 </html>
