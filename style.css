@@ -11141,3 +11141,286 @@ body.recruit-page-body .nav a:hover {
         border-color: rgba(0, 0, 0, 0.08) !important;
     }
 }
+/* Blog article improvements: share/related/diagnosis (2026-07-13) */
+body.blog-page-body[data-article-slug] .article-header h1 {
+    font-size: clamp(2rem, 4.2vw, 3.35rem);
+    line-height: 1.16;
+}
+
+body.blog-page-body[data-article-slug] .related-card {
+    display: block;
+    overflow: hidden;
+    aspect-ratio: 1200 / 630;
+    padding: 0;
+    background: #f1f1f1;
+    border: 1px solid rgba(0, 0, 0, 0.06);
+    border-radius: 8px;
+    box-shadow: 0 10px 28px rgba(0, 0, 0, 0.055);
+    transition: box-shadow 0.18s ease, transform 0.18s ease;
+}
+
+body.blog-page-body[data-article-slug] .related-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 16px 36px rgba(0, 0, 0, 0.1);
+}
+
+body.blog-page-body[data-article-slug] .related-card img,
+body.blog-page-body[data-article-slug] .related-card-placeholder {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.blog-diagnosis-embed {
+    max-width: 900px;
+    margin: 64px auto 0;
+    padding: 0;
+}
+
+.blog-diag-promo__head {
+    margin-bottom: 24px;
+    text-align: center;
+}
+
+.blog-diag-promo__head h2 {
+    margin: 0 0 8px;
+    color: #111827;
+    font-size: clamp(1.45rem, 3vw, 2rem);
+    line-height: 1.4;
+}
+
+.blog-diag-promo__head p {
+    margin: 0;
+    color: #64748b;
+    font-size: 0.86rem;
+    line-height: 1.7;
+}
+
+.blog-diag-promo {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    overflow: hidden;
+    background: #ffffff;
+    border: 1px solid #e2e8f0;
+    border-radius: 10px;
+    box-shadow: 0 18px 46px -24px rgba(15, 23, 42, 0.32);
+}
+
+.blog-diag-promo__copy {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 34px 36px 28px;
+}
+
+.blog-diag-promo__label {
+    margin-bottom: 10px;
+    color: #2563eb;
+    font-size: 0.72rem;
+    font-weight: 800;
+}
+
+.blog-diag-promo__copy h3 {
+    margin: 0 0 20px;
+    color: #0f172a;
+    font-size: clamp(1.35rem, 2.7vw, 1.9rem);
+    line-height: 1.4;
+}
+
+.blog-diag-promo__copy h3 span {
+    color: #2563eb;
+}
+
+.blog-diag-promo__copy ul {
+    display: grid;
+    gap: 9px;
+    margin: 0 0 22px;
+    padding: 0;
+    list-style: none;
+}
+
+.blog-diag-promo__copy li {
+    position: relative;
+    padding-left: 20px;
+    color: #475569;
+    font-size: 0.78rem;
+    line-height: 1.55;
+}
+
+.blog-diag-promo__copy li::before {
+    content: "✓";
+    position: absolute;
+    left: 0;
+    color: #2563eb;
+    font-weight: 900;
+}
+
+.blog-diag-promo__btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 11px;
+    width: 100%;
+    padding: 15px 18px;
+    color: #ffffff;
+    background: #07101f;
+    border: 0;
+    border-radius: 8px;
+    box-shadow: 0 10px 22px -12px rgba(15, 23, 42, 0.7);
+    font: inherit;
+    font-size: 0.82rem;
+    font-weight: 800;
+    cursor: pointer;
+}
+
+.blog-diag-promo__copy small {
+    margin-top: 9px;
+    color: #94a3b8;
+    font-size: 0.64rem;
+    text-align: center;
+}
+
+.blog-diag-promo__pdf-note {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 7px;
+    margin: 14px 0 0;
+    color: #2563eb;
+    font-size: 0.7rem;
+    font-weight: 800;
+    line-height: 1.5;
+    text-align: center;
+}
+
+.blog-diag-promo__pdf-note span {
+    display: grid;
+    place-items: center;
+    width: 20px;
+    height: 20px;
+    flex: 0 0 20px;
+    color: #ffffff;
+    background: #2563eb;
+    border-radius: 50%;
+    font-size: 0.68rem;
+}
+
+.blog-diag-promo__visual {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    min-height: 380px;
+    padding: 34px;
+    color: #ffffff;
+    background: radial-gradient(circle at 70% 80%, rgba(37, 99, 235, 0.28), transparent 36%), linear-gradient(145deg, #07101f, #020817 72%);
+}
+
+.blog-diag-promo__visual::after {
+    content: "";
+    position: absolute;
+    inset: auto 0 0;
+    height: 42%;
+    opacity: 0.24;
+    background-image: linear-gradient(rgba(59, 130, 246, 0.35) 1px, transparent 1px), linear-gradient(90deg, rgba(59, 130, 246, 0.35) 1px, transparent 1px);
+    background-size: 28px 28px;
+    transform: perspective(220px) rotateX(58deg);
+    transform-origin: bottom;
+}
+
+.blog-diag-promo__visual-label {
+    position: relative;
+    z-index: 1;
+    margin-bottom: 14px;
+    font-size: 0.67rem;
+}
+
+.blog-diag-pdf {
+    position: relative;
+    z-index: 1;
+    overflow: hidden;
+    margin: 0;
+    background: #ffffff;
+    border: 1px solid rgba(96, 165, 250, 0.3);
+    border-radius: 10px;
+    box-shadow: 0 22px 42px -20px rgba(0, 0, 0, 0.75);
+}
+
+.blog-diag-pdf img {
+    display: block;
+    width: 100%;
+    aspect-ratio: 16 / 9;
+    object-fit: cover;
+    object-position: center top;
+}
+
+.blog-diag-pdf figcaption {
+    display: grid;
+    gap: 3px;
+    padding: 12px 14px;
+    color: #0f172a;
+    background: #ffffff;
+}
+
+.blog-diag-pdf figcaption strong {
+    font-size: 0.72rem;
+}
+
+.blog-diag-pdf figcaption span {
+    color: #64748b;
+    font-size: 0.6rem;
+}
+
+@media (max-width: 640px) {
+    body.blog-page-body[data-article-slug] .article-header h1 {
+        font-size: clamp(1.75rem, 8vw, 2.15rem);
+        line-height: 1.22;
+    }
+
+    .blog-diagnosis-embed {
+        margin-top: 48px;
+    }
+
+    .blog-diag-promo__head {
+        margin-bottom: 18px;
+        padding: 0 4px;
+    }
+
+    .blog-diag-promo__head h2 {
+        margin-bottom: 7px;
+        font-size: 1.28rem;
+        line-height: 1.45;
+    }
+
+    .blog-diag-promo__head p {
+        font-size: 0.74rem;
+    }
+
+    .blog-diag-promo {
+        grid-template-columns: 1fr;
+    }
+
+    .blog-diag-promo__copy {
+        padding: 25px 22px 21px;
+    }
+
+    .blog-diag-promo__copy h3 {
+        margin-bottom: 15px;
+        font-size: 1.42rem;
+    }
+
+    .blog-diag-promo__copy ul {
+        gap: 7px;
+        margin-bottom: 17px;
+    }
+
+    .blog-diag-promo__copy li {
+        font-size: 0.72rem;
+    }
+
+    .blog-diag-promo__visual {
+        min-height: 0;
+        padding: 22px;
+    }
+}

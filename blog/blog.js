@@ -9,9 +9,6 @@
     const countRoot = document.querySelector('[data-blog-count]');
     const categoryButtons = document.querySelectorAll('[data-category-filter]');
     const paginationRoot = document.querySelector('[data-blog-pagination]');
-    const relatedRoot = document.querySelector('[data-related-posts]');
-    const shareButtons = document.querySelectorAll('[data-share]');
-    const copyButtons = document.querySelectorAll('[data-copy-url]');
     const mailForms = document.querySelectorAll('.blog-mail-cta form');
     const heroVideo = document.querySelector('.blog-hero-video');
     const articleSlug = document.body.dataset.articleSlug;
@@ -33,6 +30,48 @@
         "'": '&#039;'
     }[char]));
 
+    const createShareMarkup = (post) => {
+        const title = post?.title || document.title.replace(/\s*\|\s*SPACE GLEAM\s*$/, '');
+        const url = post?.url || window.location.href;
+        return `
+            <div class="article-share" aria-label="記事を共有">
+                <button type="button" class="article-share-icon is-x" aria-label="Xでシェア" title="Xでシェア" data-share data-share-title="${escapeHtml(title)}" data-share-url="${escapeHtml(url)}">
+                    <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24h-6.657l-5.214-6.817-5.966 6.817H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231Zm-1.161 17.52h1.833L7.084 4.126H5.117Z"></path></svg>
+                </button>
+                <a href="mailto:?subject=${encodeURIComponent(title)}&body=${encodeURIComponent(url)}" class="article-share-icon is-mail" aria-label="メールでシェア" title="メールでシェア">
+                    <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 5h16a2 2 0 0 1 2 2v10a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V7a2 2 0 0 1 2-2Zm0 2v.4l8 5.15 8-5.15V7H4Zm0 2.78V17h16V9.78l-8 5.15-8-5.15Z"></path></svg>
+                </a>
+                <button type="button" class="article-share-icon" aria-label="URLをコピー" title="URLをコピー" data-copy-url="${escapeHtml(url)}">
+                    <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 9.5A1.5 1.5 0 0 1 10.5 8h8A1.5 1.5 0 0 1 20 9.5v8A1.5 1.5 0 0 1 18.5 19h-8A1.5 1.5 0 0 1 9 17.5v-8Z"></path><path d="M6 15H5.5A1.5 1.5 0 0 1 4 13.5v-8A1.5 1.5 0 0 1 5.5 4h8A1.5 1.5 0 0 1 15 5.5V6"></path></svg>
+                </button>
+            </div>`;
+    };
+
+    const ensureArticleParts = () => {
+        if (!articleSlug) return;
+        const article = document.querySelector('main article');
+        const articleHeader = article?.querySelector('.article-header');
+        const current = allPosts.find((post) => post.slug === articleSlug);
+
+        if (articleHeader && !article.querySelector('.article-share')) {
+            articleHeader.insertAdjacentHTML('afterend', createShareMarkup(current));
+        }
+
+        if (!document.querySelector('[data-related-posts]')) {
+            const anchor = document.querySelector('.article-nav') || document.querySelector('.article-back-link');
+            const section = document.createElement('section');
+            section.className = 'related-section';
+            section.innerHTML = '<h2>関連記事</h2><div class="related-grid" data-related-posts></div>';
+            if (anchor) anchor.before(section);
+            else (article || document.querySelector('main .container'))?.insertAdjacentElement('afterend', section);
+        }
+    };
+
+    ensureArticleParts();
+    const relatedRoot = document.querySelector('[data-related-posts]');
+    const shareButtons = document.querySelectorAll('[data-share]');
+    const copyButtons = document.querySelectorAll('[data-copy-url]');
+
     const blogPath = (value) => {
         if (!value || /^(https?:|mailto:|tel:|#)/.test(value)) return value;
 
@@ -46,6 +85,28 @@
     };
 
     const postHref = (post) => escapeHtml(blogPath(`/blog/${post.slug}/`));
+
+    const normalizeArticleCta = () => {
+        if (!articleSlug || articleSlug === 'free-ai-development-diagnosis') return;
+        const cta = document.querySelector('.article-cta');
+        if (!cta) return;
+
+        cta.className = 'blog-diagnosis-embed';
+        cta.id = 'blogDiagnosisWrapper';
+        cta.setAttribute('aria-label', '無料AI開発診断');
+        cta.innerHTML = '';
+
+        document.documentElement.classList.add('diag-enabled');
+        if (!document.querySelector('script[data-blog-diagnosis]')) {
+            const script = document.createElement('script');
+            script.src = blogPath('/diagnosis.js');
+            script.defer = true;
+            script.dataset.blogDiagnosis = 'true';
+            document.body.appendChild(script);
+        }
+    };
+
+    normalizeArticleCta();
 
     const compactDate = (value) => formatDate(value).replace(/年|月/g, '.').replace('日', '');
 
@@ -205,10 +266,10 @@
             .slice(0, 3);
 
         relatedRoot.innerHTML = related.map((post) => `
-            <a class="related-card" href="/blog/${escapeHtml(post.slug)}/">
-                <span>${escapeHtml(post.category)}</span>
-                <strong>${escapeHtml(post.title)}</strong>
-                <small>${formatDate(post.date)}</small>
+            <a class="related-card" href="${postHref(post)}" aria-label="${escapeHtml(post.title)}を読む">
+                ${post.thumbnail
+                    ? `<img src="${escapeHtml(blogPath(post.thumbnail))}" alt="${escapeHtml(post.title)}" loading="lazy">`
+                    : '<span class="related-card-placeholder" aria-hidden="true"></span>'}
             </a>
         `).join('');
     };

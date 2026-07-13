@@ -110,8 +110,12 @@
   var CONTACT_URL = 'contact.html';
   // 診断パターン → 専用提案資料(PDF)
   var ASSET = {
-    P1: 'assets/diagnosis/p1.pdf', P2: 'assets/diagnosis/p2.pdf', P3: 'assets/diagnosis/p3.pdf',
-    P4: 'assets/diagnosis/p4.pdf', P5: 'assets/diagnosis/p5.pdf', P6: 'assets/diagnosis/p6.pdf'
+    P1: '/assets/diagnosis/SPACE_GLEAM_AI開発計画書_初期リリース・スモールスタート型.pdf',
+    P2: '/assets/diagnosis/SPACE_GLEAM_AI開発計画書_業務システム自動化型.pdf',
+    P3: '/assets/diagnosis/SPACE_GLEAM_AI開発計画書_SaaS・新規プロダクト型.pdf',
+    P4: '/assets/diagnosis/SPACE_GLEAM_AI開発計画書_AI機能組み込み型.pdf',
+    P5: '/assets/diagnosis/SPACE_GLEAM_AI開発計画書_商用公開・事業化型.pdf',
+    P6: '/assets/diagnosis/SPACE_GLEAM_AI開発計画書_要件整理・相談スタート型.pdf'
   };
   var LEAD_ENDPOINT = '/api/lead';
   var EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -420,7 +424,7 @@
 
   /* ---------------- ヒーローのカード ---------------- */
   function buildCard() {
-    var host = document.getElementById('heroInteractiveWrapper');
+    var host = document.getElementById('blogDiagnosisWrapper') || document.getElementById('heroInteractiveWrapper');
     if (!host) return;
 
     var existing = document.getElementById('diagRestore');
@@ -429,8 +433,9 @@
     }
 
     var isMobile = window.innerWidth <= 960;
+    var isEmbedded = host.id === 'blogDiagnosisWrapper';
 
-    if (isCardHidden() && !isMobile) {
+    if (isCardHidden() && !isMobile && !isEmbedded) {
       host.innerHTML = '';
       var btn = document.createElement('button');
       btn.type = 'button';
@@ -445,6 +450,36 @@
       return;
     }
     var hasProgress = Object.keys(answers).length > 0;
+    if (isEmbedded) {
+      host.innerHTML =
+        '<div class="blog-diag-promo__head">' +
+          '<h2>AI開発の第一歩は、正しい現状把握から</h2>' +
+          '<p>30秒で完了する無料診断で、あなたの会社に最適なAI活用の方向性がわかります</p>' +
+        '</div>' +
+        '<div class="blog-diag-promo">' +
+          '<div class="blog-diag-promo__copy">' +
+            '<span class="blog-diag-promo__label">AI開発診断（無料）</span>' +
+            '<h3>自社に最適なAI活用の方向性を<span>30秒</span>で診断</h3>' +
+            '<ul>' +
+              '<li>経営課題に基づいたAI活用の優先順位を診断</li>' +
+              '<li>開発の方向性・概算費用の目安を提示</li>' +
+              '<li>最適な進め方をプロがアドバイス</li>' +
+            '</ul>' +
+            '<button type="button" class="blog-diag-promo__btn" id="blogDiagStart"><span aria-hidden="true">✦</span>' + (hasProgress ? '診断を再開する' : '無料で診断をはじめる') + '<span aria-hidden="true">→</span></button>' +
+            '<small>入力不要・30秒で結果表示</small>' +
+            '<p class="blog-diag-promo__pdf-note"><span aria-hidden="true">↓</span>診断結果はPDFとして無料でダウンロードできます</p>' +
+          '</div>' +
+          '<div class="blog-diag-promo__visual" aria-label="診断結果PDFのサンプル">' +
+            '<span class="blog-diag-promo__visual-label">実際にダウンロードできる診断PDF</span>' +
+            '<figure class="blog-diag-pdf">' +
+              '<img src="/blog/assets/diagnosis-covers/p3.png" alt="診断結果PDFの表紙サンプル" loading="lazy">' +
+              '<figcaption><strong>診断結果に合ったPDFを無料で取得</strong><span>概算費用・開発期間・推奨構成まで確認できます</span></figcaption>' +
+            '</figure>' +
+          '</div>' +
+        '</div>';
+      document.getElementById('blogDiagStart').addEventListener('click', openModal);
+      return;
+    }
     host.innerHTML =
       '<div class="diag-card">' +
         '<button type="button" class="diag-card__dismiss" id="diagDismiss" aria-label="診断カードを閉じる">×</button>' +
@@ -744,7 +779,7 @@
       pattern: key, patternName: p.name, cost: p.cost, period: p.period,
       company: (form.company.value || '').trim(), name: (form.name.value || '').trim(),
       email: email, answers: answers, answersText: answersReadable(),
-      assetUrl: location.origin + '/' + ASSET[key],
+      assetUrl: location.origin + ASSET[key],
       pageUrl: location.href, ts: new Date().toISOString(),
       projectType: p.name,
       budgetRange: p.cost,
