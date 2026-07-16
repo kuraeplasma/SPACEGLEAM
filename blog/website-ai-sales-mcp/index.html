@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>ホームページをAI営業窓口にする。診断・概算・相談をMCPでつなぐ | SPACE GLEAM</title>
+<meta name="description" content="企業サイトの情報をAIから扱うには何が必要か。SPACE GLEAMのコードに実装している5つのMCPツール、公開API、同意付き問い合わせと、現在残る運用課題を解説します。">
+<link rel="canonical" href="https://spacegleam.co.jp/blog/website-ai-sales-mcp/"><link rel="icon" href="../../favicon.png"><link rel="stylesheet" href="../../style.css">
+<meta property="og:type" content="article"><meta property="og:locale" content="ja_JP"><meta property="og:title" content="ホームページをAI営業窓口にする"><meta property="og:description" content="診断・概算・相談をMCPでつなぐ実装。"><meta property="og:url" content="https://spacegleam.co.jp/blog/website-ai-sales-mcp/"><meta property="og:site_name" content="SPACE GLEAM"><meta property="og:image" content="https://spacegleam.co.jp/blog/website-ai-sales-mcp/ogp.png"><meta property="og:image:width" content="1728"><meta property="og:image:height" content="910"><meta name="twitter:card" content="summary_large_image"><meta name="twitter:image" content="https://spacegleam.co.jp/blog/website-ai-sales-mcp/ogp.png">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"Article","headline":"ホームページをAI営業窓口にする。診断・概算・相談をMCPでつなぐ","description":"企業サイトにサービス検索、診断、概算整理、相談準備を実装するAPI・MCP構成を解説します。","datePublished":"2026-07-15","dateModified":"2026-07-17","author":{"@type":"Organization","name":"SPACE GLEAM"},"publisher":{"@type":"Organization","name":"SPACE GLEAM","logo":{"@type":"ImageObject","url":"https://spacegleam.co.jp/favicon.png"}},"mainEntityOfPage":"https://spacegleam.co.jp/blog/website-ai-sales-mcp/","image":"https://spacegleam.co.jp/blog/website-ai-sales-mcp/ogp.png","articleSection":"Development"}</script>
+</head>
+<body class="blog-page-body" data-article-slug="website-ai-sales-mcp"><div class="site-bg"></div>
+<header class="header"><div class="container header-inner"><a href="../../index.html" class="brand"><span class="brand-name">SPACE GLEAM</span></a><nav class="nav"><a href="../../services.html">AI プロダクト開発</a><a href="../../pricing.html">料金</a><a href="../../works.html">実績</a><a href="../../faq.html">FAQ</a><a href="../index.html">Blog</a></nav><div class="header-ctas"><a href="../../contact.html" class="header-cta">AI開発について相談する →</a></div></div></header>
+<main class="blog-main"><div class="container"><article>
+<header class="article-header"><div class="article-meta"><time datetime="2026-07-15">2026年7月15日</time><span class="article-category">Development</span></div><h1>ホームページをAI営業窓口にする。診断・概算・相談をMCPでつなぐ</h1><p class="article-lead">企業サイトは、人がページを開いて読むことを前提に作られてきました。しかしAIエージェントが情報を集め、候補を比較し、次の行動まで支援するなら、サイト側にも「情報を返す」「診断する」「相談内容をまとめる」機能が必要になります。</p></header>
+<div class="article-content">
+<p>14日の記事では、AIによる会社情報の誤解を減らすための情報設計を扱いました。本記事はその次です。AIが情報を読むだけでなく、利用者の許可を得ながらサービス検索、診断、相談準備を実行できる「行動の窓口」をどう作るかを、SPACE GLEAMのサイト用コードを例に解説します。</p>
+<h2>MCPは、AIと企業システムの共通の接続口</h2>
+<p>Model Context Protocol（MCP）は、AIクライアントが利用できるツールや情報を共通形式で公開するための仕組みです。OpenAIのApps SDKもMCPサーバーを基盤とし、ツール、認証、構造化データ、必要に応じた画面UIを組み合わせる構成を案内しています。</p>
+<p>MCPサーバーはツール名、説明、入力形式、結果を定義し、ChatGPT側のモデルがメタデータをもとに呼び出すツールを判断します。ただし、MCPエンドポイントを用意しただけでChatGPT Appとして一般公開されるわけではありません。ChatGPTへの接続、テスト、UIが必要な場合の実装、公開申請はそれぞれ別の工程です。</p>
+<h2>コードで確認できる5つのMCPツール</h2>
+<p>SPACE GLEAMのMCPサーバーには、現在、次の5ツールを定義しています。</p>
+<ul>
+<li><strong>サービス検索：</strong>相談内容に合う開発サービスを探す</li>
+<li><strong>無料診断：</strong>課題、必要機能、予算、納期などの入力から開発分類、概算費用、期間、注意点を返す</li>
+<li><strong>相談メモ生成：</strong>会話を目的、機能、予算、未決事項へ整理する</li>
+<li><strong>会社概要取得：</strong>会社情報、強み、向いている相談、問い合わせ先を返す</li>
+<li><strong>問い合わせ準備：</strong>利用者が明示同意した場合だけ送信処理へ進む</li>
+</ul>
+<p>無料診断の分類、価格帯、期間は、サーバー側のルールで返します。MCPサーバー自身が外部の生成AI APIへ毎回問い合わせる構成ではありません。会話の理解とツール選択は、MCPへ接続するAIクライアント側が担います。</p>
+<h2>WebページとAPIの不一致をどう防ぐか</h2>
+<p>画面には25万円からと書かれているのに、APIが別の金額を返せば信頼を失います。理想は、サービス、料金、免責、会社情報を共通データとして管理し、HTML、JSON API、MCPへ反映する構成です。</p>
+<p>一方、現在のSPACE GLEAMサイトは、画面表示用データとAPI用データを別々のコードで管理しています。自動同期ではないため、料金改定やサービス変更時には両方を照合する必要があります。将来的にCMSや共通データへ集約する場合も、公開前の差分チェックは残すべきです。</p>
+<h2>構成は「公開情報」「診断」「送信」の3段階</h2>
+<h3>公開情報は認証なしでも返せる</h3>
+<p>会社概要、サービス、公開可能な構成例は、通常のWebページと同じ公開情報としてJSON APIから返せます。一方、SPACE GLEAMのMCPエンドポイント自体はBearer tokenを必須にしており、公開APIと同じアクセス条件ではありません。</p>
+<h3>診断は入力制限と回数制限を入れる</h3>
+<p>長すぎる文章や想定外の項目を受け付けないようにし、診断結果には「正式見積もりではない」ことを明記します。現在のコードは入力文字数を制限していますが、回数制限があるのは問い合わせ送信処理だけです。診断やサービス検索を含むMCPツールを本番運用する前に、読み取り系の呼び出しにも利用者またはIP単位の回数制限を追加する必要があります。</p>
+<h3>送信は明示同意を必須にする</h3>
+<p>AIが会話を読んだだけで問い合わせを送ってはいけません。送信前に、AIクライアント側で宛先と送信項目を利用者へ表示し、確認を得る必要があります。SPACE GLEAMのサーバーは <code>consentConfirmed</code> が <code>true</code> でない処理を拒否しますが、このフラグだけで利用者が実際に確認画面を見たことまでは証明できません。クライアント側の確認UIとサーバー側の拒否処理を組み合わせる設計が必要です。</p>
+<h2>認証情報をAIの会話へ出さない</h2>
+<p>SPACE GLEAMのコードでは、MCPのBearer tokenとメール配信APIキーをサーバー環境変数から読み込み、未設定時は認証または送信を拒否します。操作ログに残すのは時刻、処理名、流入元、処理結果などで、tokenや問い合わせ本文は記録しない構成です。</p>
+<p>公開ツールと社内ツールを同じMCPへ混ぜる場合は、利用者と権限を分けます。サービス検索ができることと、顧客情報を閲覧できることは全く別の権限です。</p>
+<h2>AI営業窓口で実現できる利用体験</h2>
+<p>例えば利用者がAIへ「Excelで管理している問い合わせを自動化したい。予算は50万円程度」と相談したとします。AIはサービス情報を確認し、足りない条件を質問し、診断APIを実行し、次のように整理できます。</p>
+<ul>
+<li>推奨する開発区分</li>
+<li>概算費用と期間</li>
+<li>最初に作る機能</li>
+<li>想定されるリスク</li>
+<li>相談前に用意する資料</li>
+</ul>
+<p>利用者が問い合わせを希望した場合だけ、確認画面を経て送信します。営業担当には、自由記述だけでなく、目的、予算、期限、必要機能が整理された状態で届きます。</p>
+<h2>完全自動受注を目標にしない</h2>
+<p>開発案件は、同じ「問い合わせ自動化」でも件数、データ、既存システム、権限で費用が変わります。AIが正式見積もりや契約を確定するのではなく、相談前の情報整理とミスマッチ削減を担う設計が現実的です。</p>
+<p>私たちの実装でも、診断は概算であり契約条件ではないことを明示しています。AIに任せるのは入口の反復作業で、最終的な要件と提案は人が確認します。</p>
+<h2>既存サイトへ後付けできる</h2>
+<p>サイト全体を作り直さなくても、既存のサービス情報をJSON化し、診断APIとMCPを追加できます。まずは読み取り専用のサービス検索から始め、次に診断、最後に同意付き問い合わせへ段階的に広げます。</p>
+<p>SPACE GLEAMのサイト用コードには、サービス情報、無料診断、公開API、MCP認証、同意付き問い合わせメールの処理があります。ただし、一般公開されたChatGPT Appであることを意味しません。AIから自社サイトへどう相談をつなぐかは、利用するAIクライアント、認証方式、公開範囲を決めてから設計します。</p>
+<h2>参考にした公式情報</h2>
+<ul>
+<li><a href="https://developers.openai.com/apps-sdk/build/mcp-server" target="_blank" rel="noopener noreferrer">OpenAI Developers：Apps SDKのMCPサーバー構築</a></li>
+<li><a href="https://developers.openai.com/apps-sdk/deploy/submission" target="_blank" rel="noopener noreferrer">OpenAI Developers：ChatGPT Appの公開準備</a></li>
+<li><a href="https://modelcontextprotocol.io/specification/2025-11-25/server/tools" target="_blank" rel="noopener noreferrer">Model Context Protocol：Tools仕様</a></li>
+</ul>
+</div></article>
+<div class="article-cta"><div><strong>ホームページをAIから使える営業窓口にする</strong><p>既存サイトを活かし、サービスAPI・無料診断・MCP・問い合わせ導線を設計します。</p></div><a href="../../contact.html">相談する</a></div>
+<section class="related-section"><h2>関連記事</h2><div class="related-grid" data-related-posts></div></section><div class="article-nav"><a href="../index.html" class="article-nav-back">一覧に戻る</a></div></div></main>
+<footer class="footer"><div class="container footer-bottom"><p class="copyright">&copy; 2026 SPACE GLEAM. All rights reserved.</p></div></footer><script src="../../script.js"></script><script src="../posts.js"></script><script src="../blog.js"></script>
+</body></html>

@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>AIに任せきらない業務設計。人の確認を残すべき5つの場面 | SPACE GLEAM</title>
+<meta name="description" content="EU AI Actの透明性義務と経済産業省の民事責任手引きを確認し、人の承認を残すべき場面、例外キュー、二重実行防止を業務システムの設計として解説します。">
+<link rel="canonical" href="https://spacegleam.co.jp/blog/human-review-ai-workflow/"><link rel="icon" href="../../favicon.png"><link rel="stylesheet" href="../../style.css">
+<meta property="og:type" content="article"><meta property="og:locale" content="ja_JP"><meta property="og:title" content="AIに任せきらない業務設計"><meta property="og:description" content="人の確認を残すべき5つの場面と、形だけにしない承認設計。"><meta property="og:url" content="https://spacegleam.co.jp/blog/human-review-ai-workflow/"><meta property="og:site_name" content="SPACE GLEAM"><meta property="og:image" content="https://spacegleam.co.jp/blog/human-review-ai-workflow/ogp.png"><meta property="og:image:width" content="1728"><meta property="og:image:height" content="910"><meta name="twitter:card" content="summary_large_image"><meta name="twitter:image" content="https://spacegleam.co.jp/blog/human-review-ai-workflow/ogp.png">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"Article","headline":"AIに任せきらない業務設計。人の確認を残すべき5つの場面","description":"AI業務自動化で人の確認を残すべき5つの場面を解説します。","datePublished":"2026-07-16","dateModified":"2026-07-17","author":{"@type":"Organization","name":"SPACE GLEAM"},"publisher":{"@type":"Organization","name":"SPACE GLEAM","logo":{"@type":"ImageObject","url":"https://spacegleam.co.jp/favicon.png"}},"mainEntityOfPage":"https://spacegleam.co.jp/blog/human-review-ai-workflow/","image":"https://spacegleam.co.jp/blog/human-review-ai-workflow/ogp.png","articleSection":"Development"}</script>
+</head>
+<body class="blog-page-body" data-article-slug="human-review-ai-workflow"><div class="site-bg"></div>
+<header class="header"><div class="container header-inner"><a href="../../index.html" class="brand"><span class="brand-name">SPACE GLEAM</span></a><nav class="nav"><a href="../../services.html">AI プロダクト開発</a><a href="../../pricing.html">料金</a><a href="../../works.html">実績</a><a href="../../faq.html">FAQ</a><a href="../index.html">Blog</a></nav><div class="header-ctas"><a href="../../contact.html" class="header-cta">AI開発について相談する →</a></div></div></header>
+<main class="blog-main"><div class="container"><article><header class="article-header"><div class="article-meta"><time datetime="2026-07-16">2026年7月16日</time><span class="article-category">Development</span></div><h1>AIに任せきらない業務設計。人の確認を残すべき5つの場面</h1><p class="article-lead">AIで自動化するなら、人の確認は少ないほどよい。そう考えがちですが、確認をなくすこと自体を目標にすると、誤送信や誤登録が起きたときの影響が大きくなります。大切なのは、確認が必要な場面と自動化できる場面を分けることです。</p></header>
+<div class="article-content">
+<p>2026年8月2日、EU AI Act第50条の対象となるAIシステムや生成・加工コンテンツについて、透明性義務の適用が始まります。チャットボットとの対話であることの通知、ディープフェイクや公益事項を扱う一部のAI生成コンテンツの表示などが主な対象です。すべてのAI出力に一律の表示義務が生じる、という意味ではありません。</p>
+<p>これとは別に、EU AI Actの高リスクAIには、ログ、文書化、人による監督、堅牢性などの要件があります。透明性義務と高リスクAIの要件を混同せず、自社システムがどの用途・立場に該当するかを確認する必要があります。</p>
+<p>日本でも経済産業省が2026年4月、AI利用時の民事責任に関する手引きを公表し、AIを「補助／支援型」と「依拠／代替型」に分けて整理しました。人が最終判断する設計と、AIへ実質的に判断を任せる設計では、必要な注意と説明が変わります。</p>
+<h2>既存の自動化記事との違い</h2>
+<p>7月8日の記事では、最初に自動化する業務の選び方を扱いました。本記事は、その先の実装です。人を残すべきかという一般論ではなく、承認画面に何を出し、どの案件を例外キューへ送り、再実行や差し戻しをどう安全に作るかを解説します。</p>
+<h2>DIFFsenseの開発で重視した「確認しやすい比較」</h2>
+<p>SPACE GLEAMは、契約書の差分確認、要約、リスク整理などを行うDIFFsenseを自社開発しています。文書業務で「AIの結果を人が確認してください」とだけ伝えても、利用者は元の長い文書を読み直すことになります。それではAI導入前と負担が変わりません。</p>
+<p>DIFFsenseでは、契約書の差分比較とAIによる要約・リスク整理を実装しています。この開発で重視したのは、人が元の作業を最初からやり直すのではなく、変更箇所とAIの整理結果を見比べられることです。業務システムへ展開する場合は、元データ、変更後、差分、AIの要約、根拠となる参照位置を同じ判断単位で表示すると、確認範囲を絞りやすくなります。</p>
+<h2>人の確認を残すべき5つの場面</h2>
+<h3>1. 社外への約束が発生する直前</h3>
+<p>顧客メール、見積書、契約条件、納期回答、公開コンテンツは、会社としての約束になります。文章だけでなく、宛先、金額、期限、添付、根拠をまとめて承認します。定型通知は実績が集まった後で自動化できますが、個別条件を含むものは確認を残します。</p>
+<h3>2. 元に戻せない操作の直前</h3>
+<p>削除、返金、発注、アカウント停止、外部共有は、実行後の復旧が難しい操作です。対象件数、変更前後、関連データ、取り消し可能時間を表示します。可能なら即時削除ではなく保留やアーカイブを使います。</p>
+<h3>3. 人への影響が大きい判断</h3>
+<p>採用、評価、与信、取引審査、医療・法務支援などは、単純な正答率だけで自動化しません。AIには資料収集、論点整理、記載漏れ確認を任せ、判断基準と最終責任を人に残します。EU AI Actでも、高リスク用途ではログ、文書化、人による監督などが重要要素として示されています。</p>
+<h3>4. 入力不足・矛盾・通常範囲外</h3>
+<p>全件を人へ回すのではなく、必要項目の欠損、複数規程の矛盾、通常を超える金額、根拠文書なし、外部APIの一部失敗などを例外条件にします。AI自身の「自信があります」という文章ではなく、測定できる条件で振り分けます。</p>
+<h3>5. モデル・データ・業務ルールの変更直後</h3>
+<p>モデル、プロンプト、検索対象、料金表、規程を変更した直後は確認率を上げます。以前の評価データで再テストし、一定件数の本番結果を確認してから自動化率を戻します。</p>
+<h2>承認画面は6項目で設計する</h2>
+<ul>
+<li><strong>依頼：</strong>誰が何を求めたか</li>
+<li><strong>根拠：</strong>AIが参照した文書と該当箇所</li>
+<li><strong>差分：</strong>現在値から何が変わるか</li>
+<li><strong>影響：</strong>送信先、件数、金額、関連データ</li>
+<li><strong>警告：</strong>欠損、矛盾、機密情報、通常範囲外</li>
+<li><strong>操作：</strong>承認、修正、差し戻し、中止</li>
+</ul>
+<p>「承認」「却下」の二択だけでは改善につながりません。人が修正した内容と、「根拠不足」「情報が古い」「表現」「業務ルール」といった理由を短く残します。</p>
+<h2>例外キューを作らないと確認依頼が埋もれる</h2>
+<p>承認依頼をメールやチャットへ流すだけでは、未処理、重複、担当者不在を管理できません。専用の一覧で、期限、重要度、担当者、待機時間、AIの警告理由を確認できるようにします。</p>
+<p>一定時間を超えたら代理担当へ回す、金額によって承認者を変える、同じ顧客の依頼をまとめる、といったルールを設けます。AI処理が速くなっても、承認待ちが増えれば業務全体は速くなりません。</p>
+<h2>再実行では二重処理を防ぐ</h2>
+<p>承認後のAPI呼び出しが途中で失敗すると、利用者は再実行します。メール、決済、登録が二重にならないよう、依頼ごとの固有ID、処理済み判定、再試行回数、最終状態を保存します。</p>
+<p>「AIが同じ答えを出すか」だけでなく、「同じ依頼を2回実行しても業務データが壊れないか」をテストします。これは生成AIの精度とは別の、通常の業務システム開発の品質です。</p>
+<h2>確認率を段階的に下げる実務</h2>
+<p>導入直後は100%確認し、失敗を分類します。その後、影響が小さく、同じ条件で連続して承認されたものだけを自動化します。無作為抽出による定期確認は残し、品質が下がったら確認率を自動で上げます。</p>
+<ul>
+<li>承認率と修正率</li>
+<li>修正理由の内訳</li>
+<li>1件あたりの確認時間</li>
+<li>例外キューの待ち時間</li>
+<li>二重実行、誤送信、復旧の件数</li>
+</ul>
+<p>自動化率だけを目標にしません。確認時間が短くなり、重大な誤りが減り、担当者が判断へ集中できたかを測ります。</p>
+<h2>「人を残す」は開発を簡単にすることではない</h2>
+<p>確認ボタンを一つ付ければHuman in the Loopになるわけではありません。根拠と差分を表示し、例外を適切な担当者へ送り、操作を一度だけ実行し、後から追跡できる設計が必要です。</p>
+<p>業務へ導入する際は、現在の業務フローと帳票を確認し、AI処理、承認、例外、実行、復旧を一つのシステムとして設計します。すでにAIの試作がある場合も、どこに確認を入れるべきか、再実行や差し戻しをどう管理するかという整理が必要です。</p>
+<h2>参考にした公式情報</h2>
+<ul>
+<li><a href="https://digital-strategy.ec.europa.eu/en/policies/regulatory-framework-ai" target="_blank" rel="noopener noreferrer">欧州委員会：EU AI Actの適用時期と人による監督</a></li>
+<li><a href="https://digital-strategy.ec.europa.eu/en/faqs/code-practice-transparency-ai-generated-content" target="_blank" rel="noopener noreferrer">欧州委員会：AI生成コンテンツの透明性ルール（2026年6月）</a></li>
+<li><a href="https://www.meti.go.jp/press/2026/04/20260409001/20260409001.html" target="_blank" rel="noopener noreferrer">経済産業省：AI利活用における民事責任の解釈適用に関する手引き（2026年4月、6月更新）</a></li>
+</ul>
+</div></article>
+<div class="article-cta"><div><strong>AI自動化の確認ポイントを設計する</strong><p>安全性と効率の両方を考え、業務に合った運用フローをご提案します。</p></div><a href="../../contact.html">相談する</a></div>
+<section class="related-section"><h2>関連記事</h2><div class="related-grid" data-related-posts></div></section><div class="article-nav"><a href="../index.html" class="article-nav-back">一覧に戻る</a></div></div></main>
+<footer class="footer"><div class="container footer-bottom"><p class="copyright">&copy; 2026 SPACE GLEAM. All rights reserved.</p></div></footer><script src="../../script.js"></script><script src="../posts.js"></script><script src="../blog.js"></script>
+</body></html>

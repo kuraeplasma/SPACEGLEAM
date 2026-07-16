@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>AI検索時代、会社はどう選ばれる？ChatGPT・Google AIに伝わる企業サイト | SPACE GLEAM</title>
+<meta name="description" content="Google AI Mode時代に企業サイトはどう作るべきか。SPACE GLEAMのサイトで実際に採用している本文設計、JSON-LD、llms.txt、公開APIの構成と運用上の注意点を解説します。">
+<link rel="canonical" href="https://spacegleam.co.jp/blog/ai-search-ready-corporate-website/">
+<link rel="icon" href="../../favicon.png">
+<link rel="stylesheet" href="../../style.css">
+<meta property="og:type" content="article"><meta property="og:locale" content="ja_JP">
+<meta property="og:title" content="AI検索時代、会社はどう選ばれる？">
+<meta property="og:description" content="ChatGPT・Google AIに会社情報を伝えるための情報設計。">
+<meta property="og:url" content="https://spacegleam.co.jp/blog/ai-search-ready-corporate-website/"><meta property="og:site_name" content="SPACE GLEAM">
+<meta property="og:image" content="https://spacegleam.co.jp/blog/ai-search-ready-corporate-website/ogp.png"><meta property="og:image:width" content="1727"><meta property="og:image:height" content="911">
+<meta name="twitter:card" content="summary_large_image"><meta name="twitter:image" content="https://spacegleam.co.jp/blog/ai-search-ready-corporate-website/ogp.png">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"Article","headline":"AI検索時代、会社はどう選ばれる？ChatGPT・Google AIに伝わる企業サイト","description":"SPACE GLEAMのサイトで採用している本文設計、JSON-LD、llms.txt、公開APIの構成と注意点を解説します。","datePublished":"2026-07-14","dateModified":"2026-07-17","author":{"@type":"Organization","name":"SPACE GLEAM"},"publisher":{"@type":"Organization","name":"SPACE GLEAM","logo":{"@type":"ImageObject","url":"https://spacegleam.co.jp/favicon.png"}},"mainEntityOfPage":"https://spacegleam.co.jp/blog/ai-search-ready-corporate-website/","image":"https://spacegleam.co.jp/blog/ai-search-ready-corporate-website/ogp.png","articleSection":"Development"}</script>
+</head>
+<body class="blog-page-body" data-article-slug="ai-search-ready-corporate-website"><div class="site-bg"></div>
+<header class="header"><div class="container header-inner"><a href="../../index.html" class="brand"><span class="brand-name">SPACE GLEAM</span></a><nav class="nav"><a href="../../services.html">AI プロダクト開発</a><a href="../../pricing.html">料金</a><a href="../../works.html">実績</a><a href="../../faq.html">FAQ</a><a href="../index.html">Blog</a></nav><div class="header-ctas"><a href="../../contact.html" class="header-cta">AI開発について相談する →</a></div></div></header>
+<main class="blog-main"><div class="container"><article>
+<header class="article-header"><div class="article-meta"><time datetime="2026-07-14">2026年7月14日</time><span class="article-category">Development</span></div><h1>AI検索時代、会社はどう選ばれる？ChatGPT・Google AIに伝わる企業サイト</h1><p class="article-lead">「〇〇に強い開発会社を教えて」とAIへ相談し、その回答から候補を比較できるようになりました。これからの企業サイトは、人に魅力を伝えるだけでなく、会社の強み、対象顧客、料金、実績を機械が読み取れる形で示すことも重要です。</p></header>
+<div class="article-content">
+<p>2026年6月3日、GoogleはSearch Consoleに生成AI機能専用のパフォーマンスレポートを追加し、一部のサイトへ段階的に提供すると発表しました。AI OverviewsやAI ModeでURLが表示された回数や対象ページを、サイト運営者が確認するための機能です。</p>
+<p>一方で「AI向けの特別なファイルを置けば推薦される」という単純な話ではありません。Googleは公式に、AI OverviewsやAI Modeへ出るための特別なマークアップは不要で、従来のSEO、クロール可能性、本文の品質、構造化データと表示内容の一致が基礎だと説明しています。</p>
+<h2>抽象的なキャッチコピーだけでは比較材料が足りない</h2>
+<p>「未来をつくる」「伴走します」「課題を解決します」。人の印象には残っても、それだけではAIが複数社を比較する回答の根拠になりません。どの会社の、どの課題に、何を、どの条件で提供できるかという具体情報が必要です。</p>
+<ul>
+<li>対応できる業務と、対応しない業務</li>
+<li>得意な企業規模、業種、開発段階</li>
+<li>最低価格、標準的な価格帯、価格が変わる条件</li>
+<li>実績で作ったもの、期間、担当範囲</li>
+<li>相談から公開までの進み方</li>
+<li>会社情報、所在地、連絡先、運営主体</li>
+</ul>
+<p>これらが画像の中だけに書かれていたり、ページごとに異なっていたりすると、AIが取得できる情報が欠け、回答の根拠も弱くなります。</p>
+<h2>AIによる会社情報の誤解を減らす4つの整備</h2>
+<p>ここからは一般論だけで終わらせず、SPACE GLEAMの企業サイトで採用している構成を例に、各施策の役割と限界を整理します。どれか一つを追加すれば検索順位やAIからの推薦が保証される、というものではありません。</p>
+<h3>1. 判断材料を画像ではなく本文に置く</h3>
+<p>最初に整えるのは、AI専用ファイルではなく訪問者も読める本文です。SPACE GLEAMでは、対応する業務、相談例、開始価格、期間の目安をトップページや料金、FAQに掲載しています。価格についても、機能量、デザイン、外部システム連携など、見積額が変わる条件を本文で説明しています。</p>
+<h3>2. JSON-LDは本文の内容を補足する</h3>
+<p>次に、画面上の情報を検索エンジンが解釈しやすい形で補足します。トップページには <code>WebSite</code> と <code>Organization</code>、FAQには <code>FAQPage</code> と <code>ProfessionalService</code>、この記事には <code>Article</code> のJSON-LDを配置しています。本文にない価格やサービスを構造化データだけへ追加しないことが前提です。なお、GoogleのAI機能へ表示されるための専用マークアップではありません。</p>
+<h3>3. llms.txtは情報源への索引として使う</h3>
+<p><a href="../../llms.txt">llms.txt</a> には、会社概要、サービス、得意分野、料金の目安、無料診断、公開APIへのリンクをまとめています。役割は、対応するAIや開発者が一次情報へたどり着くための索引です。Google AI Modeへの掲載条件でも、順位を上げる仕組みでもありません。</p>
+<h3>4. APIは再利用する情報に絞って公開する</h3>
+<p>会社概要、サービス、公開可能な構成例、推薦に適する相談などは、用途別のJSON APIから取得できる構成にしています。HTMLを解析せず情報を再利用できる一方、各APIの形式は同一ではなく、サイト本文とも自動同期しません。料金改定やサービス変更時には両方の更新が必要です。また、<a href="../../api/case-studies">構成例API</a>に含まれる項目のすべてが、顧客への納品実績を意味するわけではありません。</p>
+<h2>AI検索対策で先に直すべきページ</h2>
+<p>全ページを一度に書き換える必要はありません。問い合わせに近い質問から逆算します。</p>
+<ul>
+<li>「AI開発会社を探している」→ サービス、対象顧客、料金、実績</li>
+<li>「内製と外注で迷っている」→ 判断基準、支援範囲、進め方</li>
+<li>「予算内で作れるか知りたい」→ 価格条件、無料診断、相談前の材料</li>
+<li>「信頼できる会社か」→ 会社情報、運営サービス、保守、セキュリティ</li>
+</ul>
+<p>この質問に対する答えが複数ページへ分散しているなら、まとめページかFAQを作り、内部リンクで根拠へつなぎます。</p>
+<h2>実際にAIへ質問して、誤解を記録する</h2>
+<p>整備後は「この会社は何が得意か」「どんな案件には向かないか」「料金はいくらからか」「他社との違いは何か」と複数のAIへ質問します。回答内容を比べ、参照元が表示される場合は、どのページが根拠になったかも確認します。</p>
+<p>誤った回答や回答間の不一致が出たときは、AI向けファイルだけを直さず、元ページの曖昧さや矛盾を探します。AIの回答が安定しない箇所は、人の訪問者にも分かりにくい可能性があります。</p>
+<h2>記事を大量生成するより、自社にしか書けない事実を出す</h2>
+<p>Googleは、生成AIで大量のページを作っても、利用者への独自価値がなければスパムポリシーに抵触し得ると案内しています。一般論を増やすより、実際に作った機能、迷った判断、失敗、改善前後を公開するほうが会社の違いになります。</p>
+<p>AI検索対策は、AIへ気に入られる文章術ではありません。会社の実態を、機械にも人にも検証できる形で公開する情報設計です。</p>
+<h2>AIに読まれるだけでなく、相談へつなぐ</h2>
+<p>情報が正しく伝わっても、訪問後に問い合わせ先を探させては離脱します。記事、サービス、料金、診断、問い合わせを一つの導線にし、AI経由で来た人が次の判断へ進めるようにします。</p>
+<p>SPACE GLEAMでは、既存サイトの内容監査から、構造化データ、<code>llms.txt</code>、AI向け公開API、診断導線まで実装できます。「AI検索で自社がどう説明されるか分からない」という段階からご相談いただけます。</p>
+<h2>参考にした公式情報</h2>
+<ul>
+<li><a href="https://developers.google.com/search/docs/appearance/ai-features" target="_blank" rel="noopener noreferrer">Google Search Central：AI機能とウェブサイト</a></li>
+<li><a href="https://developers.google.com/search/blog/2026/06/gen-ai-performance-reports?hl=ja" target="_blank" rel="noopener noreferrer">Google：生成AI機能のSearch Consoleレポート（2026年6月）</a></li>
+<li><a href="https://developers.google.com/search/docs/fundamentals/using-gen-ai-content?hl=ja" target="_blank" rel="noopener noreferrer">Google：サイトで生成AIコンテンツを使用する際の指針</a></li>
+</ul>
+</div></article>
+<div class="article-cta"><div><strong>企業サイトがAIにどう読まれるか確認する</strong><p>情報の不足・矛盾・構造を確認し、サービス情報と問い合わせ導線を整えます。</p></div><a href="../../contact.html">相談する</a></div>
+<section class="related-section"><h2>関連記事</h2><div class="related-grid" data-related-posts></div></section><div class="article-nav"><a href="../index.html" class="article-nav-back">一覧に戻る</a></div></div></main>
+<footer class="footer"><div class="container footer-bottom"><p class="copyright">&copy; 2026 SPACE GLEAM. All rights reserved.</p></div></footer>
+<script src="../../script.js"></script><script src="../posts.js"></script><script src="../blog.js"></script>
+</body></html>

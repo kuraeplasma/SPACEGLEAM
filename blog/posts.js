@@ -1,5 +1,29 @@
 window.SPACEGLEAM_BLOG_POSTS = [
     {
+        slug: 'human-review-ai-workflow',
+        title: 'AIに任せきらない業務設計。人の確認を残すべき5つの場面',
+        date: '2026-07-16', publishAt: '2026-07-16T10:00:00+09:00', status: 'published', category: 'Development',
+        description: 'EU AI Actの透明性義務と経済産業省の民事責任手引きを確認し、人の承認を残す場面、例外キュー、二重実行防止を業務設計として解説します。',
+        excerpt: '確認ボタンを付けるだけでは不十分です。DIFFsenseで実装済みの差分比較と、業務システム一般に必要な例外キュー・再実行を区別して解説します。',
+        url: 'https://spacegleam.co.jp/blog/human-review-ai-workflow/', thumbnail: '/blog/human-review-ai-workflow/card.webp'
+    },
+    {
+        slug: 'website-ai-sales-mcp',
+        title: 'ホームページをAI営業窓口にする。診断・概算・相談をMCPでつなぐ',
+        date: '2026-07-15', publishAt: '2026-07-15T10:00:00+09:00', status: 'published', category: 'Development',
+        description: '企業サイトの情報をAIから扱うには何が必要か。SPACE GLEAMのコードに実装している5つのMCPツール、公開API、同意付き問い合わせと現在の運用課題を解説します。',
+        excerpt: 'サービス検索、ルール型診断、相談メモ、会社概要、同意付き問い合わせ。コードで確認できる5つのMCPツールと、未対応の運用課題を整理します。',
+        url: 'https://spacegleam.co.jp/blog/website-ai-sales-mcp/', thumbnail: '/blog/website-ai-sales-mcp/card.webp'
+    },
+    {
+        slug: 'ai-search-ready-corporate-website',
+        title: 'AI検索時代、会社はどう選ばれる？ChatGPT・Google AIに伝わる企業サイト',
+        date: '2026-07-14', publishAt: '2026-07-14T10:00:00+09:00', status: 'published', category: 'Development',
+        description: 'Google AI Mode時代に企業サイトはどう作るべきか。SPACE GLEAMのサイトで採用している本文設計、JSON-LD、llms.txt、公開APIの構成と注意点を解説します。',
+        excerpt: 'AIに伝わる企業サイトは何が違うのか。実際の配置とコードを確認できる範囲に限定し、本文・JSON-LD・llms.txt・公開APIの構成を解説します。',
+        url: 'https://spacegleam.co.jp/blog/ai-search-ready-corporate-website/', thumbnail: '/blog/ai-search-ready-corporate-website/card.webp'
+    },
+    {
         slug: 'ai-poc-to-production',
         title: 'AIのPoCは動いたのに、本番導入できない。止まる理由と立て直し方',
         date: '2026-07-13', publishAt: '2026-07-13T10:00:00+09:00', status: 'published', category: 'Development',
@@ -260,9 +284,3 @@ window.SPACEGLEAM_BLOG_POSTS = [
         thumbnail: '/blog/assets/nce9566eed6ea_card.webp'
     }
 ];
-
-
-
-
-
-
