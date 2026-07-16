@@ -17,6 +17,9 @@ The free diagnosis can organize the user's consultation into development categor
 
 ## Services
 
+* Generative AI and Internal AI Development: https://spacegleam.co.jp/services/generative-ai-internal/
+* AI Business Automation and Custom Business Systems: https://spacegleam.co.jp/services/ai-business-automation/
+* AI PoC and Prototype Development: https://spacegleam.co.jp/services/ai-poc-prototype/
 * AI Development
 * SaaS Development
 * Web Service Development
