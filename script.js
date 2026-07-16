@@ -7,55 +7,6 @@ document.addEventListener('DOMContentLoaded', () => {
     const formStatus = document.querySelector('.contact-form-status');
     const recaptchaSiteKey = window.SPACEGLEAM_RECAPTCHA_SITE_KEY;
 
-    // --- GA4 conversion funnel tracking ---
-    // Never include form values, email addresses, names, or free-text messages.
-    const trackGaEvent = (eventName, parameters = {}) => {
-        if (typeof window.gtag !== 'function') return;
-        window.gtag('event', eventName, {
-            page_path: window.location.pathname,
-            ...parameters
-        });
-    };
-
-    const getCtaLocation = (link) => {
-        if (link.closest('.header')) return 'header';
-        if (link.classList.contains('mobile-fixed-cta')) return 'mobile_fixed';
-        if (link.closest('.hero')) return 'hero';
-        if (link.closest('.article-cta')) return 'article';
-        if (link.closest('.works-section, .works-section-v2, .works-cta-banner-v2')) return 'works';
-        if (link.closest('.faq-section, .faq-contact-bar')) return 'faq';
-        if (link.closest('.contact-section')) return 'contact_section';
-        if (link.closest('.footer')) return 'footer';
-        return 'content';
-    };
-
-    const contactCtaSelector = [
-        'a.header-cta',
-        'a.mobile-fixed-cta',
-        'a[href$="contact.html"]',
-        'a[href*="contact.html#"]',
-        'a[href$="#contact"]'
-    ].join(',');
-
-    document.addEventListener('click', (event) => {
-        const link = event.target.closest(contactCtaSelector);
-        if (!link) return;
-
-        let destination = link.getAttribute('href') || '';
-        try {
-            const url = new URL(destination, window.location.href);
-            destination = `${url.pathname}${url.hash}`;
-        } catch (_) {
-            destination = destination.slice(0, 100);
-        }
-
-        trackGaEvent('cta_click', {
-            cta_location: getCtaLocation(link),
-            cta_text: (link.textContent || '').replace(/\s+/g, ' ').trim().slice(0, 100),
-            destination: destination.slice(0, 100)
-        });
-    });
-
     // --- Local Server Route Helper ---
     // If running on a local static server like Python http.server,
     // ensure /blog automatically rewrites to /blog/ (with trailing slash)
@@ -143,31 +94,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
     document.querySelectorAll('.reveal').forEach((element) => observer.observe(element));
 
-    if (contactForm) {
-        let formViewTracked = false;
-        const trackFormView = () => {
-            if (formViewTracked) return;
-            formViewTracked = true;
-            trackGaEvent('contact_form_view', { form_id: 'ai_mvp_contact' });
-        };
-
-        if ('IntersectionObserver' in window) {
-            const formViewObserver = new IntersectionObserver((entries) => {
-                if (entries.some((entry) => entry.isIntersecting)) {
-                    trackFormView();
-                    formViewObserver.disconnect();
-                }
-            }, { threshold: 0.25 });
-            formViewObserver.observe(contactForm);
-        } else {
-            trackFormView();
-        }
-
-        contactForm.addEventListener('input', () => {
-            trackGaEvent('contact_form_start', { form_id: 'ai_mvp_contact' });
-        }, { once: true });
-    }
-
     const setFormStatus = (message, type = '') => {
         if (!formStatus) return;
         formStatus.textContent = message || '';
@@ -191,8 +117,6 @@ document.addEventListener('DOMContentLoaded', () => {
     if (contactForm && formSuccess) {
         contactForm.addEventListener('submit', async (event) => {
             event.preventDefault();
-
-            trackGaEvent('contact_form_submit', { form_id: 'ai_mvp_contact' });
 
             const formData = new FormData(contactForm);
             const budget = String(formData.get('budget') || '').trim();
@@ -229,19 +153,11 @@ document.addEventListener('DOMContentLoaded', () => {
             };
 
             if (!payload.company || !payload.name || !payload.email || !payload.message) {
-                trackGaEvent('contact_form_error', {
-                    form_id: 'ai_mvp_contact',
-                    error_type: 'missing_required_fields'
-                });
                 setFormStatus('会社名、お名前、メールアドレス、相談内容を入力してください。', 'error');
                 return;
             }
 
             if (!formData.get('privacy')) {
-                trackGaEvent('contact_form_error', {
-                    form_id: 'ai_mvp_contact',
-                    error_type: 'privacy_not_accepted'
-                });
                 setFormStatus('プライバシーポリシーへの同意をお願いします。', 'error');
                 return;
             }
@@ -271,19 +187,9 @@ document.addEventListener('DOMContentLoaded', () => {
                 }
 
                 if (!response.ok || result?.success === false) {
-                    trackGaEvent('contact_form_error', {
-                        form_id: 'ai_mvp_contact',
-                        error_type: 'api_rejected',
-                        http_status: response.status
-                    });
                     setFormStatus(result?.message || '送信に失敗しました。時間をおいて再度お試しください。', 'error');
                     return;
                 }
-
-                trackGaEvent('generate_lead', {
-                    form_id: 'ai_mvp_contact',
-                    lead_type: isBookingPolish && meetingPref === 'schedule' ? 'booking' : 'form'
-                });
 
                 contactForm.reset();
                 contactForm.classList.add('is-submitted');
@@ -299,10 +205,6 @@ document.addEventListener('DOMContentLoaded', () => {
                 formSuccess.hidden = false;
                 formSuccess.focus();
             } catch (_) {
-                trackGaEvent('contact_form_error', {
-                    form_id: 'ai_mvp_contact',
-                    error_type: 'network_error'
-                });
                 setFormStatus('送信に失敗しました。時間をおいて再度お試しください。', 'error');
             } finally {
                 if (submitButton) {
