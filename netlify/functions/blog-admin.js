@@ -412,7 +412,7 @@ function page() {
                 <a href="https://spacegleam.co.jp/">Home</a>
             </nav>
             <div class="header-ctas">
-                <a href="https://spacegleam.co.jp/#contact" class="header-cta">無料相談する<span class="arrow">→</span></a>
+                <a href="https://spacegleam.co.jp/#contact" class="header-cta">AI活用案を無料で聞く<span class="arrow">→</span></a>
             </div>
         </div>
     </header>
