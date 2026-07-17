@@ -19,6 +19,8 @@
     let currentPage = 1;
     let query = '';
     let activeCategory = 'All';
+    let viewCounts = {};
+    let viewCountsLoaded = false;
 
     const setHeaderState = () => header?.classList.toggle('is-scrolled', window.scrollY > 12);
     setHeaderState();
@@ -185,15 +187,33 @@
         </article>
     `;
 
-    const createPopularRow = (post, index) => `
-        <a class="blog-popular-row" href="${postHref(post)}">
+    const createPopularRow = (post, index) => {
+        const count = Number(viewCounts[post.slug]) || 0;
+        const countLabel = viewCountsLoaded
+            ? ` / ${count.toLocaleString('ja-JP')}回閲覧`
+            : '';
+        return `
+        <a class="blog-popular-row" href="${postHref(post)}" aria-label="${escapeHtml(post.title)}を読む${viewCountsLoaded ? `（${count.toLocaleString('ja-JP')}回閲覧）` : ''}">
             <span>${String(index + 1).padStart(2, '0')}</span>
             <div>
                 <strong>${escapeHtml(post.title)}</strong>
-                <small>${compactDate(post.date)} / ${escapeHtml(post.category)}</small>
+                <small>${compactDate(post.date)} / ${escapeHtml(post.category)}${countLabel}</small>
             </div>
         </a>
     `;
+    };
+
+    const publishedTime = (post) => new Date(
+        post.publishAt || `${post.date}T00:00:00+09:00`
+    ).getTime();
+
+    const popularPosts = () => posts
+        .slice()
+        .sort((a, b) => {
+            const countDifference = (Number(viewCounts[b.slug]) || 0) - (Number(viewCounts[a.slug]) || 0);
+            return countDifference || publishedTime(b) - publishedTime(a);
+        })
+        .slice(0, 5);
 
     const createCard = (post, index) => `
         <article class="blog-card">
@@ -244,15 +264,8 @@
         }
 
         if (popularRoot) {
-            const popularPosts = posts
-                .slice()
-                .sort((a, b) => {
-                    const aTime = new Date(a.publishAt || `${a.date}T00:00:00+09:00`).getTime();
-                    const bTime = new Date(b.publishAt || `${b.date}T00:00:00+09:00`).getTime();
-                    return bTime - aTime;
-                })
-                .slice(0, 5);
-            popularRoot.innerHTML = popularPosts.map(createPopularRow).join('');
+            popularRoot.innerHTML = popularPosts().map(createPopularRow).join('');
+            popularRoot.setAttribute('aria-busy', String(!viewCountsLoaded));
         }
 
         if (!paginationRoot) return;
@@ -310,6 +323,77 @@
 
     renderList();
     renderRelated();
+
+    const viewApiUrl = () => blogPath('/api/blog-views');
+
+    const loadViewCounts = async () => {
+        if (!popularRoot || !posts.length) return;
+        const slugs = posts.map((post) => post.slug).join(',');
+        try {
+            const response = await fetch(`${viewApiUrl()}?slugs=${encodeURIComponent(slugs)}`, {
+                headers: { Accept: 'application/json' }
+            });
+            if (!response.ok) throw new Error('view_count_unavailable');
+            const result = await response.json();
+            viewCounts = result?.counts && typeof result.counts === 'object'
+                ? result.counts
+                : {};
+            viewCountsLoaded = true;
+            renderList();
+        } catch (_) {
+            popularRoot.setAttribute('aria-busy', 'false');
+        }
+    };
+
+    const createSessionId = () => {
+        const key = 'spacegleam_blog_view_session';
+        const generate = () => {
+            if (window.crypto?.randomUUID) return window.crypto.randomUUID();
+            const bytes = new Uint8Array(16);
+            window.crypto.getRandomValues(bytes);
+            return Array.from(bytes, (value) => value.toString(16).padStart(2, '0')).join('');
+        };
+        try {
+            let value = window.sessionStorage.getItem(key);
+            if (value) return value;
+            value = generate();
+            window.sessionStorage.setItem(key, value);
+            return value;
+        } catch (_) {
+            return generate();
+        }
+    };
+
+    const recordArticleView = async () => {
+        if (!articleSlug || !posts.some((post) => post.slug === articleSlug)) return;
+        const sessionId = createSessionId();
+        const countedKey = `spacegleam_blog_view_counted_${articleSlug}`;
+        try {
+            if (window.sessionStorage.getItem(countedKey) === sessionId) return;
+        } catch (_) {}
+
+        try {
+            const response = await fetch(viewApiUrl(), {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ slug: articleSlug, sessionId }),
+                keepalive: true
+            });
+            if (!response.ok) return;
+            try {
+                window.sessionStorage.setItem(countedKey, sessionId);
+            } catch (_) {}
+        } catch (_) {}
+    };
+
+    loadViewCounts();
+    if (articleSlug) {
+        if ('requestIdleCallback' in window) {
+            window.requestIdleCallback(recordArticleView, { timeout: 2000 });
+        } else {
+            window.setTimeout(recordArticleView, 800);
+        }
+    }
 
     shareButtons.forEach((button) => {
         button.addEventListener('click', () => {
