@@ -343,7 +343,7 @@ document.addEventListener('DOMContentLoaded', () => {
             background: '事業アイデアや企画メモは散らばりやすく、次のアクションに落とし込みにくい課題があります。発想を階層化し、ドラフト化まで進めやすくするために開発しました。',
             features: ['アイデアの階層化・可視化', 'ドラフトの自動生成支援', 'タグ付け・関連付け', 'チームでの共同編集'],
             stack: 'Next.js / TypeScript<br>AI生成支援<br>構造化データ設計<br>チーム編集機能',
-            period: '<strong>MVP開発：約1週間</strong><br>利用フィードバックをもとに改善',
+            period: '<strong>本番運用を前提とした初期開発：約1週間</strong><br>利用フィードバックをもとに改善',
             status: 'アイデア整理・企画作成の検証に活用<br>生成支援機能を継続改善',
             href: 'https://xdraft.spacegleam.co.jp/',
             linkText: 'XDraftのサービスサイトを見る'

@@ -73,7 +73,7 @@ exports.handler = async (event) => {
         const company = clean(body.company, 120);
         const name = clean(body.name, 80);
         const email = clean(body.email, 160).toLowerCase();
-        const category = clean(body.category || 'AI MVP開発・無料相談', 80);
+        const category = clean(body.category || 'AIシステム開発・無料相談', 80);
         const subject = clean(body.subject || 'SPACE GLEAM 無料相談', 160);
         const message = clean(body.message, 3000);
         const budget = clean(body.budget, 80);

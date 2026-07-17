@@ -98,8 +98,8 @@ window.SPACEGLEAM_BLOG_POSTS = [
         publishAt: '2026-07-03T10:00:00+09:00',
         status: 'published',
         category: 'Product',
-        description: 'AIブームの中で「AI搭載」を謳うも使われないサービスが増えています。新規事業を成功させるために、AIありきではなく顧客課題から逆算するMVP（最小限の製品）開発の正しいアプローチを解説します。',
-        excerpt: 'AIブームの中で「AI搭載」を謳うも使われないサービスが増えています。新規事業を成功させるために、AIありきではなく顧客課題から逆算するMVP開発の正しいアプローチを解説します。',
+        description: 'AIブームの中で「AI搭載」を謳うも使われないサービスが増えています。顧客課題から逆算し、作り捨てずに本番運用へつなげるプロダクト設計を解説します。',
+        excerpt: 'AIありきではなく顧客課題から逆算し、作り捨てずに本番運用へつなげるプロダクト設計を解説します。',
         url: 'https://spacegleam.co.jp/blog/ai-product-mvp-value/',
         thumbnail: '/blog/ai-product-mvp-value/card.webp'
     },

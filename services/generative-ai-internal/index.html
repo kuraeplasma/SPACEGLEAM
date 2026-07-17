@@ -20,7 +20,7 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Noto+Sans+JP:wght@400;500;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="../../style.css?v=mobile-header-fix-20260709-v1">
-    <link rel="stylesheet" href="../../service-detail.css?v=service-preview-20260717-v1">
+    <link rel="stylesheet" href="../../service-detail.css?v=hero-linebreak-20260717-v6">
     <link rel="icon" type="image/png" href="../../favicon.png">
     <script type="application/ld+json">
     {"@context":"https://schema.org","@type":"Service","name":"生成AI・社内AI開発","provider":{"@type":"Organization","name":"SPACE GLEAM株式会社","url":"https://spacegleam.co.jp/"},"areaServed":"JP","serviceType":"生成AIシステム開発・社内AI開発","url":"https://spacegleam.co.jp/services/generative-ai-internal/","description":"社内データと実際の業務フローに合わせた生成AIシステムを企画、設計、開発、運用まで支援します。"}
@@ -29,14 +29,14 @@
     {"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"ホーム","item":"https://spacegleam.co.jp/"},{"@type":"ListItem","position":2,"name":"サービス","item":"https://spacegleam.co.jp/services"},{"@type":"ListItem","position":3,"name":"生成AI・社内AI開発","item":"https://spacegleam.co.jp/services/generative-ai-internal/"}]}
     </script>
 </head>
-<body class="service-detail-page">
+<body class="service-detail-page service-poc-page service-generative-page">
     <div class="site-bg" aria-hidden="true"></div>
     <header class="header">
         <div class="container header-inner">
             <a href="../../index.html" class="brand" aria-label="SPACE GLEAM ホーム"><span class="brand-name">SPACE GLEAM</span></a>
             <button class="nav-toggle" type="button" aria-label="メニューを開く" aria-controls="global-nav" aria-expanded="false"><span></span><span></span><span></span></button>
             <nav id="global-nav" class="nav" aria-label="グローバルナビゲーション">
-                <a href="../../services.html">AI プロダクト開発</a><a href="../../pricing.html">料金</a><a href="../../works.html">実績</a><a href="../../faq.html">FAQ</a><a href="../../blog/">Blog</a>
+                <a href="../../services.html">AI システム開発</a><a href="../../pricing.html">料金</a><a href="../../works.html">実績</a><a href="../../faq.html">よくある質問</a><a href="../../blog/">ブログ</a>
             </nav>
             <div class="header-ctas"><a href="../../contact.html" class="header-cta">AI活用案を無料で聞く<span class="arrow">→</span></a></div>
         </div>
@@ -44,24 +44,34 @@
 
     <main class="sd-main">
         <section class="sd-hero">
-            <div class="sd-container sd-hero-grid">
-                <div>
-                    <div class="sd-breadcrumb"><a href="../../index.html">ホーム</a><span>/</span><a href="../../services.html">サービス</a><span>/</span><span>生成AI・社内AI開発</span></div>
-                    <p class="sd-kicker">GENERATIVE AI DEVELOPMENT</p>
-                    <h1>生成AIを、<br><em>社内で本当に使える仕組み</em>へ。</h1>
-                    <p class="sd-hero-lead">既製のチャット画面を置くだけでは、業務は変わりません。社内文書、権限、確認フロー、既存システムとの連携まで整理し、現場が安心して使い続けられる生成AIシステムを構築します。</p>
-                    <div class="sd-actions"><a class="sd-button sd-button-primary" href="../../contact.html">自社での活用方法を相談する <span>→</span></a><a class="sd-button sd-button-secondary" href="#scope">対応範囲を見る</a></div>
+            <div class="sd-container">
+                <div class="sd-breadcrumb"><a href="../../index.html">ホーム</a><span>/</span><a href="../../services.html">サービス</a><span>/</span><span>生成AI・社内AI開発</span></div>
+                <div class="sd-hero-grid">
+                    <div class="sd-hero-copy">
+                        <h1><span>生成AIを、</span><em>社内で使い続けられる<span class="sd-mobile-break"><br></span>仕組みに。</em></h1>
+                        <p class="sd-hero-lead">既製のチャット画面を置くだけでは、業務は変わりません。社内文書、権限、確認フロー、既存システムとの連携まで整理し、現場が安心して使い続けられる生成AIシステムを構築します。</p>
+                        <div class="sd-actions"><a class="sd-button sd-button-primary" href="../../contact.html">自社での活用方法を相談する <span>→</span></a><a class="sd-button sd-button-secondary" href="#scope">対応範囲を見る</a></div>
+                    </div>
+                    <div class="sd-hero-side">
+                        <figure class="sd-hero-photo"><img src="../../images/internal-ai-workshop-v1.png" alt="社内文書をもとに生成AIの回答を確認するチーム" width="1536" height="1024"></figure>
+                        <aside class="sd-hero-panel" aria-label="相談の多いテーマ"><div class="sd-hero-panel-head"><p class="sd-hero-panel-label">相談の多いテーマ</p></div><ul><li>社内文書を根拠付きで検索・回答</li><li>文章作成や確認業務の効率化</li><li>部署ごとの権限を保ったAI導入</li><li>既存システムへのAI機能追加</li></ul></aside>
+                    </div>
                 </div>
-                <aside class="sd-hero-panel" aria-label="このサービスが適する相談">
-                    <p class="sd-hero-panel-label">SUITABLE PROJECTS</p>
-                    <ul><li>社内文書を根拠付きで検索・回答したい</li><li>文章作成や確認業務を安全に効率化したい</li><li>部署ごとの権限を保ったままAIを導入したい</li><li>既存システムにAI機能を組み込みたい</li></ul>
-                </aside>
+                <div class="sd-hero-proof" aria-label="社内AI開発の要点"><div><span>01</span><strong>参照元を明示</strong></div><div><span>02</span><strong>権限と確認を設計</strong></div><div><span>03</span><strong>利用後も改善</strong></div></div>
+            </div>
+        </section>
+
+        <section class="sd-section sd-product-proof">
+            <div class="sd-container">
+                <div class="sd-section-head"><p class="sd-section-index">自社開発での実証</p><div><h2 class="sd-section-title">生成機能だけでなく、<br>整理・編集・共同作業まで実装しています。</h2><p class="sd-section-intro">自社プロダクトで生成支援を実装し、利用しながら改善してきた経験と、顧客名非公開の受託開発で培った構築知見を社内AI開発へ反映しています。</p></div></div>
+                <article class="sd-product-proof-card"><figure><img src="../../images/xdraft-site-workspace.webp?v=20260613-site" alt="XDraftの企画作成ワークスペース画面" width="1365" height="768" loading="lazy" decoding="async"></figure><div class="sd-product-proof-copy"><p class="sd-proof-label">自社プロダクト開発事例</p><h3>XDraft</h3><p class="sd-proof-summary">散らばったアイデアを構造化し、企画や文章のドラフト作成まで進めやすくする生成支援ツールです。</p><dl><div><dt>対象業務</dt><dd>アイデア整理、構造化、文章の下書き、共同編集</dd></div><div><dt>実装した仕組み</dt><dd>生成支援、構造化データ、タグ・関連付け、チーム編集</dd></div><div><dt>支援への還元</dt><dd>生成結果を業務画面の中で確認・修正し、成果物へつなげる設計知見</dd></div></dl><a href="../../works.html">開発実績を詳しく見る <span>→</span></a></div></article>
+                <div class="sd-client-scope"><div><p>顧客名非公開の支援領域</p><h3>公開できる範囲で、受託開発の対応領域もご紹介します。</h3></div><ul><li><strong>社内文書検索</strong><span>規程、マニュアル、過去資料の検索と回答支援</span></li><li><strong>文書作成・レビュー</strong><span>下書き、要約、分類、差分や確認箇所の抽出</span></li><li><strong>業務システム組み込み</strong><span>認証、権限、履歴、既存画面へのAI機能追加</span></li></ul></div>
             </div>
         </section>
 
         <section class="sd-section">
             <div class="sd-container">
-                <div class="sd-section-head"><p class="sd-section-index">01 / CHALLENGES</p><div><h2 class="sd-section-title">生成AI導入が止まるのは、<br>モデル選びより業務設計が曖昧だからです。</h2><p class="sd-section-intro">自社プロダクトの開発・運用でも、AIの回答精度だけを上げても利用は定着しませんでした。誰が、どの情報を使い、どこで人が確認し、結果を何に戻すのか。運用まで含む設計が必要です。</p></div></div>
+                <div class="sd-section-head"><p class="sd-section-index">よくある課題</p><div><h2 class="sd-section-title">生成AI導入が止まるのは、<br>モデル選びより業務設計が曖昧だからです。</h2><p class="sd-section-intro">自社プロダクトの開発・運用でも、AIの回答精度だけを上げても利用は定着しませんでした。誰が、どの情報を使い、どこで人が確認し、結果を何に戻すのか。運用まで含む設計が必要です。</p></div></div>
                 <div class="sd-card-grid">
                     <article class="sd-card"><p class="sd-card-num">01</p><h3>回答の根拠を確認できない</h3><p>もっともらしい回答でも、参照元が分からなければ業務判断には使えません。</p></article>
                     <article class="sd-card"><p class="sd-card-num">02</p><h3>機密情報と権限が不安</h3><p>利用者ごとの閲覧範囲や、入力・保存するデータの扱いを先に決める必要があります。</p></article>
@@ -72,43 +82,43 @@
 
         <section id="scope" class="sd-section sd-section-alt">
             <div class="sd-container">
-                <div class="sd-section-head"><p class="sd-section-index">02 / SCOPE</p><div><h2 class="sd-section-title">画面だけでなく、データと運用まで開発範囲に。</h2><p class="sd-section-intro">課題整理から実装、公開後の改善まで一貫して対応します。最初から大規模に作らず、効果を確認できる業務から段階的に広げます。</p></div></div>
+                <div class="sd-section-head"><p class="sd-section-index">対応する範囲</p><div><h2 class="sd-section-title">画面だけでなく、データと運用まで開発範囲に。</h2><p class="sd-section-intro">課題整理から実装、公開後の改善まで一貫して対応します。最初から大規模に作らず、効果を確認できる業務から段階的に広げます。</p></div></div>
                 <div class="sd-card-grid">
-                    <article class="sd-card"><p class="sd-card-num">PLAN</p><h3>業務・データ設計</h3><ul><li>対象業務と利用者の整理</li><li>参照データ・権限の設計</li><li>人による確認ポイントの定義</li><li>効果測定指標の設定</li></ul></article>
-                    <article class="sd-card"><p class="sd-card-num">BUILD</p><h3>AI機能とシステム開発</h3><ul><li>RAG・社内文書検索</li><li>文章生成・要約・分類</li><li>管理画面・認証・履歴</li><li>既存API・外部ツール連携</li></ul></article>
-                    <article class="sd-card"><p class="sd-card-num">OPERATE</p><h3>評価・改善の仕組み</h3><ul><li>回答品質の評価画面</li><li>利用ログと失敗例の分析</li><li>プロンプト・検索設定改善</li><li>データ更新フローの整備</li></ul></article>
+                    <article class="sd-card"><p class="sd-card-num">01</p><h3>業務・データ設計</h3><ul><li>対象業務と利用者の整理</li><li>参照データ・権限の設計</li><li>人による確認ポイントの定義</li><li>効果測定指標の設定</li></ul></article>
+                    <article class="sd-card"><p class="sd-card-num">02</p><h3>AI機能とシステム開発</h3><ul><li>RAG・社内文書検索</li><li>文章生成・要約・分類</li><li>管理画面・認証・履歴</li><li>既存API・外部ツール連携</li></ul></article>
+                    <article class="sd-card"><p class="sd-card-num">03</p><h3>評価・改善の仕組み</h3><ul><li>回答品質の評価画面</li><li>利用ログと失敗例の分析</li><li>プロンプト・検索設定改善</li><li>データ更新フローの整備</li></ul></article>
                 </div>
             </div>
         </section>
 
         <section class="sd-section sd-section-dark">
             <div class="sd-container">
-                <div class="sd-section-head"><p class="sd-section-index">03 / USE CASES</p><div><h2 class="sd-section-title">相談の多い活用パターン</h2><p class="sd-section-intro">以下は対応可能な構成例です。効果を保証する定型商品ではなく、実際のデータ量・精度要件・既存環境を確認して設計します。</p></div></div>
+                <div class="sd-section-head"><p class="sd-section-index">活用例</p><div><h2 class="sd-section-title">相談の多い活用パターン</h2><p class="sd-section-intro">以下は対応可能な構成例です。効果を保証する定型商品ではなく、実際のデータ量・精度要件・既存環境を確認して設計します。</p></div></div>
                 <div class="sd-outcome-grid">
-                    <article class="sd-outcome"><strong>KNOWLEDGE</strong><h3>社内規程・マニュアル検索</h3><p>文書の参照箇所を示しながら回答し、見つからない場合は無理に断定しない設計にします。</p></article>
-                    <article class="sd-outcome"><strong>DOCUMENT</strong><h3>文書作成・レビュー支援</h3><p>入力情報から下書きを作り、確認項目や差分を見える形にして人の最終判断につなげます。</p></article>
-                    <article class="sd-outcome"><strong>SUPPORT</strong><h3>問い合わせ対応支援</h3><p>過去回答や製品情報を検索し、担当者向けの回答案と参照情報を提示します。</p></article>
-                    <article class="sd-outcome"><strong>INTEGRATION</strong><h3>既存システムへのAI組み込み</h3><p>顧客管理、申請、レポートなど既存画面の中に、必要なAI機能だけを追加します。</p></article>
+                    <article class="sd-outcome"><strong>社内検索</strong><h3>社内規程・マニュアル検索</h3><p>文書の参照箇所を示しながら回答し、見つからない場合は無理に断定しない設計にします。</p></article>
+                    <article class="sd-outcome"><strong>文書作成</strong><h3>文書作成・レビュー支援</h3><p>入力情報から下書きを作り、確認項目や差分を見える形にして人の最終判断につなげます。</p></article>
+                    <article class="sd-outcome"><strong>問い合わせ対応</strong><h3>問い合わせ対応支援</h3><p>過去回答や製品情報を検索し、担当者向けの回答案と参照情報を提示します。</p></article>
+                    <article class="sd-outcome"><strong>既存環境との連携</strong><h3>既存システムへのAI組み込み</h3><p>顧客管理、申請、レポートなど既存画面の中に、必要なAI機能だけを追加します。</p></article>
                 </div>
             </div>
         </section>
 
         <section class="sd-section">
             <div class="sd-container">
-                <div class="sd-section-head"><p class="sd-section-index">04 / PROCESS</p><div><h2 class="sd-section-title">小さく検証し、使われた事実から広げます。</h2></div></div>
+                <div class="sd-section-head"><p class="sd-section-index">進め方</p><div><h2 class="sd-section-title">小さく検証し、使われた事実から広げます。</h2></div></div>
                 <div class="sd-process">
-                    <article class="sd-process-step"><span>STEP 01</span><h3>業務ヒアリング</h3><p>対象者、判断、データ、現在の工数を整理。</p></article>
-                    <article class="sd-process-step"><span>STEP 02</span><h3>実現性確認</h3><p>データ品質と精度・安全性の条件を確認。</p></article>
-                    <article class="sd-process-step"><span>STEP 03</span><h3>プロトタイプ</h3><p>実データの一部で利用イメージを検証。</p></article>
-                    <article class="sd-process-step"><span>STEP 04</span><h3>本開発</h3><p>認証、管理、外部連携を含めて実装。</p></article>
-                    <article class="sd-process-step"><span>STEP 05</span><h3>運用改善</h3><p>利用ログと失敗例から継続的に改善。</p></article>
+                    <article class="sd-process-step"><span>01</span><h3>業務ヒアリング</h3><p>対象者、判断、データ、現在の工数を整理。</p></article>
+                    <article class="sd-process-step"><span>02</span><h3>実現性確認</h3><p>データ品質と精度・安全性の条件を確認。</p></article>
+                    <article class="sd-process-step"><span>03</span><h3>プロトタイプ</h3><p>実データの一部で利用イメージを検証。</p></article>
+                    <article class="sd-process-step"><span>04</span><h3>本開発</h3><p>認証、管理、外部連携を含めて実装。</p></article>
+                    <article class="sd-process-step"><span>05</span><h3>運用改善</h3><p>利用ログと失敗例から継続的に改善。</p></article>
                 </div>
             </div>
         </section>
 
         <section class="sd-section sd-section-alt">
             <div class="sd-container">
-                <div class="sd-section-head"><p class="sd-section-index">05 / FIT</p><div><h2 class="sd-section-title">ご相談前に確認していただきたいこと</h2></div></div>
+                <div class="sd-section-head"><p class="sd-section-index">ご相談の前に</p><div><h2 class="sd-section-title">ご相談前に確認していただきたいこと</h2></div></div>
                 <div class="sd-fit-grid">
                     <div class="sd-fit-box is-fit"><h3>ご支援しやすいご相談</h3><ul><li>対象業務の担当者と一緒に要件を整理できる</li><li>試行に使える文書やデータが用意できる</li><li>まず一部業務から効果を検証したい</li></ul></div>
                     <div class="sd-fit-box is-not-fit"><h3>事前整理が必要なご相談</h3><ul><li>AIだけで常に完全な判断をさせたい</li><li>利用データや業務担当者を確認できない</li><li>成果確認をせず一度に全社導入したい</li></ul></div>
@@ -118,7 +128,7 @@
 
         <section class="sd-section">
             <div class="sd-container">
-                <div class="sd-section-head"><p class="sd-section-index">06 / FAQ</p><div><h2 class="sd-section-title">よくある質問</h2></div></div>
+                <div class="sd-section-head"><p class="sd-section-index">よくある質問</p><div><h2 class="sd-section-title">ご相談時によくいただく質問</h2></div></div>
                 <div class="sd-faq">
                     <details><summary>社内データを外部AIの学習に使われないようにできますか？</summary><p>利用するサービスや契約条件、API設定、保存方針を確認して構成します。機密性に応じて、送信対象の制限やマスキング、アクセス権限も設計します。</p></details>
                     <details><summary>データが整理されていなくても相談できますか？</summary><p>可能です。まず利用可能な文書やデータを棚卸しし、検証に使える範囲を決めます。必要に応じてデータ整備自体も開発計画に含めます。</p></details>
@@ -128,14 +138,14 @@
         </section>
 
         <section class="sd-final-cta">
-            <div class="sd-container sd-final-cta-inner"><div><p class="sd-kicker">FREE CONSULTATION</p><h2>AIに任せる業務と、<br>人が判断する部分を一緒に整理します。</h2><p>まだ要件が決まっていなくても、現在の業務とデータから実現可能性を確認できます。</p></div><a class="sd-button" href="../../contact.html">AI活用案を無料で聞く <span>→</span></a></div>
+            <div class="sd-container sd-final-cta-inner"><div><h2>AIに任せる業務と、<br>人が判断する部分を一緒に整理します。</h2><p>まだ要件が決まっていなくても、現在の業務とデータから実現可能性を確認できます。</p></div><a class="sd-button" href="../../contact.html">AI活用案を無料で聞く <span>→</span></a></div>
         </section>
     </main>
 
     <a href="../../contact.html" class="mobile-fixed-cta">AI活用案を無料で聞く</a>
     <footer class="footer">
-        <div class="container footer-top"><div class="footer-brand-col"><a href="../../index.html" class="footer-logo">SPACE GLEAM</a><div class="footer-logo-line"></div><p class="footer-tagline">アイデアを、<br class="pc-only">最短距離で事業にする。</p></div><div class="footer-nav-grid"><div class="footer-nav-col"><h4><a href="../../services.html">SERVICE</a></h4><ul><li><a href="../generative-ai-internal/">生成AI・社内AI開発</a></li><li><a href="../ai-business-automation/">既存業務のAI化</a></li><li><a href="../ai-poc-prototype/">AI PoC開発</a></li></ul></div><div class="footer-nav-col"><h4><a href="../../works.html">WORKS</a></h4><ul><li><a href="../../works.html">開発事例</a></li><li><a href="../../pricing.html">料金</a></li></ul></div><div class="footer-nav-col"><h4><a href="../../blog/">BLOG</a></h4><ul><li><a href="../../blog/">ブログ記事一覧</a></li></ul></div><div class="footer-nav-col"><h4><a href="../../company.html">COMPANY</a></h4><ul><li><a href="../../company.html">会社概要</a></li><li><a href="../../contact.html">お問い合わせ</a></li></ul></div></div><div class="footer-vertical-line"></div><div class="footer-cta-col"><a href="../../contact.html" class="works-cta-btn-v2">無料で相談してみる →</a></div></div>
-        <div class="footer-horizontal-line"></div><div class="container footer-bottom"><p class="footer-copyright">&copy; 2026 SPACE GLEAM. All Rights Reserved.</p><div class="footer-bottom-links"><a href="../../company.html">会社概要</a><span class="divider">|</span><a href="../../privacy.html">プライバシーポリシー</a><span class="divider">|</span><a href="../../legal.html">特定商取引法に基づく表記</a></div><div class="footer-socials"><span class="follow-us">FOLLOW US</span><a href="https://x.com/SPACEGLEAMTOKYO" target="_blank" rel="noopener noreferrer" class="social-link x-link">X</a></div></div>
+        <div class="container footer-top"><div class="footer-brand-col"><a href="../../index.html" class="footer-logo">SPACE GLEAM</a><div class="footer-logo-line"></div><p class="footer-tagline">アイデアを、<br class="pc-only">最短距離で事業にする。</p></div><div class="footer-nav-grid"><div class="footer-nav-col"><h4><a href="../../services.html">サービス</a></h4><ul><li><a href="../generative-ai-internal/">生成AI・社内AI開発</a></li><li><a href="../ai-business-automation/">既存業務のAI化</a></li><li><a href="../ai-poc-prototype/">AI PoC開発</a></li></ul></div><div class="footer-nav-col"><h4><a href="../../works.html">実績</a></h4><ul><li><a href="../../works.html">開発事例</a></li><li><a href="../../pricing.html">料金</a></li></ul></div><div class="footer-nav-col"><h4><a href="../../blog/">ブログ</a></h4><ul><li><a href="../../blog/">ブログ記事一覧</a></li></ul></div><div class="footer-nav-col"><h4><a href="../../company.html">会社情報</a></h4><ul><li><a href="../../company.html">会社概要</a></li><li><a href="../../contact.html">お問い合わせ</a></li></ul></div></div><div class="footer-vertical-line"></div><div class="footer-cta-col"><a href="../../contact.html" class="works-cta-btn-v2">無料で相談してみる →</a></div></div>
+        <div class="footer-horizontal-line"></div><div class="container footer-bottom"><p class="footer-copyright">&copy; 2026 SPACE GLEAM. All Rights Reserved.</p><div class="footer-bottom-links"><a href="../../company.html">会社概要</a><span class="divider">|</span><a href="../../privacy.html">プライバシーポリシー</a><span class="divider">|</span><a href="../../legal.html">特定商取引法に基づく表記</a></div><div class="footer-socials"><span class="follow-us">公式SNS</span><a href="https://x.com/SPACEGLEAMTOKYO" target="_blank" rel="noopener noreferrer" class="social-link x-link">X</a></div></div>
     </footer>
     <script src="../../site-shell.js?v=perf-shell-20260713-v1"></script>
     <script src="../../analytics.js?v=ga4-funnel-20260717-v1"></script>

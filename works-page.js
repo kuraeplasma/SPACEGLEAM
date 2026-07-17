@@ -55,7 +55,7 @@ document.addEventListener('DOMContentLoaded', () => {
             background: '事業アイデアや企画メモは散らばりやすく、次のアクションに落とし込みにくい課題があります。発想を階層化し、ドラフト化まで進めやすくするために開発しました。',
             features: ['アイデアの階層化・可視化', 'ドラフトの自動生成支援', 'タグ付け・関連付け', 'チームでの共同編集'],
             stack: 'Next.js / TypeScript<br>AI生成支援<br>構造化データ設計<br>チーム編集機能',
-            period: '<strong>MVP開発：約1週間</strong><br>利用フィードバックをもとに改善',
+            period: '<strong>本番運用を前提とした初期開発：約1週間</strong><br>利用フィードバックをもとに改善',
             status: 'アイデア整理・企画作成の検証に活用<br>生成支援機能を継続改善',
             href: 'https://xdraft.spacegleam.co.jp/',
             linkText: 'XDraftのサービスサイトを見る'
@@ -72,7 +72,7 @@ document.addEventListener('DOMContentLoaded', () => {
             background: '自社プロダクトで培った実装パターンを活かし、LP、管理画面、データ構造化、決済導線など、事業検証に必要な部品を短期間で構築しています。',
             features: ['LP / コーポレートサイト', '管理画面・ダッシュボード', 'データ構造化・可視化', '決済・外部サービス連携'],
             stack: 'HTML / CSS / JavaScript<br>Next.js / TypeScript<br>API連携<br>決済・認証・管理画面',
-            period: '<strong>3日〜1週間</strong><br>要件に合わせて小さく実装',
+            period: '<strong>3日〜1週間</strong><br>本番接続を見据えて優先範囲を実装',
             status: '新規事業・業務改善の検証部品として提供<br>必要に応じて継続開発へ拡張',
             href: 'contact.html',
             linkText: 'このような開発を相談する'

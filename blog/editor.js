@@ -229,7 +229,7 @@
             </button>
 
             <nav id="global-nav" class="nav" aria-label="グローバルナビゲーション">
-                <a href="/services.html">AI プロダクト開発</a>
+                <a href="/services.html">AI システム開発</a>
                 <a href="/pricing.html">料金</a>
                 <a href="/works.html">実績</a>
                 <a href="/faq.html">FAQ</a>

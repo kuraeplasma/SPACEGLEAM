@@ -2161,17 +2161,18 @@ select {
 .steps-flow {
     display: flex;
     justify-content: space-between;
-    align-items: center;
-    gap: 12px;
+    align-items: stretch;
+    gap: 16px;
     margin-bottom: 96px;
 }
 
 .step-flow-item {
     flex: 1;
+    min-width: 0;
     background: #ffffff;
     border: 1px solid rgba(0, 0, 0, 0.06);
-    border-radius: 4px;
-    padding: 24px 16px;
+    border-radius: 3px;
+    padding: 30px 22px;
     text-align: center;
     display: flex;
     flex-direction: column;
@@ -2187,20 +2188,20 @@ select {
 }
 
 .step-name {
-    font-size: 0.95rem;
+    font-size: 1rem;
     font-weight: 800;
     color: #111111;
-    margin-bottom: 16px;
+    margin-bottom: 18px;
 }
 
 .step-img-wrapper {
-    width: 100%;
-    aspect-ratio: 1.5 / 1;
+    width: min(100%, 170px);
+    aspect-ratio: 1.35 / 1;
     display: flex;
     align-items: center;
     justify-content: center;
     overflow: hidden;
-    margin-bottom: 16px;
+    margin-bottom: 20px;
 }
 
 .step-img-wrapper img {
@@ -2212,12 +2213,14 @@ select {
 
 .step-desc {
     font-size: 0.82rem;
-    line-height: 1.5;
+    line-height: 1.75;
     color: #555555;
     font-weight: 600;
 }
 
 .step-arrow {
+    flex: 0 0 auto;
+    align-self: center;
     font-size: 1.2rem;
     color: #bbbbbb;
     font-weight: 400;
@@ -2253,10 +2256,11 @@ select {
 }
 
 .service-card-v2 h3 {
-    font-size: 1.45rem;
+    font-size: clamp(1.05rem, 1.35vw, 1.2rem);
     font-weight: 800;
     margin-bottom: 14px;
-    letter-spacing: -0.01em;
+    letter-spacing: -0.035em;
+    white-space: nowrap;
 }
 
 .service-card-desc {
@@ -2284,8 +2288,7 @@ select {
     position: absolute;
     width: 280px;
     height: 280px;
-    background: url('brush_stroke.png') no-repeat center / contain;
-    mix-blend-mode: multiply;
+    background: url('brush_stroke_transparent-v2.png') no-repeat center / contain;
     opacity: 0.12;
     pointer-events: none;
     z-index: 1;
