@@ -188,17 +188,12 @@
     `;
 
     const createPopularRow = (post, index) => {
-        const count = Number(viewCounts[post.slug]) || 0;
-        const showCount = viewCountsLoaded && count > 0;
-        const countLabel = showCount
-            ? ` / ${count.toLocaleString('ja-JP')}回閲覧`
-            : '';
         return `
-        <a class="blog-popular-row" href="${postHref(post)}" aria-label="${escapeHtml(post.title)}を読む${showCount ? `（${count.toLocaleString('ja-JP')}回閲覧）` : ''}">
+        <a class="blog-popular-row" href="${postHref(post)}" aria-label="${escapeHtml(post.title)}を読む">
             <span>${String(index + 1).padStart(2, '0')}</span>
             <div>
                 <strong>${escapeHtml(post.title)}</strong>
-                <small>${compactDate(post.date)} / ${escapeHtml(post.category)}${countLabel}</small>
+                <small>${compactDate(post.date)} / ${escapeHtml(post.category)}</small>
             </div>
         </a>
     `;
