@@ -1,7 +1,5 @@
-'use strict';
-
-const crypto = require('crypto');
-const { getStore } = require('@netlify/blobs');
+import crypto from 'node:crypto';
+import { getStore } from '@netlify/blobs';
 
 const STORE_NAME = 'spacegleam-blog-views';
 const COUNTER_PREFIX = 'count/';
@@ -41,16 +39,15 @@ const ALLOWED_SLUGS = new Set([
     'why-space-gleam-builds-own-services'
 ]);
 
-function response(statusCode, body, extraHeaders = {}) {
-    return {
-        statusCode,
+function json(status, body, extraHeaders = {}) {
+    return new Response(status === 204 ? null : JSON.stringify(body), {
+        status,
         headers: {
             'Content-Type': 'application/json; charset=utf-8',
             'X-Content-Type-Options': 'nosniff',
             ...extraHeaders
-        },
-        body: JSON.stringify(body)
-    };
+        }
+    });
 }
 
 function isAllowedOrigin(origin) {
@@ -122,18 +119,17 @@ async function incrementCount(store, slug) {
     throw new Error('counter_update_conflict');
 }
 
-function clientFingerprint(event, slug, sessionId) {
-    const headers = event.headers || {};
-    const userAgent = String(headers['user-agent'] || headers['User-Agent'] || '').slice(0, 300);
+function clientFingerprint(request, slug, sessionId) {
+    const userAgent = String(request.headers.get('user-agent') || '').slice(0, 300);
     const ip = String(
-        headers['x-nf-client-connection-ip']
-        || headers['client-ip']
-        || headers['x-forwarded-for']
+        request.headers.get('x-nf-client-connection-ip')
+        || request.headers.get('client-ip')
+        || request.headers.get('x-forwarded-for')
         || ''
     ).split(',')[0].trim();
-    const salt = process.env.BLOG_VIEW_SALT
-        || process.env.SITE_ID
-        || process.env.NETLIFY_SITE_ID
+    const salt = Netlify.env.get('BLOG_VIEW_SALT')
+        || Netlify.env.get('SITE_ID')
+        || Netlify.env.get('NETLIFY_SITE_ID')
         || 'spacegleam-blog-view-v1';
 
     return crypto
@@ -142,17 +138,17 @@ function clientFingerprint(event, slug, sessionId) {
         .digest('hex');
 }
 
-async function handleGet(event) {
-    const slugs = parseSlugs(event.queryStringParameters?.slugs);
+async function handleGet(request) {
+    const slugs = parseSlugs(new URL(request.url).searchParams.get('slugs'));
     if (!slugs.length) {
-        return response(200, { counts: {}, countingMethod: 'deduplicated-session-views' }, {
+        return json(200, { counts: {}, countingMethod: 'deduplicated-session-views' }, {
             'Cache-Control': 'public, max-age=60, s-maxage=300, stale-while-revalidate=3600'
         });
     }
 
     const store = getStoreClient();
     const pairs = await Promise.all(slugs.map(async (slug) => [slug, await readCount(store, slug)]));
-    return response(200, {
+    return json(200, {
         counts: Object.fromEntries(pairs),
         countingMethod: 'deduplicated-session-views'
     }, {
@@ -160,42 +156,41 @@ async function handleGet(event) {
     });
 }
 
-async function handlePost(event) {
-    const headers = event.headers || {};
-    const origin = String(headers.origin || headers.Origin || '');
-    const referrer = String(headers.referer || headers.Referer || '');
-    const userAgent = String(headers['user-agent'] || headers['User-Agent'] || '');
+async function handlePost(request) {
+    const origin = String(request.headers.get('origin') || '');
+    const referrer = String(request.headers.get('referer') || '');
+    const userAgent = String(request.headers.get('user-agent') || '');
 
     if (!isAllowedOrigin(origin)) {
-        return response(403, { error: 'forbidden_origin' }, { 'Cache-Control': 'no-store' });
+        return json(403, { error: 'forbidden_origin' }, { 'Cache-Control': 'no-store' });
     }
     if (BOT_PATTERN.test(userAgent)) {
-        return response(200, { counted: false, reason: 'automated_client' }, { 'Cache-Control': 'no-store' });
+        return json(200, { counted: false, reason: 'automated_client' }, { 'Cache-Control': 'no-store' });
     }
 
     let body;
     try {
-        body = JSON.parse(event.body || '{}');
+        body = await request.json();
     } catch (_) {
-        return response(400, { error: 'invalid_json' }, { 'Cache-Control': 'no-store' });
+        return json(400, { error: 'invalid_json' }, { 'Cache-Control': 'no-store' });
     }
 
-    const slug = String(body.slug || '').trim();
-    const sessionId = String(body.sessionId || '').trim();
+    const slug = String(body?.slug || '').trim();
+    const sessionId = String(body?.sessionId || '').trim();
     if (!SLUG_PATTERN.test(slug) || !ALLOWED_SLUGS.has(slug) || !SESSION_PATTERN.test(sessionId)) {
-        return response(400, { error: 'invalid_view' }, { 'Cache-Control': 'no-store' });
+        return json(400, { error: 'invalid_view' }, { 'Cache-Control': 'no-store' });
     }
     if (!isArticleReferrer(referrer, slug)) {
-        return response(403, { error: 'invalid_referrer' }, { 'Cache-Control': 'no-store' });
+        return json(403, { error: 'invalid_referrer' }, { 'Cache-Control': 'no-store' });
     }
 
     const store = getStoreClient();
-    const fingerprint = clientFingerprint(event, slug, sessionId);
+    const fingerprint = clientFingerprint(request, slug, sessionId);
     const seenKey = `${SEEN_PREFIX}${japanDate()}/${slug}/${fingerprint}`;
     const seen = await store.setJSON(seenKey, { recordedAt: new Date().toISOString() }, { onlyIfNew: true });
 
     if (!seen.modified) {
-        return response(200, {
+        return json(200, {
             counted: false,
             count: await readCount(store, slug),
             reason: 'already_counted'
@@ -204,16 +199,16 @@ async function handlePost(event) {
 
     try {
         const count = await incrementCount(store, slug);
-        return response(200, { counted: true, count }, { 'Cache-Control': 'no-store' });
+        return json(200, { counted: true, count }, { 'Cache-Control': 'no-store' });
     } catch (error) {
         await store.delete(seenKey).catch(() => {});
         throw error;
     }
 }
 
-exports.handler = async (event) => {
-    if (event.httpMethod === 'OPTIONS') {
-        return response(204, {}, {
+export default async function handler(request) {
+    if (request.method === 'OPTIONS') {
+        return json(204, null, {
             'Access-Control-Allow-Origin': PRODUCTION_ORIGIN,
             'Access-Control-Allow-Headers': 'Content-Type',
             'Access-Control-Allow-Methods': 'GET, POST, OPTIONS',
@@ -222,25 +217,25 @@ exports.handler = async (event) => {
     }
 
     try {
-        if (event.httpMethod === 'GET') return await handleGet(event);
-        if (event.httpMethod === 'POST') return await handlePost(event);
-        return response(405, { error: 'method_not_allowed' }, {
+        if (request.method === 'GET') return await handleGet(request);
+        if (request.method === 'POST') return await handlePost(request);
+        return json(405, { error: 'method_not_allowed' }, {
             Allow: 'GET, POST, OPTIONS',
             'Cache-Control': 'no-store'
         });
     } catch (error) {
         console.error('blog_views_error', {
             message: error?.message || 'unknown',
-            method: event.httpMethod
+            method: request.method
         });
-        return response(503, { error: 'view_count_unavailable' }, {
+        return json(503, { error: 'view_count_unavailable' }, {
             'Cache-Control': 'no-store',
             'Retry-After': '30'
         });
     }
-};
+}
 
-exports.config = {
+export const config = {
     path: '/api/blog-views',
     rateLimit: {
         windowLimit: 60,
@@ -249,7 +244,7 @@ exports.config = {
     }
 };
 
-exports._test = {
+export const testExports = {
     incrementCount,
     isAllowedOrigin,
     isArticleReferrer,
