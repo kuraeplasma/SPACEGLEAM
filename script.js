@@ -717,15 +717,3 @@ document.addEventListener('DOMContentLoaded', () => {
     // Render default active service on page load
     renderWorksDetail('diffsense');
 });
-
-/* ===== Blog NEW badge on header nav ===== */
-(function () {
-    document.querySelectorAll('.nav a').forEach(function (a) {
-        if (a.textContent.trim() === 'Blog' && !a.querySelector('.nav-new-badge')) {
-            var b = document.createElement('span');
-            b.className = 'nav-new-badge';
-            b.textContent = '新着記事あり';
-            a.appendChild(b);
-        }
-    });
-})();

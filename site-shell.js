@@ -69,11 +69,4 @@ document.addEventListener('DOMContentLoaded', () => {
         revealElements.forEach((element) => element.classList.add('is-visible'));
     }
 
-    nav?.querySelectorAll('a').forEach((link) => {
-        if (link.textContent.trim() !== 'Blog' || link.querySelector('.nav-new-badge')) return;
-        const badge = document.createElement('span');
-        badge.className = 'nav-new-badge';
-        badge.textContent = '新着記事あり';
-        link.appendChild(badge);
-    });
 });

@@ -33,15 +33,6 @@
         });
     }
 
-    nav?.querySelectorAll('a').forEach((link) => {
-        if (link.textContent.trim() === 'Blog' && !link.querySelector('.nav-new-badge')) {
-            const badge = document.createElement('span');
-            badge.className = 'nav-new-badge';
-            badge.textContent = '新着記事あり';
-            link.appendChild(badge);
-        }
-    });
-
     const formatDate = (value) => {
         const date = new Date(`${value}T00:00:00+09:00`);
         return date.toLocaleDateString('ja-JP', { year: 'numeric', month: 'long', day: 'numeric' });
