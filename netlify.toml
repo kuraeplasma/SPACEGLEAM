@@ -110,6 +110,24 @@
 # directory pages automatically. Keep the canonical trailing-slash URLs and
 # rewrite them explicitly to their index files.
 [[redirects]]
+  from = "/blog/ai-development-diagnosis-insights/"
+  to = "/blog/free-ai-development-diagnosis/"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/blog/ai-development-diagnosis-insights/index.html"
+  to = "/blog/free-ai-development-diagnosis/"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/blog/ai-mvp-first-decisions-guide/"
+  to = "/blog/ai-mvp-first-decisions/"
+  status = 301
+  force = true
+
+[[redirects]]
   from = "/services/ai-poc-prototype/"
   to = "/services/ai-poc-prototype/index.html"
   status = 200
