@@ -106,6 +106,24 @@
   [headers.values]
     Cache-Control = "public, max-age=604800, stale-while-revalidate=2592000"
 
+# Netlify's current pretty-URL setting does not resolve these newly added
+# directory pages automatically. Keep the canonical trailing-slash URLs and
+# rewrite them explicitly to their index files.
+[[redirects]]
+  from = "/services/ai-poc-prototype/"
+  to = "/services/ai-poc-prototype/index.html"
+  status = 200
+
+[[redirects]]
+  from = "/services/ai-business-automation/"
+  to = "/services/ai-business-automation/index.html"
+  status = 200
+
+[[redirects]]
+  from = "/services/generative-ai-internal/"
+  to = "/services/generative-ai-internal/index.html"
+  status = 200
+
 [[redirects]]
   from = "/api/diagnosis"
   to = "/.netlify/functions/diagnosis"
