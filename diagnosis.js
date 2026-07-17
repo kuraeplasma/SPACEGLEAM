@@ -450,6 +450,20 @@
       return;
     }
     var hasProgress = Object.keys(answers).length > 0;
+    var initialCard = !isEmbedded && !hasProgress && host.querySelector('.home-diag-showcase');
+    if (initialCard) {
+      if (initialCard.getAttribute('data-diagnosis-ready') !== 'true') {
+        initialCard.setAttribute('data-diagnosis-ready', 'true');
+        var initialStart = initialCard.querySelector('#diagStart');
+        var initialDismiss = initialCard.querySelector('#diagDismiss');
+        if (initialStart) initialStart.addEventListener('click', openModal);
+        if (initialDismiss) initialDismiss.addEventListener('click', function () {
+          setCardHidden(true);
+          buildCard();
+        });
+      }
+      return;
+    }
     if (isEmbedded) {
       host.innerHTML =
         '<div class="blog-diag-promo__head">' +
@@ -521,7 +535,7 @@
           '</div>' +
           '<aside class="home-diag-report" aria-label="診断結果PDFのサンプル">' +
             '<div class="home-diag-report__badge">PDF<br>無料取得</div>' +
-            '<div class="home-diag-report__paper"><img src="/blog/assets/diagnosis-covers/p3.png" alt="実際にダウンロードできるAI開発診断PDFの表紙" loading="lazy" decoding="async"></div>' +
+            '<div class="home-diag-report__paper"><img src="/blog/assets/diagnosis-covers/p3-hero.jpg" alt="実際にダウンロードできるAI開発診断PDFの表紙" width="900" height="507" decoding="async" fetchpriority="high"></div>' +
           '</aside>' +
         '</div>' +
       '</section>';
