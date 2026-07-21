@@ -5,6 +5,26 @@ document.addEventListener('DOMContentLoaded', () => {
     if (!worksDetailMain || !worksTabs.length) return;
 
     const worksDetails = {
+        omiotsuke: {
+            title: '御御御付',
+            tag: '具材認識AI味噌汁診断',
+            lead: '冷蔵庫の具材をスマホで撮るだけで、食材を認識し、今日作れる味噌汁のレシピと栄養情報を自動提案するサービス。',
+            images: [
+                { src: 'images/omiotsuke-ogp.png', alt: '御御御付サービスイメージ（OGP）' },
+                { src: 'images/omiotsuke-step-home.png', alt: 'アプリホーム画面' },
+                { src: 'images/omiotsuke-step-diagnosis.png', alt: '気分・体調の診断画面' },
+                { src: 'images/omiotsuke-step-builder.png', alt: '具材を自由に選ぶビルダー画面' },
+                { src: 'images/omiotsuke-step-result.png', alt: '診断結果のレシピ画面' },
+                { src: 'images/omiotsuke-step-nutrition.png', alt: 'レシピの詳細な栄養バランス画面' }
+            ],
+            background: '「冷蔵庫にある食材を使い切りたい」「今日の栄養バランスを考えたい」という日常の課題を解決するために開発。<br><br>スマホで写真を1枚撮るだけで食材を自動認識し、最適な味噌汁のレシピからカロリーや塩分などの栄養情報までを瞬時に提案する仕組みです。<br><br>気分や体調に合わせた「診断」機能や、好きな具材を自由に組み合わせる「ビルダー」機能も搭載しています。',
+            features: ['写真から食材自動認識', '味噌汁レシピ自動生成', '栄養バランス・カロリー計算', '気分や体調に合わせた診断', 'お気に入り保存機能'],
+            stack: 'Next.js / TypeScript<br>画像認識AI (Vision API / Gemini API)<br>栄養データベース設計<br>レスポンシブWebデザイン (TailwindCSS)',
+            period: '<strong>具材自動認識とレシピ生成を実装</strong><br>LP、診断、ビルダー、お気に入り、および画像解析API連携まで対応',
+            status: 'Web版・PWAをリリース済み<br>レシピ追加や認識精度向上、ネイティブアプリ化を計画・進行中',
+            href: 'https://omiotsuke.spacegleam.co.jp/',
+            linkText: '御御御付のサービスサイトを見る'
+        },
         diffsense: {
             title: 'DIFFsense',
             tag: 'AI契約レビューSaaS',
@@ -334,5 +354,5 @@ document.addEventListener('DOMContentLoaded', () => {
         if (target) productImageLightbox.open(target);
     });
 
-    renderWorksDetail('diffsense');
+    renderWorksDetail('omiotsuke');
 });
