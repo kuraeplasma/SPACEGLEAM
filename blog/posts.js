@@ -1,5 +1,13 @@
 window.SPACEGLEAM_BLOG_POSTS = [
     {
+        slug: 'omiotsuke-development-insights',
+        title: '冷蔵庫の残り物から今日の味噌汁を。「御御御付」開発の実践知',
+        date: '2026-07-22', publishAt: '2026-07-22T00:00:00+09:00', status: 'published', category: 'Development',
+        description: '冷蔵庫の残り物写真をGemini APIで解析し、400種の具材から最適な味噌汁を提案する「御御御付（おみおつけ）」。実用に耐えうる画像認識、400種を1つの鍋で仕上げる時間差レシピ構築、そして遊び心あふれる命名アルゴリズムの裏側の実践知を公開します。',
+        excerpt: '冷蔵庫の残り物写真をGemini APIで解析し、最適な味噌汁を提案する「御御御付（おみおつけ）」。画像認識のゆらぎ吸収、400種を1鍋で煮る時間差レシピ、遊び心あふれる命名アルゴリズムの設計といった、実運用から得た開発の裏側を解説します。',
+        url: 'https://spacegleam.co.jp/blog/omiotsuke-development-insights/', thumbnail: '/blog/omiotsuke-development-insights/card.png'
+    },
+    {
         slug: 'human-review-ai-workflow',
         title: 'AIに任せきらない業務設計。人の確認を残すべき5つの場面',
         date: '2026-07-16', publishAt: '2026-07-16T10:00:00+09:00', status: 'published', category: 'Development',
@@ -98,8 +106,8 @@ window.SPACEGLEAM_BLOG_POSTS = [
         publishAt: '2026-07-03T10:00:00+09:00',
         status: 'published',
         category: 'Product',
-        description: 'AIブームの中で「AI搭載」を謳うも使われないサービスが増えています。顧客課題から逆算し、作り捨てずに本番運用へつなげるプロダクト設計を解説します。',
-        excerpt: 'AIありきではなく顧客課題から逆算し、作り捨てずに本番運用へつなげるプロダクト設計を解説します。',
+        description: 'AIブームの中で「AI搭載」を謳うも使われないサービスが増えています。新規事業を成功させるために、AIありきではなく顧客課題から逆算するMVP（最小限の製品）開発の正しいアプローチを解説します。',
+        excerpt: 'AIブームの中で「AI搭載」を謳うも使われないサービスが増えています。新規事業を成功させるために、AIありきではなく顧客課題から逆算するMVP開発の正しいアプローチを解説します。',
         url: 'https://spacegleam.co.jp/blog/ai-product-mvp-value/',
         thumbnail: '/blog/ai-product-mvp-value/card.webp'
     },

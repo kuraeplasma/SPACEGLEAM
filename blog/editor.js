@@ -229,7 +229,7 @@
             </button>
 
             <nav id="global-nav" class="nav" aria-label="グローバルナビゲーション">
-                <a href="/services.html">AI システム開発</a>
+                <a href="/services.html">AI プロダクト開発</a>
                 <a href="/pricing.html">料金</a>
                 <a href="/works.html">実績</a>
                 <a href="/faq.html">FAQ</a>
@@ -256,7 +256,7 @@ ${bodyHtml}
         <div class="article-cta article-diagnosis-cta"><div><span class="article-cta-kicker">無料・登録不要・約30秒</span><strong>あなたのアイデア、AIでどう実現する？</strong><p>簡単な質問に答えるだけで、開発の方向性・必要な機能・費用の目安をその場で整理できます。</p></div><a href="/blog/free-ai-development-diagnosis/">無料で診断する <span aria-hidden="true">→</span></a></div>
         <section class="related-section"><h2>関連記事</h2><div class="related-grid" data-related-posts></div></section>
     </div></main>
-    <script src="/script.js"></script><script src="/blog/posts.js"></script><script src="/blog/blog.js?v=real-views-hidden-20260717-v3"></script><script src="/analytics.js?v=ga4-funnel-20260717-v1"></script>
+    <script src="/script.js"></script><script src="/blog/posts.js"></script><script src="/blog/blog.js?v=20260602-subscribe-fix"></script>
 </body>
 </html>`;
 

@@ -15,7 +15,7 @@
     <meta name="description" content="多くの企業が業務システムを導入しても、数か月後にはExcelやチャットでの運用に戻ってしまいます。問題はシステムの性能ではなく、業務とのズレにあります。本記事では、なぜ業務システムが定着しないのか、その原因とAI開発による解決方法について解説します。">
     <link rel="canonical" href="https://spacegleam.co.jp/blog/why-business-systems-fail-and-how-ai-solves-it/">
     <link rel="icon" href="../../favicon.png">
-    <link rel="stylesheet" href="/style.css?v=header-perf-20260717-v4">
+    <link rel="stylesheet" href="../../style.css?v=mobile-header-fix-20260709-v1">
     <meta property="og:type" content="article">
     <meta property="og:title" content="なぜ多くの業務システムは使われなくなるのか？AI開発で解決できる本当の課題">
     <meta property="og:description" content="多くの企業が業務システムを導入しても、数か月後にはExcelやチャットでの運用に戻ってしまいます。問題はシステムの性能ではなく、業務とのズレにあります。本記事では、なぜ業務システムが定着しないのか、その原因とAI開発による解決方法について解説します。">
@@ -59,10 +59,8 @@
             position: relative;
             margin: 2.5rem auto;
             padding: 0;
-            max-width: 680px;
+            max-width: 480px;
             width: 100%;
-            display: grid;
-            gap: 18px;
         }
 
         /* Adjustments for nested process inside comparison column */
@@ -75,15 +73,14 @@
         .article-process-item {
             position: relative;
             display: flex;
-            align-items: center;
+            align-items: flex-start;
             gap: 16px;
-            margin: 0;
-            min-height: 72px;
-            padding: 17px 22px;
+            margin-bottom: 24px;
+            padding: 16px 20px;
             background: #ffffff;
-            border: 1px solid #e2e8f0;
-            border-radius: 16px;
-            box-shadow: 0 10px 28px rgba(15, 23, 42, 0.06);
+            border: 1px solid rgba(0, 0, 0, 0.05);
+            border-radius: 12px;
+            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.02);
             transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
         }
 
@@ -100,21 +97,15 @@
 
         /* Process connection line */
         .article-process-item::after {
-            content: '↓';
+            content: '';
             position: absolute;
-            left: 50%;
-            top: calc(100% + 1px);
-            width: 28px;
-            height: 18px;
-            display: grid;
-            place-items: center;
-            color: #94a3b8;
-            background: transparent;
-            font-size: 18px;
-            font-weight: 800;
-            line-height: 1;
-            transform: translateX(-50%);
-            z-index: 3;
+            left: 35px; /* Aligned with badge center */
+            top: 48px;  /* Below badge edge */
+            bottom: -44px; /* Reach down to the next badge */
+            width: 2px;
+            background: rgba(0, 0, 0, 0.06);
+            z-index: 1;
+            transition: background 0.3s ease;
         }
 
         .article-process-item:last-child::after {
@@ -162,47 +153,17 @@
         }
 
         .article-process-title {
-            font-size: 1rem;
+            font-size: 0.95rem;
             font-weight: 700;
-            color: #0f172a;
+            color: #1e293b;
             line-height: 1.5;
-        }
-
-        .article-flow-label {
-            width: min(100%, 680px);
-            margin: 2.2rem auto -1.45rem;
-            padding: 14px 18px;
-            border-radius: 14px;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            gap: 16px;
-            font-weight: 800;
-        }
-
-        .article-flow-label small {
-            font-size: 0.74rem;
-            font-weight: 600;
-            opacity: 0.76;
-        }
-
-        .article-flow-label.is-danger {
-            color: #b91c1c;
-            background: #fff1f2;
-            border: 1px solid #fecdd3;
-        }
-
-        .article-flow-label.is-success {
-            color: #047857;
-            background: #ecfdf5;
-            border: 1px solid #a7f3d0;
         }
 
         /* --- Theme overrides --- */
 
         /* 1. Danger Theme (Obstacles/Failing Flow) */
         .article-process.is-danger .article-process-item {
-            border-color: #e2e8f0;
+            border-left: 4px solid #ef4444;
         }
         .article-process.is-danger .article-process-item:hover {
             border-color: rgba(239, 68, 68, 0.25);
@@ -213,13 +174,12 @@
             color: #ef4444;
         }
         .article-process.is-danger .article-process-item::after {
-            color: #ef4444;
-            background: transparent;
+            background: rgba(239, 68, 68, 0.1);
         }
 
         /* 2. Success Theme (Good Cycle) */
         .article-process.is-success .article-process-item {
-            border-color: #e2e8f0;
+            border-left: 4px solid #10b981;
         }
         .article-process.is-success .article-process-item:hover {
             border-color: rgba(16, 185, 129, 0.25);
@@ -230,13 +190,12 @@
             color: #10b981;
         }
         .article-process.is-success .article-process-item::after {
-            color: #10b981;
-            background: transparent;
+            background: rgba(16, 185, 129, 0.1);
         }
 
         /* 3. Primary Theme (SPACE GLEAM Indigo - AI flow) */
         .article-process.is-primary .article-process-item {
-            border-color: #e2e8f0;
+            border-left: 4px solid #6366f1;
         }
         .article-process.is-primary .article-process-item:hover {
             border-color: rgba(99, 102, 241, 0.25);
@@ -247,16 +206,13 @@
             color: #6366f1;
         }
         .article-process.is-primary .article-process-item::after {
-            color: #6366f1;
-            background: transparent;
+            background: rgba(99, 102, 241, 0.1);
         }
 
         /* --- Side-by-side comparison layout --- */
         .article-process-compare {
-            display: grid;
-            grid-template-columns: minmax(0, 1fr) 72px minmax(0, 1fr);
-            align-items: center;
-            gap: 14px;
+            display: flex;
+            gap: 20px;
             margin: 2.5rem 0;
             width: 100%;
         }
@@ -266,10 +222,10 @@
             display: flex;
             flex-direction: column;
             background: #f8fafc;
-            padding: 1.35rem;
-            border-radius: 18px;
-            border: 1px solid #e2e8f0;
-            box-shadow: 0 12px 30px rgba(15, 23, 42, 0.05);
+            padding: 1.5rem;
+            border-radius: 16px;
+            border: 1px solid rgba(0, 0, 0, 0.04);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.01);
         }
 
         .article-process-compare-col.is-success {
@@ -293,52 +249,11 @@
             color: #6366f1;
         }
 
-        .article-process-compare-arrow {
-            display: grid;
-            justify-items: center;
-            gap: 6px;
-            color: #4f46e5;
-            text-align: center;
-        }
-
-        .article-process-compare-arrow span {
-            font-size: 0.66rem;
-            font-weight: 800;
-            line-height: 1.35;
-        }
-
-        .article-process-compare-arrow b {
-            display: grid;
-            place-items: center;
-            width: 46px;
-            height: 46px;
-            border-radius: 50%;
-            color: #ffffff;
-            background: linear-gradient(135deg, #6366f1, #4338ca);
-            box-shadow: 0 10px 22px rgba(79, 70, 229, 0.24);
-            font-size: 1.35rem;
-        }
-
         /* Mobile styling */
         @media (max-width: 640px) {
             .article-process-compare {
-                grid-template-columns: 1fr;
-                gap: 20px;
-            }
-
-            .article-process-compare-arrow b {
-                transform: rotate(90deg);
-            }
-
-            .article-flow-label {
-                align-items: flex-start;
                 flex-direction: column;
-                gap: 3px;
-            }
-
-            .article-process-item {
-                min-height: 66px;
-                padding: 15px 16px;
+                gap: 20px;
             }
         }
     </style>
@@ -348,15 +263,27 @@
     <div class="site-bg" aria-hidden="true"></div>
 
     <header class="header">
-    <div class="container header-inner">
-        <a href="/index.html" class="brand" aria-label="SPACE GLEAM ホーム"><span class="brand-name">SPACE GLEAM</span></a>
-        <button class="nav-toggle" type="button" aria-label="メニューを開く" aria-controls="global-nav" aria-expanded="false"><span></span><span></span><span></span></button>
-        <nav id="global-nav" class="nav" aria-label="グローバルナビゲーション">
-            <a href="/services.html">AI システム開発</a><a href="/pricing.html">料金</a><a href="/works.html">実績</a><a href="/faq.html">FAQ</a><a href="/blog/">Blog<span class="nav-new-badge">新着記事あり</span></a>
-        </nav>
-        <div class="header-ctas"><a href="/contact.html" class="header-cta">AI活用案を無料で聞く<span class="arrow">→</span></a></div>
-    </div>
-</header>
+        <div class="container header-inner">
+            <a href="../../index.html" class="brand" aria-label="SPACE GLEAM ホーム">
+                <span class="brand-name">SPACE GLEAM</span>
+            </a>
+            <button class="nav-toggle" type="button" aria-label="メニューを開く" aria-controls="global-nav" aria-expanded="false">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+            <nav id="global-nav" class="nav" aria-label="グローバルナビゲーション">
+                <a href="../../services.html">AI プロダクト開発</a>
+                <a href="../../pricing.html">料金</a>
+                <a href="../../works.html">実績</a>
+                <a href="../../faq.html">FAQ</a>
+                <a href="../index.html">Blog</a>
+            </nav>
+            <div class="header-ctas">
+                <a href="../../index.html#contact" class="header-cta">AI活用案を無料で聞く<span class="arrow">→</span></a>
+            </div>
+        </div>
+    </header>
 
     <main class="blog-main">
         <div class="container">
@@ -428,8 +355,7 @@
                     <p>
                     例えば、以下のような流れに陥っていないでしょうか。
                     </p>
-                    <div class="article-flow-label is-danger"><span>現場で起きる悪循環</span><small>入力負荷が、データの信頼性を下げる</small></div>
-                    <div class="article-process is-danger" aria-label="システムが使われなくなる悪循環">
+                    <div class="article-process is-danger">
                         <div class="article-process-item">
                             <div class="article-process-badge">
                                 <svg class="process-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M23 21v-2a4 4 0 0 0-3-3.87"></path><path d="M16 3.13a4 4 0 0 1 0 7.75"></path></svg>
@@ -559,7 +485,6 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="article-process-compare-arrow" aria-hidden="true"><span>AIで<br>省力化</span><b>→</b></div>
                         <div class="article-process-compare-col is-success">
                             <div class="article-process-compare-title is-success">
                                 <svg class="process-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="width: 16px; height: 16px; color: #6366f1; margin-right: 4px;"><polygon points="12 2 2 7 12 12 22 7 12 2"></polygon><polyline points="2 17 12 22 22 17"></polyline><polyline points="2 12 12 17 22 12"></polyline></svg>
@@ -616,8 +541,7 @@
                     <p>
                     結果として、以下のような良い循環が生まれます。
                     </p>
-                    <div class="article-flow-label is-success"><span>定着から改善へ進む好循環</span><small>使われるほど、次のAI活用につながる</small></div>
-                    <div class="article-process is-success" aria-label="AI活用が進む好循環">
+                    <div class="article-process is-success">
                         <div class="article-process-item">
                             <div class="article-process-badge">
                                 <svg class="process-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"></polyline></svg>
@@ -660,7 +584,7 @@
                     場合によっては、既存のSaaSを利用するだけで解決することもあります。
                     </p>
                     <p>
-                    また開発する場合でも、作り捨ての試作ではなく、優先業務から本番運用を始めて改善を繰り返す方法をご提案しています。
+                    また開発する場合でも、最初から大規模なシステムを作るのではなく、小さく始めて改善を繰り返す方法をご提案しています。
                     </p>
 
                     <h2>まとめ</h2>
@@ -699,7 +623,7 @@
             <div class="article-cta">
                 <div>
                     <strong>AIシステム開発のご相談はこちら</strong>
-                    <p>AI PoC、SaaS、業務システムの企画・設計からご相談いただけます。</p>
+                    <p>AI MVP、SaaS、業務システムの初期設計からご相談いただけます。</p>
                 </div>
                 <a href="../../contact.html" target="_blank" rel="noopener noreferrer">問い合わせる</a>
             </div>
@@ -731,7 +655,7 @@
                 <div class="footer-nav-col">
                     <h4><a href="../../services.html">SERVICE</a></h4>
                     <ul>
-                        <li><a href="../../services.html">AI PoC・本番開発</a></li>
+                        <li><a href="../../services.html">AI MVP開発</a></li>
                         <li><a href="../../services.html">業務システム開発</a></li>
                         <li><a href="../../services.html">AI導入支援</a></li>
                     </ul>
@@ -770,9 +694,9 @@
         </div>
     </footer>
 
+    <script src="../../script.js?v=diag-pause-background-20260612-v3"></script>
     <script src="../posts.js"></script>
-    <script src="../blog.js?v=real-views-20260717-v1"></script>
-    <script src="../../analytics.js?v=ga4-funnel-20260717-v1"></script>
+    <script src="../blog.js?v=local-routing-20260613-v2"></script>
 </body>
 
 </html>
