@@ -55,103 +55,102 @@
     </script>
     <!-- Omiotsuke Link Card Styles -->
     <style>
-        /* Omiotsuke Link Card Styles */
+        /* Omiotsuke Link Card Styles (Redesigned Full-Width Top Image Layout) */
         .omiotsuke-card {
             display: flex;
+            flex-direction: column;
             background: #ffffff;
             border: 1px solid rgba(0, 0, 0, 0.08);
-            border-radius: 12px;
+            border-radius: 16px;
             margin: 40px auto;
             max-width: 780px;
             overflow: hidden;
-            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.03);
-            transition: all 0.3s ease;
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.05);
+            transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
         }
         .omiotsuke-card:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 12px 30px rgba(0, 0, 0, 0.08);
+            transform: translateY(-4px);
+            box-shadow: 0 16px 40px rgba(0, 0, 0, 0.1);
             border-color: rgba(0, 0, 0, 0.15);
         }
         .omiotsuke-card-image-wrap {
-            flex: 0 0 40%;
+            width: 100%;
             position: relative;
             background: #FBF8F3;
-            border-right: 1px solid rgba(0, 0, 0, 0.05);
-            display: flex;
-            align-items: center;
-            justify-content: center;
             overflow: hidden;
+            border-bottom: 1px solid rgba(0, 0, 0, 0.06);
+            display: block;
         }
         .omiotsuke-card-image {
             width: 100%;
-            height: 100%;
-            object-fit: cover;
-            object-position: center;
-            transition: transform 0.5s ease;
+            height: auto;
+            display: block;
+            object-fit: contain;
+            transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
         }
         .omiotsuke-card:hover .omiotsuke-card-image {
-            transform: scale(1.03);
+            transform: scale(1.015);
         }
         .omiotsuke-card-body {
-            flex: 1 1 60%;
-            padding: 24px;
+            padding: 28px 32px;
             display: flex;
             flex-direction: column;
-            justify-content: space-between;
-            gap: 12px;
+            gap: 14px;
         }
         .omiotsuke-card-title {
-            font-size: 17px;
+            font-size: 19px;
             font-weight: 700;
             color: #111111;
             margin: 0;
-            line-height: 1.4;
+            line-height: 1.45;
+            letter-spacing: -0.01em;
         }
         .omiotsuke-card-desc {
-            font-size: 13.5px;
+            font-size: 14.5px;
             color: #555555;
             margin: 0;
-            line-height: 1.6;
+            line-height: 1.65;
         }
         .omiotsuke-card-btn-container {
             display: flex;
-            justify-content: center;
-            margin-top: 10px;
+            justify-content: flex-start;
+            margin-top: 8px;
         }
         .omiotsuke-card-btn {
             display: inline-flex;
             align-items: center;
             justify-content: center;
+            gap: 8px;
             background: #111111;
             color: #ffffff !important;
             font-weight: 700;
-            font-size: 13.5px;
-            padding: 12px 24px;
-            border-radius: 6px;
+            font-size: 14px;
+            padding: 12px 28px;
+            border-radius: 8px;
             text-decoration: none !important;
-            transition: all 0.2s ease;
-            width: 100%;
-            max-width: 240px;
-            text-align: center;
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+            transition: all 0.25s ease;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
         }
         .omiotsuke-card-btn:hover {
-            background: #333333;
-            transform: translateY(-1px);
-            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1);
+            background: #2b2b2b;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 18px rgba(0, 0, 0, 0.15);
         }
         @media (max-width: 768px) {
-            .omiotsuke-card {
-                flex-direction: column;
-            }
-            .omiotsuke-card-image-wrap {
-                flex: 0 0 200px;
-                height: 200px;
-                border-right: none;
-                border-bottom: 1px solid rgba(0, 0, 0, 0.05);
-            }
             .omiotsuke-card-body {
-                padding: 20px;
+                padding: 20px 24px;
+            }
+            .omiotsuke-card-title {
+                font-size: 17px;
+            }
+            .omiotsuke-card-desc {
+                font-size: 13.5px;
+            }
+            .omiotsuke-card-btn-container {
+                width: 100%;
+            }
+            .omiotsuke-card-btn {
+                width: 100%;
             }
         }
     </style>
@@ -356,7 +355,7 @@
                             <p class="omiotsuke-card-desc">冷蔵庫の余り物写真からAIが食材を認識し、400種の具材データベースから最適なレシピと正確な栄養バランス（カロリー・たんぱく質・塩分など）を提案するWebアプリです。</p>
                             <div class="omiotsuke-card-btn-container">
                                 <a href="https://omiotsuke.spacegleam.co.jp/" target="_blank" rel="noopener noreferrer" class="omiotsuke-card-btn">
-                                    サービスサイトを開く
+                                    サービスサイトを開く <span>→</span>
                                 </a>
                             </div>
                         </div>
