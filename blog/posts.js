@@ -1,5 +1,17 @@
 window.SPACEGLEAM_BLOG_POSTS = [
     {
+        slug: 'ai-system-development-cost',
+        title: 'AIシステム開発の費用相場｜料金の内訳・開発期間・予算別の違い',
+        date: '2026-07-23',
+        publishAt: '2026-07-23T00:00:00+09:00',
+        status: 'published',
+        category: 'Business',
+        description: 'AIシステム開発の費用相場を、開発規模・機能・期間別に解説します。業務自動化、社内システム、生成AIの組み込みなど、予算別に実現できる内容や費用を抑える方法も紹介します。',
+        excerpt: 'AIシステム開発の費用相場を、開発規模・機能・期間別に解説します。業務自動化、社内システム、生成AIの組み込みなど、予算別に実現できる内容や費用を抑える方法も紹介します。',
+        url: 'https://spacegleam.co.jp/blog/ai-system-development-cost/',
+        thumbnail: '/blog/assets/diagnosis-covers/p3.png'
+    },
+    {
         slug: 'omiotsuke-development-insights',
         title: '冷蔵庫の残り物から今日の味噌汁を。「御御御付」開発の実践知',
         date: '2026-07-22', publishAt: '2026-07-22T00:00:00+09:00', status: 'published', category: 'Development',
