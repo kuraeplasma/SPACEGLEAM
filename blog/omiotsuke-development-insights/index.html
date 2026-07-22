@@ -113,8 +113,9 @@
         }
         .omiotsuke-card-btn-container {
             display: flex;
-            justify-content: flex-start;
-            margin-top: 8px;
+            justify-content: center;
+            margin-top: 12px;
+            width: 100%;
         }
         .omiotsuke-card-btn {
             display: inline-flex;
@@ -124,11 +125,14 @@
             background: #111111;
             color: #ffffff !important;
             font-weight: 700;
-            font-size: 14px;
-            padding: 12px 28px;
+            font-size: 14.5px;
+            padding: 13px 32px;
             border-radius: 8px;
             text-decoration: none !important;
             transition: all 0.25s ease;
+            width: 100%;
+            max-width: 280px;
+            text-align: center;
             box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
         }
         .omiotsuke-card-btn:hover {
@@ -148,9 +152,11 @@
             }
             .omiotsuke-card-btn-container {
                 width: 100%;
+                justify-content: center;
             }
             .omiotsuke-card-btn {
                 width: 100%;
+                max-width: 100%;
             }
         }
     </style>
