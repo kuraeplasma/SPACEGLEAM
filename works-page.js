@@ -11,11 +11,11 @@ document.addEventListener('DOMContentLoaded', () => {
             lead: '冷蔵庫の具材をスマホで撮るだけで、食材を認識し、今日作れる味噌汁のレシピと栄養情報を自動提案するサービス。',
             images: [
                 { src: 'images/omiotsuke-ogp.png', alt: '御御御付サービスイメージ（OGP）' },
-                { src: 'images/omiotsuke-step-home.png', alt: 'アプリホーム画面' },
-                { src: 'images/omiotsuke-step-diagnosis.png', alt: '気分・体調の診断画面' },
-                { src: 'images/omiotsuke-step-builder.png', alt: '具材を自由に選ぶビルダー画面' },
-                { src: 'images/omiotsuke-step-result.png', alt: '診断結果のレシピ画面' },
-                { src: 'images/omiotsuke-step-nutrition.png', alt: 'レシピの詳細な栄養バランス画面' }
+                { src: 'images/omiotsuke-step-home.png?v=20260723-v2', alt: 'アプリホーム画面' },
+                { src: 'images/omiotsuke-step-diagnosis.png?v=20260723-v2', alt: '気分・体調の診断画面' },
+                { src: 'images/omiotsuke-step-builder.png?v=20260723-v2', alt: '具材を自由に選ぶビルダー画面' },
+                { src: 'images/omiotsuke-step-result.png?v=20260723-v2', alt: '診断結果のレシピ画面' },
+                { src: 'images/omiotsuke-step-nutrition.png?v=20260723-v2', alt: 'レシピの詳細な栄養バランス画面' }
             ],
             background: '「冷蔵庫にある食材を使い切りたい」「今日の栄養バランスを考えたい」という日常の課題を解決するために開発。<br><br>スマホで写真を1枚撮るだけで食材を自動認識し、最適な味噌汁のレシピからカロリーや塩分などの栄養情報までを瞬時に提案する仕組みです。<br><br>気分や体調に合わせた「診断」機能や、好きな具材を自由に組み合わせる「ビルダー」機能も搭載しています。',
             features: ['写真から食材自動認識', '味噌汁レシピ自動生成', '栄養バランス・カロリー計算', '気分や体調に合わせた診断', 'お気に入り保存機能'],
