@@ -1,0 +1,399 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-1T9HP3BLMP"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'G-1T9HP3BLMP');
+    </script>
+    <title>AIの出力は揺れる前提で作る。自社SaaSで実装している4つの備え | SPACE GLEAM</title>
+    <meta name="description" content="生成AIのモデルは更新され、出力の傾向やフォーマットが変わる可能性があります。DIFFsenseと御御御付（おみおつけ）の実装をもとに、バージョン固定、複数キー名の許容、多段階のJSONパース、フォールバックとキルスイッチといった防御的な工夫を、実際のコードに基づいて紹介します。">
+    <link rel="canonical" href="https://spacegleam.co.jp/blog/ai-model-update-resilience/">
+    <link rel="icon" href="../../favicon.png">
+    <link rel="stylesheet" href="../../style.css?v=mobile-header-fix-20260709-v1">
+    <meta property="og:type" content="article">
+    <meta property="og:title" content="AIの出力は揺れる前提で作る。自社SaaSで実装している4つの備え">
+    <meta property="og:description" content="生成AIのモデルは更新され、出力の傾向やフォーマットが変わる可能性があります。DIFFsenseと御御御付（おみおつけ）の実装をもとに、バージョン固定、複数キー名の許容、多段階のJSONパース、フォールバックとキルスイッチといった防御的な工夫を、実際のコードに基づいて紹介します。">
+    <meta property="og:url" content="https://spacegleam.co.jp/blog/ai-model-update-resilience/">
+    <meta property="og:site_name" content="SPACE GLEAM">
+    <meta property="og:image" content="https://spacegleam.co.jp/blog/ai-model-update-resilience/ogp.png">
+    <meta property="og:image:secure_url" content="https://spacegleam.co.jp/blog/ai-model-update-resilience/ogp.png">
+    <meta property="og:image:type" content="image/png">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+    <meta property="og:image:alt" content="AIの出力は揺れる前提で作る。自社SaaSで実装している4つの備え">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:image" content="https://spacegleam.co.jp/blog/ai-model-update-resilience/ogp.png">
+    <script type="application/ld+json">
+        {
+            "@context": "https://schema.org",
+            "@type": "Article",
+            "headline": "AIの出力は揺れる前提で作る。自社SaaSで実装している4つの備え",
+            "description": "生成AIのモデルは更新され、出力の傾向やフォーマットが変わる可能性があります。DIFFsenseと御御御付（おみおつけ）の実装をもとに、バージョン固定、複数キー名の許容、多段階のJSONパース、フォールバックとキルスイッチといった防御的な工夫を、実際のコードに基づいて紹介します。",
+            "datePublished": "2026-07-28",
+            "dateModified": "2026-07-28",
+            "author": {
+                "@type": "Organization",
+                "name": "SPACE GLEAM"
+            },
+            "publisher": {
+                "@type": "Organization",
+                "name": "SPACE GLEAM",
+                "logo": {
+                    "@type": "ImageObject",
+                    "url": "https://spacegleam.co.jp/favicon.png"
+                }
+            },
+            "mainEntityOfPage": "https://spacegleam.co.jp/blog/ai-model-update-resilience/",
+            "image": "https://spacegleam.co.jp/blog/ai-model-update-resilience/ogp.png",
+            "articleSection": "Development"
+        }
+    </script>
+</head>
+
+<body class="blog-page-body" data-article-slug="ai-model-update-resilience">
+    <div class="site-bg" aria-hidden="true"></div>
+
+    <header class="header">
+        <div class="container header-inner">
+            <a href="../../index.html" class="brand" aria-label="SPACE GLEAM ホーム">
+                <span class="brand-name">SPACE GLEAM</span>
+            </a>
+            <button class="nav-toggle" type="button" aria-label="メニューを開く" aria-controls="global-nav" aria-expanded="false">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+            <nav id="global-nav" class="nav" aria-label="グローバルナビゲーション">
+                <a href="../../services.html">AI プロダクト開発</a>
+                <a href="../../pricing.html">料金</a>
+                <a href="../../works.html">実績</a>
+                <a href="../../faq.html">FAQ</a>
+                <a href="../index.html">Blog</a>
+            </nav>
+            <div class="header-ctas">
+                <a href="../../index.html#contact" class="header-cta">AI活用案を無料で聞く<span class="arrow">→</span></a>
+            </div>
+        </div>
+    </header>
+
+    <main class="blog-main">
+        <div class="container">
+            <article>
+                <header class="article-header">
+                    <div class="article-meta">
+                        <time datetime="2026-07-28">2026年7月28日</time>
+                        <span class="article-category">Development</span>
+                    </div>
+                    <h1>AIの出力は揺れる前提で作る。自社SaaSで実装している4つの備え</h1>
+                    <p class="article-lead">「先週まで正しく分類できていた問い合わせが、急に見当違いの回答を返すようになった」「プロンプトも入力データも変えていないのに、出力のフォーマットが崩れた」。こうした現象の背景には、モデルの世代交代だけでなく、LLMの出力が本来持っている揺れそのものもあります。本記事では、自社で運営するSaaSの実装をもとに、AIシステムをこうした揺れに強くするための防御的な工夫を紹介します。</p>
+                </header>
+
+                <div class="article-share" aria-label="記事を共有">
+                    <button type="button" class="article-share-icon is-x" aria-label="Xでシェア" title="Xでシェア" data-share data-share-title="AIの出力は揺れる前提で作る。自社SaaSで実装している4つの備え" data-share-url="https://spacegleam.co.jp/blog/ai-model-update-resilience/">
+                        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24h-6.657l-5.214-6.817-5.966 6.817H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231Zm-1.161 17.52h1.833L7.084 4.126H5.117Z"></path></svg>
+                    </button>
+                    <a href="mailto:?subject=AI%E3%81%AE%E5%87%BA%E5%8A%9B%E3%81%AF%E6%8F%BA%E3%82%8C%E3%82%8B%E5%89%8D%E6%8F%90%E3%81%A7%E4%BD%9C%E3%82%8B%E3%80%82%E8%87%AA%E7%A4%BESaaS%E3%81%A7%E5%AE%9F%E8%A3%85%E3%81%97%E3%81%A6%E3%81%84%E3%82%8B4%E3%81%A4%E3%81%AE%E5%82%99%E3%81%88&body=https%3A//spacegleam.co.jp/blog/ai-model-update-resilience/" class="article-share-icon is-mail" aria-label="メールでシェア" title="メールでシェア">
+                        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 5h16a2 2 0 0 1 2 2v10a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V7a2 2 0 0 1 2-2Zm0 2v.4l8 5.15 8-5.15V7H4Zm0 2.78V17h16V9.78l-8 5.15-8-5.15Z"></path></svg>
+                    </a>
+                    <button type="button" class="article-share-icon" aria-label="URLをコピー" title="URLをコピー" data-copy-url="https://spacegleam.co.jp/blog/ai-model-update-resilience/">
+                        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 9.5A1.5 1.5 0 0 1 10.5 8h8A1.5 1.5 0 0 1 20 9.5v8A1.5 1.5 0 0 1 18.5 19h-8A1.5 1.5 0 0 1 9 17.5v-8Z"></path><path d="M6 15H5.5A1.5 1.5 0 0 1 4 13.5v-8A1.5 1.5 0 0 1 5.5 4h8A1.5 1.5 0 0 1 15 5.5V6"></path></svg>
+                    </button>
+                </div>
+
+                <div class="article-content">
+                    <p>生成AIを組み込んだシステムには、従来のソフトウェアにはなかった特有の「経年変化」があります。コードを一切変更していなくても、裏側で呼び出しているAIモデルが提供元によってアップデートされることで、出力の傾向や精度、フォーマットが変わる可能性があります。</p>
+                    <p>私たちは契約書比較SaaS「DIFFsense」や、写真から食材を判定する「御御御付（おみおつけ）」を自社で運営しており、いずれもGeminiやGPTのAPIから返ってくるテキストをJSONとして扱う処理を実装しています。この記事では、「モデルアップデートで実際にこう壊れた」という事故報告ではなく、そもそもLLMの出力は本来ゆらぎがあるという前提のもと、私たちが実装の中で講じている防御的な工夫を、実際のコードに基づいて紹介します。</p>
+
+                    <h2>なぜモデルアップデートでシステムが「壊れる」おそれがあるのか</h2>
+                    <p>OpenAIやGoogle、Anthropicなどのモデル提供元は、性能改善や安全性向上のために継続的にモデルを更新しています。特に「latest」や無指定のエイリアスでモデルを呼び出している場合、開発者が意識しないうちに裏側のモデルが切り替わることがあります。</p>
+
+                    <h3>1. 出力フォーマットの揺れ</h3>
+                    <p>JSON出力を期待していても、モデルが余分な説明文を前後に付け足したり、キー名の付け方が期待と異なったりすることがあります。これはモデルのバージョンが変わった瞬間だけに起きるとは限らず、同じバージョンでも出力の揺れとして日常的に起こり得るものです。厳密なパース処理を組んでいるシステムほど、この揺れの影響を受けやすくなります。</p>
+
+                    <h3>2. 判断基準・トーンのドリフト</h3>
+                    <p>分類や要約、承認判定のようなタスクでは、モデルの世代が変わることで判断の傾向がわずかにずれる可能性があります。個々の変化は小さくても、大量の処理を積み重ねると、業務全体の精度やユーザー体験に影響しうるため、継続的な確認が必要です。</p>
+
+                    <h3>3. 廃止（Deprecation）による停止</h3>
+                    <p>影響が大きいのが、利用していたモデルバージョンそのものが提供終了になるケースです。事前の告知期間はあるものの、それに気づかず対応が遅れると、ある日を境にAPIがエラーを返し続けるという事態になりえます。</p>
+
+                    <figure class="article-diagram">
+                        <svg viewBox="0 0 640 268" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="riskTypesTitle">
+                            <title id="riskTypesTitle">3つの変化と、その気づきやすさ</title>
+
+                            <text x="0" y="12" font-family="sans-serif" font-size="11" fill="#8a8a8a">変化の種類</text>
+                            <text x="216" y="12" font-family="sans-serif" font-size="11" fill="#8a8a8a">現場での現れ方</text>
+                            <text x="452" y="12" font-family="sans-serif" font-size="11" fill="#8a8a8a">気づきやすさ</text>
+                            <line x1="0" y1="26" x2="640" y2="26" stroke="#111111" stroke-width="1"></line>
+
+                            <text x="0" y="62" font-family="sans-serif" font-size="14" font-weight="700" fill="#111111">判断のドリフト</text>
+                            <text x="216" y="62" font-family="sans-serif" font-size="13" fill="#444444">結果が少しずつずれていく</text>
+                            <rect x="452" y="52" width="188" height="6" fill="#ededed"></rect>
+                            <rect x="452" y="52" width="42" height="6" fill="#111111"></rect>
+                            <text x="452" y="80" font-family="sans-serif" font-size="11" fill="#8a8a8a">低い ─ 放置されやすい</text>
+                            <line x1="0" y1="100" x2="640" y2="100" stroke="#ededed" stroke-width="1"></line>
+
+                            <text x="0" y="136" font-family="sans-serif" font-size="14" font-weight="700" fill="#111111">出力フォーマットの揺れ</text>
+                            <text x="216" y="136" font-family="sans-serif" font-size="13" fill="#444444">パース失敗として表面化</text>
+                            <rect x="452" y="126" width="188" height="6" fill="#ededed"></rect>
+                            <rect x="452" y="126" width="112" height="6" fill="#111111"></rect>
+                            <text x="452" y="154" font-family="sans-serif" font-size="11" fill="#8a8a8a">中 ─ エラーログに残る</text>
+                            <line x1="0" y1="174" x2="640" y2="174" stroke="#ededed" stroke-width="1"></line>
+
+                            <text x="0" y="210" font-family="sans-serif" font-size="14" font-weight="700" fill="#111111">モデルの提供終了</text>
+                            <text x="216" y="210" font-family="sans-serif" font-size="13" fill="#444444">機能が全面的に停止</text>
+                            <rect x="452" y="200" width="188" height="6" fill="#ededed"></rect>
+                            <rect x="452" y="200" width="188" height="6" fill="#111111"></rect>
+                            <text x="452" y="228" font-family="sans-serif" font-size="11" fill="#8a8a8a">高い ─ 即座に検知できる</text>
+                            <line x1="0" y1="248" x2="640" y2="248" stroke="#ededed" stroke-width="1"></line>
+                        </svg>
+                        <figcaption>提供終了はすぐ気づけるが、判断のドリフトは表面化しないまま進む。対策の優先順位は、この「気づきにくさ」を軸に考える。</figcaption>
+                    </figure>
+
+                    <hr>
+
+                    <h2>私たちが実装で講じている防御的な工夫</h2>
+                    <p>これらのリスクをゼロにすることはできませんが、実装の作り方次第で影響を小さくすることはできます。DIFFsenseと御御御付で実際に採用している工夫を、そのまま紹介します。</p>
+
+                    <h3>工夫①：モデルはバージョンを明記して固定する</h3>
+                    <p>「latest」のような自動追従のエイリアスは、本番環境では挙動が予測しづらくなる原因になります。DIFFsenseのバックエンドでは、呼び出し先のモデルをバージョンまで明記した状態でエンドポイントに直接指定しており、コード上にも「速く、信頼性が高いためこのモデルを使っている」という選定理由をコメントとして残しています。この一行があるだけで、モデルの切り替えは常にコードレビューを通る「意図した変更」になり、知らないうちに挙動が変わるという事態を防げます。</p>
+
+                    <h3>工夫②：出力のキー名は複数パターンを許容しておく</h3>
+                    <p>DIFFsenseの契約書解析処理では、AIからの応答に含まれる変更点の配列を取り出す際、<code>changes</code> だけでなく <code>suggestions</code> や <code>materialChanges</code> など複数のキー名のいずれかがあれば拾えるようにしています。これは「モデルアップデートでキー名がこう変わった」という観測結果に基づくものというより、プロンプトへの厳密な準拠を無条件に信頼しない、という前提での保険的な実装です。1つのキー名だけを信じる作りにしないことで、モデル側の細かな出力の揺れに振り回されにくくなります。</p>
+
+                    <figure class="article-diagram">
+                        <svg viewBox="0 0 640 224" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="keyNameTitle">
+                            <title id="keyNameTitle">複数のキー名を1つの内部構造に正規化する</title>
+                            <defs>
+                                <marker id="arrowKey" markerWidth="9" markerHeight="9" refX="8" refY="4.5" orient="auto">
+                                    <path d="M0,1 L8,4.5 L0,8" fill="none" stroke="#111111" stroke-width="1"></path>
+                                </marker>
+                            </defs>
+
+                            <text x="0" y="14" font-family="sans-serif" font-size="11" fill="#8a8a8a">AIが返しうるキー名</text>
+                            <text x="492" y="14" font-family="sans-serif" font-size="11" fill="#8a8a8a">後続の処理</text>
+
+                            <rect x="0" y="30" width="212" height="44" rx="2" fill="#ffffff" stroke="#d4d4d4" stroke-width="1"></rect>
+                            <text x="20" y="58" font-family="ui-monospace, SFMono-Regular, Menlo, monospace" font-size="14" fill="#111111">changes</text>
+
+                            <rect x="0" y="86" width="212" height="44" rx="2" fill="#ffffff" stroke="#d4d4d4" stroke-width="1"></rect>
+                            <text x="20" y="114" font-family="ui-monospace, SFMono-Regular, Menlo, monospace" font-size="14" fill="#111111">suggestions</text>
+
+                            <rect x="0" y="142" width="212" height="44" rx="2" fill="#ffffff" stroke="#d4d4d4" stroke-width="1"></rect>
+                            <text x="20" y="170" font-family="ui-monospace, SFMono-Regular, Menlo, monospace" font-size="14" fill="#111111">materialChanges</text>
+
+                            <g stroke="#111111" stroke-width="1" fill="none">
+                                <path d="M212,52 H248 V108"></path>
+                                <path d="M212,108 H248"></path>
+                                <path d="M212,164 H248 V108"></path>
+                            </g>
+                            <line x1="248" y1="108" x2="288" y2="108" stroke="#111111" stroke-width="1" marker-end="url(#arrowKey)"></line>
+
+                            <rect x="296" y="76" width="156" height="64" rx="2" fill="#ffffff" stroke="#111111" stroke-width="1" stroke-dasharray="4 3"></rect>
+                            <text x="374" y="104" text-anchor="middle" font-family="sans-serif" font-size="14" font-weight="700" fill="#111111">正規化</text>
+                            <text x="374" y="124" text-anchor="middle" font-family="sans-serif" font-size="11" fill="#8a8a8a">存在するものを1つ採用</text>
+
+                            <line x1="452" y1="108" x2="492" y2="108" stroke="#111111" stroke-width="1" marker-end="url(#arrowKey)"></line>
+
+                            <rect x="500" y="76" width="140" height="64" rx="2" fill="#111111"></rect>
+                            <text x="570" y="104" text-anchor="middle" font-family="sans-serif" font-size="14" font-weight="700" fill="#ffffff">統一形式</text>
+                            <text x="570" y="124" text-anchor="middle" font-family="sans-serif" font-size="11" fill="rgba(255,255,255,0.7)">揺れを意識しない</text>
+                        </svg>
+                        <figcaption>入口で複数パターンを吸収しておけば、後続の処理はキー名の揺れを意識せずに書ける。</figcaption>
+                    </figure>
+
+                    <h3>工夫③：JSONパースは複数の手段を順に試す</h3>
+                    <p>DIFFsenseのJSON抽出処理では、Markdownのコードフェンス（```json ... ```）を取り除いたうえで、まずそのままJSON.parseを試し、失敗したらスマートクォートや末尾カンマなどの軽微な崩れを正規化してから再度パースし、それでも失敗したら正規表現で必要なフィールドだけを抜き出す、という具合に複数の手段を順番に試す作りになっています。御御御付では食材認識という用途の特性上、コードフェンスを外してからパースするシンプルな構成を採用しており、サービスの性質や要求される精度に応じて防御の厚みを変えるようにしています。</p>
+
+                    <figure class="article-diagram">
+                        <svg viewBox="0 0 640 306" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="jsonFlowTitle">
+                            <title id="jsonFlowTitle">JSONパースを多段階で立て直す流れ</title>
+                            <defs>
+                                <marker id="arrowFlow" markerWidth="9" markerHeight="9" refX="8" refY="4.5" orient="auto">
+                                    <path d="M0,1 L8,4.5 L0,8" fill="none" stroke="#111111" stroke-width="1"></path>
+                                </marker>
+                            </defs>
+
+                            <rect x="0" y="0" width="640" height="44" rx="2" fill="#fafafa" stroke="#d4d4d4" stroke-width="1"></rect>
+                            <text x="20" y="28" font-family="sans-serif" font-size="13" fill="#111111">AIからの生レスポンス</text>
+                            <text x="620" y="28" text-anchor="end" font-family="sans-serif" font-size="11" fill="#8a8a8a">コードフェンスを除去してから開始</text>
+
+                            <line x1="320" y1="44" x2="320" y2="72" stroke="#111111" stroke-width="1" marker-end="url(#arrowFlow)"></line>
+
+                            <rect x="0" y="80" width="196" height="96" rx="2" fill="#ffffff" stroke="#111111" stroke-width="1"></rect>
+                            <text x="20" y="106" font-family="sans-serif" font-size="11" font-weight="700" fill="#8a8a8a">STEP 1</text>
+                            <text x="20" y="134" font-family="sans-serif" font-size="14" font-weight="700" fill="#111111">そのままパース</text>
+                            <text x="20" y="156" font-family="sans-serif" font-size="11" fill="#8a8a8a">大半はここで成功する</text>
+
+                            <rect x="222" y="80" width="196" height="96" rx="2" fill="#ffffff" stroke="#111111" stroke-width="1"></rect>
+                            <text x="242" y="106" font-family="sans-serif" font-size="11" font-weight="700" fill="#8a8a8a">STEP 2</text>
+                            <text x="242" y="134" font-family="sans-serif" font-size="14" font-weight="700" fill="#111111">正規化して再試行</text>
+                            <text x="242" y="156" font-family="sans-serif" font-size="11" fill="#8a8a8a">表記ゆれを吸収する</text>
+
+                            <rect x="444" y="80" width="196" height="96" rx="2" fill="#ffffff" stroke="#111111" stroke-width="1"></rect>
+                            <text x="464" y="106" font-family="sans-serif" font-size="11" font-weight="700" fill="#8a8a8a">STEP 3</text>
+                            <text x="464" y="134" font-family="sans-serif" font-size="14" font-weight="700" fill="#111111">正規表現で抽出</text>
+                            <text x="464" y="156" font-family="sans-serif" font-size="11" fill="#8a8a8a">必要な項目だけ拾う</text>
+
+                            <line x1="196" y1="128" x2="214" y2="128" stroke="#111111" stroke-width="1" stroke-dasharray="4 3" marker-end="url(#arrowFlow)"></line>
+                            <line x1="418" y1="128" x2="436" y2="128" stroke="#111111" stroke-width="1" stroke-dasharray="4 3" marker-end="url(#arrowFlow)"></line>
+                            <text x="320" y="200" text-anchor="middle" font-family="sans-serif" font-size="11" fill="#8a8a8a">破線＝前段が失敗したときだけ進む</text>
+
+                            <g stroke="#111111" stroke-width="1" fill="none">
+                                <path d="M98,176 V228 H320"></path>
+                                <path d="M320,176 V228"></path>
+                                <path d="M542,176 V228 H320"></path>
+                            </g>
+                            <line x1="320" y1="228" x2="320" y2="254" stroke="#111111" stroke-width="1" marker-end="url(#arrowFlow)"></line>
+
+                            <rect x="212" y="262" width="216" height="44" rx="2" fill="#111111"></rect>
+                            <text x="320" y="290" text-anchor="middle" font-family="sans-serif" font-size="14" font-weight="700" fill="#ffffff">構造化データとして取得</text>
+                        </svg>
+                        <figcaption>DIFFsenseのJSON抽出処理。どのSTEPで成功しても後続の処理は同じ形で受け取れる。</figcaption>
+                    </figure>
+
+                    <h3>工夫④：モデル名を外出しし、フォールバックとキルスイッチを持つ</h3>
+                    <p>御御御付の画像解析処理では、利用するモデル名を環境変数で指定できるようにしてあり、コードのデプロイを伴わずに切り替えられます。また、モデルが混雑時のエラー（503など）を返した場合には、同じモデルへ少し時間を空けて再試行し、それでも失敗すれば同系統の別グレードのモデルへ自動的に切り替える仕組みも実装しています。加えて、開発者が意図的に外部AI呼び出しそのものを止めたい場合には、環境変数を1つ切り替えるだけでダミーの結果を返す動作に切り替えられるようにもしています。AIの挙動不良は自動判定が難しい場面も多いため、最終的な判断と切り替えを人がすぐ行えるようにしておくことを重視しています。</p>
+
+                    <figure class="article-diagram">
+                        <svg viewBox="0 0 640 300" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="fallbackTitle">
+                            <title id="fallbackTitle">再試行・フォールバック・キルスイッチの関係</title>
+                            <defs>
+                                <marker id="arrowFb" markerWidth="9" markerHeight="9" refX="8" refY="4.5" orient="auto">
+                                    <path d="M0,1 L8,4.5 L0,8" fill="none" stroke="#111111" stroke-width="1"></path>
+                                </marker>
+                            </defs>
+
+                            <text x="0" y="12" font-family="sans-serif" font-size="11" font-weight="700" fill="#8a8a8a">自動で処理される範囲</text>
+                            <line x1="0" y1="24" x2="640" y2="24" stroke="#111111" stroke-width="1"></line>
+
+                            <rect x="0" y="44" width="180" height="72" rx="2" fill="#fafafa" stroke="#d4d4d4" stroke-width="1"></rect>
+                            <text x="20" y="76" font-family="sans-serif" font-size="14" font-weight="700" fill="#111111">通常の呼び出し</text>
+                            <text x="20" y="98" font-family="sans-serif" font-size="11" fill="#8a8a8a">指定したモデル</text>
+
+                            <line x1="180" y1="80" x2="220" y2="80" stroke="#111111" stroke-width="1" marker-end="url(#arrowFb)"></line>
+                            <text x="200" y="66" text-anchor="middle" font-family="sans-serif" font-size="11" fill="#8a8a8a">失敗</text>
+
+                            <rect x="228" y="44" width="180" height="72" rx="2" fill="#ffffff" stroke="#111111" stroke-width="1"></rect>
+                            <text x="248" y="76" font-family="sans-serif" font-size="14" font-weight="700" fill="#111111">時間を空けて再試行</text>
+                            <text x="248" y="98" font-family="sans-serif" font-size="11" fill="#8a8a8a">同じモデルのまま</text>
+
+                            <line x1="408" y1="80" x2="448" y2="80" stroke="#111111" stroke-width="1" marker-end="url(#arrowFb)"></line>
+                            <text x="428" y="66" text-anchor="middle" font-family="sans-serif" font-size="11" fill="#8a8a8a">失敗</text>
+
+                            <rect x="456" y="44" width="184" height="72" rx="2" fill="#ffffff" stroke="#111111" stroke-width="1"></rect>
+                            <text x="476" y="76" font-family="sans-serif" font-size="14" font-weight="700" fill="#111111">別グレードへ切替</text>
+                            <text x="476" y="98" font-family="sans-serif" font-size="11" fill="#8a8a8a">自動フォールバック</text>
+
+                            <line x1="0" y1="164" x2="640" y2="164" stroke="#111111" stroke-width="1" stroke-dasharray="4 3"></line>
+                            <text x="0" y="152" font-family="sans-serif" font-size="11" font-weight="700" fill="#8a8a8a">人が判断して切り替える範囲</text>
+
+                            <rect x="0" y="192" width="308" height="92" rx="2" fill="#ffffff" stroke="#111111" stroke-width="1"></rect>
+                            <text x="20" y="224" font-family="sans-serif" font-size="14" font-weight="700" fill="#111111">モデル名の差し替え</text>
+                            <text x="20" y="248" font-family="sans-serif" font-size="11" fill="#8a8a8a">環境変数を書き換えるだけ</text>
+                            <text x="20" y="268" font-family="sans-serif" font-size="11" fill="#8a8a8a">コードのデプロイは不要</text>
+
+                            <rect x="332" y="192" width="308" height="92" rx="2" fill="#111111"></rect>
+                            <text x="352" y="224" font-family="sans-serif" font-size="14" font-weight="700" fill="#ffffff">キルスイッチ</text>
+                            <text x="352" y="248" font-family="sans-serif" font-size="11" fill="rgba(255,255,255,0.7)">外部AIの呼び出しを止める</text>
+                            <text x="352" y="268" font-family="sans-serif" font-size="11" fill="rgba(255,255,255,0.7)">固定の応答を返して様子を見る</text>
+                        </svg>
+                        <figcaption>一時的な混雑は自動で吸収し、判断が必要な事象は人がすぐ切り替えられる状態にしておく。</figcaption>
+                    </figure>
+
+                    <h2>「作って終わり」にしないための体制</h2>
+                    <p>AIシステムは一度作って納品したら完成、というものではありません。モデル提供元のアップデート情報を継続的に把握し、影響がありそうであれば実際の挙動を確認し、必要に応じて実装を調整するという運用サイクルを、誰かが継続的に担う必要があります。</p>
+                    <p>この役割を発注側だけで担うのが難しい場合は、開発を依頼する段階で「リリース後のモデル追従・監視をどう行うか」を提案に含められる開発会社を選ぶことが、長期的な安定運用につながります。</p>
+
+                    <h2>SPACE GLEAMのAIシステム提案</h2>
+                    <p>私たちSPACE GLEAMは、DIFFsenseや御御御付といった自社SaaSを実際に運営しながら、こうした防御的な実装を日常的に行っています。その実践知をもとに、開発だけでなく運用のしやすさまで見据えたAIシステムをご提案します。</p>
+                    <p>「導入後の運用が不安」「今動いているAIシステムの安定性を見直したい」という場合も、お気軽にお問い合わせください。</p>
+                </div>
+            </article>
+
+            <div class="article-cta">
+                <div>
+                    <strong>AIシステム開発のご相談はこちら</strong>
+                    <p>新規開発だけでなく、既存のAIシステムの運用・保守体制の見直しもご相談いただけます。</p>
+                </div>
+                <a href="../../contact.html" target="_blank" rel="noopener noreferrer">問い合わせる</a>
+            </div>
+
+            <div class="article-share article-share-bottom" aria-label="記事を共有">
+                <button type="button" class="article-share-icon is-x" aria-label="Xでシェア" title="Xでシェア" data-share data-share-title="AIの出力は揺れる前提で作る。自社SaaSで実装している4つの備え" data-share-url="https://spacegleam.co.jp/blog/ai-model-update-resilience/">
+                    <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24h-6.657l-5.214-6.817-5.966 6.817H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231Zm-1.161 17.52h1.833L7.084 4.126H5.117Z"></path></svg>
+                </button>
+                <a href="mailto:?subject=AI%E3%81%AE%E5%87%BA%E5%8A%9B%E3%81%AF%E6%8F%BA%E3%82%8C%E3%82%8B%E5%89%8D%E6%8F%90%E3%81%A7%E4%BD%9C%E3%82%8B%E3%80%82%E8%87%AA%E7%A4%BESaaS%E3%81%A7%E5%AE%9F%E8%A3%85%E3%81%97%E3%81%A6%E3%81%84%E3%82%8B4%E3%81%A4%E3%81%AE%E5%82%99%E3%81%88&body=https%3A//spacegleam.co.jp/blog/ai-model-update-resilience/" class="article-share-icon is-mail" aria-label="メールでシェア" title="メールでシェア">
+                    <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 5h16a2 2 0 0 1 2 2v10a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V7a2 2 0 0 1 2-2Zm0 2v.4l8 5.15 8-5.15V7H4Zm0 2.78V17h16V9.78l-8 5.15-8-5.15Z"></path></svg>
+                </a>
+                <button type="button" class="article-share-icon" aria-label="URLをコピー" title="URLをコピー" data-copy-url="https://spacegleam.co.jp/blog/ai-model-update-resilience/">
+                    <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 9.5A1.5 1.5 0 0 1 10.5 8h8A1.5 1.5 0 0 1 20 9.5v8A1.5 1.5 0 0 1 18.5 19h-8A1.5 1.5 0 0 1 9 17.5v-8Z"></path><path d="M6 15H5.5A1.5 1.5 0 0 1 4 13.5v-8A1.5 1.5 0 0 1 5.5 4h8A1.5 1.5 0 0 1 15 5.5V6"></path></svg>
+                </button>
+            </div>
+
+            <div class="article-nav">
+                <a href="../index.html" class="article-nav-back">一覧に戻る</a>
+            </div>
+        </div>
+    </main>
+
+    <footer class="footer">
+        <div class="container footer-top">
+            <div class="footer-brand-col">
+                <a href="../../index.html" class="footer-logo">SPACE GLEAM</a>
+                <div class="footer-logo-line"></div>
+                <p class="footer-tagline">アイデアを、<br class="pc-only">最短距離で事業にする。</p>
+            </div>
+            <div class="footer-nav-grid">
+                <div class="footer-nav-col">
+                    <h4><a href="../../services.html">SERVICE</a></h4>
+                    <ul>
+                        <li><a href="../../services.html">AI MVP開発</a></li>
+                        <li><a href="../../services.html">業務システム開発</a></li>
+                        <li><a href="../../services.html">AI導入支援</a></li>
+                    </ul>
+                </div>
+                <div class="footer-nav-col">
+                    <h4><a href="../../works.html">WORKS</a></h4>
+                    <ul>
+                        <li><a href="../../works.html">開発事例</a></li>
+                        <li><a href="../../pricing.html">料金</a></li>
+                        <li><a href="../../faq.html">よくある質問</a></li>
+                    </ul>
+                </div>
+                <div class="footer-nav-col">
+                    <h4><a href="../">BLOG</a></h4>
+                    <ul>
+                        <li><a href="../">ブログ記事一覧</a></li>
+                        <li><a href="../free-ai-development-diagnosis/">AI開発無料診断</a></li>
+                    </ul>
+                </div>
+                <div class="footer-nav-col">
+                    <h4><a href="../../company.html">COMPANY</a></h4>
+                    <ul>
+                        <li><a href="../../company.html">会社概要</a></li>
+                        <li><a href="../../contact.html">お問い合わせ</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-vertical-line"></div>
+            <div class="footer-cta-col">
+                <a href="../../contact.html" class="works-cta-btn-v2">AI開発について相談する <span>→</span></a>
+            </div>
+        </div>
+        <div class="footer-horizontal-line"></div>
+        <div class="container footer-bottom">
+            <p class="copyright">&copy; 2026 SPACE GLEAM. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script src="../posts.js"></script>
+    <script src="../blog.js"></script>
+</body>
+
+</html>

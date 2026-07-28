@@ -1,5 +1,13 @@
 window.SPACEGLEAM_BLOG_POSTS = [
     {
+        slug: 'ai-model-update-resilience',
+        title: 'AIの出力は揺れる前提で作る。自社SaaSで実装している4つの備え',
+        date: '2026-07-28', publishAt: '2026-07-28T00:00:00+09:00', status: 'published', category: 'Development',
+        description: '生成AIのモデルは更新され、出力の傾向やフォーマットが変わる可能性があります。DIFFsenseと御御御付（おみおつけ）の実装をもとに、バージョン固定、複数キー名の許容、多段階のJSONパース、フォールバックとキルスイッチといった防御的な工夫を、実際のコードに基づいて紹介します。',
+        excerpt: 'LLMの出力は本来ゆらぎがあるものという前提で、DIFFsenseと御御御付の実装がどう作られているかを、実際のコードに基づいて紹介します。',
+        url: 'https://spacegleam.co.jp/blog/ai-model-update-resilience/', thumbnail: '/blog/ai-model-update-resilience/card.webp'
+    },
+    {
         slug: 'ai-system-development-cost',
         title: 'AIシステム開発の費用相場｜料金の内訳・開発期間・予算別の違い',
         date: '2026-07-23',

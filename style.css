@@ -7330,6 +7330,30 @@ body.blog-page-body[data-article-slug] .blog-main .container {
     letter-spacing: 0;
 }
 
+.article-diagram {
+    margin: 32px 0 36px;
+    padding: 32px 32px 24px;
+    background: #ffffff;
+    border: 1px solid #e5e5e5;
+    border-radius: 4px;
+}
+
+.article-diagram svg {
+    display: block;
+    width: 100%;
+    height: auto;
+}
+
+.article-diagram figcaption {
+    margin-top: 18px;
+    padding-top: 14px;
+    border-top: 1px solid #eeeeee;
+    font-size: 0.8rem;
+    line-height: 1.6;
+    color: #767676;
+    text-align: left;
+}
+
 .article-content p {
     margin: 0 0 22px;
 }
