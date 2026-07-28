@@ -16,10 +16,10 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Noto+Sans+JP:wght@400;500;700&family=Noto+Serif+JP:wght@400;700;900&family=Playfair+Display:ital,wght@0,400..900;1,400..900&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="/style.css?v=header-perf-20260717-v4">
+    <link rel="stylesheet" href="/style.css?v=qc-redesign-20260728-v1">
     <link rel="stylesheet" href="/home-diagnosis.css?v=home-diagnosis-20260717-v1">
     <link rel="stylesheet" href="service-detail.css?v=service-preview-20260717-v1">
-    <link rel="preload" href="/diagnosis.js?v=home-diag-initial-render-20260717-v27" as="script">
+    <link rel="preload" href="/diagnosis.js?v=qc-diag-open-20260728-v1" as="script">
     <link rel="preload" href="/blog/assets/diagnosis-covers/p3-hero.jpg" as="image" fetchpriority="high">
     <link rel="icon" type="image/png" href="favicon.png">
     <link rel="canonical" href="https://spacegleam.co.jp/">
@@ -292,39 +292,45 @@
         <section class="quick-consult-section" aria-labelledby="quick-consult-title">
             <div class="container quick-consult-container">
                 <div class="quick-consult-heading reveal">
-                    <p class="quick-consult-eyebrow">FIRST CONSULTATION</p>
-                    <h2 id="quick-consult-title">よくある相談から、実現方法と費用感まで整理します。</h2>
-                    <p>要件が固まっていなくても大丈夫です。いまの業務や作りたいものを伺い、AIで効果が出やすい進め方を一緒に見つけます。</p>
+                    <h2 id="quick-consult-title">よくある相談から、<br>実現方法と費用感まで整理します。</h2>
+                    <div class="quick-consult-headrow">
+                        <p class="quick-consult-lead">要件が固まっていなくても大丈夫です。<br>いまの業務や作りたいものを伺い、AIで効果が出やすい進め方をご提案します。</p>
+                        <div class="quick-consult-actions">
+                            <a href="contact.html" class="qc-btn qc-btn--primary">無料相談する<span class="arrow" aria-hidden="true">→</span></a>
+                            <button type="button" class="qc-btn qc-btn--ghost" data-diag-open>30秒でAI診断<span class="arrow" aria-hidden="true">→</span></button>
+                        </div>
+                    </div>
                 </div>
 
                 <div class="quick-consult-grid">
-                    <article class="quick-consult-panel reveal">
-                        <h3>よくある相談例</h3>
-                        <ul class="quick-consult-list">
-                            <li>Excel・スプレッドシート管理をAIで自動化したい</li>
-                            <li>問い合わせ対応や社内FAQを効率化したい</li>
-                            <li>契約書・請求書・報告書の確認を自動化したい</li>
-                            <li>社内ナレッジ検索やチャットボットを作りたい</li>
-                            <li>既存システムにAI機能を追加したい</li>
-                            <li>新規事業のAIプロダクトを本番につながる形で検証したい</li>
-                        </ul>
+                    <article class="qc-panel reveal">
+                        <span class="qc-panel__num" aria-hidden="true">01</span>
+                        <div class="qc-panel__body">
+                            <h3>よくある相談例</h3>
+                            <ul class="qc-list">
+                                <li>Excel・スプレッドシート管理をAIで自動化したい</li>
+                                <li>問い合わせ対応や社内FAQを効率化したい</li>
+                                <li>契約書・請求書・報告書の確認を自動化したい</li>
+                                <li>社内ナレッジ検索やチャットボットを作りたい</li>
+                                <li>既存システムにAI機能を追加したい</li>
+                                <li>新規事業のAIプロダクトを本番につながる形で検証したい</li>
+                            </ul>
+                        </div>
                     </article>
 
-                    <article class="quick-consult-panel reveal">
-                        <h3>初回相談でわかること</h3>
-                        <ul class="quick-consult-list">
-                            <li>どの業務からAI化すると効果が出やすいか</li>
-                            <li>必要な機能と、最初は作らなくてよい機能</li>
-                            <li>開発期間と概算費用の目安</li>
-                            <li>社内データ・既存システム連携の進め方</li>
-                            <li>2〜8週間で本番接続を目指す初期リリース案</li>
-                        </ul>
+                    <article class="qc-panel reveal">
+                        <span class="qc-panel__num" aria-hidden="true">02</span>
+                        <div class="qc-panel__body">
+                            <h3>初回相談でわかること</h3>
+                            <ul class="qc-list">
+                                <li>どの業務からAI化すると効果が出やすいか</li>
+                                <li>必要な機能と、最初は作らなくてよい機能</li>
+                                <li>開発期間と概算費用の目安</li>
+                                <li>社内データ・既存システム連携の進め方</li>
+                                <li>2〜8週間で本番接続を目指す初期リリース案</li>
+                            </ul>
+                        </div>
                     </article>
-                </div>
-
-                <div class="quick-consult-actions reveal">
-                    <a href="contact.html" class="btn btn-primary">AI活用案を無料で聞く<span class="arrow">→</span></a>
-                    <a href="contact.html" class="btn btn-secondary">概算費用を聞く</a>
                 </div>
             </div>
         </section>

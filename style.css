@@ -468,106 +468,151 @@ select {
 
 .quick-consult-container {
     display: grid;
-    gap: 30px;
-}
-
-.quick-consult-heading {
-    max-width: 780px;
-}
-
-.quick-consult-eyebrow {
-    margin-bottom: 12px;
-    color: #8a6a34;
-    font-size: .78rem;
-    font-weight: 900;
-    letter-spacing: .14em;
+    gap: 44px;
 }
 
 .quick-consult-heading h2 {
-    font-size: clamp(1.9rem, 3vw, 3rem);
-    line-height: 1.28;
-    letter-spacing: 0;
+    font-size: clamp(1.9rem, 3.1vw, 2.9rem);
+    line-height: 1.36;
+    letter-spacing: -0.01em;
+    font-weight: 800;
 }
 
-.quick-consult-heading p:not(.quick-consult-eyebrow) {
-    margin-top: 16px;
-    color: #4b5563;
-    font-size: 1rem;
-    line-height: 1.9;
+.quick-consult-headrow {
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    gap: 40px;
+    margin-top: 26px;
 }
 
-.quick-consult-grid {
-    display: grid;
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-    gap: 22px;
-}
-
-.quick-consult-panel {
-    padding: 28px;
-    border: 1px solid rgba(0, 0, 0, .09);
-    border-radius: 8px;
-    background: #fbfaf8;
-}
-
-.quick-consult-panel h3 {
-    margin-bottom: 18px;
-    font-size: 1.18rem;
-    line-height: 1.5;
-}
-
-.quick-consult-list {
-    display: grid;
-    gap: 12px;
-    list-style: none;
-}
-
-.quick-consult-list li {
-    position: relative;
-    padding-left: 20px;
-    color: #1f2937;
-    font-size: .96rem;
-    line-height: 1.75;
-}
-
-.quick-consult-list li::before {
-    content: "";
-    position: absolute;
-    left: 0;
-    top: .72em;
-    width: 7px;
-    height: 7px;
-    border-radius: 999px;
-    background: #9a7440;
+.quick-consult-lead {
+    margin: 0;
+    color: #444444;
+    font-size: .98rem;
+    line-height: 2;
 }
 
 .quick-consult-actions {
     display: flex;
     flex-wrap: wrap;
-    gap: 12px;
+    gap: 14px;
     align-items: center;
+    flex-shrink: 0;
 }
 
-.quick-consult-actions .btn-primary {
+.qc-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 34px;
+    min-width: 210px;
+    padding: 19px 26px;
+    border: 1px solid #111111;
+    border-radius: 0;
+    font-size: .96rem;
+    font-weight: 700;
+    line-height: 1;
+    cursor: pointer;
+    transition: background-color .1s linear;
+}
+
+.qc-btn .arrow {
+    font-weight: 400;
+}
+
+.qc-btn--primary {
     background: #111111;
     color: #ffffff;
-    border-color: #111111;
-    box-shadow: 0 14px 34px rgba(0, 0, 0, .18);
 }
 
-.quick-consult-actions .btn-primary:hover {
-    background: #2a2a2a;
-    color: #ffffff;
-}
-
-.quick-consult-actions .btn-secondary {
+.qc-btn--ghost {
     background: #ffffff;
     color: #111111;
-    border-color: rgba(0, 0, 0, .16);
 }
 
-.quick-consult-actions .btn-secondary:hover {
-    background: #f5f5f5;
-    border-color: rgba(0, 0, 0, .28);
+/* PC（マウス環境）のみ。背景色だけを変える軽量なホバー */
+@media (hover: hover) and (pointer: fine) {
+    .qc-btn--primary:hover {
+        background-color: #383838;
+    }
+
+    .qc-btn--ghost:hover {
+        background-color: #f0f0f0;
+    }
+}
+
+.quick-consult-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 28px;
+}
+
+.qc-panel {
+    display: grid;
+    grid-template-columns: auto minmax(0, 1fr);
+    gap: 20px;
+    padding: 38px 28px;
+    border: 1px solid #111111;
+    border-radius: 0;
+    background: #ffffff;
+}
+
+.qc-panel__num {
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+    font-size: 2.9rem;
+    font-weight: 400;
+    line-height: 1;
+    color: #111111;
+    letter-spacing: -0.02em;
+}
+
+.qc-panel__body {
+    min-width: 0;
+    padding-left: 22px;
+    border-left: 1px solid #dcdcdc;
+}
+
+.qc-panel__body h3 {
+    margin: 4px 0 26px;
+    font-size: 1.24rem;
+    font-weight: 800;
+    line-height: 1.4;
+    letter-spacing: 0;
+}
+
+.qc-list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+.qc-list li {
+    position: relative;
+    padding: 0 0 14px 22px;
+    margin-bottom: 14px;
+    border-bottom: 1px dotted #d6d6d6;
+    color: #222222;
+    font-size: .89rem;
+    line-height: 1.7;
+    letter-spacing: -0.005em;
+}
+
+.qc-list li:last-child {
+    margin-bottom: 0;
+    padding-bottom: 0;
+    border-bottom: 0;
+}
+
+.qc-list li::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: .55em;
+    width: 9px;
+    height: 9px;
+    border-radius: 0;
+    background: #111111;
 }
 
 /* 最下部技術スタック */
@@ -1636,6 +1681,18 @@ select {
         grid-template-columns: repeat(2, 1fr);
     }
 
+    .quick-consult-headrow {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 26px;
+    }
+
+    /* 2列だと本文が窮屈になるため1列にして横幅を確保する */
+    .quick-consult-grid {
+        grid-template-columns: minmax(0, 1fr);
+        gap: 20px;
+    }
+
     .timeline {
         grid-template-columns: repeat(3, 1fr);
     }
@@ -1878,12 +1935,64 @@ select {
         padding: 56px 0;
     }
 
-    .quick-consult-panel {
-        padding: 22px;
+    .quick-consult-container {
+        gap: 30px;
+    }
+
+    .quick-consult-heading h2 {
+        line-height: 1.42;
+    }
+
+    .quick-consult-headrow {
+        margin-top: 20px;
+        gap: 22px;
+    }
+
+    .quick-consult-lead {
+        font-size: .92rem;
+        line-height: 1.85;
+    }
+
+    /* スマホでは番号を上、本文を下に積んで横幅を確保する */
+    .qc-panel {
+        grid-template-columns: minmax(0, 1fr);
+        gap: 14px;
+        padding: 24px 20px;
+    }
+
+    .qc-panel__num {
+        font-size: 1.8rem;
+        padding-bottom: 12px;
+        border-bottom: 1px solid #dcdcdc;
+    }
+
+    .qc-panel__body {
+        padding-left: 0;
+        border-left: 0;
+    }
+
+    .qc-panel__body h3 {
+        margin: 0 0 18px;
+        font-size: 1.12rem;
+    }
+
+    .qc-list li {
+        font-size: .88rem;
+        padding-bottom: 12px;
+        margin-bottom: 12px;
     }
 
     .quick-consult-actions {
         display: grid;
+        width: 100%;
+        gap: 10px;
+    }
+
+    .qc-btn {
+        width: 100%;
+        min-width: 0;
+        gap: 12px;
+        padding: 17px 20px;
     }
 
     .hero h1 {

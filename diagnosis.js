@@ -909,6 +909,13 @@
     buildModal();
     buildCard();
     window.addEventListener('resize', handleResize);
+    // ページ内の任意の [data-diag-open] から診断を開く
+    document.addEventListener('click', function (e) {
+      var trigger = e.target && e.target.closest && e.target.closest('[data-diag-open]');
+      if (!trigger) return;
+      e.preventDefault();
+      openModal();
+    });
     try {
       var qs = location.search + location.hash;
       if (/diagsent/.test(qs)) showSentPreview();
