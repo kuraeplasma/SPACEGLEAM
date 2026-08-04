@@ -253,10 +253,11 @@ select {
 
 .nav-toggle {
     display: none;
-    width: 40px;
-    height: 40px;
-    border: 1px solid rgba(0, 0, 0, .12);
-    background: rgba(255, 255, 255, .92);
+    width: 44px;
+    height: 44px;
+    border: 1px solid rgba(15, 23, 42, 0.15);
+    background: #ffffff;
+    border-radius: 8px;
     color: #050509;
     align-items: center;
     justify-content: center;
@@ -266,6 +267,7 @@ select {
     transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     padding: 0;
     z-index: 1010;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.12);
 }
 
 .nav-toggle:hover {
@@ -278,9 +280,9 @@ select {
 
 .nav-toggle span {
     display: block;
-    width: 18px;
-    height: 1.5px;
-    background: #ffffff;
+    width: 20px;
+    height: 2px;
+    background: #0f172a !important;
     border-radius: 99px;
     transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1), 
                 opacity 0.3s ease, 
@@ -1747,17 +1749,18 @@ select {
     }
 
     .nav-toggle {
-        display: inline-flex;
-        border: none;
-        background: transparent;
-        box-shadow: none;
+        display: inline-flex !important;
+        background: #ffffff !important;
+        border: 1px solid rgba(15, 23, 42, 0.18) !important;
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.15) !important;
         flex-shrink: 0;
+        z-index: 1010 !important;
     }
 
     .nav-toggle span {
-        background: #111111;
-        height: 1px;
-        width: 16px;
+        background: #0f172a !important;
+        height: 2px !important;
+        width: 20px !important;
     }
 
     .diag-card,
@@ -4369,7 +4372,7 @@ select {
     }
 
     .works-detail-tabs-v2 {
-        grid-template-columns: repeat(4, minmax(0, 1fr));
+        grid-template-columns: repeat(auto-fill, minmax(130px, 1fr));
         border-right: 0;
         border-bottom: 1px solid rgba(17, 24, 39, 0.08);
     }
@@ -4434,7 +4437,7 @@ select {
     }
 
     .works-detail-tabs-v2 {
-        grid-template-columns: 1fr;
+        grid-template-columns: repeat(auto-fill, minmax(110px, 1fr));
     }
 
     .works-detail-tabs-v2 button {
