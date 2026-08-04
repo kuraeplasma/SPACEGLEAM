@@ -2597,20 +2597,26 @@ select {
     align-items: baseline;
     line-height: 0.95;
     margin-bottom: 18px;
+    white-space: nowrap !important;
+    flex-wrap: nowrap !important;
 }
 
 .cost-metric-eyebrow {
-    font-size: clamp(1.3rem, 2.8vw, 2.3rem);
+    font-size: clamp(1.1rem, 2.5vw, 2.3rem);
     font-weight: 800;
     color: #111111;
-    margin-right: 10px;
+    margin-right: 8px;
+    white-space: nowrap !important;
+    flex-shrink: 0;
 }
 
 .cost-metric-num {
-    font-size: clamp(4.2rem, 10vw, 10.5rem);
+    font-size: clamp(3.2rem, 8.5vw, 10.5rem);
     font-weight: 700;
     color: #111111;
     letter-spacing: -0.02em;
+    white-space: nowrap !important;
+    flex-shrink: 0;
 }
 
 .cost-metric-dot {
@@ -2620,10 +2626,12 @@ select {
 }
 
 .cost-metric-unit {
-    font-size: clamp(1.8rem, 3.8vw, 3.2rem);
+    font-size: clamp(1.4rem, 3.2vw, 3.2rem);
     font-weight: 700;
     color: #111111;
     margin-left: 6px;
+    white-space: nowrap !important;
+    flex-shrink: 0;
 }
 
 .cost-metric-subnote {
