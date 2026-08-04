@@ -2463,8 +2463,8 @@ select {
     position: absolute;
     width: 280px;
     height: 280px;
-    background: url('brush_stroke_transparent-v2.png') no-repeat center / contain;
-    opacity: 0.12;
+    background: url('assets/spacegleam-logo-80.webp') no-repeat center / contain;
+    opacity: 0.05;
     pointer-events: none;
     z-index: 1;
 }
