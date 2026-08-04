@@ -1947,24 +1947,37 @@ select {
 
     .quick-consult-section {
         padding: 56px 0;
+        overflow-x: hidden;
     }
 
     .quick-consult-container {
         gap: 30px;
+        max-width: 100% !important;
+        box-sizing: border-box !important;
     }
 
     .quick-consult-heading h2 {
+        font-size: clamp(1.4rem, 5.5vw, 1.8rem) !important;
         line-height: 1.42;
+        word-break: break-word !important;
+        overflow-wrap: break-word !important;
+    }
+
+    .quick-consult-heading .nowrap {
+        white-space: normal !important;
     }
 
     .quick-consult-headrow {
         margin-top: 20px;
         gap: 22px;
+        flex-direction: column;
+        align-items: stretch;
     }
 
     .quick-consult-lead {
         font-size: .92rem;
         line-height: 1.85;
+        word-break: break-word !important;
     }
 
     /* スマホでは番号を上、本文を下に積んで横幅を確保する */
@@ -1972,6 +1985,8 @@ select {
         grid-template-columns: minmax(0, 1fr);
         gap: 14px;
         padding: 24px 20px;
+        max-width: 100% !important;
+        box-sizing: border-box !important;
     }
 
     .qc-panel__num {
