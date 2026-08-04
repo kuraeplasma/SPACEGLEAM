@@ -6,6 +6,11 @@
 [functions]
   included_files = ["netlify/functions/blog-admin.template.html"]
 
+# 定期ヘルスモニター: 毎日 00:00 UTC (= 09:00 JST) に本番サイトを自動チェック
+# 異常検知時は contact@spacegleam.co.jp へ即時アラートメールを送信
+[functions."site-health-monitor"]
+  schedule = "0 0 * * *"
+
 # Blog performance: cache static assets while keeping HTML and post data fresh.
 [[headers]]
   for = "/style.css"
@@ -31,116 +36,6 @@
   for = "/blog/assets/*"
   [headers.values]
     Cache-Control = "public, max-age=31536000, immutable"
-
-# Shared scripts change less frequently than HTML. Keep revalidation bounded so
-# fixes still propagate quickly even on pages that do not use a version query.
-[[headers]]
-  for = "/script.js"
-  [headers.values]
-    Cache-Control = "public, max-age=86400, stale-while-revalidate=604800"
-
-[[headers]]
-  for = "/site-shell.js"
-  [headers.values]
-    Cache-Control = "public, max-age=86400, stale-while-revalidate=604800"
-
-[[headers]]
-  for = "/faq-page.js"
-  [headers.values]
-    Cache-Control = "public, max-age=86400, stale-while-revalidate=604800"
-
-[[headers]]
-  for = "/contact-page.js"
-  [headers.values]
-    Cache-Control = "public, max-age=86400, stale-while-revalidate=604800"
-
-[[headers]]
-  for = "/works-page.js"
-  [headers.values]
-    Cache-Control = "public, max-age=86400, stale-while-revalidate=604800"
-
-[[headers]]
-  for = "/diagnosis.js"
-  [headers.values]
-    Cache-Control = "public, max-age=86400, stale-while-revalidate=604800"
-
-# Optimized visual assets are safe to retain between page navigations. These
-# paths intentionally use a shorter lifetime than hashed blog thumbnails.
-[[headers]]
-  for = "/assets/*"
-  [headers.values]
-    Cache-Control = "public, max-age=2592000, stale-while-revalidate=2592000"
-
-[[headers]]
-  for = "/images/*"
-  [headers.values]
-    Cache-Control = "public, max-age=2592000, stale-while-revalidate=2592000"
-
-[[headers]]
-  for = "/favicon.png"
-  [headers.values]
-    Cache-Control = "public, max-age=604800, stale-while-revalidate=2592000"
-
-[[headers]]
-  for = "/*.webp"
-  [headers.values]
-    Cache-Control = "public, max-age=604800, stale-while-revalidate=2592000"
-
-[[headers]]
-  for = "/*.png"
-  [headers.values]
-    Cache-Control = "public, max-age=604800, stale-while-revalidate=2592000"
-
-[[headers]]
-  for = "/*.jpg"
-  [headers.values]
-    Cache-Control = "public, max-age=604800, stale-while-revalidate=2592000"
-
-[[headers]]
-  for = "/*.webm"
-  [headers.values]
-    Cache-Control = "public, max-age=604800, stale-while-revalidate=2592000"
-
-[[headers]]
-  for = "/*.mp4"
-  [headers.values]
-    Cache-Control = "public, max-age=604800, stale-while-revalidate=2592000"
-
-# Netlify's current pretty-URL setting does not resolve these newly added
-# directory pages automatically. Keep the canonical trailing-slash URLs and
-# rewrite them explicitly to their index files.
-[[redirects]]
-  from = "/blog/ai-development-diagnosis-insights/"
-  to = "/blog/free-ai-development-diagnosis/"
-  status = 301
-  force = true
-
-[[redirects]]
-  from = "/blog/ai-development-diagnosis-insights/index.html"
-  to = "/blog/free-ai-development-diagnosis/"
-  status = 301
-  force = true
-
-[[redirects]]
-  from = "/blog/ai-mvp-first-decisions-guide/"
-  to = "/blog/ai-mvp-first-decisions/"
-  status = 301
-  force = true
-
-[[redirects]]
-  from = "/services/ai-poc-prototype/"
-  to = "/services/ai-poc-prototype/index.html"
-  status = 200
-
-[[redirects]]
-  from = "/services/ai-business-automation/"
-  to = "/services/ai-business-automation/index.html"
-  status = 200
-
-[[redirects]]
-  from = "/services/generative-ai-internal/"
-  to = "/services/generative-ai-internal/index.html"
-  status = 200
 
 [[redirects]]
   from = "/api/diagnosis"
