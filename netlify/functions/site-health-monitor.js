@@ -148,6 +148,78 @@ const API_CHECKS = [
 ];
 
 // ─────────────────────────────────────────────
+// DIFFsense サイトチェック定義
+// ─────────────────────────────────────────────
+const DIFFSENSE_URL = 'https://diffsense.spacegleam.co.jp';
+const DIFFSENSE_API_URL = 'https://diffsense-api-707048573054.asia-northeast1.run.app';
+
+const DIFFSENSE_PAGE_CHECKS = [
+    {
+        url: `${DIFFSENSE_URL}/`,
+        name: '[DIFFsense] LP トップ',
+        mustContain: [
+            'DIFFsense',
+            '契約書',
+            'class="header',    // ヘッダー
+            '</html>'
+        ],
+        mustHaveLinks: [
+            '/terms',
+            '/privacy',
+            '/login'
+        ],
+        mustHaveClasses: ['header']
+    },
+    {
+        url: `${DIFFSENSE_URL}/terms`,
+        name: '[DIFFsense] 利用規約',
+        mustContain: ['DIFFsense', '</html>'],
+        mustHaveLinks: [],
+        mustHaveClasses: []
+    },
+    {
+        url: `${DIFFSENSE_URL}/privacy`,
+        name: '[DIFFsense] プライバシーポリシー',
+        mustContain: ['DIFFsense', '</html>'],
+        mustHaveLinks: [],
+        mustHaveClasses: []
+    },
+    {
+        url: `${DIFFSENSE_URL}/dashboard.html`,
+        name: '[DIFFsense] サービス ダッシュボード',
+        mustContain: ['DIFFsense', '</html>'],
+        mustHaveLinks: [],
+        mustHaveClasses: []
+    },
+    {
+        url: `${DIFFSENSE_URL}/login`,
+        name: '[DIFFsense] ログインページ',
+        mustContain: ['DIFFsense', '</html>'],
+        mustHaveLinks: [],
+        mustHaveClasses: []
+    }
+];
+
+const DIFFSENSE_NAV_LINK_CHECKS = [
+    { url: `${DIFFSENSE_URL}/`,             name: '[DIFFsense] LP トップ' },
+    { url: `${DIFFSENSE_URL}/terms`,        name: '[DIFFsense] 利用規約' },
+    { url: `${DIFFSENSE_URL}/privacy`,      name: '[DIFFsense] プライバシー' },
+    { url: `${DIFFSENSE_URL}/company`,      name: '[DIFFsense] 会社概要' },
+    { url: `${DIFFSENSE_URL}/login`,        name: '[DIFFsense] ログイン' },
+    { url: `${DIFFSENSE_URL}/dashboard.html`, name: '[DIFFsense] ダッシュボード' }
+];
+
+const DIFFSENSE_API_CHECKS = [
+    {
+        url: `${DIFFSENSE_API_URL}/health`,
+        name: '[DIFFsense] バックエンド API ヘルスチェック',
+        method: 'GET',
+        expectStatus: [200, 204]
+    }
+];
+
+
+// ─────────────────────────────────────────────
 // チェック実行関数
 // ─────────────────────────────────────────────
 
@@ -369,6 +441,30 @@ exports.handler = async function (event) {
         allErrors.push(...errs);
     }
 
+    // 5. DIFFsense ページ構造チェック (LP + サービス画面)
+    console.log('[HealthMonitor] DIFFsense ページチェック...');
+    for (const check of DIFFSENSE_PAGE_CHECKS) {
+        const errs = await checkPage(check);
+        if (errs.length) console.warn(`  ${check.name}: ${errs.length}件`);
+        allErrors.push(...errs);
+    }
+
+    // 6. DIFFsense ナビリンク疎通チェック
+    console.log('[HealthMonitor] DIFFsense リンクチェック...');
+    for (const check of DIFFSENSE_NAV_LINK_CHECKS) {
+        const errs = await checkNavLink(check);
+        if (errs.length) console.warn(`  ${check.name}: リンク切れ`);
+        allErrors.push(...errs);
+    }
+
+    // 7. DIFFsense バックエンド API チェック (Cloud Run)
+    console.log('[HealthMonitor] DIFFsense API チェック...');
+    for (const check of DIFFSENSE_API_CHECKS) {
+        const errs = await checkApi(check);
+        if (errs.length) console.warn(`  ${check.name}: API異常`);
+        allErrors.push(...errs);
+    }
+
     if (allErrors.length === 0) {
         console.log('[HealthMonitor] 全チェック正常。アラートなし。');
         return { statusCode: 200, body: 'All checks passed.' };
@@ -382,3 +478,4 @@ exports.handler = async function (event) {
         body: JSON.stringify({ errors: allErrors.length, details: allErrors })
     };
 };
+
