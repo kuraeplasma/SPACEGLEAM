@@ -11171,6 +11171,20 @@ html.diag-enabled .diag-modal.is-open { display: flex !important; }
     vertical-align: middle;
     white-space: nowrap;
     transform: translateY(-1px);
+    animation: navNewBlink 1.2s ease-in-out infinite;
+}
+
+@keyframes navNewBlink {
+    0%, 100% {
+        opacity: 1;
+        transform: translateY(-1px) scale(1);
+        box-shadow: 0 0 0 0 rgba(224, 50, 45, 0.7);
+    }
+    50% {
+        opacity: 0.35;
+        transform: translateY(-1px) scale(0.95);
+        box-shadow: 0 0 10px 3px rgba(224, 50, 45, 0.85);
+    }
 }
 
 /* ===== PR TIMES banner (hero) ===== */
