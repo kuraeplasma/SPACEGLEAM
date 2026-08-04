@@ -350,8 +350,17 @@ select {
 .hero-bg-overlay {
     position: absolute;
     inset: 0;
-    background: linear-gradient(90deg, rgba(5, 5, 9, 0.45) 0%, rgba(5, 5, 9, 0.15) 45%, transparent 75%);
+    background: linear-gradient(90deg, rgba(5, 5, 9, 0.85) 0%, rgba(5, 5, 9, 0.55) 50%, rgba(5, 5, 9, 0.25) 80%, transparent 100%);
     z-index: 2;
+}
+
+.hero-sub-keywords {
+    font-size: 1.05rem;
+    font-weight: 800;
+    color: #ffffff !important;
+    margin-top: 18px;
+    margin-bottom: -10px;
+    letter-spacing: 0.04em;
 }
 
 .hero-container {
@@ -445,9 +454,10 @@ select {
 /* インタラクティブキャンバスラッパー (右カラム) */
 .hero-interactive-wrapper {
     position: relative;
-    height: 480px;
     width: 100%;
-    overflow: hidden;
+    min-height: 480px;
+    height: auto;
+    overflow: visible;
 }
 
 .hero-interactive-wrapper canvas {

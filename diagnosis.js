@@ -426,6 +426,7 @@
   function buildCard() {
     var host = document.getElementById('blogDiagnosisWrapper') || document.getElementById('heroInteractiveWrapper');
     if (!host) return;
+    host.classList.add('has-diag-showcase');
 
     var existing = document.getElementById('diagRestore');
     if (existing) {
@@ -535,7 +536,7 @@
           '</div>' +
           '<aside class="home-diag-report" aria-label="診断結果PDFのサンプル">' +
             '<div class="home-diag-report__badge">PDF<br>無料取得</div>' +
-            '<div class="home-diag-report__paper"><img src="/blog/assets/diagnosis-covers/p3-hero.jpg" alt="実際にダウンロードできるAI開発診断PDFの表紙" width="900" height="507" decoding="async" fetchpriority="high"></div>' +
+            '<div class="home-diag-report__paper"><img src="/blog/assets/diagnosis-covers/p3.png" alt="実際にダウンロードできるAI開発診断PDFの表紙" width="900" height="507" decoding="async" fetchpriority="high"></div>' +
           '</aside>' +
         '</div>' +
       '</section>';

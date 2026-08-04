@@ -1,7 +1,9 @@
 /* ============================================================
    Home AI diagnosis showcase — reference-led redesign (local)
    ============================================================ */
-html.diag-enabled .hero .hero-interactive-wrapper:has(.home-diag-showcase) {
+html.diag-enabled .hero .hero-interactive-wrapper.has-diag-showcase,
+html.diag-enabled .hero .hero-interactive-wrapper:has(.home-diag-showcase),
+html.diag-enabled .hero-interactive-wrapper {
     display: flex !important;
     align-items: center !important;
     justify-content: center !important;
@@ -9,6 +11,7 @@ html.diag-enabled .hero .hero-interactive-wrapper:has(.home-diag-showcase) {
     height: auto !important;
     min-height: 0 !important;
     overflow: visible !important;
+    background: transparent !important;
 }
 
 .home-diag-showcase {
