@@ -38,14 +38,14 @@ const PAGE_CHECKS = [
             'class="footer"',   // フッター
             '</html>'
         ],
-        // ナビゲーションに必ず存在すべきリンク（リンク消失検知）
+        // ナビゲーションに必ず存在すべきリンク（リンク消失検知：Clean URLsやアンカーリンクに対応）
         mustHaveLinks: [
-            'services.html',    // サービスページへのリンク
-            'pricing.html',     // 料金ページへのリンク
-            'works.html',       // 実績ページへのリンク
-            'faq.html',         // FAQへのリンク
-            'contact.html',     // お問い合わせへのリンク
-            'blog/'             // ブログへのリンク
+            ['services.html', '/services'],    // サービスページへのリンク
+            ['pricing.html', '/pricing'],     // 料金ページへのリンク
+            ['works.html', '/works'],       // 実績ページへのリンク
+            ['faq.html', '/faq'],         // FAQへのリンク
+            ['contact.html', '/contact', 'index.html#contact', '#contact'],     // お問い合わせへのリンク
+            ['blog/', '/blog/']             // ブログへのリンク
         ],
         // 主要セクションのCSSクラス（レイアウト構造の確認）
         mustHaveClasses: [
@@ -58,14 +58,14 @@ const PAGE_CHECKS = [
         url: `${SITE_URL}/services`,
         name: 'サービスページ',
         mustContain: ['SPACE GLEAM', 'nav-toggle', '</html>'],
-        mustHaveLinks: ['contact.html'],
+        mustHaveLinks: [['contact.html', '/contact', 'index.html#contact', '#contact']],
         mustHaveClasses: ['header', 'footer']
     },
     {
         url: `${SITE_URL}/pricing`,
         name: '料金ページ',
         mustContain: ['SPACE GLEAM', 'nav-toggle', '</html>'],
-        mustHaveLinks: ['contact.html'],
+        mustHaveLinks: [['contact.html', '/contact', 'index.html#contact', '#contact']],
         mustHaveClasses: ['header', 'footer']
     },
     {
@@ -86,7 +86,7 @@ const PAGE_CHECKS = [
         url: `${SITE_URL}/works`,
         name: '実績ページ',
         mustContain: ['SPACE GLEAM', 'nav-toggle', '</html>'],
-        mustHaveLinks: ['contact.html'],
+        mustHaveLinks: [['contact.html', '/contact', 'index.html#contact', '#contact']],
         mustHaveClasses: ['header', 'footer']
     },
     {
@@ -164,9 +164,9 @@ const DIFFSENSE_PAGE_CHECKS = [
             '</html>'
         ],
         mustHaveLinks: [
-            '/terms',
-            '/privacy',
-            '/login'
+            ['/terms', 'terms', 'terms.html'],
+            ['/privacy', 'privacy', 'privacy.html'],
+            ['/login', 'login', 'login.html', '/dashboard', 'dashboard.html', 'dashboard', 'app']
         ],
         mustHaveClasses: ['header']
     },
@@ -250,10 +250,22 @@ async function checkPage(check) {
         }
     }
 
-    // ナビリンク存在確認（href="xxx" で検索）
-    for (const link of mustHaveLinks) {
-        if (!html.includes(`href="${link}"`) && !html.includes(`href='${link}'`)) {
-            errors.push(`[${name}] ナビリンクが消失 → "${link}"`);
+    // ナビリンク存在確認（href="xxx" または href='xxx' で検索。クエリパラメータやハッシュ付きにも対応）
+    for (const linkItem of mustHaveLinks) {
+        const candidates = Array.isArray(linkItem) ? linkItem : [linkItem];
+        const found = candidates.some(link =>
+            html.includes(`href="${link}"`) ||
+            html.includes(`href='${link}'`) ||
+            html.includes(`href="${link}?`) ||
+            html.includes(`href='${link}?`) ||
+            html.includes(`href="${link}#`) ||
+            html.includes(`href='${link}#`) ||
+            html.includes(`href="${link}/`) ||
+            html.includes(`href='${link}/`)
+        );
+        if (!found) {
+            const primaryLabel = candidates[0];
+            errors.push(`[${name}] ナビリンクが消失 → "${primaryLabel}"`);
         }
     }
 
@@ -337,6 +349,43 @@ async function checkApi({ url, name, method, body, expectStatus, mustContainJson
 }
 
 // ─────────────────────────────────────────────
+// 再試行ラッパー
+//   デプロイの切り替え中（ビルド完了〜CDN反映の間）に一瞬だけ古い/不完全な
+//   ページを掴んでしまい、誤ってエラーとして検知するケースがある。
+//   1回失敗しただけでは即アラートにせず、少し間隔を空けてから同じチェックを
+//   再実行し、2回連続で失敗した項目だけを本当の異常として扱う。
+// ─────────────────────────────────────────────
+const RETRY_DELAY_MS = 20000; // 20秒後に再チェック
+
+function sleep(ms) {
+    return new Promise((resolve) => setTimeout(resolve, ms));
+}
+
+async function runChecksWithRetry(checks, checkFn, label) {
+    const firstPass = [];
+    for (const check of checks) {
+        const errors = await checkFn(check);
+        if (errors.length) firstPass.push({ check, errors });
+    }
+
+    if (firstPass.length === 0) return [];
+
+    console.log(`[HealthMonitor] ${label}: ${firstPass.length}件で異常検知。${RETRY_DELAY_MS / 1000}秒後に再確認します（デプロイ切り替え中の一時的な誤検知を除外するため）`);
+    await sleep(RETRY_DELAY_MS);
+
+    const confirmed = [];
+    for (const { check, errors: firstErrors } of firstPass) {
+        const secondErrors = await checkFn(check);
+        if (secondErrors.length) {
+            confirmed.push(...secondErrors);
+        } else {
+            console.log(`[HealthMonitor] ${label} / ${check.name}: 再確認で解消（一時的な誤検知と判断） → ${firstErrors.join(' / ')}`);
+        }
+    }
+    return confirmed;
+}
+
+// ─────────────────────────────────────────────
 // アラートメール送信
 // ─────────────────────────────────────────────
 
@@ -409,61 +458,38 @@ exports.handler = async function (event) {
 
     const allErrors = [];
 
+    // 各チェックは、1回失敗しただけでは即エラー扱いにせず、
+    // runChecksWithRetry() 内で一定時間後に再確認し、2回連続で
+    // 失敗した項目だけを allErrors に積む（デプロイ切り替え中の
+    // 一時的な誤検知を除外するため）。
+
     // 1. ページ構造チェック（HTML要素・リンク消失・セクション消失）
     console.log('[HealthMonitor] ページ構造チェック...');
-    for (const check of PAGE_CHECKS) {
-        const errs = await checkPage(check);
-        if (errs.length) console.warn(`  ${check.name}: ${errs.length}件のエラー`);
-        allErrors.push(...errs);
-    }
+    allErrors.push(...await runChecksWithRetry(PAGE_CHECKS, checkPage, 'ページ構造チェック'));
 
     // 2. ナビリンク疎通チェック（リンク切れ検知）
     console.log('[HealthMonitor] ナビリンク疎通チェック...');
-    for (const check of NAV_LINK_CHECKS) {
-        const errs = await checkNavLink(check);
-        if (errs.length) console.warn(`  ${check.name}: リンク切れ`);
-        allErrors.push(...errs);
-    }
+    allErrors.push(...await runChecksWithRetry(NAV_LINK_CHECKS, checkNavLink, 'ナビリンク疎通チェック'));
 
     // 3. 静的アセットチェック（CSS/JSサイズ異常）
     console.log('[HealthMonitor] アセットチェック...');
-    for (const check of ASSET_CHECKS) {
-        const errs = await checkAsset(check);
-        if (errs.length) console.warn(`  ${check.name}: アセット異常`);
-        allErrors.push(...errs);
-    }
+    allErrors.push(...await runChecksWithRetry(ASSET_CHECKS, checkAsset, 'アセットチェック'));
 
     // 4. API エンドポイントチェック（問い合わせ・診断）
     console.log('[HealthMonitor] APIチェック...');
-    for (const check of API_CHECKS) {
-        const errs = await checkApi(check);
-        if (errs.length) console.warn(`  ${check.name}: API異常`);
-        allErrors.push(...errs);
-    }
+    allErrors.push(...await runChecksWithRetry(API_CHECKS, checkApi, 'APIチェック'));
 
     // 5. DIFFsense ページ構造チェック (LP + サービス画面)
     console.log('[HealthMonitor] DIFFsense ページチェック...');
-    for (const check of DIFFSENSE_PAGE_CHECKS) {
-        const errs = await checkPage(check);
-        if (errs.length) console.warn(`  ${check.name}: ${errs.length}件`);
-        allErrors.push(...errs);
-    }
+    allErrors.push(...await runChecksWithRetry(DIFFSENSE_PAGE_CHECKS, checkPage, 'DIFFsense ページチェック'));
 
     // 6. DIFFsense ナビリンク疎通チェック
     console.log('[HealthMonitor] DIFFsense リンクチェック...');
-    for (const check of DIFFSENSE_NAV_LINK_CHECKS) {
-        const errs = await checkNavLink(check);
-        if (errs.length) console.warn(`  ${check.name}: リンク切れ`);
-        allErrors.push(...errs);
-    }
+    allErrors.push(...await runChecksWithRetry(DIFFSENSE_NAV_LINK_CHECKS, checkNavLink, 'DIFFsense リンクチェック'));
 
     // 7. DIFFsense バックエンド API チェック (Cloud Run)
     console.log('[HealthMonitor] DIFFsense API チェック...');
-    for (const check of DIFFSENSE_API_CHECKS) {
-        const errs = await checkApi(check);
-        if (errs.length) console.warn(`  ${check.name}: API異常`);
-        allErrors.push(...errs);
-    }
+    allErrors.push(...await runChecksWithRetry(DIFFSENSE_API_CHECKS, checkApi, 'DIFFsense API チェック'));
 
     if (allErrors.length === 0) {
         console.log('[HealthMonitor] 全チェック正常。アラートなし。');
