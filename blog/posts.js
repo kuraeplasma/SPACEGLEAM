@@ -1,9 +1,21 @@
 window.SPACEGLEAM_BLOG_POSTS = [
     {
+        slug: 'website-mcp-chatgpt-integration',
+        title: '自社WebサイトをChatGPTから使えるようにするには？MCP対応でできること・導入方法・費用を解説',
+        date: '2026-08-13',
+        publishAt: '2026-08-09T00:00:00+09:00',
+        status: 'published',
+        category: 'Development',
+        description: '自社WebサイトやWebサービスをChatGPTなどのAIエージェントから利用できるようにするMCP対応について解説。できること、APIとの違い、導入方法、開発費用、向いている企業を、Remote MCPを本番運用するSPACE GLEAMが紹介します。',
+        excerpt: '自社WebサイトやWebサービスをChatGPTなどのAIエージェントから利用できるようにするMCP対応について解説。できること、APIとの違い、導入方法、開発費用を詳しく紹介します。',
+        url: 'https://spacegleam.co.jp/blog/website-mcp-chatgpt-integration/',
+        thumbnail: '/blog/website-mcp-chatgpt-integration/card.png?v=20260809-v2'
+    },
+    {
         slug: 'chatgpt-remote-mcp-web-agent',
         title: 'ChatGPTからWebサイトの機能を直接使う。SPACE GLEAMがRemote MCPを実装・実機検証',
         date: '2026-08-10',
-        publishAt: '2026-08-10T09:00:00+09:00',
+        publishAt: '2026-08-09T00:00:00+09:00',
         status: 'published',
         category: 'Development',
         description: 'SPACE GLEAMはコーポレートサイトにRemote MCP Serverを実装。ChatGPTからサービス検索、AI開発診断、案件要件の整理まで直接実行できることを実機検証しました。MCPの仕組み、ChatGPTへの登録方法、実際の使い方まで解説します。',

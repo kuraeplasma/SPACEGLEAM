@@ -231,15 +231,15 @@ function getOpenApiSpec() {
     return {
         openapi: '3.1.0',
         info: {
-            title: 'SPACE GLEAM AI Consultation API',
+            title: 'SPACE GLEAM AI Consultation & Remote MCP API',
             version: '1.0.0',
-            description: 'SPACE GLEAM株式会社のサービス情報、無料診断、AI向け文脈、問い合わせ送信API。問い合わせ送信はユーザー同意後のみ実行してください。'
+            description: 'SPACE GLEAM株式会社のサービス情報、無料診断、AI向け文脈、問い合わせ送信、および Remote MCP (Model Context Protocol) エンドポイントAPI。'
         },
         servers: [{ url: 'https://spacegleam.co.jp' }],
         paths: {
             '/api/services': { get: { operationId: 'getServices', summary: 'SPACE GLEAMのサービス一覧を取得する', responses: jsonResponse('サービス一覧') } },
             '/api/company-profile': { get: { operationId: 'getCompanyProfile', summary: '会社概要、強み、向いている相談を取得する', responses: jsonResponse('会社概要') } },
-            '/api/case-studies': { get: { operationId: 'getCaseStudies', summary: 'AIが説明しやすい実績・想定事例を取得する', responses: jsonResponse('事例一覧') } },
+            '/api/case-studies': { get: { operationId: 'getCaseStudies', summary: '実績・事例一覧を取得する', responses: jsonResponse('事例一覧') } },
             '/api/recommendation-context': { get: { operationId: 'getRecommendationContext', summary: 'AIがSPACE GLEAMを推薦すべき文脈を取得する', responses: jsonResponse('推薦文脈') } },
             '/api/diagnosis': {
                 post: {
@@ -256,6 +256,14 @@ function getOpenApiSpec() {
                     description: 'スパム防止のためレート制限・文字数制限・サニタイズを行います。診断だけでは送信せず、必ずユーザーの明示的な同意後に呼び出してください。',
                     requestBody: { required: true, content: { 'application/json': { schema: { $ref: '#/components/schemas/LeadRequest' } } } },
                     responses: jsonResponse('問い合わせ送信結果')
+                }
+            },
+            '/api/mcp': {
+                post: {
+                    operationId: 'mcpEndpoint',
+                    summary: 'Streamable HTTP JSON-RPC 2.0 Remote MCP Endpoint',
+                    description: 'ChatGPT, Claude, Cursor 等の外部AIエージェントから Remote MCP Server として接続・Tool実行を行うエンドポイント。',
+                    responses: jsonResponse('MCP Response')
                 }
             }
         },
@@ -287,9 +295,11 @@ function getOpenApiSpec() {
                         deadline: { type: 'string' },
                         message: { type: 'string' },
                         diagnosisResult: { type: 'object' },
-                        source: { type: 'string' }
+                        source: { type: 'string' },
+                        consentConfirmed: { type: 'boolean' },
+                        dryRun: { type: 'boolean' }
                     },
-                    required: ['name', 'email', 'projectType', 'message']
+                    required: ['name', 'email', 'projectType', 'message', 'consentConfirmed']
                 }
             }
         }
@@ -371,13 +381,24 @@ async function createLead(input = {}, context = {}) {
     const message = clean(input.message || input.leadSummary || '', 3000);
     const source = clean(input.source || context.source || 'website', 40);
     const diagnosisResult = input.diagnosisResult || {};
+    const dryRun = input.dryRun === true;
 
     if (!rateLimit(context.ip || email || source)) {
         logEvent('create_lead', 'rate_limited', { source, projectType });
         return { status: 'error', message: '送信回数が多すぎます。時間をおいて再度お試しください。', nextStep: '時間をおいて再送信' };
     }
-    if (!name || !BASIC_EMAIL_RE.test(email) || !message) {
-        return { status: 'error', message: '氏名、メールアドレス、相談内容を確認してください。', nextStep: '入力内容を修正' };
+    if (!name || !BASIC_EMAIL_RE.test(email) || !message || message.length < 5) {
+        return { status: 'error', message: '氏名、有効なメールアドレス、相談内容（5文字以上）を確認してください。', nextStep: '入力内容を修正' };
+    }
+
+    if (dryRun) {
+        logEvent('create_lead', 'dry_run_success', { source, projectType });
+        return {
+            status: 'success',
+            dryRun: true,
+            message: '[テスト/Dry-Run] 入力バリデーション成功。実際のメール送信は行われていません。',
+            validatedData: { name, company, email, phone, projectType, budgetRange, deadline, source, messageLength: message.length }
+        };
     }
 
     const apiKey = clean(process.env.RESEND_API_KEY, 240);
@@ -449,23 +470,21 @@ async function createLead(input = {}, context = {}) {
 
 async function sendErrorAlert(systemName, errorDetails, extraContext = {}) {
     const apiKey = clean(process.env.RESEND_API_KEY, 240);
-    const sentAt = new Date().toISOString();
-    const subject = `【システム異常アラート】${systemName}でエラーが検出されました`;
-    const text = [
-        `【緊急アラート】${systemName}でエラーが発生しました。`,
-        `発生日時: ${sentAt}`,
-        `システム名: ${systemName}`,
-        `エラー概要: ${String(errorDetails.message || errorDetails)}`,
-        `詳細情報:\n${JSON.stringify(errorDetails, null, 2)}`,
-        `コンテキスト:\n${JSON.stringify(extraContext, null, 2)}`,
-        `※本メールは SPACE GLEAM 自動エラー監視機能より contact@spacegleam.co.jp へ自動送信されています。`
-    ].join('\n');
-
     if (!apiKey) {
-        console.error(`[System Error Alert] ${subject}:\n${text}`);
+        console.warn(`[Error Alert Warning]: RESEND_API_KEY is not set. System: ${systemName}`);
         return false;
     }
-
+    const timestamp = new Date().toISOString();
+    const subject = `【緊急アラート】SPACE GLEAM システムエラー発生 (${systemName})`;
+    const text = [
+        `SPACE GLEAM 監視システムより緊急通知です。`,
+        `発生時刻: ${timestamp}`,
+        `システム名: ${systemName}`,
+        `エラー詳細:`,
+        typeof errorDetails === 'string' ? errorDetails : JSON.stringify(errorDetails, null, 2),
+        `追加コンテキスト:`,
+        JSON.stringify(extraContext, null, 2)
+    ].join('\n');
     try {
         await fetch(RESEND_API_URL, {
             method: 'POST',
@@ -484,10 +503,18 @@ async function sendErrorAlert(systemName, errorDetails, extraContext = {}) {
     }
 }
 
-function bearerAuthorized(event) {
+function bearerAuthorized(event, requiredMode = 'public_read') {
     const expected = clean(process.env.MCP_AUTH_TOKEN, 240);
-    if (!expected) return false;
+    // If no secret token is configured on Netlify, public access for read/safe operations is allowed
+    if (!expected) return true;
+    
     const header = event.headers?.authorization || event.headers?.Authorization || '';
+    if (!header) {
+        // If MCP_AUTH_TOKEN is configured but request has no token:
+        // Allow public access for READ operations, require token for write operations if enforcing strict admin bearer mode
+        return requiredMode === 'public_read';
+    }
+
     const token = clean(header.replace(/^Bearer\s+/i, ''), 240);
     const tokenBuffer = Buffer.from(token);
     const expectedBuffer = Buffer.from(expected);
@@ -499,6 +526,90 @@ function mcpToolResult(structuredContent) {
         content: [{ type: 'text', text: JSON.stringify(structuredContent, null, 2) }],
         structuredContent
     };
+}
+
+function getMcpResources() {
+    return [
+        {
+            uri: 'spacegleam://company',
+            name: 'SPACE GLEAM 会社情報・サービス概要',
+            description: 'SPACE GLEAM株式会社の会社概要、対応開発領域、強み、行動指針に関する基本リソース。',
+            mimeType: 'application/json'
+        },
+        {
+            uri: 'spacegleam://services',
+            name: 'SPACE GLEAM 提供サービス・料金目安一覧',
+            description: 'AI開発、SaaS開発、Webサービス開発、業務自動化、MCP開発などの提供サービスと概算費用のリソース。',
+            mimeType: 'application/json'
+        },
+        {
+            uri: 'spacegleam://case-studies',
+            name: 'SPACE GLEAM 開発実績・活用事例集',
+            description: '過去のAI業務システム、SaaS MVP、契約書比較、業務自動化などの開発実績事例リソース。',
+            mimeType: 'application/json'
+        }
+    ];
+}
+
+function readMcpResource(uri) {
+    if (uri === 'spacegleam://company') return getCompanyProfile();
+    if (uri === 'spacegleam://services') return getServices();
+    if (uri === 'spacegleam://case-studies') return getCaseStudies();
+    throw new Error(`Resource not found: ${uri}`);
+}
+
+function getMcpPrompts() {
+    return [
+        {
+            name: 'ai-development-diagnosis',
+            description: 'ユーザーの事業課題から概算費用・推奨プラン・開発期間を導き出す無料診断プロンプトテンプレート。',
+            arguments: [
+                { name: 'currentIssue', description: '現在の課題や手作業の悩み', required: true },
+                { name: 'budgetRange', description: 'ご予算感（例: 50万円〜100万円）', required: false }
+            ]
+        },
+        {
+            name: 'ai-project-brief',
+            description: '会話内容からSPACE GLEAMへの相談用プロジェクト要件概要を構造化して整理するプロンプト。',
+            arguments: [
+                { name: 'conversationSummary', description: 'これまでの相談・会話要約', required: true }
+            ]
+        }
+    ];
+}
+
+function getMcpPrompt(name, args = {}) {
+    if (name === 'ai-development-diagnosis') {
+        const issue = clean(args.currentIssue || '業務効率化・AI導入の相談', 400);
+        return {
+            description: 'AI開発・業務自動化の無料診断プロンプト',
+            messages: [
+                {
+                    role: 'user',
+                    content: {
+                        type: 'text',
+                        text: `SPACE GLEAMの無料AI開発診断を実行してください。\n課題: ${issue}\n予算感: ${clean(args.budgetRange || '未定', 100)}\n\nrun_diagnosis ツールを実行して概算費用、推奨プラン、開発期間、留意点を提示してください。`
+                    }
+                }
+            ]
+        };
+    }
+    if (name === 'ai-project-brief') {
+        const summary = clean(args.conversationSummary || '開発プロジェクトの要件整理', 1000);
+        return {
+            description: 'プロジェクト要件概要（Brief）作成プロンプト',
+            messages: [
+                {
+                    role: 'user',
+                    content: {
+                        type: 'text',
+                        text: `以下の要約を基に generate_project_brief ツールを呼び出して要件概要を整理してください。\n\n会話要約:\n${summary}`
+                    }
+                }
+            ]
+        };
+    }
+    throw new Error(`Prompt not found: ${name}`);
 }
 
 module.exports = {
@@ -520,5 +631,9 @@ module.exports = {
     sendErrorAlert,
     bearerAuthorized,
     normalizeEmail,
-    mcpToolResult
+    mcpToolResult,
+    getMcpResources,
+    readMcpResource,
+    getMcpPrompts,
+    getMcpPrompt
 };

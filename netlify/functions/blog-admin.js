@@ -412,7 +412,7 @@ function page() {
                 <a href="https://spacegleam.co.jp/">Home</a>
             </nav>
             <div class="header-ctas">
-                <a href="https://spacegleam.co.jp/#contact" class="header-cta">AI活用案を無料で聞く<span class="arrow">→</span></a>
+                <a href="https://spacegleam.co.jp/#contact" class="header-cta">AI開発について無料で相談する<span class="arrow">→</span></a>
             </div>
         </div>
     </header>
@@ -469,7 +469,7 @@ function page() {
                             <option value="published">公開済み</option>
                         </select>
                     </label>
-                    <label>タイトル<input name="title" type="text" value="AI時代の本番開発で最初に決めること" required></label>
+                    <label>タイトル<input name="title" type="text" value="AI時代のMVP開発で最初に決めること" required></label>
                     <label>スラッグ
                         <div class="blog-editor-slug-row">
                             <input name="slug" type="text" value="ai-mvp-first-decisions" required>
@@ -497,8 +497,8 @@ function page() {
                         <button class="blog-editor-image-clear" type="button" data-clear-image>画像を削除</button>
                     </div>
                     <div class="blog-editor-image-preview" data-image-preview aria-hidden="true"></div>
-                    <label>概要<textarea name="description" rows="3" required>AIを使った本番開発で最初に決めるべき、検証仮説、優先課題、運用設計の考え方を整理します。</textarea></label>
-                    <label>本文<textarea name="body" rows="12" required>AIを使うと、本番品質の初期実装はかなり速くなります。
+                    <label>概要<textarea name="description" rows="3" required>AIを使ってMVP開発を始める前に決めるべき、検証仮説、初期機能、運用設計の考え方を整理します。</textarea></label>
+                    <label>本文<textarea name="body" rows="12" required>AIを使うと、MVPの初期実装はかなり速くなります。
 
 ただし、最初に決めるべきことは技術選定ではありません。誰のどんな課題を、どの順番で検証するかです。
 
@@ -512,7 +512,7 @@ AIで開発速度が上がるほど、作りすぎのリスクも上がります
 
 ## 運用まで含めて考える
 
-初期版は公開して終わりではありません。問い合わせ、ログ、改善要望を受け取る仕組みまで設計しておくと、次の改善が速くなります。</textarea></label>
+MVPは公開して終わりではありません。問い合わせ、ログ、改善要望を受け取る仕組みまで設計しておくと、次の改善が速くなります。</textarea></label>
                     <button class="header-cta blog-editor-submit" type="submit">プレビュー更新<span class="arrow">→</span></button>
                 </form>
 
