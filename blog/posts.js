@@ -1,5 +1,17 @@
 window.SPACEGLEAM_BLOG_POSTS = [
     {
+        slug: 'chatgpt-remote-mcp-web-agent',
+        title: 'ChatGPTからWebサイトの機能を直接使う。SPACE GLEAMがRemote MCPを実装・実機検証',
+        date: '2026-08-10',
+        publishAt: '2026-08-10T09:00:00+09:00',
+        status: 'published',
+        category: 'Development',
+        description: 'SPACE GLEAMはコーポレートサイトにRemote MCP Serverを実装。ChatGPTからサービス検索、AI開発診断、案件要件の整理まで直接実行できることを実機検証しました。MCPの仕組み、ChatGPTへの登録方法、実際の使い方まで解説します。',
+        excerpt: 'SPACE GLEAMはコーポレートサイトにRemote MCP Serverを実装。ChatGPTからサービス検索、AI開発診断、案件要件の整理まで直接実行できることを実機検証しました。',
+        url: 'https://spacegleam.co.jp/blog/chatgpt-remote-mcp-web-agent/',
+        thumbnail: '/blog/chatgpt-remote-mcp-web-agent/card.png'
+    },
+    {
         slug: 'ai-model-update-resilience',
         title: 'AIの出力は揺れる前提で作る。自社SaaSで実装している4つの備え',
         date: '2026-07-28', publishAt: '2026-07-28T00:00:00+09:00', status: 'published', category: 'Development',

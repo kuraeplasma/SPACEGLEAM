@@ -1,0 +1,548 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-1T9HP3BLMP"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'G-1T9HP3BLMP');
+    </script>
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3800861012394451" crossorigin="anonymous"></script>
+    <title>ChatGPTからWebサイトを利用する「Remote MCP」とは？実装・接続方法を実例で解説 | SPACE GLEAM</title>
+    <meta name="description" content="SPACE GLEAMはコーポレートサイトにRemote MCP Serverを実装。ChatGPTからサービス検索、AI開発診断、案件要件の整理まで直接実行できることを実機検証しました。MCPの仕組み、ChatGPTへの登録方法、実際の使い方まで解説します。">
+    <link rel="canonical" href="https://spacegleam.co.jp/blog/chatgpt-remote-mcp-web-agent/">
+    <link rel="icon" href="../../favicon.png">
+    <link rel="stylesheet" href="../../style.css?v=mobile-header-fix-20260709-v1">
+    <meta property="og:type" content="article">
+    <meta property="og:title" content="ChatGPTからWebサイトの機能を直接使う。SPACE GLEAMがRemote MCPを実装・実機検証">
+    <meta property="og:description" content="SPACE GLEAMはコーポレートサイトにRemote MCP Serverを実装。ChatGPTからサービス検索、AI開発診断、案件要件の整理まで直接実行できることを実機検証しました。">
+    <meta property="og:url" content="https://spacegleam.co.jp/blog/chatgpt-remote-mcp-web-agent/">
+    <meta property="og:site_name" content="SPACE GLEAM">
+    <meta property="og:image" content="https://spacegleam.co.jp/blog/chatgpt-remote-mcp-web-agent/ogp.png">
+    <meta property="og:image:secure_url" content="https://spacegleam.co.jp/blog/chatgpt-remote-mcp-web-agent/ogp.png">
+    <meta property="og:image:type" content="image/png">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+    <meta property="og:image:alt" content="ChatGPTからWebサイトの機能を直接使う Remote MCP実装・実機検証">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:image" content="https://spacegleam.co.jp/blog/chatgpt-remote-mcp-web-agent/ogp.png">
+    <script type="application/ld+json">
+        {
+            "@context": "https://schema.org",
+            "@type": "Article",
+            "headline": "ChatGPTからWebサイトの機能を直接使う。SPACE GLEAMがRemote MCPを実装・実機検証",
+            "description": "SPACE GLEAMはコーポレートサイトにRemote MCP Serverを実装。ChatGPTからサービス検索、AI開発診断、案件要件の整理まで直接実行できることを実機検証しました。MCPの仕組み、ChatGPTへの登録方法、実際の使い方まで解説します。",
+            "datePublished": "2026-08-10",
+            "dateModified": "2026-08-10",
+            "author": {
+                "@type": "Organization",
+                "name": "SPACE GLEAM"
+            },
+            "publisher": {
+                "@type": "Organization",
+                "name": "SPACE GLEAM",
+                "logo": {
+                    "@type": "ImageObject",
+                    "url": "https://spacegleam.co.jp/favicon.png"
+                }
+            },
+            "mainEntityOfPage": "https://spacegleam.co.jp/blog/chatgpt-remote-mcp-web-agent/",
+            "image": "https://spacegleam.co.jp/blog/chatgpt-remote-mcp-web-agent/ogp.png",
+            "articleSection": "Development"
+        }
+    </script>
+</head>
+
+<body class="blog-page-body" data-article-slug="chatgpt-remote-mcp-web-agent">
+    <div class="site-bg" aria-hidden="true"></div>
+
+    <header class="header">
+        <div class="container header-inner">
+            <a href="../../index.html" class="brand" aria-label="SPACE GLEAM ホーム">
+                <span class="brand-name">SPACE GLEAM</span>
+            </a>
+            <button class="nav-toggle" type="button" aria-label="メニューを開く" aria-controls="global-nav" aria-expanded="false">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+            <nav id="global-nav" class="nav" aria-label="グローバルナビゲーション">
+                <a href="../../services.html">AI プロダクト開発</a>
+                <a href="../../pricing.html">料金</a>
+                <a href="../../works.html">実績</a>
+                <a href="../../faq.html">FAQ</a>
+                <a href="../index.html">Blog</a>
+            </nav>
+            <div class="header-ctas">
+                <a href="../../contact.html" class="header-cta">AI開発について無料で相談する<span class="arrow">→</span></a>
+            </div>
+        </div>
+    </header>
+
+    <main class="blog-main">
+        <div class="container">
+            <article>
+                <header class="article-header">
+                    <div class="article-meta">
+                        <time datetime="2026-08-10">2026年8月10日</time>
+                        <span class="article-category">Development</span>
+                    </div>
+                    <h1>ChatGPTからWebサイトの機能を直接使う。SPACE GLEAMがRemote MCPを実装・実機検証</h1>
+                    <p class="article-lead">Webサイトはこれまで、人がブラウザを開き、ページを読み、フォームやボタンを操作することを前提に作られてきました。しかし、AIエージェントの普及によって、この前提が変わり始めています。</p>
+                </header>
+
+                <div class="article-share" aria-label="記事を共有">
+                    <button type="button" class="article-share-icon is-x" aria-label="Xでシェア" title="Xでシェア" data-share data-share-title="ChatGPTからWebサイトの機能を直接使う。SPACE GLEAMがRemote MCPを実装・実機検証" data-share-url="https://spacegleam.co.jp/blog/chatgpt-remote-mcp-web-agent/">
+                        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24h-6.657l-5.214-6.817-5.966 6.817H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231Zm-1.161 17.52h1.833L7.084 4.126H5.117Z"></path></svg>
+                    </button>
+                    <a href="mailto:?subject=ChatGPT%E3%81%8B%E3%82%89Web%E3%82%B5%E3%82%A4%E3%83%88%E3%81%AE%E6%A9%9F%E8%83%BD%E3%82%92%E7%9B%B4%E6%8E%A5%E4%BD%BF%E3%81%86%E3%80%82SPACE%20GLEAM%E3%81%8CRemote%20MCP%E3%82%92%E5%AE%9F%E8%A3%85%E3%83%BB%E5%AE%9F%E6%A9%9F%E6%A4%9C%E8%A8%BC&body=https%3A//spacegleam.co.jp/blog/chatgpt-remote-mcp-web-agent/" class="article-share-icon is-mail" aria-label="メールでシェア" title="メールでシェア">
+                        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 5h16a2 2 0 0 1 2 2v10a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V7a2 2 0 0 1 2-2Zm0 2v.4l8 5.15 8-5.15V7H4Zm0 2.78V17h16V9.78l-8 5.15-8-5.15Z"></path></svg>
+                    </a>
+                    <button type="button" class="article-share-icon" aria-label="URLをコピー" title="URLをコピー" data-copy-url="https://spacegleam.co.jp/blog/chatgpt-remote-mcp-web-agent/">
+                        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 9.5A1.5 1.5 0 0 1 10.5 8h8A1.5 1.5 0 0 1 20 9.5v8A1.5 1.5 0 0 1 18.5 19h-8A1.5 1.5 0 0 1 9 17.5v-8Z"></path><path d="M6 15H5.5A1.5 1.5 0 0 1 4 13.5v-8A1.5 1.5 0 0 1 5.5 4h8A1.5 1.5 0 0 1 15 5.5V6"></path></svg>
+                    </button>
+                </div>
+
+                <div class="article-content">
+                    <p>SPACE GLEAMでは、コーポレートサイトにRemote MCP（Model Context Protocol）Serverを実装しました。</p>
+                    <p>さらに実際のChatGPT環境から本番サーバーへ接続し、</p>
+                    <p><strong>「サービス検索 → AI開発診断 → 開発案件の要件整理」</strong></p>
+                    <p>まで実行できることを確認しています。</p>
+                    <p>単に「AIがWebサイトを読む」のではありません。AIとの会話から、Webサービス側の機能そのものを利用する。この記事ではMCPの基本から、SPACE GLEAMでの実装、実際にChatGPTへSPACE GLEAM MCPを登録して使う方法まで紹介します。</p>
+
+                    <h2>MCP（Model Context Protocol）とは</h2>
+                    <p>MCPは、AIアプリケーションと外部のデータやツールを接続するためのプロトコルです。</p>
+
+                    <figure class="article-diagram">
+                        <svg viewBox="0 0 640 220" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="mcpConceptTitle">
+                            <title id="mcpConceptTitle">MCPによるAIとWebサービスの接続モデル</title>
+                            <defs>
+                                <marker id="arrowMcp" markerWidth="9" markerHeight="9" refX="8" refY="4.5" orient="auto">
+                                    <path d="M0,1 L8,4.5 L0,8" fill="none" stroke="#111111" stroke-width="1"></path>
+                                </marker>
+                            </defs>
+                            <rect x="0" y="40" width="180" height="96" rx="2" fill="#ffffff" stroke="#111111" stroke-width="1"></rect>
+                            <text x="20" y="70" font-family="sans-serif" font-size="11" font-weight="700" fill="#8a8a8a">AI Client</text>
+                            <text x="20" y="98" font-family="sans-serif" font-size="16" font-weight="700" fill="#111111">ChatGPT</text>
+                            <text x="20" y="118" font-family="sans-serif" font-size="11" fill="#444444">対話・ツール呼出</text>
+
+                            <line x1="180" y1="88" x2="236" y2="88" stroke="#111111" stroke-width="1" marker-end="url(#arrowMcp)"></line>
+
+                            <rect x="244" y="40" width="168" height="96" rx="2" fill="#ffffff" stroke="#111111" stroke-width="1" stroke-dasharray="4 3"></rect>
+                            <text x="328" y="70" text-anchor="middle" font-family="sans-serif" font-size="11" font-weight="700" fill="#8a8a8a">Remote MCP Protocol</text>
+                            <text x="328" y="98" text-anchor="middle" font-family="sans-serif" font-size="15" font-weight="700" fill="#111111">SPACE GLEAM MCP</text>
+                            <text x="328" y="118" text-anchor="middle" font-family="sans-serif" font-size="11" fill="#444444">Streamable HTTP</text>
+
+                            <line x1="412" y1="88" x2="468" y2="88" stroke="#111111" stroke-width="1" marker-end="url(#arrowMcp)"></line>
+
+                            <rect x="476" y="40" width="164" height="96" rx="2" fill="#111111"></rect>
+                            <text x="496" y="70" font-family="sans-serif" font-size="11" font-weight="700" fill="rgba(255,255,255,0.7)">Web Backend</text>
+                            <text x="496" y="98" font-family="sans-serif" font-size="15" font-weight="700" fill="#ffffff">Web Service</text>
+                            <text x="496" y="118" font-family="sans-serif" font-size="11" fill="rgba(255,255,255,0.8)">診断・要件定義機能</text>
+                        </svg>
+                        <figcaption>MCPプロトコルにより、ChatGPTからWebサイト側のバックエンド機能を直接呼び出せる。</figcaption>
+                    </figure>
+
+                    <p>Webサービス側がAIから利用できるToolやResourceなどを公開することで、対応するAIクライアントから外部サービスの機能を利用できるようになります。</p>
+                    <p>例えばAIに、「この会社にはどんなサービスがある？」と質問してWebページを検索させるだけではなく、</p>
+                    <ul>
+                        <li>「この会社のサービス検索機能を使って」</li>
+                        <li>「この条件でAI開発診断を実行して」</li>
+                    </ul>
+                    <p>といった処理まで実行させることができます。</p>
+                    <p>SPACE GLEAMでは、インターネット経由で接続できるRemote MCP Serverをコーポレートサイト上で運用しています。</p>
+
+                    <h2>「AIに読まれるWebサイト」から「AIから使われるWebサイト」へ</h2>
+                    <p>生成AIへのWeb対応では、</p>
+                    <ul>
+                        <li>llms.txt</li>
+                        <li>OpenAPI</li>
+                        <li>構造化データ</li>
+                        <li>sitemap</li>
+                        <li>AI検索への最適化</li>
+                    </ul>
+                    <p>などが使われます。これらはAIが企業やサービスについて正確に理解するうえで重要です。</p>
+                    <p>一方、Remote MCPはもう一段踏み込みます。AIが情報を取得するだけではなく、Webサービス側が提供する機能を実行できます。</p>
+
+                    <figure class="article-diagram">
+                        <svg viewBox="0 0 640 240" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="flowComparisonTitle">
+                            <title id="flowComparisonTitle">従来のWebアクセスとMCPアクセスの導線比較</title>
+                            <text x="0" y="14" font-family="sans-serif" font-size="11" font-weight="700" fill="#8a8a8a">従来のユーザー導線（ブラウザ閲覧）</text>
+                            <line x1="0" y1="24" x2="640" y2="24" stroke="#111111" stroke-width="1"></line>
+
+                            <text x="0" y="56" font-family="sans-serif" font-size="13" fill="#111111">検索 ➔ サイト訪問 ➔ サービス ➔ 診断フォーム ➔ 結果確認</text>
+
+                            <text x="0" y="120" font-family="sans-serif" font-size="11" font-weight="700" fill="#8a8a8a">MCPによる対話型導線（AIツール実行）</text>
+                            <line x1="0" y1="130" x2="640" y2="130" stroke="#111111" stroke-width="1"></line>
+
+                            <rect x="0" y="150" width="640" height="60" rx="2" fill="#fafafa" stroke="#d4d4d4" stroke-width="1"></rect>
+                            <text x="20" y="185" font-family="sans-serif" font-size="14" font-weight="700" fill="#111111">ChatGPT ➔ SPACE GLEAM MCP ➔ AI開発診断 ➔ 会話内で結果確認</text>
+                        </svg>
+                        <figcaption>ユーザーが画面を移動することなく、ChatGPTとの対話の中でサービスの検索・診断まで完結する。</figcaption>
+                    </figure>
+
+                    <h2>SPACE GLEAM MCPでできること</h2>
+                    <p>現在、SPACE GLEAMでは5つのMCP Toolを公開しています。</p>
+
+                    <h3>search_services</h3>
+                    <p>SPACE GLEAMが提供するサービスを検索します。AI開発、SaaS開発、Webサービス開発、MCPサーバー開発、業務自動化などから、相談内容に適したサービスを取得できます。</p>
+
+                    <h3>run_diagnosis</h3>
+                    <p>AI開発の無料診断を実行します。事業課題、予算、希望機能、納期などをもとに、</p>
+                    <ul>
+                        <li>推奨プラン</li>
+                        <li>概算費用</li>
+                        <li>想定開発期間</li>
+                        <li>必要機能</li>
+                        <li>リスク</li>
+                        <li>前提条件</li>
+                        <li>追加確認事項</li>
+                    </ul>
+                    <p>を返します。</p>
+
+                    <h3>generate_project_brief</h3>
+                    <p>相談内容と診断結果から、実際の開発相談に利用できるプロジェクト概要を整理します。</p>
+
+                    <h3>get_company_profile</h3>
+                    <p>SPACE GLEAMの会社情報、対応領域などを取得します。</p>
+
+                    <h3>create_lead</h3>
+                    <p>ユーザーがSPACE GLEAMへの問い合わせを希望した場合に使用するToolです。問い合わせ送信は他のToolから分離しており、ユーザーによる明示的な同意がなければ実行されません。</p>
+
+                    <h2>SPACE GLEAM MCPを実際に使ってみる</h2>
+                    <p>SPACE GLEAMのRemote MCP Serverは、対応するAIクライアントから実際に接続できます。</p>
+                    <p>MCP Endpointはこちらです。</p>
+                    <p><a href="https://spacegleam.co.jp/api/mcp" target="_blank" rel="noopener noreferrer">https://spacegleam.co.jp/api/mcp</a></p>
+                    <p>サービス検索、AI開発診断、案件整理については、問い合わせを送信せずに利用できます。</p>
+
+                    <h2>ChatGPTにSPACE GLEAM MCPを登録する方法</h2>
+                    <p>ChatGPTでMCPを利用できる環境の場合、SPACE GLEAM MCPを登録することで利用できます。</p>
+                    <p><small style="color: #8a8a8a;">※ChatGPTのプラン、ワークスペース、アプリのバージョンなどによって利用できる機能や画面構成が異なる場合があります。</small></p>
+
+                    <h3>1．ChatGPTの設定を開く</h3>
+                    <p>ChatGPTの「設定」を開き、MCPを追加できる画面へ進みます。MCPの追加画面で、新しいMCP Serverを登録します。</p>
+
+                    <h3>2．接続方式を選択</h3>
+                    <p>接続方式として、<strong>Streamable HTTP（ストリーミング可能なHTTP）</strong>を選択します。</p>
+
+                    <h3>3．SPACE GLEAM MCPを登録</h3>
+                    <p>以下の内容を設定します。</p>
+
+                    <figure class="article-diagram">
+                        <svg viewBox="0 0 640 180" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="mcpConfigTitle">
+                            <title id="mcpConfigTitle">ChatGPTへのMCP登録設定値</title>
+                            <rect x="0" y="0" width="640" height="170" rx="2" fill="#fafafa" stroke="#d4d4d4" stroke-width="1"></rect>
+                            <text x="24" y="36" font-family="sans-serif" font-size="12" font-weight="700" fill="#8a8a8a">名前</text>
+                            <text x="140" y="36" font-family="sans-serif" font-size="14" font-weight="700" fill="#111111">SPACE GLEAM</text>
+                            <line x1="24" y1="56" x2="616" y2="56" stroke="#ededed" stroke-width="1"></line>
+
+                            <text x="24" y="88" font-family="sans-serif" font-size="12" font-weight="700" fill="#8a8a8a">接続方式</text>
+                            <text x="140" y="88" font-family="sans-serif" font-size="14" font-weight="700" fill="#111111">Streamable HTTP</text>
+                            <line x1="24" y1="108" x2="616" y2="108" stroke="#ededed" stroke-width="1"></line>
+
+                            <text x="24" y="140" font-family="sans-serif" font-size="12" font-weight="700" fill="#8a8a8a">URL</text>
+                            <text x="140" y="140" font-family="ui-monospace, SFMono-Regular, Menlo, monospace" font-size="14" font-weight="700" fill="#111111">https://spacegleam.co.jp/api/mcp</text>
+                        </svg>
+                        <figcaption>登録時の設定値項目。認証トークンは不要で接続可能。</figcaption>
+                    </figure>
+
+                    <p>公開しているサービス検索・診断等の機能について、利用者側でSPACE GLEAM専用のBearer Tokenを発行する必要はありません。</p>
+                    <p>登録後、SPACE GLEAM MCPを有効にします。</p>
+
+                    <h2>まずサービス検索を試す</h2>
+                    <p>接続できたら、ChatGPTに次のように依頼できます。</p>
+
+                    <figure class="article-diagram">
+                        <svg viewBox="0 0 640 160" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="promptSearchTitle">
+                            <title id="promptSearchTitle">入力例：サービス検索</title>
+                            <rect x="0" y="0" width="640" height="150" rx="2" fill="#ffffff" stroke="#111111" stroke-width="1"></rect>
+                            <text x="20" y="28" font-family="sans-serif" font-size="11" font-weight="700" fill="#8a8a8a">【入力例】 サービス検索の実行指示</text>
+                            <line x1="0" y1="40" x2="640" y2="40" stroke="#ededed" stroke-width="1"></line>
+                            <text x="20" y="68" font-family="sans-serif" font-size="13" fill="#111111">SPACE GLEAMのMCPを使って、提供しているサービスを調べてください。</text>
+                            <text x="20" y="96" font-family="ui-monospace, SFMono-Regular, Menlo, monospace" font-size="13" fill="#444444">search_servicesを使用してください。</text>
+                        </svg>
+                    </figure>
+
+                    <p>実際にSPACE GLEAMでもこの方法で検証しました。ChatGPTからsearch_servicesが実行され、</p>
+                    <ul>
+                        <li>AI開発</li>
+                        <li>SaaS開発</li>
+                        <li>Webサービス開発</li>
+                        <li>スマホアプリ開発</li>
+                        <li>MVP開発</li>
+                        <li>MCPサーバー開発</li>
+                        <li>AI検索対応LP／HP構築</li>
+                        <li>業務自動化</li>
+                        <li>ChatGPT Apps対応</li>
+                    </ul>
+                    <p>などのサービス情報を取得できることを確認しています。</p>
+
+                    <h2>ChatGPTからAI開発無料診断を使う</h2>
+                    <p>次はもう少し実践的な使い方です。例えば、ChatGPTに次のように入力します。</p>
+
+                    <figure class="article-diagram">
+                        <svg viewBox="0 0 640 380" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="promptDiagTitle">
+                            <title id="promptDiagTitle">入力例：AI開発無料診断</title>
+                            <rect x="0" y="0" width="640" height="370" rx="2" fill="#ffffff" stroke="#111111" stroke-width="1"></rect>
+                            <text x="20" y="28" font-family="sans-serif" font-size="11" font-weight="700" fill="#8a8a8a">【入力例】 AI開発診断の指示と条件入力</text>
+                            <line x1="0" y1="40" x2="640" y2="40" stroke="#ededed" stroke-width="1"></line>
+                            <text x="20" y="66" font-family="sans-serif" font-size="13" fill="#111111">SPACE GLEAMのMCPを使ってAI開発診断をしてください。</text>
+                            <text x="20" y="96" font-family="sans-serif" font-size="12" fill="#444444">会社規模： 社員20名程度</text>
+                            <text x="20" y="120" font-family="sans-serif" font-size="12" fill="#444444">課題： 問い合わせ対応に時間がかかっている</text>
+                            <text x="20" y="144" font-family="sans-serif" font-size="12" fill="#444444">目的： 問い合わせ対応のAI化・業務効率化</text>
+                            <text x="20" y="168" font-family="sans-serif" font-size="12" fill="#444444">希望機能： AIチャット、自動分類、管理画面、担当者へ引き継ぐ機能</text>
+                            <text x="20" y="192" font-family="sans-serif" font-size="12" fill="#444444">予算： 100万円以内</text>
+                            <text x="20" y="216" font-family="sans-serif" font-size="12" fill="#444444">希望納期： 3ヶ月以内</text>
+                            <line x1="20" y1="236" x2="620" y2="236" stroke="#ededed" stroke-width="1"></line>
+                            <text x="20" y="264" font-family="ui-monospace, SFMono-Regular, Menlo, monospace" font-size="13" fill="#111111">run_diagnosisを使用して、推奨プラン、概算費用、開発期間、</text>
+                            <text x="20" y="288" font-family="ui-monospace, SFMono-Regular, Menlo, monospace" font-size="13" fill="#111111">必要機能、リスク、前提条件を教えてください。</text>
+                            <text x="20" y="324" font-family="sans-serif" font-size="13" font-weight="700" fill="#111111">※ 問い合わせはまだ送信しないでください。</text>
+                        </svg>
+                    </figure>
+
+                    <h2>実際に返ってきた診断結果</h2>
+                    <p>この条件でSPACE GLEAMの本番MCPを実際にChatGPTから呼び出したところ、次の結果が返りました。</p>
+
+                    <figure class="article-diagram">
+                        <svg viewBox="0 0 640 180" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="resultDiagTitle">
+                            <title id="resultDiagTitle">実機検証で返却された診断結果</title>
+                            <rect x="0" y="0" width="640" height="170" rx="2" fill="#fafafa" stroke="#d4d4d4" stroke-width="1"></rect>
+                            <text x="24" y="36" font-family="sans-serif" font-size="12" font-weight="700" fill="#8a8a8a">推奨プラン</text>
+                            <text x="140" y="36" font-family="sans-serif" font-size="15" font-weight="700" fill="#111111">業務システム自動化プラン</text>
+                            <line x1="24" y1="56" x2="616" y2="56" stroke="#ededed" stroke-width="1"></line>
+
+                            <text x="24" y="88" font-family="sans-serif" font-size="12" font-weight="700" fill="#8a8a8a">概算費用</text>
+                            <text x="140" y="88" font-family="sans-serif" font-size="15" font-weight="700" fill="#111111">35万円 〜 150万円</text>
+                            <line x1="24" y1="108" x2="616" y2="108" stroke="#ededed" stroke-width="1"></line>
+
+                            <text x="24" y="140" font-family="sans-serif" font-size="12" font-weight="700" fill="#8a8a8a">想定開発期間</text>
+                            <text x="140" y="140" font-family="sans-serif" font-size="15" font-weight="700" fill="#111111">3 〜 6週間</text>
+                        </svg>
+                        <figcaption>本番MCPサーバーから返却された診断サマリー。</figcaption>
+                    </figure>
+
+                    <p>必要機能として、</p>
+                    <ul>
+                        <li>AIチャット</li>
+                        <li>問い合わせ内容の自動分類</li>
+                        <li>管理画面</li>
+                        <li>担当者への引き継ぎ</li>
+                        <li>問い合わせ入力フォーム</li>
+                        <li>メール通知</li>
+                    </ul>
+                    <p>なども提示されました。</p>
+                    <p>さらに、希望予算が100万円以内であるのに対して診断レンジの上限が150万円となったため、</p>
+                    <p>「初期リリースでは主要機能に絞り、外部システム連携や高度な管理機能を後続フェーズへ分ける」</p>
+                    <p>という整理まで行われました。</p>
+
+                    <h2>診断結果から開発案件の概要まで作れる</h2>
+                    <p>診断が終わったら、そのままSPACE GLEAM MCPを使って案件概要を作成できます。</p>
+
+                    <figure class="article-diagram">
+                        <svg viewBox="0 0 640 240" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="promptBriefTitle">
+                            <title id="promptBriefTitle">入力例：generate_project_brief</title>
+                            <rect x="0" y="0" width="640" height="230" rx="2" fill="#ffffff" stroke="#111111" stroke-width="1"></rect>
+                            <text x="20" y="28" font-family="sans-serif" font-size="11" font-weight="700" fill="#8a8a8a">【入力例】 案件要件整理の指示</text>
+                            <line x1="0" y1="40" x2="640" y2="40" stroke="#ededed" stroke-width="1"></line>
+                            <text x="20" y="68" font-family="sans-serif" font-size="13" fill="#111111">今の診断結果と相談内容を使って、</text>
+                            <text x="20" y="92" font-family="ui-monospace, SFMono-Regular, Menlo, monospace" font-size="13" fill="#111111">SPACE GLEAMのMCPのgenerate_project_briefを実行してください。</text>
+                            <text x="20" y="124" font-family="sans-serif" font-size="12" fill="#444444">開発相談に使えるように、プロジェクト概要、解決したい課題、目的、</text>
+                            <text x="20" y="148" font-family="sans-serif" font-size="12" fill="#444444">初期リリースの必須機能、後から追加できる機能、予算、納期、確認事項を整理してください。</text>
+                            <text x="20" y="184" font-family="sans-serif" font-size="13" font-weight="700" fill="#111111">※ 問い合わせはまだ送信しないでください。</text>
+                        </svg>
+                    </figure>
+
+                    <p>実機テストでは、</p>
+                    <ul>
+                        <li><strong>プロジェクト概要：</strong> 社員20名程度の企業向けに、問い合わせ対応をAI化・効率化する業務システムをMVPとして開発。</li>
+                        <li><strong>初期リリース：</strong> AIチャット、自動分類、担当者への引き継ぎ、最小限の管理画面など。</li>
+                        <li><strong>後続フェーズ：</strong> 既存業務システムとの連携、AI回答精度改善、問い合わせ分析など。</li>
+                    </ul>
+                    <p>というところまで整理されました。</p>
+
+                    <h2>ChatGPTだけで開発相談の準備が進む</h2>
+                    <p>ここまでをまとめると、</p>
+                    <hr>
+                    <p><strong>① search_services</strong> ➔ 自社に合いそうなサービスを探す。</p>
+                    <p><strong>② run_diagnosis</strong> ➔ 課題・予算・納期からAI開発診断を行う。</p>
+                    <p><strong>③ generate_project_brief</strong> ➔ 診断結果を開発案件として整理する。</p>
+                    <hr>
+                    <p>という流れをChatGPTとの会話内で実行できます。</p>
+                    <p>今回の検証では、この3つすべてについて実際のChatGPTからSPACE GLEAMの本番Remote MCP Serverへ接続し、Toolが正常に実行されることを確認しました。</p>
+
+                    <h2>問い合わせが勝手に送信されることはありません</h2>
+                    <p>AIエージェントに外部サービスを操作させる場合、「何をAIに許可するか」は非常に重要です。</p>
+
+                    <figure class="article-diagram">
+                        <svg viewBox="0 0 640 240" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="securityTitle">
+                            <title id="securityTitle">読み取り・診断と問い合わせ送信の分離</title>
+                            <rect x="0" y="20" width="300" height="180" rx="2" fill="#fafafa" stroke="#d4d4d4" stroke-width="1"></rect>
+                            <text x="20" y="48" font-family="sans-serif" font-size="12" font-weight="700" fill="#8a8a8a">分析・要件定義系Tools</text>
+                            <text x="20" y="76" font-family="sans-serif" font-size="14" font-weight="700" fill="#111111">検索 / 診断 / 概要作成</text>
+                            <text x="20" y="104" font-family="sans-serif" font-size="11" fill="#444444">・自動実行可能</text>
+                            <text x="20" y="124" font-family="sans-serif" font-size="11" fill="#444444">・外部送信や契約変更は発生しない</text>
+                            <text x="20" y="144" font-family="sans-serif" font-size="11" fill="#444444">・匿名利用OK</text>
+
+                            <rect x="340" y="20" width="300" height="180" rx="2" fill="#111111"></rect>
+                            <text x="360" y="48" font-family="sans-serif" font-size="12" font-weight="700" fill="rgba(255,255,255,0.7)">送信系Tool</text>
+                            <text x="360" y="76" font-family="sans-serif" font-size="14" font-weight="700" fill="#ffffff">create_lead （リード登録）</text>
+                            <text x="360" y="104" font-family="sans-serif" font-size="11" fill="rgba(255,255,255,0.8)">・ユーザーの明示的同意が必須</text>
+                            <text x="360" y="124" font-family="sans-serif" font-size="11" fill="rgba(255,255,255,0.8)">・consentConfirmed=true を検証</text>
+                            <text x="360" y="144" font-family="sans-serif" font-size="11" fill="rgba(255,255,255,0.8)">・レート制限 & サニタイズ適用</text>
+                        </svg>
+                        <figcaption>情報取得・分析用Toolと、影響を伴う送信処理を明確に分離して設計。</figcaption>
+                    </figure>
+
+                    <p>SPACE GLEAMでは、<strong>検索・診断・案件整理</strong> と <strong>問い合わせ送信</strong> を分離しています。</p>
+                    <p>search_services、run_diagnosis、generate_project_briefを実行しても問い合わせは発生しません。</p>
+                    <p>問い合わせを行うcreate_leadには、ユーザーの明示的な送信同意を必要とする仕組みを設けています。</p>
+                    <p>また、入力値検証、レート制限、サニタイズ、ペイロード制限なども実装しています。</p>
+                    <p>MCP対応では、単純に「AIから何でも実行できるようにする」のではなく、読み取り・分析と、外部へ影響を与える操作を分けて設計することが重要です。</p>
+
+                    <h2>Webサイトへのアクセスが唯一の入口ではなくなる</h2>
+                    <p>これまで企業のWebサイトでは、</p>
+                    <p>検索 ➔ サイト訪問 ➔ サービスを見る ➔ フォームを操作 ➔ 問い合わせ</p>
+                    <p>という導線が中心でした。</p>
+                    <p>MCPによって、</p>
+                    <p>ChatGPTなどのAI ➔ サービス検索 ➔ 診断 ➔ 要件整理 ➔ 必要なら問い合わせ</p>
+                    <p>という新しい導線を追加できます。</p>
+                    <p>Webサイトが不要になるわけではありません。会社の信頼性、実績、詳細なサービス情報などを人が確認する場所として、Webサイトは引き続き重要です。</p>
+                    <p>変わるのは、「人がWebサイトまで来なければサービスを利用できない」という前提です。</p>
+
+                    <h2>「AIに見つけてもらう」の次は「AIから使ってもらう」</h2>
+                    <p>生成AI時代のWeb施策として、AEOやLLMOなど、AI検索から自社を発見してもらうための取り組みが広がっています。</p>
+                    <p>SPACE GLEAMでも、</p>
+                    <ul>
+                        <li>llms.txt</li>
+                        <li>OpenAPI</li>
+                        <li>構造化データ</li>
+                        <li>AI検索対応</li>
+                    </ul>
+                    <p>などを進めています。</p>
+                    <p>しかし、その先には、「AIから自社サービスそのものを利用してもらう」という段階があります。</p>
+                    <p>「この会社について教えて」から、「この会社のサービスを探して」「自社の場合はいくらになるか診断して」「開発相談できる状態まで整理して」へ。</p>
+                    <p>Remote MCPは、この変化に対応するための方法の一つです。</p>
+
+                    <h2>Remote MCPとWebMCPは同じものではない</h2>
+                    <p>最近はWebMCPという言葉を目にする機会も増えていますが、Remote MCPとは区別して考える必要があります。</p>
+                    <p>今回SPACE GLEAMが実装しているのは、Remote MCP Serverです。AIクライアントからインターネット経由でMCP Serverへ接続し、公開されたToolやResourceを利用します。</p>
+                    <p>一方、WebMCPはブラウザ上のWebサイトをAIエージェントから利用しやすくする方向の技術です。</p>
+                    <p>どちらが優れているという話ではなく、AIから何を操作・利用させたいのかによって設計を選ぶ必要があります。</p>
+
+                    <h2>SPACE GLEAMではMCP・AIエージェント連携開発に対応しています</h2>
+                    <p>今回紹介したRemote MCP Serverは、サンプルコードだけの実証ではありません。SPACE GLEAMのコーポレートサイト上で本番運用し、実際のChatGPTから接続してTool Callまで確認しています。</p>
+                    <p>企業向けには、</p>
+                    <ul>
+                        <li>Remote MCP Server構築</li>
+                        <li>既存Webサイト・SaaSのMCP対応</li>
+                        <li>AIエージェント向けTool設計</li>
+                        <li>既存APIのMCP化</li>
+                        <li>OpenAPI 3.1整備</li>
+                        <li>llms.txt対応</li>
+                        <li>AI検索対応</li>
+                        <li>業務システムとのAIエージェント連携</li>
+                        <li>ChatGPT等との連携設計</li>
+                    </ul>
+                    <p>などに対応しています。</p>
+                    <p>重要なのはMCPを導入すること自体ではありません。既存のWebサービスや業務システムについて、「どの機能をAIに公開するのか」「どの操作には人間の確認を必要とするのか」まで含めて設計することが重要です。</p>
+                    <p>通常のAPI連携の方が適している場合も含め、用途に合わせて設計します。</p>
+
+                    <h2>SPACE GLEAM MCP 技術情報</h2>
+                    <p>SPACE GLEAM MCPの技術仕様、Tools、Resources、PromptsなどはMCP開発・連携ガイドでも公開しています。</p>
+                    <p>MCP開発・連携ガイド：<br><a href="https://spacegleam.co.jp/mcp/" target="_blank" rel="noopener noreferrer">https://spacegleam.co.jp/mcp/</a></p>
+                    <p>MCP Endpoint：<br><a href="https://spacegleam.co.jp/api/mcp" target="_blank" rel="noopener noreferrer">https://spacegleam.co.jp/api/mcp</a></p>
+                    <p>接続方式：<br>Streamable HTTP</p>
+
+                    <h2>自社サービスをAIエージェント対応させたい企業様へ</h2>
+                    <p>「既存のWebサービスをChatGPTなどから利用できるようにしたい」</p>
+                    <p>「MCPに対応するべきか判断したい」</p>
+                    <p>「社内システムをAIエージェントから操作したい」</p>
+                    <p>といった段階からご相談いただけます。既存システムの構成や目的を確認し、MCP、API連携、AIエージェント連携などから適切な方法をご提案します。</p>
+                </div>
+            </article>
+
+            <div class="article-cta">
+                <div>
+                    <strong>MCP・AIエージェント連携のご相談はこちら</strong>
+                    <p>既存サイト・SaaSへのMCP実装からAPI設計・無料診断導線までトータルでサポートします。</p>
+                </div>
+                <a href="../../contact.html" target="_blank" rel="noopener noreferrer">問い合わせる</a>
+            </div>
+
+            <div class="article-share article-share-bottom" aria-label="記事を共有">
+                <button type="button" class="article-share-icon is-x" aria-label="Xでシェア" title="Xでシェア" data-share data-share-title="ChatGPTからWebサイトの機能を直接使う。SPACE GLEAMがRemote MCPを実装・実機検証" data-share-url="https://spacegleam.co.jp/blog/chatgpt-remote-mcp-web-agent/">
+                    <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24h-6.657l-5.214-6.817-5.966 6.817H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231Zm-1.161 17.52h1.833L7.084 4.126H5.117Z"></path></svg>
+                </button>
+                <a href="mailto:?subject=ChatGPT%E3%81%8B%E3%82%89Web%E3%82%B5%E3%82%A4%E3%83%88%E3%81%AE%E6%A9%9F%E8%83%BD%E3%82%92%E7%9B%B4%E6%8E%A5%E4%BD%BF%E3%81%86%E3%80%82SPACE%20GLEAM%E3%81%8CRemote%20MCP%E3%82%92%E5%AE%9F%E8%A3%85%E3%83%BB%E5%AE%9F%E6%A9%9F%E6%A4%9C%E8%A8%BC&body=https%3A//spacegleam.co.jp/blog/chatgpt-remote-mcp-web-agent/" class="article-share-icon is-mail" aria-label="メールでシェア" title="メールでシェア">
+                    <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 5h16a2 2 0 0 1 2 2v10a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V7a2 2 0 0 1 2-2Zm0 2v.4l8 5.15 8-5.15V7H4Zm0 2.78V17h16V9.78l-8 5.15-8-5.15Z"></path></svg>
+                </a>
+                <button type="button" class="article-share-icon" aria-label="URLをコピー" title="URLをコピー" data-copy-url="https://spacegleam.co.jp/blog/chatgpt-remote-mcp-web-agent/">
+                    <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 9.5A1.5 1.5 0 0 1 10.5 8h8A1.5 1.5 0 0 1 20 9.5v8A1.5 1.5 0 0 1 18.5 19h-8A1.5 1.5 0 0 1 9 17.5v-8Z"></path><path d="M6 15H5.5A1.5 1.5 0 0 1 4 13.5v-8A1.5 1.5 0 0 1 5.5 4h8A1.5 1.5 0 0 1 15 5.5V6"></path></svg>
+                </button>
+            </div>
+
+            <div class="article-nav">
+                <a href="../index.html" class="article-nav-back">一覧に戻る</a>
+            </div>
+        </div>
+    </main>
+
+    <footer class="footer">
+        <div class="container footer-top">
+            <div class="footer-brand-col">
+                <a href="../../index.html" class="footer-logo">SPACE GLEAM</a>
+                <div class="footer-logo-line"></div>
+                <p class="footer-tagline">アイデアを、<br class="pc-only">最短距離で事業にする。</p>
+            </div>
+            <div class="footer-nav-grid">
+                <div class="footer-nav-col">
+                    <h4><a href="../../services.html">SERVICE</a></h4>
+                    <ul>
+                        <li><a href="../../services.html">AI MVP開発</a></li>
+                        <li><a href="../../services.html">業務システム開発</a></li>
+                        <li><a href="../../services.html">AI導入支援</a></li>
+                    </ul>
+                </div>
+                <div class="footer-nav-col">
+                    <h4><a href="../../works.html">WORKS</a></h4>
+                    <ul>
+                        <li><a href="../../works.html">開発事例</a></li>
+                        <li><a href="../../pricing.html">料金</a></li>
+                        <li><a href="../../faq.html">よくある質問</a></li>
+                    </ul>
+                </div>
+                <div class="footer-nav-col">
+                    <h4><a href="../">BLOG</a></h4>
+                    <ul>
+                        <li><a href="../">ブログ記事一覧</a></li>
+                        <li><a href="../free-ai-development-diagnosis/">AI開発無料診断</a></li>
+                    </ul>
+                </div>
+                <div class="footer-nav-col">
+                    <h4><a href="../../company.html">COMPANY</a></h4>
+                    <ul>
+                        <li><a href="../../company.html">会社概要</a></li>
+                        <li><a href="../../contact.html">お問い合わせ</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-vertical-line"></div>
+            <div class="footer-cta-col">
+                <a href="../../contact.html" class="works-cta-btn-v2">AI開発について無料で相談する <span>→</span></a>
+            </div>
+        </div>
+        <div class="footer-horizontal-line"></div>
+        <div class="container footer-bottom">
+            <p class="copyright">&copy; 2026 SPACE GLEAM. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script src="../posts.js"></script>
+    <script src="../blog.js"></script>
+</body>
+
+</html>
