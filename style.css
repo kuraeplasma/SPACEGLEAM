@@ -12146,29 +12146,31 @@ body.blog-page-body .footer {
 }
 
 .mcp-stat-card {
-    background: #f8fafc;
+    background: #ffffff;
     border: 1px solid #e2e8f0;
     border-radius: 10px;
-    padding: 14px 16px;
+    padding: 14px 12px;
     text-align: center;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
-}
-
-.mcp-stat-num {
-    font-size: 1.3rem;
-    font-weight: 800;
-    color: #0f172a;
-    line-height: 1.2;
+    gap: 6px;
+    box-shadow: 0 1px 3px rgba(15, 23, 42, 0.04);
 }
 
 .mcp-stat-label {
     font-size: 0.76rem;
-    font-weight: 600;
+    font-weight: 700;
     color: #64748b;
-    margin-top: 4px;
+    line-height: 1.2;
+}
+
+.mcp-stat-val {
+    font-size: 1.15rem;
+    font-weight: 800;
+    color: #0f172a;
+    line-height: 1.2;
 }
 
 .mcp-extra-sections {

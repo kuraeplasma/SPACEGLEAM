@@ -30,11 +30,11 @@ document.addEventListener('DOMContentLoaded', () => {
             safety: 'READ系ToolとWRITE系Toolを分離。サービス検索・診断・案件整理などは外部への副作用が発生しないREAD系として提供。問い合わせ送信はWRITE系として分離し、consentConfirmedによるユーザーの明示的同意を必須としています。また、入力バリデーション、サニタイズ、IPレート制限、ペイロード上限、dryRunなどを実装しています。',
             verification: '実際のChatGPT環境へSPACE GLEAM Remote MCPを登録して実機検証済み。ChatGPTから「サービス検索 ➔ AI開発無料診断 ➔ 案件要件整理」まで実際にTool Callできることを確認しています。単なるMCP ServerのHTTP疎通確認ではなく、実際のAIクライアントから利用できるところまで検証した実績です。',
             stats: [
-                { num: '5', label: 'Tools' },
-                { num: '3', label: 'Resources' },
-                { num: '2', label: 'Prompts' },
-                { num: '稼働中', label: '本番Remote MCP Server' },
-                { num: '確認済', label: 'ChatGPT実機 Tool Call' }
+                { label: 'Tools', val: '5' },
+                { label: 'Resources', val: '3' },
+                { label: 'Prompts', val: '2' },
+                { label: '本番サーバー', val: '稼働中' },
+                { label: 'ChatGPT実機検証', val: '検証済' }
             ],
             stack: 'Remote MCP Server<br>Streamable HTTP<br>JSON-RPC 2.0<br>OpenAPI 3.1<br>llms.txt<br>Netlify Functions<br>REST API',
             period: '<strong>実運用サイトへのRemote MCP実装・本番稼働</strong><br>既存Webサービスからの機能切り出し・Tool化・実機検証まで完全対応',
@@ -271,8 +271,8 @@ document.addEventListener('DOMContentLoaded', () => {
             <div class="mcp-stats-grid">
                 ${detail.stats.map(s => `
                     <div class="mcp-stat-card">
-                        <span class="mcp-stat-num">${s.num}</span>
                         <span class="mcp-stat-label">${s.label}</span>
+                        <span class="mcp-stat-val">${s.val}</span>
                     </div>
                 `).join('')}
             </div>
