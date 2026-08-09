@@ -9,7 +9,7 @@ window.SPACEGLEAM_BLOG_POSTS = [
         description: '自社WebサイトやWebサービスをChatGPTなどのAIエージェントから利用できるようにするMCP対応について解説。できること、APIとの違い、導入方法、開発費用、向いている企業を、Remote MCPを本番運用するSPACE GLEAMが紹介します。',
         excerpt: '自社WebサイトやWebサービスをChatGPTなどのAIエージェントから利用できるようにするMCP対応について解説。できること、APIとの違い、導入方法、開発費用を詳しく紹介します。',
         url: 'https://spacegleam.co.jp/blog/website-mcp-chatgpt-integration/',
-        thumbnail: '/blog/website-mcp-chatgpt-integration/card.png?v=20260809-v2'
+        thumbnail: '/blog/website-mcp-chatgpt-integration/card.png?v=20260809-v3'
     },
     {
         slug: 'chatgpt-remote-mcp-web-agent',
