@@ -29,16 +29,9 @@ document.addEventListener('DOMContentLoaded', () => {
             },
             safety: 'READ系ToolとWRITE系Toolを分離。サービス検索・診断・案件整理などは外部への副作用が発生しないREAD系として提供。問い合わせ送信はWRITE系として分離し、consentConfirmedによるユーザーの明示的同意を必須としています。また、入力バリデーション、サニタイズ、IPレート制限、ペイロード上限、dryRunなどを実装しています。',
             verification: '実際のChatGPT環境へSPACE GLEAM Remote MCPを登録して実機検証済み。ChatGPTから「サービス検索 ➔ AI開発無料診断 ➔ 案件要件整理」まで実際にTool Callできることを確認しています。単なるMCP ServerのHTTP疎通確認ではなく、実際のAIクライアントから利用できるところまで検証した実績です。',
-            stats: [
-                { label: 'Tools', val: '5' },
-                { label: 'Resources', val: '3' },
-                { label: 'Prompts', val: '2' },
-                { label: '本番サーバー', val: '稼働中' },
-                { label: 'ChatGPT実機検証', val: '検証済' }
-            ],
             stack: 'Remote MCP Server<br>Streamable HTTP<br>JSON-RPC 2.0<br>OpenAPI 3.1<br>llms.txt<br>Netlify Functions<br>REST API',
-            period: '<strong>実運用サイトへのRemote MCP実装・本番稼働</strong><br>既存Webサービスからの機能切り出し・Tool化・実機検証まで完全対応',
-            status: '本番Remote MCP Serverが正常稼働中<br>ChatGPT設定（Streamable HTTP）での接続・動作を検証済み',
+            period: '<strong>実運用サイトへのRemote MCP実装・本番稼働</strong><br>Tools: 5 / Resources: 3 / Prompts: 2 を構築<br>既存Webサービスからの機能切り出し・Tool化まで完全対応',
+            status: '本番Remote MCP Serverが正常稼働中<br>ChatGPT実機接続・Tool Call確認済み',
             href: '/mcp/',
             linkText: 'MCP開発・連携ガイドを見る',
             contactText: 'MCP / AIエージェント連携について相談する',
@@ -267,17 +260,6 @@ document.addEventListener('DOMContentLoaded', () => {
             </div>
         `;
 
-        const statsHtml = detail.stats ? `
-            <div class="mcp-stats-grid">
-                ${detail.stats.map(s => `
-                    <div class="mcp-stat-card">
-                        <span class="mcp-stat-label">${s.label}</span>
-                        <span class="mcp-stat-val">${s.val}</span>
-                    </div>
-                `).join('')}
-            </div>
-        ` : '';
-
         const mcpExtraHtml = detail.mcpTools ? `
             <div class="mcp-extra-sections">
                 <section class="mcp-tools-section">
@@ -347,7 +329,6 @@ document.addEventListener('DOMContentLoaded', () => {
                     <p>${detail.lead}</p>
                 </div>
             </div>
-            ${statsHtml}
             <div class="works-detail-body-v2">
                 <div class="works-detail-shot-v2 works-detail-shot-carousel-v2">${carouselHtml}</div>
                 <div class="works-detail-copy-v2">
