@@ -4394,6 +4394,7 @@ select {
     display: grid;
     grid-template-columns: 1fr 1.35fr;
     gap: 14px;
+    margin-top: 28px;
 }
 
 .works-detail-actions-v2.has-single-action {
@@ -12242,6 +12243,7 @@ body.blog-page-body .footer {
 
 .mcp-related-articles-wrap {
     margin-top: 28px;
+    margin-bottom: 32px;
     padding-top: 24px;
     border-top: 1px solid #e2e8f0;
 }
