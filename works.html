@@ -30,6 +30,57 @@
     <meta property="og:description" content="契約管理AI、経営改善支援、画像生成AI、Web監査AIなど、SPACE GLEAMのAI開発事例を紹介します。">
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:image" content="https://spacegleam.co.jp/ogp.png">
+    <!-- Schema.org Structured Data -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "CollectionPage",
+      "name": "AI開発事例・AIシステム開発実績 | SPACE GLEAM株式会社",
+      "description": "SPACE GLEAMのAI開発事例・AIシステム開発実績を紹介。Remote MCP Server開発、契約管理AI、経営改善支援、画像認識AIなど、自社開発と受託開発の知見を掲載しています。",
+      "url": "https://spacegleam.co.jp/works",
+      "mainEntity": {
+        "@type": "ItemList",
+        "itemListElement": [
+          {
+            "@type": "ListItem",
+            "position": 1,
+            "item": {
+              "@type": "SoftwareApplication",
+              "name": "SPACE GLEAM Remote MCP",
+              "applicationCategory": "DeveloperApplication",
+              "operatingSystem": "Web, Cloud",
+              "description": "ChatGPTなどのAIエージェントから、Webサイトのサービス検索・AI開発診断・案件要件整理まで直接実行できるRemote MCP Serverを自社開発・本番運用。",
+              "url": "https://spacegleam.co.jp/mcp/"
+            }
+          },
+          {
+            "@type": "ListItem",
+            "position": 2,
+            "item": {
+              "@type": "SoftwareApplication",
+              "name": "御御御付",
+              "applicationCategory": "HealthApplication",
+              "operatingSystem": "Web, PWA",
+              "description": "スマホで食材写真を撮るだけでAIが認識しレシピと栄養バランスを提案。",
+              "url": "https://omiotsuke.spacegleam.co.jp/"
+            }
+          },
+          {
+            "@type": "ListItem",
+            "position": 3,
+            "item": {
+              "@type": "SoftwareApplication",
+              "name": "DIFFsense",
+              "applicationCategory": "BusinessApplication",
+              "operatingSystem": "Web",
+              "description": "契約書の変更箇所を検出し、AIでリスク・要点・修正案を整理する契約業務SaaS。",
+              "url": "https://diffsense.spacegleam.co.jp/"
+            }
+          }
+        ]
+      }
+    }
+    </script>
     <!-- Prefetch other pages for instant transitions -->
     <link rel="prefetch" href="index.html">
     <link rel="prefetch" href="services.html">
@@ -61,7 +112,7 @@
             </nav>
 
             <div class="header-ctas">
-                <a href="index.html#contact" class="header-cta">AI活用案を無料で聞く<span class="arrow">→</span></a>
+                <a href="index.html#contact" class="header-cta">AI開発について無料で相談する<span class="arrow">→</span></a>
             </div>
         </div>
     </header>
@@ -73,7 +124,7 @@
                     <div class="works-left-v2">
                         <p class="works-eyebrow-v2">PRODUCTS</p>
                         <h1 class="works-title-v2">AI開発事例・AIシステム開発実績</h1>
-                        <p class="works-desc-v2">DIFFsense、MERKI、XDraftなど、自社サービスをAI活用開発で短期間にリリース。平均約2週間でリリースし、実運用から得た知見をお客様の開発にも反映しています。</p>
+                        <p class="works-desc-v2">Remote MCP Server、DIFFsense、MERKI、XDraftなど、自社サービスをAI活用開発で短期間にリリース。平均約2週間でリリースし、実運用から得た知見をお客様の開発にも反映しています。</p>
                         <div class="works-stat-box-v2">
                             <div class="works-stat-left-v2">
                                 <span class="works-stat-avg-v2">平均</span>
@@ -105,7 +156,8 @@
 
                 <div class="works-detail-panel-v2">
                     <aside class="works-detail-tabs-v2">
-                        <button class="is-active" type="button" data-service="omiotsuke"><span><img src="assets/omiotsuke-logo-128.png" alt="御御御付" width="20" height="20"></span>御御御付</button>
+                        <button class="is-active" type="button" data-service="mcp"><span><img src="chatgpt.svg" alt="Remote MCP" width="20" height="20"></span>Remote MCP</button>
+                        <button type="button" data-service="omiotsuke"><span><img src="assets/omiotsuke-logo-128.png" alt="御御御付" width="20" height="20"></span>御御御付</button>
                         <button type="button" data-service="diffsense"><span><img src="diffsense_logo_fixed.png?v=latest_v3" alt=""></span>DIFFsense</button>
                         <button type="button" data-service="merki"><span><img src="merki_logo.png" alt=""></span>MERKI</button>
                         <button type="button" data-service="xdraft"><span><img src="xdraft_logo.png" alt=""></span>XDraft</button>
@@ -155,7 +207,7 @@
                         </div>
                         <div class="works-detail-actions-v2">
                             <a class="works-detail-link-v2" href="https://diffsense.spacegleam.co.jp/" target="_blank" rel="noopener noreferrer">DIFFsenseのサービスサイトを見る <span>↗</span></a>
-                            <a class="works-detail-contact-v2" href="contact.html">このようなAIサービスを作りたい方はこちら（相談する） <span>→</span></a>
+                            <a class="works-detail-contact-v2" href="contact.html">このようなAI開発について無料で相談する <span>→</span></a>
                         </div>
                     </div>
                 </div>
@@ -180,7 +232,7 @@
                             <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
                                 <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/>
                             </svg>
-                                                        AI活用案を無料で聞く <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12H19M19 12L13 6M19 12L13 18"/></svg>
+                                                        AI開発について無料で相談する <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12H19M19 12L13 6M19 12L13 18"/></svg>
                         </a>
                                             </div>
                 </div>
@@ -188,7 +240,7 @@
         </section>
     </main>
 
-    <a href="index.html#contact" class="mobile-fixed-cta">AI活用案を無料で聞く</a>
+    <a href="index.html#contact" class="mobile-fixed-cta">AI開発について無料で相談する</a>
 
     <footer class="footer">
         <div class="container footer-top">
@@ -242,7 +294,7 @@
                     <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
                         <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/>
                     </svg>
-                                        AI活用案を無料で聞く <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12H19M19 12L13 6M19 12L13 18"/></svg>
+                                        AI開発について無料で相談する <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12H19M19 12L13 6M19 12L13 18"/></svg>
                 </a>
                             </div>
         </div>
@@ -268,6 +320,7 @@
     </footer>
 
     <script src="script.js?v=works-ui-restore-20260629-v1"></script>
+    <script src="works-page.js?v=20260809-mcp-v1"></script>
 </body>
 
 </html>

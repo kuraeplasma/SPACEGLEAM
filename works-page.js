@@ -5,6 +5,58 @@ document.addEventListener('DOMContentLoaded', () => {
     if (!worksDetailMain || !worksTabs.length) return;
 
     const worksDetails = {
+        mcp: {
+            title: 'SPACE GLEAM Remote MCP',
+            tag: 'Remote MCP / AIエージェント連携',
+            lead: 'ChatGPTなどのAIエージェントから、Webサイトのサービス検索・AI開発診断・案件要件整理まで直接実行できるRemote MCP Serverを自社開発・本番運用。',
+            images: [
+                { src: 'images/mcp-architecture-diagram.png', alt: 'SPACE GLEAM Remote MCP 構成図' },
+                { src: 'blog/chatgpt-remote-mcp-web-agent/card.png', alt: 'ChatGPTからWebサイトの機能を直接使う。SPACE GLEAMがRemote MCPを実装・実機検証' },
+                { src: 'blog/website-mcp-chatgpt-integration/card.png', alt: '自社WebサイトをChatGPTから使えるようにするには？MCP対応でできること・導入方法・費用を解説' }
+            ],
+            background: '生成AIの利用が「質問に回答する」段階から、外部サービスやWebサイトの機能をAIエージェントが直接利用する段階へ移行していることを踏まえ、SPACE GLEAMのコーポレートサイト自体をRemote MCP対応しました。<br><br>単なる技術デモではなく、実際に運用しているサービス情報・AI開発診断・案件整理機能などをMCP Toolとして公開。<br><br>ChatGPTなどの対応クライアントからWebサイトを経由せず機能を利用できる構成を自社環境で設計・開発・本番運用しています。',
+            features: ['サービス検索', 'AI開発無料診断', '案件要件の自動整理', '会社情報取得', 'ユーザー同意後の問い合わせ連携', 'Resources対応', 'Prompts対応', 'OpenAPI 3.1', 'llms.txt', 'AIエージェント連携'],
+            mcpTools: [
+                { name: 'search_services', desc: 'サービス・開発領域の検索' },
+                { name: 'run_diagnosis', desc: 'AI開発無料診断' },
+                { name: 'generate_project_brief', desc: '開発相談用の案件要件概要を生成' },
+                { name: 'get_company_profile', desc: '会社情報・対応領域を取得' },
+                { name: 'create_lead', desc: 'ユーザーの明示的同意後のみ問い合わせ送信' }
+            ],
+            resourcesPrompts: {
+                resources: ['spacegleam://company', 'spacegleam://services', 'spacegleam://case-studies'],
+                prompts: ['ai-development-diagnosis', 'ai-project-brief']
+            },
+            safety: 'READ系ToolとWRITE系Toolを分離。サービス検索・診断・案件整理などは外部への副作用が発生しないREAD系として提供。問い合わせ送信はWRITE系として分離し、consentConfirmedによるユーザーの明示的同意を必須としています。また、入力バリデーション、サニタイズ、IPレート制限、ペイロード上限、dryRunなどを実装しています。',
+            verification: '実際のChatGPT環境へSPACE GLEAM Remote MCPを登録して実機検証済み。ChatGPTから「サービス検索 ➔ AI開発無料診断 ➔ 案件要件整理」まで実際にTool Callできることを確認しています。単なるMCP ServerのHTTP疎通確認ではなく、実際のAIクライアントから利用できるところまで検証した実績です。',
+            stats: [
+                { num: '5', label: 'Tools' },
+                { num: '3', label: 'Resources' },
+                { num: '2', label: 'Prompts' },
+                { num: '稼働中', label: '本番Remote MCP Server' },
+                { num: '確認済', label: 'ChatGPT実機 Tool Call' }
+            ],
+            stack: 'Remote MCP Server<br>Streamable HTTP<br>JSON-RPC 2.0<br>OpenAPI 3.1<br>llms.txt<br>Netlify Functions<br>REST API',
+            period: '<strong>実運用サイトへのRemote MCP実装・本番稼働</strong><br>既存Webサービスからの機能切り出し・Tool化・実機検証まで完全対応',
+            status: '本番Remote MCP Serverが正常稼働中<br>ChatGPT設定（Streamable HTTP）での接続・動作を検証済み',
+            href: '/mcp/',
+            linkText: 'MCP開発・連携ガイドを見る',
+            contactText: 'MCP / AIエージェント連携について相談する',
+            relatedArticles: [
+                {
+                    title: 'ChatGPTからWebサイトの機能を直接使う。SPACE GLEAMがRemote MCPを実装・実機検証',
+                    url: '/blog/chatgpt-remote-mcp-web-agent/',
+                    date: '2026.08.10',
+                    img: '/blog/chatgpt-remote-mcp-web-agent/card.png'
+                },
+                {
+                    title: '自社WebサイトをChatGPTから使えるようにするには？MCP対応でできること・導入方法・費用を解説',
+                    url: '/blog/website-mcp-chatgpt-integration/',
+                    date: '2026.08.13',
+                    img: '/blog/website-mcp-chatgpt-integration/card.png'
+                }
+            ]
+        },
         omiotsuke: {
             title: '御御御付',
             tag: '具材認識AI味噌汁診断',
@@ -215,13 +267,78 @@ document.addEventListener('DOMContentLoaded', () => {
             </div>
         `;
 
+        const statsHtml = detail.stats ? `
+            <div class="mcp-stats-grid">
+                ${detail.stats.map(s => `
+                    <div class="mcp-stat-card">
+                        <span class="mcp-stat-num">${s.num}</span>
+                        <span class="mcp-stat-label">${s.label}</span>
+                    </div>
+                `).join('')}
+            </div>
+        ` : '';
+
+        const mcpExtraHtml = detail.mcpTools ? `
+            <div class="mcp-extra-sections">
+                <section class="mcp-tools-section">
+                    <h4>実装済み MCP Tools</h4>
+                    <div class="mcp-tools-list">
+                        ${detail.mcpTools.map(t => `
+                            <div class="mcp-tool-item">
+                                <code class="mcp-tool-code">${t.name}</code>
+                                <span class="mcp-tool-desc">${t.desc}</span>
+                            </div>
+                        `).join('')}
+                    </div>
+                </section>
+                <div class="mcp-two-col-section">
+                    <section class="mcp-safety-section">
+                        <h4>安全設計（READ / WRITE 分離）</h4>
+                        <p>${detail.safety}</p>
+                    </section>
+                    <section class="mcp-verification-section">
+                        <h4>ChatGPT実機検証結果</h4>
+                        <p>${detail.verification}</p>
+                    </section>
+                </div>
+            </div>
+        ` : '';
+
+        const relatedArticlesHtml = detail.relatedArticles ? `
+            <div class="mcp-related-articles-wrap">
+                <h4>MCP関連記事・実機検証記事</h4>
+                <div class="mcp-related-articles-grid">
+                    ${detail.relatedArticles.map(a => `
+                        <a href="${a.url}" class="mcp-related-article-card">
+                            <div class="mcp-related-article-img">
+                                <img src="${a.img}" alt="${a.title}" loading="lazy">
+                            </div>
+                            <div class="mcp-related-article-body">
+                                <time>${a.date}</time>
+                                <h5>${a.title}</h5>
+                                <span>記事を読む →</span>
+                            </div>
+                        </a>
+                    `).join('')}
+                </div>
+            </div>
+        ` : '';
+
         const hasSingleAction = detail.href === 'contact.html';
-        const actionsHtml = hasSingleAction
-            ? `<a class="works-detail-link-v2" href="${detail.href}">${detail.linkText} <span>→</span></a>`
-            : `
-                <a class="works-detail-link-v2" href="${detail.href}" target="_blank" rel="noopener noreferrer">${detail.linkText} <span>↗</span></a>
-                <a class="works-detail-contact-v2" href="contact.html">このようなAI活用案を聞く <span>→</span></a>
+        let actionsHtml = '';
+        if (key === 'mcp') {
+            actionsHtml = `
+                <a class="works-detail-contact-v2" href="contact.html">${detail.contactText} <span>→</span></a>
+                <a class="works-detail-link-v2" href="${detail.href}">${detail.linkText} <span>→</span></a>
             `;
+        } else if (hasSingleAction) {
+            actionsHtml = `<a class="works-detail-link-v2" href="${detail.href}">${detail.linkText} <span>→</span></a>`;
+        } else {
+            actionsHtml = `
+                <a class="works-detail-link-v2" href="${detail.href}" target="_blank" rel="noopener noreferrer">${detail.linkText} <span>↗</span></a>
+                <a class="works-detail-contact-v2" href="contact.html">このようなAI開発について無料で相談する <span>→</span></a>
+            `;
+        }
 
         worksDetailMain.innerHTML = `
             <div class="works-detail-heading-v2">
@@ -230,6 +347,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     <p>${detail.lead}</p>
                 </div>
             </div>
+            ${statsHtml}
             <div class="works-detail-body-v2">
                 <div class="works-detail-shot-v2 works-detail-shot-carousel-v2">${carouselHtml}</div>
                 <div class="works-detail-copy-v2">
@@ -237,11 +355,13 @@ document.addEventListener('DOMContentLoaded', () => {
                     <section><h4>主な機能</h4><div class="works-detail-tags-v2">${detail.features.map((feature) => `<span>${feature}</span>`).join('')}</div></section>
                 </div>
             </div>
+            ${mcpExtraHtml}
             <div class="works-detail-info-v2">
                 <div><h4>公開可能な構成</h4><p>${detail.stack}</p></div>
                 <div><h4>開発範囲</h4><p>${detail.period}</p></div>
                 <div><h4>現在の状況</h4><p>${detail.status}</p></div>
             </div>
+            ${relatedArticlesHtml}
             <div class="works-detail-actions-v2${hasSingleAction ? ' has-single-action' : ''}">
                 ${actionsHtml}
             </div>
@@ -354,5 +474,7 @@ document.addEventListener('DOMContentLoaded', () => {
         if (target) productImageLightbox.open(target);
     });
 
-    renderWorksDetail('omiotsuke');
+    const activeTab = document.querySelector('.works-detail-tabs-v2 button.is-active');
+    const defaultService = activeTab ? activeTab.dataset.service : 'mcp';
+    renderWorksDetail(defaultService);
 });
