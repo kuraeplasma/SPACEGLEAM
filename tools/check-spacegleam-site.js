@@ -52,7 +52,7 @@ for (const [file, content] of [
   assertIncludes(file, content, 'works-ui-restore-20260629-v1', 'current works cache buster');
   assertIncludes(file, content, 'AI開発事例・AIシステム開発実績', 'works section title');
   assertIncludes(file, content, 'works-detail-panel-v2', 'new works detail panel');
-  assertIncludes(file, content, 'AI活用案を無料で聞く', 'normalized header CTA text');
+  assertIncludes(file, content, 'AI開発について無料で相談する', 'normalized header CTA text');
 }
 
 for (const href of ['services.html', 'pricing.html', 'works.html', 'faq.html']) {
@@ -103,7 +103,7 @@ for (const filePath of walk(root)) {
   if (!/\.(?:html|js)$/.test(filePath)) continue;
   const relative = path.relative(root, filePath).replace(/\\/g, '/');
   const content = fs.readFileSync(filePath, 'utf8');
-  if (/class=["'][^"']*header-cta[^"']*["'][^>]*>[^<]*(?:無料相談する|AI開発について相談する)/.test(content)) {
+  if (/class=["'][^"']*header-cta[^"']*["'][^>]*>[^<]*(?:AI活用案を無料で聞く|AI活用案を聞く|AI活用案を無料で相談する)/.test(content)) {
     failures.push(`${relative}: old header CTA text`);
   }
 
@@ -112,6 +112,26 @@ for (const filePath of walk(root)) {
   for (const match of nowrapMatches) {
     if (!match[0].includes('最大') && !match[0].includes('97.5%')) {
       failures.push(`${relative}: long text inside .nowrap ("${match[1].slice(0, 15)}...") will overflow on mobile screen`);
+    }
+  }
+}
+
+// 自動検査ガード3: ブログ記事サムネイル画像存在検証 (PNG & WEBPの物理ファイル実在チェック)
+const postsJsPath = path.join(root, 'blog', 'posts.js');
+if (fs.existsSync(postsJsPath)) {
+  const postsContent = fs.readFileSync(postsJsPath, 'utf8');
+  const thumbnailMatches = postsContent.matchAll(/thumbnail:\s*['"]([^'"]+)['"]/g);
+  for (const match of thumbnailMatches) {
+    const rawPath = match[1].split('?')[0]; // Remove query strings like ?v=2
+    const relPath = rawPath.startsWith('/') ? rawPath.slice(1) : rawPath;
+    const fullImgPath = path.join(root, relPath);
+    if (!fs.existsSync(fullImgPath)) {
+      failures.push(`posts.js: thumbnail image file missing at ${relPath}`);
+    }
+    // PNG/WEBP 対で存在しているかチェック
+    const altExt = relPath.endsWith('.webp') ? relPath.replace(/\.webp$/i, '.png') : relPath.replace(/\.png$/i, '.webp');
+    if (!fs.existsSync(path.join(root, altExt))) {
+      failures.push(`posts.js: missing fallback image pair for ${relPath} (expected ${altExt})`);
     }
   }
 }

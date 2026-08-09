@@ -137,18 +137,17 @@
 
     const createThumbnail = (post, className) => {
         if (!post.thumbnail) {
-            return `<div class="${className}" aria-hidden="true"></div>`;
+            return `<div class="${className} is-fallback-thumb" aria-hidden="true"></div>`;
         }
 
+        const src = escapeHtml(blogPath(post.thumbnail));
+        const alt = escapeHtml(post.title || '');
         return `
             <div class="${className}">
-                <img src="${escapeHtml(blogPath(post.thumbnail))}" alt="" width="600" height="315" loading="lazy" decoding="async">
-            </div>
-        `;
+                <img src="${src}" alt="${alt}" width="600" height="315" loading="lazy" decoding="async" onerror="if(!this.dataset.retry){this.dataset.retry='1';if(/\.webp/i.test(this.src)){this.src=this.src.replace(/\.webp/i,'.png');}else if(/\.png/i.test(this.src)){this.src=this.src.replace(/\.png/i,'.webp');}else{this.parentElement.classList.add('is-fallback-thumb');this.style.display='none';}}else{this.parentElement.classList.add('is-fallback-thumb');this.style.display='none';}">
     };
 
     const createFeaturedCard = (post, index) => `
-        <article class="blog-featured-card ${index === 0 ? 'is-primary' : ''}">
             <a href="${postHref(post)}" aria-label="${escapeHtml(post.title)}を読む">
                 ${createThumbnail(post, 'blog-card-art')}
                 <div class="blog-featured-body">
