@@ -2050,8 +2050,14 @@ select {
         padding: 74px 0;
     }
 
+    /* ヒーロー下端に余白がなく診断カードが次セクションに接するため、
+       ヒーロー側に下余白を確保したうえでセクション上部も広げる */
+    .hero {
+        padding-bottom: 40px !important;
+    }
+
     .quick-consult-section {
-        padding: 24px 0 40px !important;
+        padding: 52px 0 40px !important;
         overflow-x: hidden;
     }
 

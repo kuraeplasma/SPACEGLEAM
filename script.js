@@ -391,6 +391,40 @@ document.addEventListener('DOMContentLoaded', () => {
     const worksTabs = document.querySelectorAll('.works-detail-tabs-v2 button[data-service]');
     const worksDetailMain = document.querySelector('.works-detail-main-v2');
     const worksDetails = {
+        mcp: {
+            title: 'Remote MCP Server',
+            tag: 'AIエージェント連携基盤',
+            lead: '自社サイトにRemote MCP Serverを本番実装。ChatGPTやClaudeなど外部のAIエージェントから、サービス検索・AI開発診断・相談要件の整理を直接実行できます。',
+            images: [
+                { src: 'images/mcp-architecture-diagram.webp', alt: 'Remote MCP Serverの構成図' }
+            ],
+            background: 'AIエージェントが企業サイトの情報を「読む」だけでなく「使える」状態にする取り組みです。<br><br>Streamable HTTP（JSON-RPC 2.0）でMCPエンドポイントを公開し、OpenAPI仕様とllms.txtもあわせて提供しています。<br><br>問い合わせ送信は、利用者の明示的な同意を確認したうえでのみ実行される設計にしています。',
+            features: ['search_services', 'run_diagnosis', 'generate_project_brief', 'create_lead', 'get_company_profile'],
+            stack: 'Streamable HTTP（JSON-RPC 2.0）<br>MCP Protocol 2025-03-26<br>Netlify Functions<br>OpenAPI / llms.txt 公開',
+            period: '<strong>5つのMCPツールを公開</strong><br>Resources・Promptsの標準仕様にも対応',
+            status: '本番運用中<br>ツールの追加と応答精度の改善を継続',
+            href: 'mcp/',
+            linkText: 'Remote MCPの仕様を見る'
+        },
+        omiotsuke: {
+            title: '御御御付',
+            tag: 'AI献立提案アプリ',
+            lead: 'スマホで冷蔵庫の食材を撮るだけ。AIが食材を認識し、その日の一杯に合う味噌汁レシピと栄養バランスを提案するWebアプリ。',
+            images: [
+                { src: 'images/omiotsuke-step-home.png?v=20260723-v2', alt: '御御御付のホーム画面' },
+                { src: 'images/omiotsuke-step-diagnosis.png?v=20260723-v2', alt: '食材を撮影して認識する画面' },
+                { src: 'images/omiotsuke-step-builder.png?v=20260723-v2', alt: '具材を選んでレシピを組み立てる画面' },
+                { src: 'images/omiotsuke-step-result.png?v=20260723-v2', alt: '提案されたレシピの結果画面' },
+                { src: 'images/omiotsuke-step-nutrition.png?v=20260723-v2', alt: '栄養バランスの表示画面' }
+            ],
+            background: '冷蔵庫にある食材を撮影するだけ。<br><br>御御御付は、AIが写真から食材を認識し、登録済みの具材データをもとに味噌汁のレシピと栄養データを提案します。<br><br>AIの出力にはゆらぎがあるため、確信を持てなかった食材は「確認が必要な候補」としてUIに提示し、利用者が手動で選び直せる設計にしています。最終的な決定権を人に残すことで、認識ミスによる離脱を抑えています。',
+            features: ['写真からの食材認識', '具材データとの照合・補正', 'レシピ提案', '栄養バランス表示', 'PWA対応'],
+            stack: 'Next.js / TypeScript<br>Gemini API（画像解析）<br>具材マスタとのマッチングエンジン<br>栄養計算ロジック<br>PWA',
+            period: '<strong>撮影・認識からレシピ提案までを実装</strong><br>具材マスタの拡充と認識精度の改善を継続中',
+            status: '一般公開中<br>具材データの追加と提案ロジックの改善を継続',
+            href: 'https://omiotsuke.spacegleam.co.jp/',
+            linkText: '御御御付のサービスサイトを見る'
+        },
         diffsense: {
             title: 'DIFFsense',
             tag: 'AI契約レビューSaaS',
@@ -812,8 +846,12 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 
-    // Render default active service on page load
-    renderWorksDetail('diffsense');
+    // Render whichever tab is marked active in the markup, so the highlighted
+    // tab and the shown content never disagree. Falls back to the first tab.
+    const initialWorksTab = document.querySelector('.works-detail-tabs-v2 button[data-service].is-active') || worksTabs[0];
+    if (initialWorksTab) {
+        switchWorksService(initialWorksTab.dataset.service);
+    }
 });
 
 /* ===== Blog NEW badge on header nav ===== */
