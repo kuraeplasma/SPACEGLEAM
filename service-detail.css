@@ -202,7 +202,7 @@
 .sd-process-step { padding: 28px 22px; border-right: 1px solid var(--sd-line); }
 .sd-process-step:last-child { border-right: 0; }
 .sd-process-step span { display: block; margin-bottom: 22px; color: var(--sd-blue); font-size: .72rem; font-weight: 800; }
-.sd-process-step h3 { margin: 0 0 10px; font-size: 1rem; }
+.sd-process-step h3 { margin: 0 0 10px; font-size: 1.2rem; font-weight: 800; }
 .sd-process-step p { color: var(--sd-muted); font-size: .8rem; line-height: 1.7; }
 
 .sd-fit-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 22px; }

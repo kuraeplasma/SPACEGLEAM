@@ -468,8 +468,8 @@
     if (isEmbedded) {
       host.innerHTML =
         '<div class="blog-diag-promo__head">' +
-          '<h2>AI開発の第一歩は、正しい現状把握から</h2>' +
-          '<p>30秒で完了する無料診断で、あなたの会社に最適なAI活用の方向性がわかります</p>' +
+          '<h2>30秒で、あなたに合うAI開発プランを診断</h2>' +
+          '<p>概算費用・開発期間・おすすめ構成を無料で診断できます。</p>' +
         '</div>' +
         '<div class="blog-diag-promo">' +
           '<div class="blog-diag-promo__copy">' +
@@ -499,9 +499,9 @@
       '<section class="home-diag-showcase" aria-labelledby="homeDiagTitle">' +
         '<button type="button" class="diag-card__dismiss" id="diagDismiss" aria-label="診断カードを閉じる">×</button>' +
         '<header class="home-diag-showcase__head">' +
-          '<span class="home-diag-showcase__kicker">30秒・無料のAI開発診断</span>' +
-          '<h2 id="homeDiagTitle">AI開発の第一歩は、<br>正しい現状把握から</h2>' +
-          '<p>6つの質問から、自社に合うAI活用の方向性と開発予算の目安を整理します。</p>' +
+          '<span class="home-diag-showcase__kicker"><span aria-hidden="true">✦</span> 約30秒 ・ 無料診断</span>' +
+          '<h2 id="homeDiagTitle"><span class="diag-phrase-top"><span class="diag-time-badge">30秒</span>で、あなたに合う</span><br><span class="diag-phrase-main">AI開発プランを診断</span></h2>' +
+          '<p><span class="diag-subphrase">概算費用・開発期間・おすすめ構成を</span><br><span class="diag-subphrase">無料で診断できます。</span></p>' +
         '</header>' +
         '<div class="home-diag-download-callout">' +
           '<span class="home-diag-download-callout__icon" aria-hidden="true"><svg viewBox="0 0 32 32"><path d="M8 3h11l6 6v20H8z"></path><path d="M19 3v7h6M12 18h8M12 22h8"></path></svg></span>' +

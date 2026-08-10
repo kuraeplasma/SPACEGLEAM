@@ -7,6 +7,55 @@ document.addEventListener('DOMContentLoaded', () => {
     const formStatus = document.querySelector('.contact-form-status');
     const recaptchaSiteKey = window.SPACEGLEAM_RECAPTCHA_SITE_KEY;
 
+    // --- GA4 conversion funnel tracking ---
+    // Never include form values, email addresses, names, or free-text messages.
+    const trackGaEvent = (eventName, parameters = {}) => {
+        if (typeof window.gtag !== 'function') return;
+        window.gtag('event', eventName, {
+            page_path: window.location.pathname,
+            ...parameters
+        });
+    };
+
+    const getCtaLocation = (link) => {
+        if (link.closest('.header')) return 'header';
+        if (link.classList.contains('mobile-fixed-cta')) return 'mobile_fixed';
+        if (link.closest('.hero')) return 'hero';
+        if (link.closest('.article-cta')) return 'article';
+        if (link.closest('.works-section, .works-section-v2, .works-cta-banner-v2')) return 'works';
+        if (link.closest('.faq-section, .faq-contact-bar')) return 'faq';
+        if (link.closest('.contact-section')) return 'contact_section';
+        if (link.closest('.footer')) return 'footer';
+        return 'content';
+    };
+
+    const contactCtaSelector = [
+        'a.header-cta',
+        'a.mobile-fixed-cta',
+        'a[href$="contact.html"]',
+        'a[href*="contact.html#"]',
+        'a[href$="#contact"]'
+    ].join(',');
+
+    document.addEventListener('click', (event) => {
+        const link = event.target.closest(contactCtaSelector);
+        if (!link) return;
+
+        let destination = link.getAttribute('href') || '';
+        try {
+            const url = new URL(destination, window.location.href);
+            destination = `${url.pathname}${url.hash}`;
+        } catch (_) {
+            destination = destination.slice(0, 100);
+        }
+
+        trackGaEvent('cta_click', {
+            cta_location: getCtaLocation(link),
+            cta_text: (link.textContent || '').replace(/\s+/g, ' ').trim().slice(0, 100),
+            destination: destination.slice(0, 100)
+        });
+    });
+
     // --- Local Server Route Helper ---
     // If running on a local static server like Python http.server,
     // ensure /blog automatically rewrites to /blog/ (with trailing slash)
@@ -94,6 +143,31 @@ document.addEventListener('DOMContentLoaded', () => {
 
     document.querySelectorAll('.reveal').forEach((element) => observer.observe(element));
 
+    if (contactForm) {
+        let formViewTracked = false;
+        const trackFormView = () => {
+            if (formViewTracked) return;
+            formViewTracked = true;
+            trackGaEvent('contact_form_view', { form_id: 'ai_mvp_contact' });
+        };
+
+        if ('IntersectionObserver' in window) {
+            const formViewObserver = new IntersectionObserver((entries) => {
+                if (entries.some((entry) => entry.isIntersecting)) {
+                    trackFormView();
+                    formViewObserver.disconnect();
+                }
+            }, { threshold: 0.25 });
+            formViewObserver.observe(contactForm);
+        } else {
+            trackFormView();
+        }
+
+        contactForm.addEventListener('input', () => {
+            trackGaEvent('contact_form_start', { form_id: 'ai_mvp_contact' });
+        }, { once: true });
+    }
+
     const setFormStatus = (message, type = '') => {
         if (!formStatus) return;
         formStatus.textContent = message || '';
@@ -117,6 +191,8 @@ document.addEventListener('DOMContentLoaded', () => {
     if (contactForm && formSuccess) {
         contactForm.addEventListener('submit', async (event) => {
             event.preventDefault();
+
+            trackGaEvent('contact_form_submit', { form_id: 'ai_mvp_contact' });
 
             const formData = new FormData(contactForm);
             const budget = String(formData.get('budget') || '').trim();
@@ -153,11 +229,19 @@ document.addEventListener('DOMContentLoaded', () => {
             };
 
             if (!payload.company || !payload.name || !payload.email || !payload.message) {
+                trackGaEvent('contact_form_error', {
+                    form_id: 'ai_mvp_contact',
+                    error_type: 'missing_required_fields'
+                });
                 setFormStatus('会社名、お名前、メールアドレス、相談内容を入力してください。', 'error');
                 return;
             }
 
             if (!formData.get('privacy')) {
+                trackGaEvent('contact_form_error', {
+                    form_id: 'ai_mvp_contact',
+                    error_type: 'privacy_not_accepted'
+                });
                 setFormStatus('プライバシーポリシーへの同意をお願いします。', 'error');
                 return;
             }
@@ -187,9 +271,19 @@ document.addEventListener('DOMContentLoaded', () => {
                 }
 
                 if (!response.ok || result?.success === false) {
+                    trackGaEvent('contact_form_error', {
+                        form_id: 'ai_mvp_contact',
+                        error_type: 'api_rejected',
+                        http_status: response.status
+                    });
                     setFormStatus(result?.message || '送信に失敗しました。時間をおいて再度お試しください。', 'error');
                     return;
                 }
+
+                trackGaEvent('generate_lead', {
+                    form_id: 'ai_mvp_contact',
+                    lead_type: isBookingPolish && meetingPref === 'schedule' ? 'booking' : 'form'
+                });
 
                 contactForm.reset();
                 contactForm.classList.add('is-submitted');
@@ -205,6 +299,10 @@ document.addEventListener('DOMContentLoaded', () => {
                 formSuccess.hidden = false;
                 formSuccess.focus();
             } catch (_) {
+                trackGaEvent('contact_form_error', {
+                    form_id: 'ai_mvp_contact',
+                    error_type: 'network_error'
+                });
                 setFormStatus('送信に失敗しました。時間をおいて再度お試しください。', 'error');
             } finally {
                 if (submitButton) {
@@ -293,26 +391,6 @@ document.addEventListener('DOMContentLoaded', () => {
     const worksTabs = document.querySelectorAll('.works-detail-tabs-v2 button[data-service]');
     const worksDetailMain = document.querySelector('.works-detail-main-v2');
     const worksDetails = {
-        omiotsuke: {
-            title: '御御御付',
-            tag: '具材認識AI味噌汁診断',
-            lead: '冷蔵庫の具材をスマホで撮るだけで、食材を認識し、今日作れる味噌汁のレシピと栄養情報を自動提案するサービス。',
-            images: [
-                { src: 'images/omiotsuke-ogp.png', alt: '御御御付サービスイメージ（OGP）' },
-                { src: 'images/omiotsuke-step-home.png?v=20260723-v2', alt: 'アプリホーム画面' },
-                { src: 'images/omiotsuke-step-diagnosis.png?v=20260723-v2', alt: '気分・体調の診断画面' },
-                { src: 'images/omiotsuke-step-builder.png?v=20260723-v2', alt: '具材を自由に選ぶビルダー画面' },
-                { src: 'images/omiotsuke-step-result.png?v=20260723-v2', alt: '診断結果のレシピ画面' },
-                { src: 'images/omiotsuke-step-nutrition.png?v=20260723-v2', alt: 'レシピの詳細な栄養バランス画面' }
-            ],
-            background: '「冷蔵庫にある食材を使い切りたい」「今日の栄養バランスを考えたい」という日常の課題を解決するために開発。<br><br>スマホで写真を1枚撮るだけで食材を自動認識し、最適な味噌汁のレシピからカロリーや塩分などの栄養情報までを瞬時に提案する仕組みです。<br><br>気分や体調に合わせた「診断」機能や、好きな具材を自由に組み合わせる「ビルダー」機能も搭載しています。',
-            features: ['写真から食材自動認識', '味噌汁レシピ自動生成', '栄養バランス・カロリー計算', '気分や体調に合わせた診断', 'お気に入り保存機能'],
-            stack: 'Next.js / TypeScript<br>画像認識AI (Vision API / Gemini API)<br>栄養データベース設計<br>レスポンシブWebデザイン (TailwindCSS)',
-            period: '<strong>具材自動認識とレシピ生成を実装</strong><br>LP、診断、ビルダー、お気に入り、および画像解析API連携まで対応',
-            status: 'Web版・PWAをリリース済み<br>レシピ追加や認識精度向上、ネイティブアプリ化を計画・進行中',
-            href: 'https://omiotsuke.spacegleam.co.jp/',
-            linkText: '御御御付のサービスサイトを見る'
-        },
         diffsense: {
             title: 'DIFFsense',
             tag: 'AI契約レビューSaaS',
@@ -363,7 +441,7 @@ document.addEventListener('DOMContentLoaded', () => {
             background: '事業アイデアや企画メモは散らばりやすく、次のアクションに落とし込みにくい課題があります。発想を階層化し、ドラフト化まで進めやすくするために開発しました。',
             features: ['アイデアの階層化・可視化', 'ドラフトの自動生成支援', 'タグ付け・関連付け', 'チームでの共同編集'],
             stack: 'Next.js / TypeScript<br>AI生成支援<br>構造化データ設計<br>チーム編集機能',
-            period: '<strong>本番運用を前提とした初期開発：約1週間</strong><br>利用フィードバックをもとに改善',
+            period: '<strong>MVP開発：約1週間</strong><br>利用フィードバックをもとに改善',
             status: 'アイデア整理・企画作成の検証に活用<br>生成支援機能を継続改善',
             href: 'https://xdraft.spacegleam.co.jp/',
             linkText: 'XDraftのサービスサイトを見る'
@@ -541,7 +619,7 @@ document.addEventListener('DOMContentLoaded', () => {
             ? `<a class="works-detail-link-v2" href="${detail.href}">${detail.linkText} <span>→</span></a>`
             : `
                 <a class="works-detail-link-v2" href="${detail.href}" target="_blank" rel="noopener noreferrer">${detail.linkText} <span>↗</span></a>
-                <a class="works-detail-contact-v2" href="contact.html">このようなAI活用案を聞く <span>→</span></a>
+                <a class="works-detail-contact-v2" href="contact.html">このようなAI開発について無料で相談する <span>→</span></a>
             `;
 
         worksDetailMain.innerHTML = `
@@ -735,5 +813,17 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     // Render default active service on page load
-    renderWorksDetail('omiotsuke');
+    renderWorksDetail('diffsense');
 });
+
+/* ===== Blog NEW badge on header nav ===== */
+(function () {
+    document.querySelectorAll('.nav a').forEach(function (a) {
+        if (a.textContent.trim() === 'Blog' && !a.querySelector('.nav-new-badge')) {
+            var b = document.createElement('span');
+            b.className = 'nav-new-badge';
+            b.textContent = '新着記事あり';
+            a.appendChild(b);
+        }
+    });
+})();
