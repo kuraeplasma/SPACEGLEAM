@@ -648,6 +648,122 @@ select {
     background: #111111;
 }
 
+/* ==========================================================================
+   MCP バナー（サイト全体の角なし・黒白基調に合わせた仕様プレート）
+   ========================================================================== */
+.mcp-banner {
+    margin-top: 40px;
+    padding: 34px 36px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 36px;
+    flex-wrap: wrap;
+    background: #0d0d0d;
+    border-radius: 0;
+    color: #ffffff;
+}
+
+.mcp-banner__body {
+    flex: 1 1 380px;
+    min-width: 0;
+}
+
+.mcp-banner__label {
+    display: inline-flex;
+    align-items: center;
+    gap: 9px;
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+    font-size: .7rem;
+    font-weight: 700;
+    letter-spacing: .16em;
+    color: rgba(255, 255, 255, .62);
+}
+
+.mcp-banner__label::before {
+    content: "";
+    width: 6px;
+    height: 6px;
+    background: #ffffff;
+}
+
+.mcp-banner__title {
+    margin: 16px 0 10px;
+    font-size: clamp(1.15rem, 2.1vw, 1.42rem);
+    font-weight: 800;
+    line-height: 1.5;
+    letter-spacing: -0.01em;
+    color: #ffffff;
+}
+
+.mcp-banner__lead {
+    margin: 0;
+    font-size: .89rem;
+    line-height: 1.85;
+    color: rgba(255, 255, 255, .66);
+    max-width: 52ch;
+}
+
+.mcp-banner__specs {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-top: 20px;
+    list-style: none;
+    padding: 0;
+}
+
+.mcp-banner__spec {
+    padding: 6px 12px;
+    border: 1px solid rgba(255, 255, 255, .3);
+    font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+    font-size: .72rem;
+    letter-spacing: .02em;
+    color: rgba(255, 255, 255, .82);
+}
+
+.mcp-banner__cta {
+    display: inline-flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 30px;
+    flex-shrink: 0;
+    padding: 18px 24px;
+    border: 1px solid #ffffff;
+    border-radius: 0;
+    background: transparent;
+    color: #ffffff;
+    font-size: .92rem;
+    font-weight: 700;
+    line-height: 1;
+    transition: background-color .1s linear, color .1s linear;
+}
+
+@media (hover: hover) and (pointer: fine) {
+    .mcp-banner__cta:hover {
+        background-color: #ffffff;
+        color: #0d0d0d;
+    }
+}
+
+@media (max-width: 620px) {
+    .mcp-banner {
+        margin-top: 30px;
+        padding: 26px 20px;
+        gap: 24px;
+    }
+
+    .mcp-banner__title {
+        margin: 13px 0 9px;
+    }
+
+    .mcp-banner__cta {
+        width: 100%;
+        gap: 12px;
+        padding: 16px 20px;
+    }
+}
+
 /* 最下部技術スタック */
 .hero-tech-stack {
     display: flex;

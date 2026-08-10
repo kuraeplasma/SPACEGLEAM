@@ -1,22 +1,33 @@
 <!DOCTYPE html>
 <html lang="ja">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Remote MCP Server & AIエージェント連携開発 | SPACE GLEAM</title>
-    <meta name="description" content="SPACE GLEAMのRemote MCP (Model Context Protocol) サーバー仕様、AIエージェント連携技術、利用可能Tools/Resources/Prompts、WebサイトのMCP対応開発相談についてご案内します。">
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-1T9HP3BLMP"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'G-1T9HP3BLMP');
+    </script>
+    <title>Remote MCP Server・AIエージェント連携開発 | SPACE GLEAM</title>
+    <meta name="description" content="SPACE GLEAMは自社サイトでRemote MCP Serverを本番運用しています。公開しているMCPツール5種、Resources / Prompts、無断送信を防ぐセキュリティ設計、AIエージェント対応開発のご相談についてご案内します。">
     <link rel="canonical" href="https://spacegleam.co.jp/mcp/">
-    <meta property="og:title" content="Remote MCP Server & AIエージェント連携開発 | SPACE GLEAM">
-    <meta property="og:description" content="SPACE GLEAMのRemote MCP (Model Context Protocol) サーバー仕様、AIエージェント連携技術、利用可能Tools/Resources/Promptsをご案内します。">
-    <meta property="og:type" content="article">
-    <meta property="og:url" content="https://spacegleam.co.jp/mcp/">
-    <meta property="og:image" content="https://spacegleam.co.jp/images/diffsense-site-hero.webp">
-    <meta name="twitter:card" content="summary_large_image">
-    
+    <link rel="icon" type="image/png" href="../favicon.png">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Noto+Sans+JP:wght@400;500;700;800&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="../style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Noto+Sans+JP:wght@400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../style.css?v=mcp-banner-20260729-v1">
+
+    <meta property="og:title" content="Remote MCP Server・AIエージェント連携開発 | SPACE GLEAM">
+    <meta property="og:description" content="自社サイトで運用中のRemote MCP Serverの仕様と、AIエージェント対応開発のご案内。">
+    <meta property="og:type" content="article">
+    <meta property="og:url" content="https://spacegleam.co.jp/mcp/">
+    <meta property="og:site_name" content="SPACE GLEAM">
+    <meta property="og:image" content="https://spacegleam.co.jp/ogp.png">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:image" content="https://spacegleam.co.jp/ogp.png">
 
     <script type="application/ld+json">
     {
@@ -32,134 +43,418 @@
       }
     }
     </script>
+
     <style>
-        .mcp-container { max-width: 1000px; margin: 0 auto; padding: 40px 20px; }
-        .mcp-card { background: #ffffff; border: 1px solid rgba(0,0,0,0.08); border-radius: 12px; padding: 32px; margin-bottom: 32px; box-shadow: 0 4px 20px rgba(0,0,0,0.02); }
-        .mcp-badge { display: inline-block; background: #e0e7ff; color: #3730a3; font-size: 0.8rem; font-weight: 700; padding: 4px 12px; border-radius: 20px; margin-bottom: 12px; }
-        .mcp-title { font-size: 2rem; font-weight: 800; letter-spacing: -0.03em; margin-bottom: 16px; color: #0f172a; }
-        .mcp-lead { font-size: 1.05rem; line-height: 1.7; color: #475569; margin-bottom: 24px; }
-        .mcp-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 20px; margin: 24px 0; }
-        .mcp-tool-item { border: 1px solid #e2e8f0; border-radius: 8px; padding: 20px; background: #f8fafc; }
-        .mcp-tool-name { font-size: 1.1rem; font-weight: 700; color: #1e293b; margin-bottom: 8px; font-family: monospace; }
-        .mcp-tool-desc { font-size: 0.88rem; color: #64748b; line-height: 1.6; }
-        .mcp-code-box { background: #0f172a; color: #f8fafc; padding: 20px; border-radius: 8px; font-family: monospace; font-size: 0.88rem; overflow-x: auto; margin: 16px 0; line-height: 1.6; }
-        .mcp-cta-box { background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%); color: #ffffff; padding: 40px; border-radius: 16px; text-align: center; margin-top: 40px; }
-        .mcp-cta-title { font-size: 1.6rem; font-weight: 800; margin-bottom: 12px; }
-        .mcp-cta-desc { font-size: 1rem; color: #94a3b8; margin-bottom: 28px; line-height: 1.7; max-width: 680px; margin-left: auto; margin-right: auto; }
-        .mcp-cta-btns { display: flex; gap: 16px; justify-content: center; flex-wrap: wrap; }
-        .mcp-btn-primary { background: #2563eb; color: #ffffff; padding: 14px 28px; border-radius: 8px; font-weight: 700; text-decoration: none; display: inline-block; }
-        .mcp-btn-secondary { background: rgba(255,255,255,0.1); color: #ffffff; border: 1px solid rgba(255,255,255,0.2); padding: 14px 28px; border-radius: 8px; font-weight: 700; text-decoration: none; display: inline-block; }
+        /* ==========================================================
+           MCP ページ — サイト共通の黒白・角なし・罫線基調に統一
+           ========================================================== */
+        .mcp-page { padding: 118px 0 0; background: #ffffff; color: #111111; }
+
+        .mcp-crumb {
+            display: flex; gap: 10px; align-items: center;
+            font-size: .8rem; color: #767676; margin-bottom: 34px;
+        }
+        .mcp-crumb a { color: #767676; }
+        .mcp-crumb a:hover { color: #111111; }
+
+        /* --- ヒーロー --- */
+        .mcp-hero { padding-bottom: 46px; border-bottom: 1px solid #111111; }
+        .mcp-hero__label {
+            display: inline-flex; align-items: center; gap: 9px;
+            font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+            font-size: .72rem; font-weight: 700; letter-spacing: .16em; color: #767676;
+        }
+        .mcp-hero__label::before { content: ""; width: 6px; height: 6px; background: #111111; }
+        .mcp-hero__title {
+            margin: 20px 0 18px;
+            font-size: clamp(1.9rem, 4.2vw, 3rem);
+            font-weight: 800; line-height: 1.32; letter-spacing: -0.02em;
+            text-wrap: balance;
+        }
+        .mcp-hero__lead { margin: 0; max-width: 62ch; font-size: .98rem; line-height: 2; color: #444444; }
+
+        /* --- 仕様テーブル --- */
+        .mcp-specs { margin: 40px 0 0; border: 1px solid #111111; }
+        .mcp-specs__row {
+            display: grid; grid-template-columns: 190px minmax(0, 1fr);
+            border-bottom: 1px solid #e5e5e5;
+        }
+        .mcp-specs__row:last-child { border-bottom: 0; }
+        .mcp-specs__key {
+            padding: 15px 20px; font-size: .78rem; letter-spacing: .1em; color: #767676;
+            font-family: "Helvetica Neue", Helvetica, Arial, sans-serif; font-weight: 700;
+            border-right: 1px solid #e5e5e5;
+        }
+        .mcp-specs__val {
+            padding: 15px 20px; min-width: 0; overflow-x: auto;
+            font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+            font-size: .84rem; color: #111111; white-space: nowrap;
+        }
+        .mcp-specs__val a { color: #111111; text-decoration: underline; text-underline-offset: 3px; }
+
+        /* --- セクション --- */
+        .mcp-section { padding: 62px 0; border-bottom: 1px solid #e5e5e5; }
+        .mcp-section:last-of-type { border-bottom: 0; }
+        .mcp-section__index {
+            font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+            font-size: .74rem; letter-spacing: .1em; color: #8a8a8a; margin-bottom: 12px;
+        }
+        .mcp-section__title { margin: 0 0 14px; font-size: clamp(1.32rem, 2.5vw, 1.75rem); font-weight: 800; letter-spacing: -0.01em; }
+        .mcp-section__intro { margin: 0 0 30px; max-width: 62ch; font-size: .93rem; line-height: 1.95; color: #444444; }
+
+        /* --- ツール一覧 --- */
+        .mcp-tools { display: grid; grid-template-columns: repeat(auto-fill, minmax(288px, 1fr)); gap: 0; border: 1px solid #111111; }
+        .mcp-tool { padding: 26px 24px; border-right: 1px solid #e5e5e5; border-bottom: 1px solid #e5e5e5; }
+        .mcp-tool__name {
+            font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+            font-size: .95rem; font-weight: 700; color: #111111; margin-bottom: 10px;
+        }
+        .mcp-tool__desc { font-size: .87rem; line-height: 1.8; color: #555555; }
+
+        /* --- 定義リスト --- */
+        .mcp-deflist { display: grid; gap: 0; margin: 0; }
+        .mcp-deflist > div { display: grid; grid-template-columns: 150px minmax(0, 1fr); gap: 18px; padding: 15px 0; border-bottom: 1px solid #e5e5e5; }
+        .mcp-deflist > div:last-child { border-bottom: 0; }
+        .mcp-deflist dt { font-size: .84rem; font-weight: 700; color: #111111; }
+        .mcp-deflist dd { margin: 0; font-size: .87rem; line-height: 1.9; color: #444444; }
+        .mcp-deflist code, .mcp-inline-code {
+            font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+            font-size: .84em; background: #f4f4f2; border: 1px solid #e5e5e5; padding: 2px 6px;
+        }
+
+        /* --- 手順 --- */
+        .mcp-steps { display: grid; gap: 0; border: 1px solid #111111; }
+        .mcp-step { display: grid; grid-template-columns: auto minmax(0, 1fr); gap: 24px; padding: 30px 28px; border-bottom: 1px solid #e5e5e5; }
+        .mcp-step:last-child { border-bottom: 0; }
+        .mcp-step__num {
+            font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+            font-size: 1.75rem; font-weight: 400; line-height: 1; color: #111111; letter-spacing: -0.02em;
+        }
+        .mcp-step__body { min-width: 0; }
+        .mcp-step__title { margin: 2px 0 10px; font-size: 1.05rem; font-weight: 800; letter-spacing: -0.01em; }
+        .mcp-step__desc { margin: 0; font-size: .89rem; line-height: 1.9; color: #444444; }
+
+        /* --- コードブロック --- */
+        .mcp-code {
+            margin: 16px 0 0; padding: 18px 20px; background: #0d0d0d; color: #f2f2f2;
+            font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+            font-size: .8rem; line-height: 1.75; overflow-x: auto; white-space: pre;
+        }
+        .mcp-code__label {
+            display: block; margin: 18px 0 0;
+            font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+            font-size: .7rem; font-weight: 700; letter-spacing: .12em; color: #8a8a8a;
+        }
+        .mcp-code__label + .mcp-code { margin-top: 8px; }
+
+        /* --- 質問例 --- */
+        .mcp-asks { list-style: none; margin: 0; padding: 0; display: grid; gap: 12px; }
+        .mcp-asks li {
+            position: relative; padding: 14px 18px 14px 40px;
+            border: 1px solid #e5e5e5; font-size: .9rem; line-height: 1.75; color: #222222;
+        }
+        .mcp-asks li::before {
+            content: "";
+            position: absolute; left: 18px; top: 1.45em;
+            width: 9px; height: 9px; background: #111111;
+        }
+
+        /* --- 注意書き --- */
+        .mcp-note { border-left: 3px solid #111111; padding: 4px 0 4px 20px; margin-top: 26px; }
+        .mcp-note p { margin: 0; font-size: .89rem; line-height: 1.95; color: #444444; }
+
+        /* --- CTA --- */
+        .mcp-cta { margin: 66px 0 88px; padding: 44px 40px; background: #0d0d0d; color: #ffffff; }
+        .mcp-cta__title { margin: 0 0 14px; font-size: clamp(1.25rem, 2.6vw, 1.6rem); font-weight: 800; line-height: 1.5; letter-spacing: -0.01em; }
+        .mcp-cta__desc { margin: 0 0 30px; max-width: 64ch; font-size: .92rem; line-height: 1.95; color: rgba(255,255,255,.68); }
+        .mcp-cta__btns { display: flex; flex-wrap: wrap; gap: 14px; }
+        .mcp-cta__btn {
+            display: inline-flex; align-items: center; justify-content: space-between; gap: 28px;
+            min-width: 250px; padding: 18px 24px; border: 1px solid #ffffff; border-radius: 0;
+            font-size: .92rem; font-weight: 700; line-height: 1;
+            transition: background-color .1s linear, color .1s linear;
+        }
+        .mcp-cta__btn--solid { background: #ffffff; color: #0d0d0d; }
+        .mcp-cta__btn--ghost { background: transparent; color: #ffffff; }
+        @media (hover: hover) and (pointer: fine) {
+            .mcp-cta__btn--solid:hover { background: transparent; color: #ffffff; }
+            .mcp-cta__btn--ghost:hover { background: #ffffff; color: #0d0d0d; }
+        }
+
+        @media (max-width: 760px) {
+            .mcp-page { padding-top: 92px; }
+            .mcp-specs__row { grid-template-columns: minmax(0, 1fr); }
+            .mcp-specs__key { border-right: 0; border-bottom: 1px solid #f0f0f0; padding-bottom: 6px; }
+            .mcp-specs__val { padding-top: 8px; }
+            .mcp-tools { grid-template-columns: minmax(0, 1fr); }
+            .mcp-deflist > div { grid-template-columns: minmax(0, 1fr); gap: 4px; }
+            .mcp-section { padding: 44px 0; }
+            .mcp-cta { padding: 32px 22px; margin: 46px 0 64px; }
+            .mcp-cta__btn { width: 100%; min-width: 0; gap: 12px; }
+        }
     </style>
 </head>
-<body>
+
+<body class="light-theme company-page-body">
     <header class="header">
-        <div class="container header-container">
-            <a href="../" class="logo" aria-label="SPACE GLEAM トップページへ戻る">
-                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <path d="M12 2L2 7L12 12L22 7L12 2Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                    <path d="M2 17L12 22L22 17" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                    <path d="M2 12L12 17L22 12" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                </svg>
-                <span>SPACE GLEAM</span>
+        <div class="container header-inner">
+            <a href="../index.html" class="brand" aria-label="SPACE GLEAM ホーム">
+                <span class="brand-name">SPACE GLEAM</span>
             </a>
-            <nav class="nav">
-                <a href="../services.html">サービス</a>
+
+            <button class="nav-toggle" type="button" aria-label="メニューを開く" aria-controls="global-nav" aria-expanded="false">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+
+            <nav id="global-nav" class="nav" aria-label="グローバルナビゲーション">
+                <a href="../services.html">AI業務システム開発</a>
                 <a href="../pricing.html">料金</a>
                 <a href="../works.html">実績</a>
                 <a href="../faq.html">FAQ</a>
                 <a href="../blog/">Blog</a>
             </nav>
+
             <div class="header-ctas">
                 <a href="../contact.html" class="header-cta">AI開発について無料で相談する<span class="arrow">→</span></a>
             </div>
         </div>
     </header>
 
-    <main class="mcp-container">
-        <article>
-            <div class="mcp-card">
-                <span class="mcp-badge">Remote MCP Server Live Specification</span>
-                <h1 class="mcp-title">SPACE GLEAM Remote MCP Server</h1>
-                <p class="mcp-lead">
-                    SPACE GLEAM株式会社では、自社コーポレートサイトにおいて **Remote MCP (Model Context Protocol) Server** を本番実装・運用しています。
-                    外部のAIエージェント（ChatGPT, Claude, Cursor等）から、弊社のサービス検索、AI開発無料診断、相談要件整理を直接実行することが可能です。
-                </p>
+    <main class="mcp-page">
+        <div class="container">
+            <nav class="mcp-crumb" aria-label="パンくず">
+                <a href="../index.html">ホーム</a><span>/</span><span>Remote MCP Server</span>
+            </nav>
 
-                <div class="mcp-code-box">
-Endpoint:  https://spacegleam.co.jp/api/mcp
-Transport: Streamable HTTP (HTTP POST / GET with JSON-RPC 2.0)
-Protocol:  2025-03-26
-OpenAPI:   https://spacegleam.co.jp/openapi.json
-llms.txt:  https://spacegleam.co.jp/llms.txt
+            <article>
+                <header class="mcp-hero">
+                    <span class="mcp-hero__label">REMOTE MCP SERVER 運用中</span>
+                    <h1 class="mcp-hero__title">AIエージェントから、<br>そのまま使えるWebサイトへ。</h1>
+                    <p class="mcp-hero__lead">SPACE GLEAM株式会社は、自社コーポレートサイトで Remote MCP（Model Context Protocol）Server を本番実装・運用しています。ChatGPT・Claude・Cursor などの外部AIエージェントから、サービス検索・AI開発診断・相談要件の整理を直接実行できます。</p>
+
+                    <div class="mcp-specs">
+                        <div class="mcp-specs__row">
+                            <div class="mcp-specs__key">ENDPOINT</div>
+                            <div class="mcp-specs__val">https://spacegleam.co.jp/api/mcp</div>
+                        </div>
+                        <div class="mcp-specs__row">
+                            <div class="mcp-specs__key">TRANSPORT</div>
+                            <div class="mcp-specs__val">Streamable HTTP（JSON-RPC 2.0 / POST・GET）</div>
+                        </div>
+                        <div class="mcp-specs__row">
+                            <div class="mcp-specs__key">PROTOCOL</div>
+                            <div class="mcp-specs__val">2025-03-26</div>
+                        </div>
+                        <div class="mcp-specs__row">
+                            <div class="mcp-specs__key">OPENAPI</div>
+                            <div class="mcp-specs__val"><a href="https://spacegleam.co.jp/openapi.json">https://spacegleam.co.jp/openapi.json</a></div>
+                        </div>
+                        <div class="mcp-specs__row">
+                            <div class="mcp-specs__key">LLMS.TXT</div>
+                            <div class="mcp-specs__val"><a href="https://spacegleam.co.jp/llms.txt">https://spacegleam.co.jp/llms.txt</a></div>
+                        </div>
+                    </div>
+                </header>
+
+                <section class="mcp-section">
+                    <p class="mcp-section__index">HOW TO USE</p>
+                    <h2 class="mcp-section__title">使い方</h2>
+                    <p class="mcp-section__intro">お使いのAIクライアントに接続先を登録するだけで利用できます。アカウント登録や認証キーは不要です。</p>
+
+                    <div class="mcp-steps">
+                        <div class="mcp-step">
+                            <span class="mcp-step__num" aria-hidden="true">01</span>
+                            <div class="mcp-step__body">
+                                <h3 class="mcp-step__title">クライアントに接続先を登録する</h3>
+                                <p class="mcp-step__desc">Claude や Cursor など、リモートMCP（Streamable HTTP）に対応したクライアントでは、設定ファイルに次の1件を追加します。</p>
+                                <div class="mcp-code">{
+  "mcpServers": {
+    "spacegleam": {
+      "url": "https://spacegleam.co.jp/api/mcp"
+    }
+  }
+}</div>
+                                <span class="mcp-code__label">リモート接続に未対応のクライアントの場合</span>
+                                <div class="mcp-code">{
+  "mcpServers": {
+    "spacegleam": {
+      "command": "npx",
+      "args": ["-y", "mcp-remote", "https://spacegleam.co.jp/api/mcp"]
+    }
+  }
+}</div>
+                            </div>
+                        </div>
+
+                        <div class="mcp-step">
+                            <span class="mcp-step__num" aria-hidden="true">02</span>
+                            <div class="mcp-step__body">
+                                <h3 class="mcp-step__title">つながっているか確かめる</h3>
+                                <p class="mcp-step__desc">クライアントを使わずに、コマンドラインから直接確認することもできます。サーバー情報が返れば接続できています。</p>
+                                <div class="mcp-code">curl -X POST https://spacegleam.co.jp/api/mcp \
+  -H "Content-Type: application/json" \
+  -d '{"jsonrpc":"2.0","id":1,"method":"tools/list"}'</div>
+                            </div>
+                        </div>
+
+                        <div class="mcp-step">
+                            <span class="mcp-step__num" aria-hidden="true">03</span>
+                            <div class="mcp-step__body">
+                                <h3 class="mcp-step__title">そのまま話しかける</h3>
+                                <p class="mcp-step__desc">接続後は、AIが文脈に応じてツールを呼び出します。特別なコマンドを覚える必要はありません。</p>
+                                <ul class="mcp-asks">
+                                    <li>SPACE GLEAMに業務自動化を頼むと、費用と期間はどれくらい？</li>
+                                    <li>予算100万円で社内の問い合わせ対応をAI化したい。診断して。</li>
+                                    <li>ここまでの相談内容を、依頼用の要件メモにまとめて。</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="mcp-note">
+                        <p>02 のコマンドは、このページの公開時点で実際に応答することを確認しています。接続できない場合は、クライアントがリモートMCP（Streamable HTTP）に対応しているかをご確認ください。</p>
+                    </div>
+                </section>
+
+                <section class="mcp-section">
+                    <p class="mcp-section__index">TOOLS</p>
+                    <h2 class="mcp-section__title">公開しているMCPツール</h2>
+                    <p class="mcp-section__intro">AIエージェントが会話の文脈に応じて呼び出せる5つのツールを公開しています。</p>
+
+                    <div class="mcp-tools">
+                        <div class="mcp-tool">
+                            <div class="mcp-tool__name">search_services</div>
+                            <p class="mcp-tool__desc">AI開発・SaaS開発・業務自動化・MCP開発などから、相談内容に近い領域を検索します。</p>
+                        </div>
+                        <div class="mcp-tool">
+                            <div class="mcp-tool__name">run_diagnosis</div>
+                            <p class="mcp-tool__desc">事業課題や予算をもとに、概算費用・推奨プラン・開発期間・想定リスクを診断します。</p>
+                        </div>
+                        <div class="mcp-tool">
+                            <div class="mcp-tool__name">generate_project_brief</div>
+                            <p class="mcp-tool__desc">会話の内容から、相談用の構造化されたプロジェクト概要メモを生成します。</p>
+                        </div>
+                        <div class="mcp-tool">
+                            <div class="mcp-tool__name">create_lead</div>
+                            <p class="mcp-tool__desc">利用者の明示的な同意を確認したうえで、問い合わせを送信します。</p>
+                        </div>
+                        <div class="mcp-tool">
+                            <div class="mcp-tool__name">get_company_profile</div>
+                            <p class="mcp-tool__desc">会社概要、強み、対応領域、コンプライアンス情報を取得します。</p>
+                        </div>
+                    </div>
+                </section>
+
+                <section class="mcp-section">
+                    <p class="mcp-section__index">RESOURCES &amp; PROMPTS</p>
+                    <h2 class="mcp-section__title">標準仕様への対応</h2>
+                    <p class="mcp-section__intro">MCPの標準リソースおよびプロンプトテンプレートにも対応しています。</p>
+
+                    <dl class="mcp-deflist">
+                        <div>
+                            <dt>Resources</dt>
+                            <dd><code>spacegleam://company</code>　<code>spacegleam://services</code>　<code>spacegleam://case-studies</code></dd>
+                        </div>
+                        <div>
+                            <dt>Prompts</dt>
+                            <dd><code>ai-development-diagnosis</code>　<code>ai-project-brief</code></dd>
+                        </div>
+                    </dl>
+                </section>
+
+                <section class="mcp-section">
+                    <p class="mcp-section__index">SECURITY</p>
+                    <h2 class="mcp-section__title">無断送信を防ぐ設計</h2>
+                    <p class="mcp-section__intro">閲覧・診断系のツール（読み取り操作）は公開されており、自由にお試しいただけます。一方、送信をともなう操作には制限を設けています。</p>
+
+                    <dl class="mcp-deflist">
+                        <div>
+                            <dt>同意の確認</dt>
+                            <dd>問い合わせ送信ツール <code>create_lead</code> は、利用者の明示的な同意（<code>consentConfirmed: true</code>）がなければ実行されません。</dd>
+                        </div>
+                        <div>
+                            <dt>入力値の検証</dt>
+                            <dd>送信前に厳格なバリデーションを行います。</dd>
+                        </div>
+                        <div>
+                            <dt>レート制限</dt>
+                            <dd>IP単位のレート制限を適用しています。</dd>
+                        </div>
+                    </dl>
+
+                    <div class="mcp-note">
+                        <p>診断を実行しただけでメールが届くことはありません。送信は、利用者が明示的に同意した場合にのみ行われます。</p>
+                    </div>
+                </section>
+
+                <div class="mcp-cta">
+                    <h2 class="mcp-cta__title">自社サービスやWebサイトを、<br>AIエージェント対応にしたい企業様へ</h2>
+                    <p class="mcp-cta__desc">自社サイトで運用しているRemote MCP Serverの構築、OpenAPI設計、llms.txtの整備で得た知見をもとに、お客様のプロダクトやWebサービスのAI対応・MCP連携開発をご支援します。</p>
+                    <div class="mcp-cta__btns">
+                        <a href="../contact.html" class="mcp-cta__btn mcp-cta__btn--solid">MCP開発について相談する<span class="arrow" aria-hidden="true">→</span></a>
+                        <a href="../index.html" class="mcp-cta__btn mcp-cta__btn--ghost">無料のAI開発診断を受ける<span class="arrow" aria-hidden="true">→</span></a>
+                    </div>
                 </div>
-            </div>
-
-            <div class="mcp-card">
-                <h2 style="font-size: 1.4rem; font-weight: 700; margin-bottom: 16px;">公開 MCP Tools (5領域)</h2>
-                <p style="font-size: 0.95rem; color: #475569; margin-bottom: 20px;">
-                    AIエージェントがユーザーの文脈に応じて呼び出せる5つのツールを公開しています。
-                </p>
-                <div class="mcp-grid">
-                    <div class="mcp-tool-item">
-                        <div class="mcp-tool-name">search_services</div>
-                        <div class="mcp-tool-desc">AI開発、SaaS開発、業務自動化、MCP開発などから最適領域を検索。</div>
-                    </div>
-                    <div class="mcp-tool-item">
-                        <div class="mcp-tool-name">run_diagnosis</div>
-                        <div class="mcp-tool-desc">事業課題や予算から概算費用・推奨プラン・開発期間・リスクを診断。</div>
-                    </div>
-                    <div class="mcp-tool-item">
-                        <div class="mcp-tool-name">generate_project_brief</div>
-                        <div class="mcp-tool-desc">会話内容から相談用の構造化プロジェクト概要メモ（Brief）を生成。</div>
-                    </div>
-                    <div class="mcp-tool-item">
-                        <div class="mcp-tool-name">create_lead</div>
-                        <div class="mcp-tool-desc">ユーザー明示的同意（consentConfirmed: true）後に問い合わせを送信。</div>
-                    </div>
-                    <div class="mcp-tool-item">
-                        <div class="mcp-tool-name">get_company_profile</div>
-                        <div class="mcp-tool-desc">会社概要、強み、対応領域、コンプライアンス情報を取得。</div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="mcp-card">
-                <h2 style="font-size: 1.4rem; font-weight: 700; margin-bottom: 16px;">Resources & Prompts</h2>
-                <p style="font-size: 0.95rem; color: #475569; margin-bottom: 16px;">
-                    標準MCPリソースおよびプロンプトテンプレートにも対応しています。
-                </p>
-                <ul style="line-height: 1.8; color: #334155; font-size: 0.95rem; padding-left: 20px;">
-                    <li><strong>Resources</strong>: <code>spacegleam://company</code>, <code>spacegleam://services</code>, <code>spacegleam://case-studies</code></li>
-                    <li><strong>Prompts</strong>: <code>ai-development-diagnosis</code>, <code>ai-project-brief</code></li>
-                </ul>
-            </div>
-
-            <div class="mcp-card">
-                <h2 style="font-size: 1.4rem; font-weight: 700; margin-bottom: 16px;">セキュリティと無断送信防止規定</h2>
-                <p style="font-size: 0.95rem; color: #475569; line-height: 1.7;">
-                    閲覧・診断系ツール（READ操作）はパブリック公開されており自由にお試しいただけます。
-                    一方、問い合わせ送信ツール（<code>create_lead</code>）は、AIによる無断送信を防止するため、**ユーザーの明示的な確認同意 (`consentConfirmed: true`)**、厳格な入力値バリデーション、および IP レート制限が強制されます。診断の実行のみでメールが届くことはありません。
-                </p>
-            </div>
-
-            <!-- Business Lead Conversion Section -->
-            <div class="mcp-cta-box">
-                <h2 class="mcp-cta-title">自社サービスやWebサイトをAIエージェント対応させたい企業様へ</h2>
-                <p class="mcp-cta-desc">
-                    SPACE GLEAMでは、自社サイトで運用中の Remote MCP Server 構築技術・OpenAPI設計・llms.txt 最適化のノウハウを活かし、お客様のプロダクトやWebサービスの「AI対応・MCP連携開発」をサポートしております。
-                </p>
-                <div class="mcp-cta-btns">
-                    <a href="../contact.html" class="mcp-btn-primary">MCP開発・AI連携について相談する →</a>
-                    <a href="../index.html#diagnosis" class="mcp-btn-secondary">無料AI開発診断を受ける →</a>
-                </div>
-            </div>
-        </article>
+            </article>
+        </div>
     </main>
 
     <footer class="footer">
         <div class="container footer-top">
-            <p>&copy; 2026 SPACE GLEAM All Rights Reserved.</p>
+            <div class="footer-brand-col">
+                <a href="../index.html" class="footer-logo">SPACE GLEAM</a>
+                <div class="footer-logo-line"></div>
+                <p class="footer-tagline">アイデアを、<br class="pc-only">最短距離で事業にする。</p>
+            </div>
+
+            <div class="footer-nav-grid">
+                <div class="footer-nav-col">
+                    <h4><a href="../services.html">SERVICE</a></h4>
+                    <ul>
+                        <li><a href="../services.html">AI MVP開発</a></li>
+                        <li><a href="../services.html">業務システム開発</a></li>
+                        <li><a href="../services.html">AI導入支援</a></li>
+                    </ul>
+                </div>
+                <div class="footer-nav-col">
+                    <h4><a href="../works.html">WORKS</a></h4>
+                    <ul>
+                        <li><a href="../works.html">開発事例</a></li>
+                        <li><a href="../pricing.html">料金</a></li>
+                        <li><a href="../faq.html">よくある質問</a></li>
+                    </ul>
+                </div>
+                <div class="footer-nav-col">
+                    <h4><a href="../blog/">BLOG</a></h4>
+                    <ul>
+                        <li><a href="../blog/">ブログ記事一覧</a></li>
+                        <li><a href="../blog/free-ai-development-diagnosis/">AI開発無料診断</a></li>
+                    </ul>
+                </div>
+                <div class="footer-nav-col">
+                    <h4><a href="../company.html">COMPANY</a></h4>
+                    <ul>
+                        <li><a href="../company.html">会社概要</a></li>
+                        <li><a href="../contact.html">お問い合わせ</a></li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="footer-vertical-line"></div>
+
+            <div class="footer-cta-col">
+                <a href="../contact.html" class="works-cta-btn-v2">AI開発について無料で相談する <span>→</span></a>
+            </div>
+        </div>
+        <div class="footer-horizontal-line"></div>
+        <div class="container footer-bottom">
+            <p class="copyright">&copy; 2026 SPACE GLEAM. All rights reserved.</p>
         </div>
     </footer>
+
+    <script src="../script.js?v=mcp-banner-20260729-v1"></script>
 </body>
+
 </html>
