@@ -143,6 +143,19 @@ document.addEventListener('DOMContentLoaded', () => {
 
     document.querySelectorAll('.reveal').forEach((element) => observer.observe(element));
 
+    // --- Partner Page Specific GA4 Logic ---
+    const isPartnerPage = window.location.pathname.endsWith('/partner') || window.location.pathname.endsWith('/partner.html');
+    if (isPartnerPage) {
+        trackGaEvent('partner_page_view');
+    }
+
+    document.querySelectorAll('[data-partner-model]').forEach((button) => {
+        button.addEventListener('click', () => {
+            const model = button.getAttribute('data-partner-model');
+            trackGaEvent('partner_cta_click', { partner_model: model || '' });
+        });
+    });
+
     if (contactForm) {
         let formViewTracked = false;
         const trackFormView = () => {
