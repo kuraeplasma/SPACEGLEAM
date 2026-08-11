@@ -82,6 +82,7 @@ exports.handler = async (event) => {
         const bookingUrl = clean(body.bookingUrl, 500);
         const referrer = clean(body.referrer, 120);
         const source = clean(body.source || 'spacegleam-corp', 80);
+        const entryPoint = clean(body.entryPoint || '通常お問い合わせページ', 160);
         const recaptchaToken = clean(body.recaptchaToken, 1200);
 
         const errors = {};
@@ -112,9 +113,10 @@ exports.handler = async (event) => {
             `件名: ${subject}`,
             `予算感: ${budget || '未選択'}`,
             `希望納期: ${deadline || '未選択'}`,
-            `商談予約: ${meeting || '未選択'}${bookingUrl ? ` (日程調整URL: ${bookingUrl})` : ''}`,
+            ...(meeting ? [`商談予約: ${meeting}${bookingUrl ? ` (日程調整URL: ${bookingUrl})` : ''}`] : []),
             `認知経路: ${referrer || '未選択'}`,
-            `送信元: ${source}`,
+            `流入CTA: ${entryPoint}`,
+            `送信元識別子: ${source}`,
             '',
             '相談内容:',
             message || '未入力'
@@ -133,8 +135,9 @@ exports.handler = async (event) => {
 <p><strong>件名:</strong> ${escapeHtml(subject)}</p>
 <p><strong>予算感:</strong> ${escapeHtml(budget || '未選択')}</p>
 <p><strong>希望納期:</strong> ${escapeHtml(deadline || '未選択')}</p>
-<p><strong>商談予約:</strong> ${escapeHtml(meeting || '未選択')}${bookingUrl ? ` (<a href="${escapeHtml(bookingUrl)}" target="_blank" style="color: #4f6df5; font-weight: bold;">日程調整カレンダー</a>)` : ''}</p>
+${meeting ? `<p><strong>商談予約:</strong> ${escapeHtml(meeting)}${bookingUrl ? ` (<a href="${escapeHtml(bookingUrl)}" target="_blank" style="color: #4f6df5; font-weight: bold;">日程調整カレンダー</a>)` : ''}</p>` : ''}
 <p><strong>認知経路:</strong> ${escapeHtml(referrer || '未選択')}</p>
+<p><strong>流入CTA:</strong> ${escapeHtml(entryPoint)}</p>
 <div style="margin-top:22px;padding:18px;border-radius:12px;background:#f8fbff;border:1px solid #e1ebf8;white-space:pre-wrap;line-height:1.8;">${escapeHtml(message || '未入力')}</div>
 </td></tr></table></td></tr></table></body></html>`;
 

@@ -82,6 +82,22 @@ document.addEventListener('DOMContentLoaded', () => {
 
     const urlParams = new URLSearchParams(window.location.search);
     const isBookingPolish = urlParams.get('v') === 'booking-polish';
+    const isPartnerInquiry = urlParams.get('from') === 'partner';
+    const partnerCtaLabels = {
+        header: 'ヘッダー「パートナー相談をする」',
+        hero: 'ファーストビュー「パートナー制度について相談する」',
+        'referral-model': '紹介パートナー案内',
+        'development-model': '開発パートナー案内',
+        'case-studies': '相談事例セクション',
+        process: '連携開始までの流れ',
+        final: 'ページ下部の相談CTA',
+        'mobile-fixed': 'スマホ固定CTA',
+        footer: 'フッターCTA'
+    };
+    const partnerCta = String(urlParams.get('cta') || '').trim();
+    const entryPoint = isPartnerInquiry
+        ? `パートナーページ / ${partnerCtaLabels[partnerCta] || '相談CTA'}`
+        : '通常お問い合わせページ';
 
     if (isBookingPolish && contactMethodGroup) {
         contactMethodGroup.style.display = 'grid';
@@ -222,8 +238,8 @@ document.addEventListener('DOMContentLoaded', () => {
                 company: String(formData.get('company') || '').trim(),
                 name: String(formData.get('name') || '').trim(),
                 email: String(formData.get('email') || '').trim(),
-                category: 'AI活用案・概算費用相談',
-                subject: 'SPACE GLEAM AI活用案・概算費用相談',
+                category: isPartnerInquiry ? 'AI開発パートナー制度の相談' : 'AI活用案・概算費用相談',
+                subject: isPartnerInquiry ? 'SPACE GLEAM パートナー制度の相談' : 'SPACE GLEAM AI活用案・概算費用相談',
                 message: [
                     message,
                     '',
@@ -233,12 +249,15 @@ document.addEventListener('DOMContentLoaded', () => {
                 ].join('\n'),
                 budget,
                 deadline,
-                meeting: isBookingPolish && meetingPref === 'schedule' ? '日程調整をする' : 'フォームのみで相談',
+                meeting: isBookingPolish
+                    ? (meetingPref === 'schedule' ? '日程調整をする' : 'フォームのみで相談')
+                    : '',
                 bookingUrl: isBookingPolish && meetingPref === 'schedule' ? bookingUrl : '',
                 referrer,
                 website: String(formData.get('website') || '').trim(),
                 recaptchaToken: String(formData.get('recaptcha-token') || '').trim(),
-                source: 'spacegleam-corp'
+                source: isPartnerInquiry ? 'partner-page' : 'spacegleam-corp',
+                entryPoint
             };
 
             if (!payload.company || !payload.name || !payload.email || !payload.message) {
