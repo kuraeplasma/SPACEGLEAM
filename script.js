@@ -310,7 +310,10 @@ document.addEventListener('DOMContentLoaded', () => {
                 }
 
                 formSuccess.hidden = false;
-                formSuccess.focus();
+                formSuccess.focus({ preventScroll: true });
+                window.requestAnimationFrame(() => {
+                    formSuccess.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                });
             } catch (_) {
                 trackGaEvent('contact_form_error', {
                     form_id: 'ai_mvp_contact',

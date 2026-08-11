@@ -17,7 +17,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Noto+Sans+JP:wght@400;500;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="style.css?v=mobile-nav-fix-20260804-v10">
+    <link rel="stylesheet" href="style.css?v=contact-success-20260812-v1">
     <link rel="stylesheet" href="home-diagnosis.css">
     <link rel="icon" type="image/png" href="favicon.png">
     <link rel="canonical" href="https://spacegleam.co.jp/contact">
@@ -151,9 +151,12 @@
                         <button class="btn btn-primary form-submit" type="submit">送信する</button>
                         <p class="form-note">送信いただいた内容をもとに、1〜2営業日以内にご連絡します。</p>
                     </form>
-                    <div class="form-success" tabindex="-1" hidden>
-                        <h3>お問い合わせありがとうございます</h3>
-                        <p>内容を確認し、通常1〜2営業日以内にご連絡します。</p>
+                    <div class="form-success" tabindex="-1" role="status" aria-live="polite" hidden>
+                        <div class="form-success__icon" aria-hidden="true">✓</div>
+                        <h3>送信が完了しました</h3>
+                        <p class="form-success__thanks">お問い合わせありがとうございました。</p>
+                        <p>内容を確認し、通常1〜2営業日以内に担当者からご連絡します。</p>
+                        <a href="index.html" class="form-success__link">トップページへ戻る</a>
                     </div>
                 </div>
             </div>
@@ -243,7 +246,7 @@
         window.SPACEGLEAM_RECAPTCHA_SITE_KEY = '';
         window.SPACEGLEAM_BOOKING_URL = 'https://calendar.google.com/calendar/appointments/schedules/AcZssZ1w2wZgoCu0AzkJ8ZLLZQsYNjIX2bReoBaR5ZI9ibFR9JCUXhPROO8wRSQL9aYq1PXIxyFSpnHP';
     </script>
-    <script src="script.js?v=diag-pause-background-20260604-v2"></script>
+    <script src="script.js?v=contact-success-20260812-v1"></script>
 </body>
 
 </html>
