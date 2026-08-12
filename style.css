@@ -1514,6 +1514,17 @@ select {
 
 .footer .works-cta-btn-v2 {
     color: #ffffff;
+    max-width: 100%;
+    box-sizing: border-box;
+    flex-wrap: nowrap;
+    white-space: nowrap;
+    gap: 8px;
+    padding-inline: 16px;
+    font-size: clamp(0.75rem, 0.85vw, 0.84rem);
+}
+
+.footer .works-cta-btn-v2 svg {
+    flex: 0 0 auto;
 }
 
 
@@ -13811,125 +13822,128 @@ body.blog-page-body .footer {
 
 /* Partner page final CTA */
 .partner-final-cta {
-    padding: 96px 0 88px;
-    background: #080d18;
-    border-top: 1px solid rgba(255, 255, 255, 0.08);
-    border-bottom: 1px solid rgba(255, 255, 255, 0.12);
-    color: #ffffff;
+    padding: 88px 0;
+    background: #f2f0eb;
+    border-top: 1px solid #dedbd4;
+    color: #171717;
 }
 
 .partner-final-cta__inner {
-    max-width: 820px;
-    text-align: center;
+    display: grid;
+    grid-template-columns: minmax(0, 1.35fr) minmax(300px, 0.65fr);
+    align-items: end;
+    gap: clamp(52px, 8vw, 112px);
+    max-width: 1160px;
+    text-align: left;
 }
 
 .partner-final-cta__eyebrow {
-    margin: 0 0 18px;
-    color: #6ea8ff;
-    font-family: 'Inter', sans-serif;
-    font-size: 0.74rem;
-    font-weight: 800;
-    letter-spacing: 0.12em;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin: 0 0 20px;
+    color: #55606f;
+    font-size: 0.78rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+}
+
+.partner-final-cta__eyebrow::before {
+    width: 28px;
+    height: 1px;
+    background: #6f7b89;
+    content: "";
 }
 
 .partner-final-cta h2 {
     margin: 0;
-    color: #ffffff;
-    font-size: clamp(2rem, 4.5vw, 3.4rem);
-    font-weight: 800;
-    letter-spacing: -0.04em;
-    line-height: 1.28;
+    color: #171717;
+    font-size: clamp(2rem, 3.5vw, 3.15rem);
+    font-weight: 700;
+    letter-spacing: -0.035em;
+    line-height: 1.32;
 }
 
 .partner-final-cta__lead {
-    max-width: 620px;
-    margin: 22px auto 0;
-    color: rgba(255, 255, 255, 0.68);
-    font-size: 0.96rem;
-    line-height: 1.8;
+    max-width: 640px;
+    margin: 24px 0 0;
+    color: #5d5d5a;
+    font-size: 0.95rem;
+    line-height: 1.9;
+}
+
+.partner-final-cta__action {
+    min-width: 0;
+    padding-left: clamp(32px, 4vw, 52px);
+    border-left: 1px solid #cfcbc3;
 }
 
 .partner-final-cta__button {
-    display: inline-flex;
+    display: flex;
+    box-sizing: border-box;
     align-items: center;
-    justify-content: center;
-    gap: 14px;
-    min-width: 310px;
-    margin-top: 34px;
-    padding: 17px 24px;
-    border: 1px solid #ffffff;
-    border-radius: 3px;
-    background: #ffffff;
-    color: #0f172a;
-    font-size: 0.94rem;
-    font-weight: 800;
+    justify-content: space-between;
+    flex-wrap: nowrap;
+    gap: 10px;
+    width: 100%;
+    min-height: 60px;
+    padding: 17px 14px;
+    border: 1px solid #171717;
+    border-radius: 2px;
+    background: #171717;
+    color: #ffffff;
+    font-size: clamp(0.75rem, 1.8vw, 0.9rem);
+    font-weight: 700;
+    white-space: nowrap;
     text-decoration: none;
+    transition: background-color 0.2s ease, color 0.2s ease;
+}
+
+.partner-final-cta__button span {
+    flex: 0 0 auto;
 }
 
 .partner-final-cta__button:hover {
-    background: transparent;
-    color: #ffffff;
+    background: #ffffff;
+    color: #171717;
 }
 
-.partner-final-cta__notes {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-wrap: wrap;
-    gap: 0;
-    list-style: none;
-    margin: 24px 0 0;
-    padding: 0;
+.partner-final-cta__note {
+    margin: 14px 0 0;
+    color: #6c6b67;
+    font-size: clamp(0.65rem, 2.5vw, 0.74rem);
+    line-height: 1.7;
+    white-space: nowrap;
 }
 
-.partner-final-cta__notes li {
-    color: rgba(255, 255, 255, 0.52);
-    font-size: 0.72rem;
-    font-weight: 600;
-}
-
-.partner-final-cta__notes li + li::before {
-    content: "/";
-    margin: 0 12px;
-    color: rgba(255, 255, 255, 0.24);
-}
-
-@media (max-width: 600px) {
+@media (max-width: 760px) {
     .partner-final-cta {
-        padding: 72px 0 68px;
+        padding: 68px 0 64px;
+    }
+
+    .partner-final-cta__inner {
+        grid-template-columns: 1fr;
+        gap: 34px;
     }
 
     .partner-final-cta h2 {
-        font-size: 2rem;
+        font-size: clamp(1.85rem, 8.5vw, 2.35rem);
     }
 
     .partner-final-cta__lead {
         font-size: 0.9rem;
+        line-height: 1.8;
+    }
+
+    .partner-final-cta__action {
+        padding: 28px 0 0;
+        border-top: 1px solid #cfcbc3;
+        border-left: 0;
     }
 
     .partner-final-cta__button {
-        width: 100%;
         min-width: 0;
-        padding-right: 18px;
-        padding-left: 18px;
-        font-size: 0.88rem;
     }
-
-    .partner-final-cta__notes {
-        align-items: flex-start;
-        flex-direction: column;
-        gap: 7px;
-        width: fit-content;
-        margin-right: auto;
-        margin-left: auto;
-        text-align: left;
-    }
-
-    .partner-final-cta__notes li + li::before {
-        content: none;
-    }
-
-    .partner-final-cta__notes li::before { content: none; }
 }
 
 /* Contact Panel Upgrades */
