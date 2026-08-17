@@ -49,7 +49,7 @@ for (const [file, content] of [
   ['index.html', indexHtml],
   ['works.html', worksHtml],
 ]) {
-  assertIncludes(file, content, 'works-ui-restore-20260629-v1', 'current works cache buster');
+  assertIncludes(file, content, 'seo-nav-20260813-v1', 'current works cache buster');
   assertIncludes(file, content, 'AI開発事例・AIシステム開発実績', 'works section title');
   assertIncludes(file, content, 'works-detail-panel-v2', 'new works detail panel');
   assertIncludes(file, content, 'AI開発について無料で相談する', 'normalized header CTA text');

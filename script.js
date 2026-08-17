@@ -317,6 +317,13 @@ document.addEventListener('DOMContentLoaded', () => {
                     lead_type: isBookingPolish && meetingPref === 'schedule' ? 'booking' : 'form'
                 });
 
+                // Google Ads conversion tracking for regular AI development contact form only
+                if (typeof window.gtag === 'function') {
+                    window.gtag('event', 'conversion', {
+                        send_to: 'AW-17941578077/O-67COf05OICEN2Cm-tC'
+                    });
+                }
+
                 contactForm.reset();
                 contactForm.classList.add('is-submitted');
                 setFormStatus('');
