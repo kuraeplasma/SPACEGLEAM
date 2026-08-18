@@ -18,7 +18,7 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Noto+Sans+JP:wght@400;500;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css?v=seo-nav-20260813-v1">
-    <link rel="stylesheet" href="home-diagnosis.css?v=tabfix-spacing-20260729-v1">
+    <link rel="stylesheet" href="home-diagnosis.css?v=20260804-v11">
     <link rel="icon" type="image/png" href="favicon.png?v=logo13-20260702">
     <link rel="canonical" href="https://spacegleam.co.jp/">
 
@@ -116,16 +116,16 @@
             "@id": "#global-nav",
             "name": [
                 "AI業務システム開発",
-                "AI開発料金",
-                "AI開発事例",
-                "よくある質問",
-                "AI開発ブログ"
+                "料金",
+                "実績",
+                "FAQ",
+                "Blog"
             ],
             "url": [
-                "https://spacegleam.co.jp/services",
-                "https://spacegleam.co.jp/pricing",
-                "https://spacegleam.co.jp/works",
-                "https://spacegleam.co.jp/faq",
+                "https://spacegleam.co.jp/services.html",
+                "https://spacegleam.co.jp/pricing.html",
+                "https://spacegleam.co.jp/works.html",
+                "https://spacegleam.co.jp/faq.html",
                 "https://spacegleam.co.jp/blog/"
             ]
         }
@@ -140,9 +140,9 @@
 <body>
     <div class="site-bg" aria-hidden="true"></div>
 
-    <header class="header header-concept-a">
+            <header class="header header-concept-a">
         <div class="container header-inner">
-            <a href="index.html" class="brand" aria-label="SPACE GLEAM ホーム">
+            <a aria-label='SPACE GLEAM ホーム' class='brand' href='index.html'>
                 <span class="brand-copy">
                     <span class="brand-name">SPACE GLEAM</span>
                 </span>
@@ -156,17 +156,17 @@
 
             <nav id="global-nav" class="nav" aria-label="グローバルナビゲーション">
                 <ul class="nav-list">
-                    <li><a href="services.html">AI業務システム開発</a></li>
-                    <li><a href="pricing.html">料金</a></li>
-                    <li><a href="works.html">実績</a></li>
-                    <li><a href="faq.html">FAQ</a></li>
-                    <li><a href="partner.html">パートナー制度</a></li>
+                    <li><a href='services.html'>AI業務システム開発</a></li>
+                    <li><a href='pricing.html'>料金</a></li>
+                    <li><a href='works.html'>実績</a></li>
+                    <li><a href='faq.html'>FAQ</a></li>
+                    <li><a href='partner.html'>パートナー制度</a></li>
                     <li><a href="blog/">Blog<span class="nav-new-badge">新着記事あり</span></a></li>
                 </ul>
             </nav>
 
             <div class="header-ctas">
-                <a href="contact.html" class="header-cta">AI開発について無料で相談する<span class="arrow">→</span></a>
+                <a class='header-cta' href='index.html#contact'>AI開発について無料で相談する<span class="arrow">→</span></a>
             </div>
         </div>
     </header>
@@ -212,43 +212,12 @@
                 <div class="hero-grid">
                     <!-- 左カラム -->
                     <div class="hero-copy">
-                        <h1>その業務、<br class="sp-only"><br class="pc-only"><span class="hero-h1-line2">AIで仕組みに変えます。</span></h1>
+                        <h1><span class="nowrap">中小企業・新規事業の</span><br class="pc-only"><span class="nowrap">手作業をAIで減らす</span></h1>
                         <p class="hero-sub-keywords" style="font-size: 1.05rem; font-weight: 800; color: #ffffff; margin-top: 18px; margin-bottom: -10px; letter-spacing: 0.04em;">AI開発 ｜ 業務自動化 ｜ 社内システム開発</p>
-                        <p class="hero-lead">Excel管理・問い合わせ対応・書類確認など、手作業や属人化している業務を、現場で使えるAIシステムへ。<br><span style="font-size: 0.9em; opacity: 0.9; display: inline-block; margin-top: 6px;">要件整理から設計・開発・運用まで一貫して対応。</span></p>
+                        <p class="hero-lead">Excel管理・問い合わせ対応・書類確認・社内ナレッジ検索など、属人化した業務をAIシステム化。<br><br><span style="font-size: 0.9em; opacity: 0.9; display: inline-block; margin-top: 10px;">要件整理から設計・開発・運用改善まで一貫対応。<br>現場で使えるAI業務システムを、2〜8週間で小さく始められます。</span></p>
                         <div class="hero-actions">
-                            <a href="contact.html" class="btn btn-primary">AI開発について無料で相談する<span class="arrow">→</span></a>
+                            <a href="contact.html" class="btn btn-primary">AI活用案を無料で聞く<span class="arrow">→</span></a>
                             <a href="contact.html" class="btn btn-secondary">概算費用を聞く</a>
-                        </div>
-                        <!-- スマホ専用: 製品ショット + 特徴ブロック (CTAボタン直下) -->
-                        <div class="hero-mobile-extras">
-                            <div class="hero-product-shots">
-                                <img src="images/hero-product-shots.png"
-                                     alt="社内業務ダッシュボード・AIチャット・ナレッジ検索・AI開発診断の画面例"
-                                     loading="lazy" decoding="async" width="900" height="560">
-                            </div>
-                            <div class="hero-features">
-                                <div class="hero-feature">
-                                    <span class="hero-feature-icon" aria-hidden="true">
-                                        <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" width="28" height="28"><path d="M17 20C17 18.3431 14.7614 17 12 17C9.23858 17 7 18.3431 7 20M21 17C21 15.7702 19.7252 14.7204 18 14.3657M3 17C3 15.7702 4.27477 14.7204 6 14.3657M18 10.2361C18.6137 9.68679 19 8.8885 19 8C19 6.34315 17.6569 5 16 5C15.2316 5 14.5308 5.28885 14 5.76389M6 10.2361C5.38625 9.68679 5 8.8885 5 8C5 6.34315 6.34315 5 8 5C8.76835 5 9.46924 5.28885 10 5.76389M12 14C10.3431 14 9 12.6569 9 11C9 9.34315 10.3431 8 12 8C13.6569 8 15 9.34315 15 11C15 12.6569 13.6569 14 12 14Z" stroke="#0f172a" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
-                                    </span>
-                                    <span class="hero-feature-sub">少人数のチームから新規事業・社内DXまで</span>
-                                    <span class="hero-feature-label">幅広く対応</span>
-                                </div>
-                                <div class="hero-feature">
-                                    <span class="hero-feature-icon" aria-hidden="true">
-                                        <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" width="28" height="28"><circle cx="12" cy="12" r="9" stroke="#0f172a" stroke-width="1.8"/><path d="M8.5 12.5L10.5 14.5L15.5 9.5" stroke="#0f172a" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
-                                    </span>
-                                    <span class="hero-feature-sub">要件整理から運用までワンストップで</span>
-                                    <span class="hero-feature-label">一貫対応</span>
-                                </div>
-                                <div class="hero-feature">
-                                    <span class="hero-feature-icon" aria-hidden="true">
-                                        <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" width="28" height="28"><path d="M9 11L7 13H3L5 7H8L9 5H15L16 7H19L21 13H17L15 11H9Z" stroke="#0f172a" stroke-width="1.8" stroke-linejoin="round"/><path d="M7 13L8.5 19H15.5L17 13" stroke="#0f172a" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
-                                    </span>
-                                    <span class="hero-feature-sub">複数のAIサービスを自社で開発・運用</span>
-                                    <span class="hero-feature-label">確かな実績</span>
-                                </div>
-                            </div>
                         </div>
                     </div>
 
@@ -298,7 +267,6 @@
                     </div>
                     <span class="tech-dots">...</span>
                 </div>
-
             </div>
         </section>
 
@@ -311,7 +279,7 @@
                     <div class="quick-consult-headrow">
                         <p class="quick-consult-lead">要件が固まっていなくても大丈夫です。<br class="pc-only">いまの業務や作りたいものを伺い、AIで効果が出やすい進め方を一緒に見つけます。</p>
                         <div class="quick-consult-actions">
-                            <a href="contact.html" class="qc-btn qc-btn--primary">AI開発について無料で相談する<span class="arrow">→</span></a>
+                            <a href="contact.html" class="qc-btn qc-btn--primary">AI活用案を無料で聞く<span class="arrow">→</span></a>
                         </div>
                     </div>
                 </div>
@@ -521,18 +489,24 @@
                 </div>
 
                 <!-- Technical Capability Banner: MCP & AI Agent Ready -->
-                <div class="mcp-banner reveal">
-                    <div class="mcp-banner__body">
-                        <span class="mcp-banner__label">REMOTE MCP SERVER 運用中</span>
-                        <h4 class="mcp-banner__title">AIエージェント時代のWeb開発・MCP開発に対応</h4>
-                        <p class="mcp-banner__lead">Remote MCP / OpenAPIに対応。AIからサービス検索・無料診断・要件整理を行えるWebサイトを、自社で実装・運用しています。</p>
-                        <ul class="mcp-banner__specs">
-                            <li class="mcp-banner__spec">MCP 2025-03-26</li>
-                            <li class="mcp-banner__spec">OpenAPI 3.1</li>
-                            <li class="mcp-banner__spec">llms.txt</li>
-                        </ul>
+                <div class="mcp-feature-banner reveal">
+                    <div class="mcp-feature-main">
+                        <div class="mcp-feature-eyebrow">
+                            <span>Remote MCP Server</span>
+                            <span class="mcp-eyebrow-divider">/</span>
+                            <span>OpenAPI 3.1</span>
+                            <span class="mcp-eyebrow-divider">/</span>
+                            <span>llms.txt</span>
+                        </div>
+                        <h4 class="mcp-feature-title">AIエージェント時代のWeb開発・MCP連携開発</h4>
+                        <p class="mcp-feature-text">自社サービスやWebサイトを、ChatGPTやClaude等のAIエージェントから呼び出せる構造化サイトへ。Remote MCP Server構築からAPI仕様策定まで一貫して支援します。</p>
+                        <div class="mcp-feature-action">
+                            <a href="mcp/" class="mcp-feature-btn">MCP開発・連携ガイドを見る <span>→</span></a>
+                        </div>
                     </div>
-                    <a href="mcp/" class="mcp-banner__cta">MCP開発・連携ガイドを見る<span class="arrow" aria-hidden="true">→</span></a>
+                    <div class="mcp-feature-diagram">
+                        <img src="images/mcp-architecture-diagram.webp" alt="SPACE GLEAM Remote MCP 連携構成図" loading="lazy">
+                    </div>
                 </div>
             </div>
         </section>
@@ -625,7 +599,7 @@
                         </div>
                         <div class="works-detail-actions-v2">
                             <a class="works-detail-link-v2" href="https://diffsense.spacegleam.co.jp/" target="_blank" rel="noopener noreferrer">DIFFsenseのサービスサイトを見る <span>↗</span></a>
-                            <a class="works-detail-contact-v2" href="contact.html">このようなAI開発について無料で相談する <span>→</span></a>
+                            <a class="works-detail-contact-v2" href="contact.html">このようなAIサービスの活用案を聞く <span>→</span></a>
                         </div>
                     </div>
                 </div>
@@ -640,7 +614,7 @@
                             <div class="works-cta-badges-v2"><span>実運用での知見を蓄積</span><span>課題発見から改善まで対応</span><span>継続的な成長をサポート</span></div>
                         </div>
                     </div>
-                    <div class="works-cta-right-v2"><a href="contact.html" class="works-cta-btn-v2">AI開発について無料で相談する <span>→</span></a></div>
+                    <div class="works-cta-right-v2"><a href="contact.html" class="works-cta-btn-v2">AI活用案を無料で聞く <span>→</span></a></div>
                 </div>
             </div>
         </section>
@@ -846,7 +820,7 @@
                                         <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
                                             <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/>
                                         </svg>
-                                                                                AI開発について無料で相談する <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12H19M19 12L13 6M19 12L13 18"/></svg>
+                                                                                AI活用案を無料で聞く <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12H19M19 12L13 6M19 12L13 18"/></svg>
                                     </a>
                                                                     </div>
                             </div>
@@ -1004,7 +978,7 @@
                             <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
                                 <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/>
                             </svg>
-                                                        AI開発について無料で相談する <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12H19M19 12L13 6M19 12L13 18"/></svg>
+                                                        AI活用案を無料で聞く <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12H19M19 12L13 6M19 12L13 18"/></svg>
                         </a>
                                             </div>
                 </div>
@@ -1172,7 +1146,7 @@
                         </div>
                     </div>
                     <a href="contact.html" class="faq-contact-btn">
-                        AI開発について無料で相談する
+                        AI活用案を無料で聞く
                         <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12H19M19 12L13 6M19 12L13 18"/></svg>
                     </a>
                 </div>
@@ -1266,7 +1240,7 @@
         <!-- AI開発診断モーダル: ローカルのみ diagnosis.js が動的に挿入します -->
     </main>
 
-    <a href="contact.html" class="mobile-fixed-cta">AI開発について無料で相談する →</a>
+    <a href="contact.html" class="mobile-fixed-cta">AI活用案を無料で聞く</a>
 
     <footer class="footer">
         <div class="container footer-top">
@@ -1282,10 +1256,9 @@
                 <div class="footer-nav-col">
                     <h4><a href="services.html">SERVICE</a></h4>
                     <ul>
-                        <li><a href="services/ai-poc-prototype/">AI業務システム開発</a></li>
-                        <li><a href="services/ai-business-automation/">業務システム開発</a></li>
-                        <li><a href="services/generative-ai-internal/">AI導入支援</a></li>
-                        <li><a href="partner.html">AI開発パートナー</a></li>
+                        <li><a href="services.html">AI業務システム開発</a></li>
+                        <li><a href="services.html">業務システム開発</a></li>
+                        <li><a href="services.html">AI導入支援</a></li>
                     </ul>
                 </div>
                 <div class="footer-nav-col">
@@ -1322,7 +1295,7 @@
                     <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
                         <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/>
                     </svg>
-                                        AI開発について無料で相談する <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12H19M19 12L13 6M19 12L13 18"/></svg>
+                                        AI活用案を無料で聞く <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12H19M19 12L13 6M19 12L13 18"/></svg>
                 </a>
                             </div>
         </div>
@@ -1366,7 +1339,7 @@
             document.body.appendChild(diagScript);
         })();
     </script>
-    <script src="script.js?v=tabfix-spacing-20260729-v1"></script>
+    <script src="script.js?v=works-ui-restore-20260629-v1"></script>
 </body>
 
 </html>
