@@ -1,5 +1,17 @@
 window.SPACEGLEAM_BLOG_POSTS = [
     {
+        slug: 'omiotsuke-for-brands',
+        title: '食品ECに「今日使う理由」を。AIレシピ接客「御御御付 for Brands」',
+        date: '2026-08-24',
+        publishAt: '2026-08-24T00:00:00+09:00',
+        status: 'published',
+        category: 'Product',
+        description: '食品ECの商品を、家にある食材に合うレシピとして提案。食品メーカー向けAIレシピ接客「御御御付 for Brands」の仕組み、活用方法、料金を紹介します。',
+        excerpt: '商品を知ってもらうだけでなく、「今日使ってみたい」まで届ける。家にある食材から商品を使う理由をつくるAIレシピ接客を紹介します。',
+        url: 'https://spacegleam.co.jp/blog/omiotsuke-for-brands/',
+        thumbnail: '/blog/omiotsuke-for-brands/ogp.png'
+    },
+    {
         slug: 'website-mcp-chatgpt-integration',
         title: '自社WebサイトをChatGPTから使えるようにするには？MCP対応でできること・導入方法・費用を解説',
         date: '2026-08-13',
