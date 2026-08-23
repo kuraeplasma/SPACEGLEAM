@@ -895,15 +895,3 @@ document.addEventListener('DOMContentLoaded', () => {
         switchWorksService(initialWorksTab.dataset.service);
     }
 });
-
-/* ===== Blog NEW badge on header nav ===== */
-(function () {
-    document.querySelectorAll('.nav a').forEach(function (a) {
-        if (a.textContent.trim() === 'Blog' && !a.querySelector('.nav-new-badge')) {
-            var b = document.createElement('span');
-            b.className = 'nav-new-badge';
-            b.textContent = '新着記事あり';
-            a.appendChild(b);
-        }
-    });
-})();
