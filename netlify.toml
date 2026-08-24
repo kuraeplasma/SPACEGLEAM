@@ -4,12 +4,16 @@
   functions = "netlify/functions"
 
 [functions]
-  included_files = ["netlify/functions/blog-admin.template.html"]
+  included_files = ["netlify/functions/blog-admin.template.html", "blog/posts.js"]
 
 # 定期ヘルスモニター: 毎日 00:00 UTC (= 09:00 JST) に本番サイトを自動チェック
 # 異常検知時は contact@spacegleam.co.jp へ即時アラートメールを送信
 [functions."site-health-monitor"]
   schedule = "0 0 * * *"
+
+# Newsletter archive drip: check daily at 09:05 JST and send only when 48 hours elapsed.
+[functions."blog-newsletter-drip"]
+  schedule = "5 0 * * *"
 
 # Blog performance: cache static assets while keeping HTML and post data fresh.
 [[headers]]
