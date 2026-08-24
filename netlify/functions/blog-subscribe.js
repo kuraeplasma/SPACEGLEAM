@@ -46,7 +46,7 @@ function welcomeEmailHtml(email) {
 <tr><td style="padding:42px 42px 30px;background:linear-gradient(135deg,#050505,#171717);color:#fff;">
 <p style="margin:0 0 18px;font-size:12px;letter-spacing:.16em;text-transform:uppercase;color:#b8bec5;">SPACE GLEAM BLOG</p>
 <h1 style="margin:0;font-size:28px;line-height:1.45;letter-spacing:0;">実践知をお届けします。</h1>
-<p style="margin:18px 0 0;color:#c7ccd1;line-height:1.9;font-size:14px;">AI開発、SaaS構築、自社サービス運営の中で得た知見を、新しい記事が公開されたタイミングでお送りします。</p>
+<p style="margin:18px 0 0;color:#c7ccd1;line-height:1.9;font-size:14px;">AI開発、SaaS構築、自社サービス運営の中で得た過去の実践知を2日に1回、新着記事は公開されたタイミングでお送りします。</p>
 </td></tr>
 <tr><td style="padding:34px 42px;">
 <p style="margin:0 0 20px;line-height:1.9;color:#30343a;font-size:15px;">ご登録ありがとうございます。登録メールアドレスは以下です。</p>
