@@ -5,11 +5,14 @@ import { getStore } from '@netlify/blobs';
 
 const RESEND_API_URL = 'https://api.resend.com';
 const FROM_EMAIL = process.env.MAIL_FROM || 'SPACE GLEAM <noreply@send.spacegleam.co.jp>';
+const ADMIN_EMAIL = process.env.CONTACT_NOTIFY_EMAIL || 'contact@spacegleam.co.jp';
 const BLOG_SEGMENT_ID = process.env.RESEND_BLOG_SEGMENT_ID || '';
 const BLOG_SEGMENT_NAME = process.env.RESEND_BLOG_SEGMENT_NAME || 'SPACE GLEAM Blog Subscribers';
 const STORE_NAME = 'spacegleam-blog-newsletter';
 const STATE_KEY = 'drip-state';
 const INTERVAL_MS = 48 * 60 * 60 * 1000;
+const FREE_CONTACT_LIMIT = 1000;
+const CAPACITY_ALERT_THRESHOLDS = [800, 900, 950, 1000];
 
 function clean(value, maxLength) {
     return String(value || '').replace(/\0/g, '').trim().slice(0, maxLength);
@@ -43,6 +46,70 @@ async function getBlogSegmentId(apiKey) {
         throw new Error(result?.message || result?.error?.message || 'Failed to list newsletter segments');
     }
     return (result?.data || []).find((segment) => segment.name === BLOG_SEGMENT_NAME)?.id || '';
+}
+
+async function countContacts(apiKey) {
+    let count = 0;
+    let after = '';
+
+    do {
+        const query = new URLSearchParams({ limit: '100' });
+        if (after) query.set('after', after);
+        const response = await resendGet(`/contacts?${query}`, apiKey);
+        const result = await response.json().catch(() => null);
+        if (!response.ok || result?.error) {
+            throw new Error(result?.message || result?.error?.message || 'Failed to list newsletter contacts');
+        }
+        const contacts = Array.isArray(result?.data) ? result.data : [];
+        count += contacts.length;
+        after = result?.has_more && contacts.length ? clean(contacts.at(-1)?.id, 120) : '';
+    } while (after);
+
+    return count;
+}
+
+function alertThresholdFor(count) {
+    return CAPACITY_ALERT_THRESHOLDS.filter((threshold) => count >= threshold).at(-1) || 0;
+}
+
+async function sendCapacityAlert(count, threshold, apiKey) {
+    const remaining = Math.max(0, FREE_CONTACT_LIMIT - count);
+    const atLimit = count >= FREE_CONTACT_LIMIT;
+    const subject = atLimit
+        ? '【重要】ニュースレター無料枠が上限に達しました'
+        : `【SPACE GLEAM Blog】ニュースレター登録者が${count}件になりました`;
+    const message = atLimit
+        ? `Resendマーケティングメールの無料連絡先枠（${FREE_CONTACT_LIMIT}件）に達しました。有料プランへの変更または連絡先整理を確認してください。`
+        : `現在のResend連絡先数は${count}件です。無料枠${FREE_CONTACT_LIMIT}件まで残り${remaining}件です。`;
+
+    const response = await resendPost('/emails', {
+        from: FROM_EMAIL,
+        to: [ADMIN_EMAIL],
+        subject,
+        html: `<p>${escapeHtml(message)}</p><p>通知基準: ${threshold}件</p>`,
+        text: `${message}\n通知基準: ${threshold}件`
+    }, apiKey);
+    const result = await response.json().catch(() => null);
+    if (!response.ok || result?.error) {
+        throw new Error(result?.message || result?.error?.message || 'Failed to send contact capacity alert');
+    }
+}
+
+async function checkContactCapacity(state, apiKey) {
+    const count = await countContacts(apiKey);
+    const threshold = alertThresholdFor(count);
+    const previousThreshold = Number(state.capacityAlertThreshold) || 0;
+
+    if (threshold > previousThreshold) {
+        await sendCapacityAlert(count, threshold, apiKey);
+    }
+
+    return {
+        ...state,
+        lastContactCount: count,
+        contactCountCheckedAt: new Date().toISOString(),
+        capacityAlertThreshold: count < CAPACITY_ALERT_THRESHOLDS[0] ? 0 : Math.max(previousThreshold, threshold)
+    };
 }
 
 function postsFilePath() {
@@ -102,7 +169,14 @@ export default async () => {
 
     const store = getStore({ name: STORE_NAME, consistency: 'strong' });
     const current = await store.getWithMetadata(STATE_KEY, { type: 'json' });
-    const state = current?.data || {};
+    let state = current?.data || {};
+    try {
+        state = await checkContactCapacity(state, apiKey);
+        await store.setJSON(STATE_KEY, state);
+    } catch (error) {
+        console.error('[NewsletterDrip] Contact capacity check failed', error);
+    }
+
     const lastSentAt = Date.parse(state.lastSentAt || '');
     if (Number.isFinite(lastSentAt) && Date.now() - lastSentAt < INTERVAL_MS) {
         return new Response('not due', { status: 200 });
@@ -137,6 +211,7 @@ export default async () => {
 
     sentSlugs.add(post.slug);
     await store.setJSON(STATE_KEY, {
+        ...state,
         lastSentAt: new Date().toISOString(),
         lastSlug: post.slug,
         lastBroadcastId: result?.id || '',
