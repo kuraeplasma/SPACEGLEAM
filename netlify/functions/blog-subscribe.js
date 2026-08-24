@@ -3,7 +3,8 @@
 const RESEND_API_URL = 'https://api.resend.com';
 const FROM_EMAIL = process.env.MAIL_FROM || 'SPACE GLEAM <noreply@send.spacegleam.co.jp>';
 const ADMIN_EMAIL = process.env.CONTACT_NOTIFY_EMAIL || 'contact@spacegleam.co.jp';
-const AUDIENCE_ID = process.env.RESEND_BLOG_AUDIENCE_ID || process.env.RESEND_AUDIENCE_ID || '';
+const BLOG_SEGMENT_ID = process.env.RESEND_BLOG_SEGMENT_ID || '';
+const BLOG_SEGMENT_NAME = process.env.RESEND_BLOG_SEGMENT_NAME || 'SPACE GLEAM Blog Subscribers';
 const BASIC_EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
 function json(statusCode, body) {
@@ -59,32 +60,83 @@ function welcomeEmailHtml(email) {
 </body></html>`;
 }
 
-async function resend(path, payload, apiKey) {
+async function resendGet(path, apiKey) {
     return fetch(`${RESEND_API_URL}${path}`, {
-        method: 'POST',
         headers: {
             Authorization: `Bearer ${apiKey}`,
             'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(payload)
+        }
     });
 }
 
-async function addAudienceContact(email, apiKey) {
-    if (!AUDIENCE_ID) return false;
+async function resend(path, payload, apiKey, method = 'POST') {
+    const options = {
+        method,
+        headers: {
+            Authorization: `Bearer ${apiKey}`,
+            'Content-Type': 'application/json'
+        }
+    };
+    if (payload !== undefined && payload !== null) {
+        options.body = JSON.stringify(payload);
+    }
+    return fetch(`${RESEND_API_URL}${path}`, options);
+}
 
-    const response = await resend(`/audiences/${encodeURIComponent(AUDIENCE_ID)}/contacts`, {
+async function responseError(response, fallback) {
+    const result = await response.json().catch(() => null);
+    return result?.message || result?.error?.message || fallback;
+}
+
+async function getBlogSegmentId(apiKey) {
+    if (BLOG_SEGMENT_ID) return BLOG_SEGMENT_ID;
+
+    const listResponse = await resendGet('/segments', apiKey);
+    const listResult = await listResponse.json().catch(() => null);
+    if (!listResponse.ok || listResult?.error) {
+        throw new Error(listResult?.message || listResult?.error?.message || '配信リストの取得に失敗しました。');
+    }
+
+    const existing = (listResult?.data || []).find((segment) => segment.name === BLOG_SEGMENT_NAME);
+    if (existing?.id) return existing.id;
+
+    const createResponse = await resend('/segments', { name: BLOG_SEGMENT_NAME }, apiKey);
+    const createResult = await createResponse.json().catch(() => null);
+    if (!createResponse.ok || createResult?.error || !createResult?.id) {
+        throw new Error(createResult?.message || createResult?.error?.message || '配信リストの作成に失敗しました。');
+    }
+
+    return createResult.id;
+}
+
+async function saveBlogContact(email, segmentId, apiKey) {
+    // Re-registering an existing address opts it back in, then ensures segment membership.
+    const updateResponse = await resend(`/contacts/${encodeURIComponent(email)}`, {
+        unsubscribed: false
+    }, apiKey, 'PATCH');
+
+    if (updateResponse.ok) {
+        const segmentResponse = await resend(
+            `/contacts/${encodeURIComponent(email)}/segments/${encodeURIComponent(segmentId)}`,
+            null,
+            apiKey
+        );
+        if (segmentResponse.ok || segmentResponse.status === 409) return;
+        throw new Error(await responseError(segmentResponse, '配信リストへの登録に失敗しました。'));
+    }
+
+    if (updateResponse.status !== 404) {
+        throw new Error(await responseError(updateResponse, '連絡先の確認に失敗しました。'));
+    }
+
+    const createResponse = await resend('/contacts', {
         email,
         unsubscribed: false,
-        first_name: '',
-        last_name: ''
+        segments: [{ id: segmentId }]
     }, apiKey);
-
-    if (response.ok || response.status === 409) return true;
-
-    const result = await response.json().catch(() => null);
-    console.warn('blog-subscribe audience save failed', response.status, result);
-    return false;
+    if (!createResponse.ok) {
+        throw new Error(await responseError(createResponse, '連絡先の登録に失敗しました。'));
+    }
 }
 
 async function sendEmail(payload, apiKey, label) {
@@ -111,13 +163,12 @@ exports.handler = async (event) => {
 
         const apiKey = clean(process.env.RESEND_API_KEY, 240);
         if (!apiKey) {
-            console.warn('blog-subscribe accepted without RESEND_API_KEY');
-            return json(200, { success: true, message: '登録を受け付けました。' });
+            console.error('blog-subscribe missing RESEND_API_KEY');
+            return json(500, { success: false, message: 'メール配信設定が未完了です。' });
         }
 
-        await addAudienceContact(email, apiKey).catch((error) => {
-            console.warn('blog-subscribe audience save errored', error);
-        });
+        const segmentId = await getBlogSegmentId(apiKey);
+        await saveBlogContact(email, segmentId, apiKey);
 
         await sendEmail({
             from: FROM_EMAIL,
