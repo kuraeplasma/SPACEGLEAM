@@ -2291,14 +2291,22 @@ html.diag-enabled .hero-interactive-wrapper {
                 }
                 const deferredFonts = document.querySelector('[data-mobile-deferred-fonts]');
                 if (deferredFonts) deferredFonts.media = 'all';
+                // works.html loads these as plain <script> tags, so script.js always
+                // finishes running before works-page.js starts (strict document order).
+                // works-page.js attaches its own click listeners on top of script.js's
+                // and depends on running second to "win". Both were async here, so
+                // whichever happened to finish downloading first ran first — on a
+                // fast connection works-page.js could beat script.js, and script.js's
+                // plainer product data would then overwrite it on tab click. Load them
+                // in the same fixed order works.html uses instead of racing them.
                 const siteScript = document.createElement('script');
                 siteScript.src = "script.js?v=works-ui-restore-20260629-v1";
-                siteScript.async = true;
+                siteScript.onload = function () {
+                    const worksPageScript = document.createElement('script');
+                    worksPageScript.src = "works-page.js?v=20260809-mcp-v1";
+                    document.body.appendChild(worksPageScript);
+                };
                 document.body.appendChild(siteScript);
-                const worksPageScript = document.createElement('script');
-                worksPageScript.src = "works-page.js?v=20260809-mcp-v1";
-                worksPageScript.async = true;
-                document.body.appendChild(worksPageScript);
             };
             const scheduleAfterFirstPaint = function () {
                 try { initializeCriticalInteractions(); } catch (e) {}
