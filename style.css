@@ -15533,3 +15533,39 @@ body.blog-page-body .footer {
         transform: translateY(0) !important;
     }
 }
+
+/* header-concept-a のスマホ表示は86pxヘッダー+50px超のロゴで過大だったため、
+   通常ヘッダー（60px・ロゴ26px）と同じ見た目に戻す。後方の同一セレクタで上書き。 */
+@media (max-width: 880px) {
+    .header.header-concept-a .header-inner {
+        min-height: 0 !important;
+        height: 60px !important;
+    }
+
+    .header.header-concept-a .brand::before {
+        width: 26px !important;
+        height: 26px !important;
+        flex: 0 0 26px !important;
+    }
+
+    .header.header-concept-a .nav {
+        top: 54px !important;
+    }
+
+    .header.header-concept-a .nav-toggle {
+        position: static !important;
+        top: auto !important;
+        flex: 0 0 auto !important;
+        background: #ffffff !important;
+        border: 1px solid rgba(15, 23, 42, 0.18) !important;
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.15) !important;
+    }
+
+    .header.header-concept-a .nav-toggle span {
+        background: #0f172a !important;
+    }
+
+    .header.header-concept-a + main .hero {
+        padding-top: 78px !important;
+    }
+}
