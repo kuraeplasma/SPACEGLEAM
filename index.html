@@ -2301,7 +2301,7 @@ html.diag-enabled .hero-interactive-wrapper {
                 document.body.appendChild(worksPageScript);
             };
             const scheduleAfterFirstPaint = function () {
-                initializeCriticalInteractions();
+                try { initializeCriticalInteractions(); } catch (e) {}
                 if ('requestAnimationFrame' in window) {
                     requestAnimationFrame(function () {
                         requestAnimationFrame(function () {
@@ -2321,6 +2321,9 @@ html.diag-enabled .hero-interactive-wrapper {
             } else {
                 scheduleAfterFirstPaint();
             }
+            // 独立した保険: 上のスケジューリング内で何が起きても
+            // (エラーで途中停止しても) このタイマーだけは必ず動く
+            setTimeout(loadFullMobileExperience, 300);
         })();
     </script>
 </body>
