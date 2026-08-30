@@ -15461,7 +15461,7 @@ body.blog-page-body .footer {
 
     .header.header-concept-a .brand::before {
         background-image: url("assets/spacegleam-logo-header-v2.webp");
-        background-size: 125%;
+        background-size: contain;
         filter: none;
     }
 
