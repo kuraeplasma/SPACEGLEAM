@@ -55,20 +55,21 @@ document.addEventListener('DOMContentLoaded', () => {
             tag: '具材認識AI味噌汁診断',
             lead: '冷蔵庫の具材をスマホで撮るだけで、食材を認識し、今日作れる味噌汁のレシピと栄養情報を自動提案するサービス。',
             images: [
-                { src: 'images/omiotsuke-ogp.png', alt: '御御御付サービスイメージ（OGP）' },
-                { src: 'images/omiotsuke-step-home.png?v=20260723-v2', alt: 'アプリホーム画面' },
-                { src: 'images/omiotsuke-step-diagnosis.png?v=20260723-v2', alt: '気分・体調の診断画面' },
-                { src: 'images/omiotsuke-step-builder.png?v=20260723-v2', alt: '具材を自由に選ぶビルダー画面' },
-                { src: 'images/omiotsuke-step-result.png?v=20260723-v2', alt: '診断結果のレシピ画面' },
-                { src: 'images/omiotsuke-step-nutrition.png?v=20260723-v2', alt: 'レシピの詳細な栄養バランス画面' }
+                { src: 'images/omiotsuke-native-01-home.png', alt: '御御御付アプリのホーム画面（実機・ストア掲載画像）' },
+                { src: 'images/omiotsuke-native-02-diagnosis.png', alt: '味噌汁診断の結果画面（実機・ストア掲載画像）' },
+                { src: 'images/omiotsuke-native-03-builder.png', alt: '味噌汁ビルダーの具材選択画面（実機・ストア掲載画像）' },
+                { src: 'images/omiotsuke-native-04-ranking.png', alt: '人気ランキング画面（実機・ストア掲載画像）' }
             ],
             background: '「冷蔵庫にある食材を使い切りたい」「今日の栄養バランスを考えたい」という日常の課題を解決するために開発。<br><br>スマホで写真を1枚撮るだけで食材を自動認識し、最適な味噌汁のレシピからカロリーや塩分などの栄養情報までを瞬時に提案する仕組みです。<br><br>気分や体調に合わせた「診断」機能や、好きな具材を自由に組み合わせる「ビルダー」機能も搭載しています。',
             features: ['写真から食材自動認識', '味噌汁レシピ自動生成', '栄養バランス・カロリー計算', '気分や体調に合わせた診断', 'お気に入り保存機能'],
             stack: 'Next.js / TypeScript<br>画像認識AI (Vision API / Gemini API)<br>栄養データベース設計<br>レスポンシブWebデザイン (TailwindCSS)',
             period: '<strong>具材自動認識とレシピ生成を実装</strong><br>LP、診断、ビルダー、お気に入り、および画像解析API連携まで対応',
-            status: 'Web版・PWAをリリース済み<br>レシピ追加や認識精度向上、ネイティブアプリ化を計画・進行中',
+            status: 'Web版・PWA、Android版アプリをリリース済み<br>iOS版は準備中',
             href: 'https://omiotsuke.spacegleam.co.jp/',
-            linkText: '御御御付のサービスサイトを見る'
+            linkText: '御御御付のサービスサイトを見る',
+            playStoreHref: 'https://play.google.com/store/apps/details?id=jp.co.spacegleam.omiotsuke',
+            forBrandsHref: 'https://omiotsuke.spacegleam.co.jp/for-brands',
+            forBrandsText: '御御御付のAI解析機能を実装したい方は専用ページをご覧ください'
         },
         diffsense: {
             title: 'DIFFsense',
@@ -316,11 +317,22 @@ document.addEventListener('DOMContentLoaded', () => {
         } else if (hasSingleAction) {
             actionsHtml = `<a class="works-detail-link-v2" href="${detail.href}">${detail.linkText} <span>→</span></a>`;
         } else {
+            const forBrandsHtml = detail.forBrandsHref
+                ? `<a class="works-detail-forbrands-v2" href="${detail.forBrandsHref}" target="_blank" rel="noopener noreferrer">${detail.forBrandsText} <span>↗</span></a>`
+                : '';
             actionsHtml = `
                 <a class="works-detail-link-v2" href="${detail.href}" target="_blank" rel="noopener noreferrer">${detail.linkText} <span>↗</span></a>
+                ${forBrandsHtml}
                 <a class="works-detail-contact-v2" href="contact.html">このようなAI開発について無料で相談する <span>→</span></a>
             `;
         }
+
+        const playStoreHtml = detail.playStoreHref
+            ? `<div class="works-detail-playstore-block-v2">
+                <p class="works-detail-playstore-guide-v2">Android版アプリはこちらからダウンロードできます</p>
+                <a class="works-detail-playstore-v2" href="${detail.playStoreHref}" target="_blank" rel="noopener noreferrer" aria-label="Google Playでダウンロード"><img src="images/google-play-badge.png" alt="Google Play で手に入れよう" width="646" height="250" loading="lazy"></a>
+            </div>`
+            : '';
 
         worksDetailMain.innerHTML = `
             <div class="works-detail-heading-v2">
@@ -328,6 +340,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     <h3>${detail.title} <span>${detail.tag}</span></h3>
                     <p>${detail.lead}</p>
                 </div>
+                ${playStoreHtml}
             </div>
             <div class="works-detail-body-v2">
                 <div class="works-detail-shot-v2 works-detail-shot-carousel-v2">${carouselHtml}</div>
@@ -343,7 +356,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 <div><h4>現在の状況</h4><p>${detail.status}</p></div>
             </div>
             ${relatedArticlesHtml}
-            <div class="works-detail-actions-v2${hasSingleAction ? ' has-single-action' : ''}">
+            <div class="works-detail-actions-v2${hasSingleAction ? ' has-single-action' : ''}${detail.forBrandsHref ? ' has-forbrands' : ''}">
                 ${actionsHtml}
             </div>
         `;
