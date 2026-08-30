@@ -1,4 +1,4 @@
-document.addEventListener('DOMContentLoaded', () => {
+function initWorksPage() {
     const worksTabs = document.querySelectorAll('.works-detail-tabs-v2 button[data-service]');
     const worksDetailMain = document.querySelector('.works-detail-main-v2');
 
@@ -471,4 +471,10 @@ document.addEventListener('DOMContentLoaded', () => {
     const activeTab = document.querySelector('.works-detail-tabs-v2 button.is-active');
     const defaultService = activeTab ? activeTab.dataset.service : 'mcp';
     renderWorksDetail(defaultService);
-});
+}
+
+if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", initWorksPage, { once: true });
+} else {
+    initWorksPage();
+}

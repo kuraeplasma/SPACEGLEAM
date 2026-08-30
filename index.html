@@ -2289,6 +2289,10 @@ html.diag-enabled .hero-interactive-wrapper {
                 siteScript.src = "script.js?v=works-ui-restore-20260629-v1";
                 siteScript.async = true;
                 document.body.appendChild(siteScript);
+                const worksPageScript = document.createElement('script');
+                worksPageScript.src = "works-page.js?v=20260809-mcp-v1";
+                worksPageScript.async = true;
+                document.body.appendChild(worksPageScript);
             };
             const scheduleAfterFirstPaint = function () {
                 initializeCriticalInteractions();
