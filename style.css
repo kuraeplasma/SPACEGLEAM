@@ -151,7 +151,7 @@ select {
     width: 40px;
     height: 40px;
     flex: 0 0 40px;
-    background: url("assets/spacegleam-logo-80.webp") center / contain no-repeat;
+    background: url("assets/spacegleam-logo-header-v2.webp") center / contain no-repeat;
 }
 
 .brand-name {
@@ -1611,7 +1611,7 @@ select {
     width: 38px;
     height: 38px;
     flex: 0 0 38px;
-    background: url("assets/spacegleam-logo-80.webp") center / contain no-repeat;
+    background: url("assets/spacegleam-logo-header-v2.webp") center / contain no-repeat;
 }
 
 .footer-logo-line {
@@ -2840,7 +2840,7 @@ select {
     position: absolute;
     width: 280px;
     height: 280px;
-    background: url('assets/spacegleam-logo-80.webp') no-repeat center / contain;
+    background: url('assets/spacegleam-logo-header-v2.webp') no-repeat center / contain;
     opacity: 0.05;
     pointer-events: none;
     z-index: 1;
@@ -15283,7 +15283,7 @@ body.blog-page-body .footer {
         width: 68px;
         height: 68px;
         flex-basis: 68px;
-        background-image: url("assets/spacegleam-logo-80.webp");
+        background-image: url("assets/spacegleam-logo-header-v2.webp");
         background-size: contain;
         filter: none;
     }
@@ -15369,7 +15369,7 @@ body.blog-page-body .footer {
         width: 52px;
         height: 52px;
         flex-basis: 52px;
-        background-image: url("assets/spacegleam-logo-80.webp");
+        background-image: url("assets/spacegleam-logo-header-v2.webp");
     }
 
     .header.header-concept-a .brand-name {
@@ -15460,7 +15460,7 @@ body.blog-page-body .footer {
     }
 
     .header.header-concept-a .brand::before {
-        background-image: url("assets/spacegleam-logo-80.webp");
+        background-image: url("assets/spacegleam-logo-header-v2.webp");
         background-size: 125%;
         filter: none;
     }
