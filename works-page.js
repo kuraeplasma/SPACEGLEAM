@@ -69,7 +69,7 @@ function initWorksPage() {
             linkText: '御御御付のサービスサイトを見る',
             playStoreHref: 'https://play.google.com/store/apps/details?id=jp.co.spacegleam.omiotsuke',
             forBrandsHref: 'https://omiotsuke.spacegleam.co.jp/for-brands',
-            forBrandsText: '御御御付のAI解析機能を実装したい方は専用ページをご覧ください'
+            forBrandsText: 'AI解析機能の実装はこちら'
         },
         diffsense: {
             title: 'DIFFsense',

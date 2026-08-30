@@ -2274,6 +2274,12 @@ html.diag-enabled .hero-interactive-wrapper {
                 diagScript.async = true;
                 document.body.appendChild(diagScript);
             };
+            // works.html loads script.js / works-page.js as plain, immediate <script>
+            // tags, so their tab-switching listeners exist before a visitor can ever
+            // tap a tab. Gating this behind scroll/pointerdown on the home page meant
+            // the tabs' first tap only triggered the load and did nothing visible —
+            // load unconditionally, right after first paint, to match works.html
+            // exactly instead of racing the user's first interaction.
             let siteScriptLoaded = false;
             const loadFullMobileExperience = function () {
                 if (siteScriptLoaded) return;
@@ -2298,23 +2304,22 @@ html.diag-enabled .hero-interactive-wrapper {
                 initializeCriticalInteractions();
                 if ('requestAnimationFrame' in window) {
                     requestAnimationFrame(function () {
-                        requestAnimationFrame(loadInteractiveScripts);
+                        requestAnimationFrame(function () {
+                            loadInteractiveScripts();
+                            loadFullMobileExperience();
+                        });
                     });
                 } else {
-                    setTimeout(loadInteractiveScripts, 0);
+                    setTimeout(function () {
+                        loadInteractiveScripts();
+                        loadFullMobileExperience();
+                    }, 0);
                 }
             };
             if (document.readyState === 'loading') {
                 document.addEventListener('DOMContentLoaded', scheduleAfterFirstPaint, { once: true });
             } else {
                 scheduleAfterFirstPaint();
-            }
-            if (matchMedia('(max-width: 900px)').matches) {
-                ['scroll', 'pointerdown', 'keydown'].forEach(function (eventName) {
-                    window.addEventListener(eventName, loadFullMobileExperience, { once: true, passive: true });
-                });
-            } else {
-                loadFullMobileExperience();
             }
         })();
     </script>
