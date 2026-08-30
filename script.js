@@ -1,4 +1,4 @@
-document.addEventListener('DOMContentLoaded', () => {
+const initializeSpaceGleamSite = () => {
     const header = document.querySelector('.header');
     const navToggle = document.querySelector('.nav-toggle');
     const nav = document.querySelector('.nav');
@@ -37,7 +37,7 @@ document.addEventListener('DOMContentLoaded', () => {
         'a[href$="#contact"]'
     ].join(',');
 
-    document.addEventListener('click', (event) => {
+    if (!window.__spaceGleamCriticalReady) document.addEventListener('click', (event) => {
         const link = event.target.closest(contactCtaSelector);
         if (!link) return;
 
@@ -115,10 +115,12 @@ document.addEventListener('DOMContentLoaded', () => {
         header.classList.toggle('is-scrolled', window.scrollY > 12);
     };
 
-    setHeaderState();
-    window.addEventListener('scroll', setHeaderState, { passive: true });
+    if (!window.__spaceGleamCriticalReady) {
+        setHeaderState();
+        window.addEventListener('scroll', setHeaderState, { passive: true });
+    }
 
-    if (navToggle && nav) {
+    if (navToggle && nav && !window.__spaceGleamCriticalReady) {
         navToggle.addEventListener('click', () => {
             const isOpen = nav.classList.toggle('is-open');
             navToggle.classList.toggle('is-open', isOpen);
@@ -663,7 +665,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     <div class="works-detail-carousel-track">
                         ${detail.images.map((img, i) => `
                             <div class="works-detail-carousel-slide${i === 0 ? ' is-active' : ''}" data-index="${i}">
-                                <img src="${img.src}" alt="${img.alt}">
+                                <img src="${img.src}" alt="${img.alt}" loading="lazy" decoding="async">
                             </div>
                         `).join('')}
                     </div>
@@ -682,11 +684,11 @@ document.addEventListener('DOMContentLoaded', () => {
             `;
         } else {
             const previewStrip = Array.isArray(detail.previewImages) && detail.previewImages.length
-                ? `<div class="works-detail-shot-strip-v2" aria-hidden="true">${detail.previewImages.map(src => `<img src="${src}" alt="">`).join('')}</div>`
+                ? `<div class="works-detail-shot-strip-v2" aria-hidden="true">${detail.previewImages.map(src => `<img src="${src}" alt="" loading="lazy" decoding="async">`).join('')}</div>`
                 : '';
             const isLogo = detail.image.includes('logo') || detail.image.includes('sate_logo') || detail.image.includes('conversion');
             shotClass = isLogo ? ' works-detail-shot-logo-v2' : (detail.previewImages ? ' works-detail-shot-diffsense-v2' : '');
-            shotHtml = `<img src="${detail.image}" alt="${detail.imageAlt}">${previewStrip}`;
+            shotHtml = `<img src="${detail.image}" alt="${detail.imageAlt}" loading="lazy" decoding="async">${previewStrip}`;
         }
 
 
@@ -894,4 +896,10 @@ document.addEventListener('DOMContentLoaded', () => {
     if (initialWorksTab) {
         switchWorksService(initialWorksTab.dataset.service);
     }
-});
+};
+
+if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initializeSpaceGleamSite, { once: true });
+} else {
+    initializeSpaceGleamSite();
+}

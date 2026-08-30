@@ -497,6 +497,7 @@
     }
     host.innerHTML =
       '<section class="home-diag-showcase" aria-labelledby="homeDiagTitle">' +
+        '<canvas class="home-diag-marble-canvas" aria-hidden="true"></canvas>' +
         '<button type="button" class="diag-card__dismiss" id="diagDismiss" aria-label="診断カードを閉じる">×</button>' +
         '<header class="home-diag-showcase__head">' +
           '<span class="home-diag-showcase__kicker"><span aria-hidden="true">✦</span> 約30秒 ・ 無料診断</span>' +
@@ -536,10 +537,31 @@
           '</div>' +
           '<aside class="home-diag-report" aria-label="診断結果PDFのサンプル">' +
             '<div class="home-diag-report__badge">PDF<br>無料取得</div>' +
-            '<div class="home-diag-report__paper"><img src="/blog/assets/diagnosis-covers/p3.png" alt="実際にダウンロードできるAI開発診断PDFの表紙" width="900" height="507" decoding="async" fetchpriority="high"></div>' +
+            '<div class="home-diag-report__paper"><img src="/blog/assets/diagnosis-covers/p3.webp" alt="実際にダウンロードできるAI開発診断PDFの表紙" width="900" height="507" loading="lazy" decoding="async"></div>' +
           '</aside>' +
         '</div>' +
       '</section>';
+    (function drawHomeMarble() {
+      var canvas = host.querySelector('.home-diag-marble-canvas');
+      if (!canvas) return;
+      var image = new Image();
+      image.decoding = 'async';
+      image.onload = function () {
+        if (!canvas.isConnected) return;
+        var rect = canvas.getBoundingClientRect();
+        var ratio = Math.min(window.devicePixelRatio || 1, 2);
+        canvas.width = Math.max(1, Math.round(rect.width * ratio));
+        canvas.height = Math.max(1, Math.round(rect.height * ratio));
+        var scale = Math.max(canvas.width / image.naturalWidth, canvas.height / image.naturalHeight);
+        var width = image.naturalWidth * scale;
+        var height = image.naturalHeight * scale;
+        var context = canvas.getContext('2d');
+        if (!context) return;
+        context.globalAlpha = 0.72;
+        context.drawImage(image, (canvas.width - width) / 2, (canvas.height - height) / 2, width, height);
+      };
+      image.src = '/images/marble-bg.webp';
+    })();
     document.getElementById('diagStart').addEventListener('click', openModal);
     document.getElementById('diagDismiss').addEventListener('click', function () {
       setCardHidden(true);

@@ -15283,7 +15283,7 @@ body.blog-page-body .footer {
         width: 68px;
         height: 68px;
         flex-basis: 68px;
-        background-image: url("assets/spacegleam-header-logo-3d.png");
+        background-image: url("assets/spacegleam-logo-80.webp");
         background-size: contain;
         filter: none;
     }
@@ -15369,7 +15369,7 @@ body.blog-page-body .footer {
         width: 52px;
         height: 52px;
         flex-basis: 52px;
-        background-image: url("assets/spacegleam-header-logo-3d.png");
+        background-image: url("assets/spacegleam-logo-80.webp");
     }
 
     .header.header-concept-a .brand-name {
@@ -15460,7 +15460,7 @@ body.blog-page-body .footer {
     }
 
     .header.header-concept-a .brand::before {
-        background-image: url("assets/spacegleam-header-logo-3d.png");
+        background-image: url("assets/spacegleam-logo-80.webp");
         background-size: 125%;
         filter: none;
     }
