@@ -67,9 +67,13 @@ Lead API: https://spacegleam.co.jp/api/lead
 
 MCP Server Name: spacegleam-sales-mcp
 MCP Endpoint: https://spacegleam.co.jp/api/mcp
-Future custom endpoint: https://mcp.spacegleam.co.jp/sse
+Transport: Streamable HTTP (stateless JSON-RPC 2.0 over POST)
+Protocol Versions: 2026-07-28; backward compatible with 2025-11-25, 2025-06-18, and 2025-03-26
+Implementation: Official MCP TypeScript SDK v2.0.0
 
-The MCP server provides tools for service search, diagnosis, project brief generation, company profile retrieval, and lead submission after explicit user consent.
+The MCP server provides 5 tools for service search, diagnosis, project brief generation, company profile retrieval, and authenticated lead submission after explicit user consent. It also publishes 6 resources for company information, services, case studies, blog/news, FAQ, and contact information, plus 2 reusable prompts.
+
+Public read and diagnosis operations do not require an API key. The write-capable create_lead tool requires a configured Bearer token and consentConfirmed: true. The server does not issue MCP session IDs and does not expose arbitrary URL fetch or file access.
 
 ## Pricing
 

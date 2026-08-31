@@ -232,8 +232,8 @@ function getOpenApiSpec() {
         openapi: '3.1.0',
         info: {
             title: 'SPACE GLEAM AI Consultation & Remote MCP API',
-            version: '1.0.0',
-            description: 'SPACE GLEAM株式会社のサービス情報、無料診断、AI向け文脈、問い合わせ送信、および Remote MCP (Model Context Protocol) エンドポイントAPI。'
+            version: '2.0.0',
+            description: 'SPACE GLEAM株式会社のサービス情報、無料診断、AI向け文脈、問い合わせ送信、およびMCP 2026-07-28（旧2025系互換）のstateless Streamable HTTPエンドポイントAPI。'
         },
         servers: [{ url: 'https://spacegleam.co.jp' }],
         paths: {
@@ -259,10 +259,22 @@ function getOpenApiSpec() {
                 }
             },
             '/api/mcp': {
+                get: {
+                    operationId: 'getMcpServerMetadata',
+                    summary: 'MCPサーバーの公開メタデータを取得する',
+                    description: 'ブラウザ・運用確認向けの補助エンドポイントです。MCPプロトコル通信にはPOSTを使用します。',
+                    responses: jsonResponse('MCP Server Metadata')
+                },
                 post: {
                     operationId: 'mcpEndpoint',
-                    summary: 'Streamable HTTP JSON-RPC 2.0 Remote MCP Endpoint',
-                    description: 'ChatGPT, Claude, Cursor 等の外部AIエージェントから Remote MCP Server として接続・Tool実行を行うエンドポイント。',
+                    summary: 'Stateless Streamable HTTP JSON-RPC 2.0 Remote MCP Endpoint',
+                    description: 'MCP 2026-07-28に対応し、2025-11-25、2025-06-18、2025-03-26のinitialize型クライアントも同じURLで受け付けます。2026-07-28リクエストではMCP-Protocol-Version、Mcp-Method、対象メソッドではMcp-Nameヘッダーが必要です。',
+                    parameters: [
+                        { name: 'MCP-Protocol-Version', in: 'header', required: false, schema: { type: 'string' }, description: '2026-07-28リクエストでは必須。旧2025-03-26互換リクエストでは省略可能。' },
+                        { name: 'Mcp-Method', in: 'header', required: false, schema: { type: 'string' }, description: '2026-07-28リクエストのJSON-RPC methodと一致させます。' },
+                        { name: 'Mcp-Name', in: 'header', required: false, schema: { type: 'string' }, description: 'tools/call、resources/read、prompts/getで対象名またはURIを指定します。' }
+                    ],
+                    requestBody: { required: true, content: { 'application/json': { schema: { type: 'object' } } } },
                     responses: jsonResponse('MCP Response')
                 }
             }
