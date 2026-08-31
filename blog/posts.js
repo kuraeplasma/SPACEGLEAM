@@ -1,5 +1,17 @@
 window.SPACEGLEAM_BLOG_POSTS = [
     {
+        slug: 'omiotsuke-android-app-release',
+        title: '「御御御付」、Android版アプリを正式リリースしました',
+        date: '2026-08-31',
+        publishAt: '2026-08-31T00:00:00+09:00',
+        status: 'published',
+        category: 'Product',
+        description: '冷蔵庫の食材から今日の味噌汁を提案するAIレシピアプリ「御御御付（おみおつけ）」のAndroidネイティブアプリを、Google Playにて公開しました。主な機能とダウンロード方法を紹介します。',
+        excerpt: 'Web版で提供してきた「御御御付」が、Androidのネイティブアプリとして登場。作る予定のローカル通知や、Web版と共通のアカウント・ランキングに対応しています。',
+        url: 'https://spacegleam.co.jp/blog/omiotsuke-android-app-release/',
+        thumbnail: '/blog/omiotsuke-android-app-release/ogp.png'
+    },
+    {
         slug: 'omiotsuke-for-brands',
         title: '食品ECに「今日使う理由」を。AIレシピ接客「御御御付 for Brands」',
         date: '2026-08-24',
