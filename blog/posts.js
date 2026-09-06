@@ -1,5 +1,17 @@
 window.SPACEGLEAM_BLOG_POSTS = [
     {
+        slug: 'ai-agent-production-gap',
+        title: '「AIエージェント」パイロットは85%、本番稼働はわずか5%。中小企業がこの溝を越える方法',
+        date: '2026-09-07',
+        publishAt: '2026-09-07T00:00:00+09:00',
+        status: 'published',
+        category: 'Business',
+        description: 'AIエージェントのパイロット導入は広がっても、本番運用まで進む企業はまだ多くありません。DIFFsenseと御御御付（おみおつけ）を自社運営するSPACE GLEAMが、モデル固定・多段階パース・承認設計といった実装レベルの工夫から、パイロットで止まる理由と越え方を解説します。',
+        excerpt: 'パイロットは8割を超えても、本番運用まで進んだのは1割未満という報告も。自社SaaSの実装知見をもとに、パイロットで止まる5つの壁と、越えるために最初に決めるべきたった1つの問いを整理しました。',
+        url: 'https://spacegleam.co.jp/blog/ai-agent-production-gap/',
+        thumbnail: '/blog/ai-agent-production-gap/ogp.png'
+    },
+    {
         slug: 'omiotsuke-android-app-release',
         title: '「御御御付」、Android版アプリを正式リリースしました',
         date: '2026-08-31',

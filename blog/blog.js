@@ -83,6 +83,20 @@
             if (anchor) anchor.before(section);
             else (article || document.querySelector('main .container'))?.insertAdjacentElement('afterend', section);
         }
+
+        if (!document.querySelector('[data-article-contact-cta]')) {
+            const wrap = document.createElement('div');
+            wrap.setAttribute('data-article-contact-cta', '');
+            wrap.style.textAlign = 'center';
+            wrap.style.margin = '40px 0';
+            wrap.innerHTML = '<a href="../../contact.html" class="works-cta-btn-v2">AI開発について無料で相談する <span>→</span></a>';
+            if (article) article.insertAdjacentElement('afterend', wrap);
+            else {
+                const anchor = document.querySelector('.article-cta') || document.querySelector('.related-section') || document.querySelector('.article-nav') || document.querySelector('.article-back-link');
+                if (anchor) anchor.before(wrap);
+                else document.querySelector('main .container')?.insertAdjacentElement('afterend', wrap);
+            }
+        }
     };
 
     ensureArticleParts();

@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3800861012394451" crossorigin="anonymous"></script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>「AIエージェント」パイロットは85%、本番稼働はわずか5%。中小企業がこの溝を越える方法 | SPACE GLEAM</title>
+<meta name="description" content="AIエージェントのパイロット導入は広がっても、本番運用まで進む企業はまだ多くありません。DIFFsenseと御御御付（おみおつけ）を自社運営するSPACE GLEAMが、モデル固定・多段階パース・承認設計といった実装レベルの工夫から、パイロットで止まる理由と越え方を解説します。">
+<link rel="canonical" href="https://spacegleam.co.jp/blog/ai-agent-production-gap/">
+<link rel="icon" href="../../favicon.png">
+<link rel="stylesheet" href="../../style.css">
+<meta property="og:type" content="article">
+<meta property="og:locale" content="ja_JP">
+<meta property="og:title" content="AIエージェント、パイロットは85%でも本番稼働はわずか5%">
+<meta property="og:description" content="中小企業がこの溝を越える方法。">
+<meta property="og:url" content="https://spacegleam.co.jp/blog/ai-agent-production-gap/">
+<meta property="og:site_name" content="SPACE GLEAM">
+<meta property="og:image" content="https://spacegleam.co.jp/blog/ai-agent-production-gap/ogp.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://spacegleam.co.jp/blog/ai-agent-production-gap/ogp.png">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"Article","headline":"「AIエージェント」パイロットは85%、本番稼働はわずか5%。中小企業がこの溝を越える方法","datePublished":"2026-09-07","dateModified":"2026-09-07","author":{"@type":"Organization","name":"SPACE GLEAM"},"mainEntityOfPage":"https://spacegleam.co.jp/blog/ai-agent-production-gap/","image":"https://spacegleam.co.jp/blog/ai-agent-production-gap/ogp.png","articleSection":"Business"}</script>
+</head>
+<body class="blog-page-body" data-article-slug="ai-agent-production-gap">
+<div class="site-bg">
+</div>
+    <header class="header">
+        <div class="container header-inner">
+            <a href="../../index.html" class="brand" aria-label="SPACE GLEAM ホーム">
+                <span class="brand-name">SPACE GLEAM</span>
+            </a>
+
+            <button class="nav-toggle" type="button" aria-label="メニューを開く" aria-controls="global-nav" aria-expanded="false">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+
+            <nav id="global-nav" class="nav" aria-label="グローバルナビゲーション">
+                <ul class="nav-list">
+                    <li><a href="../../services.html">AI業務システム開発</a></li>
+                    <li><a href="../../pricing.html">料金</a></li>
+                    <li><a href="../../works.html">実績</a></li>
+                    <li><a href="../../faq.html">FAQ</a></li>
+                    <li><a href="../../partner.html">パートナー制度</a></li>
+                    <li><a href="../index.html" aria-current="page">Blog</a></li>
+                </ul>
+            </nav>
+
+            <div class="header-ctas">
+                <a href="../../contact.html" class="header-cta">AI開発について無料で相談する<span class="arrow">→</span></a>
+            </div>
+        </div>
+    </header>
+<main class="blog-main">
+<div class="container">
+<article>
+<header class="article-header">
+<div class="article-meta">
+<time datetime="2026-09-07">2026年9月7日</time>
+<span class="article-category">Business</span>
+</div>
+<h1>「AIエージェント」パイロットは85%、本番稼働はわずか5%。中小企業がこの溝を越える方法</h1>
+<p class="article-lead">2026年に入り、「AIエージェントを試した」という声はどこでも聞くようになりました。ですが、実際に本番の業務で動かし続けている企業は、思ったより多くありません。パイロットと本番運用の間には、技術力だけでは埋まらない溝があります。</p>
+</header>
+<div class="article-content">
+<p>SNSやビジネスメディアを見ていると、2026年6〜9月にかけて「AIエージェントのパイロット導入は8割を超えているが、本番運用まで進んだのは1割に満たない」という趣旨の報告をたびたび見かけるようになりました。数字の厳密さは調査によって幅がありますが、現場の感覚とも一致します。ツールを試すところまでは早いのに、そこから先で止まる企業が非常に多いのです。</p>
+<p>私たちSPACE GLEAMは、契約書比較SaaS「DIFFsense」や食材提案アプリ「御御御付（おみおつけ）」を自社で開発・運営しながら、こうしたAI活用の受託開発も行っています。この記事では一般論だけでなく、自社サービスの開発・運用で実際に踏んだ手順と、これまでのブログで紹介してきた技術的な工夫を踏まえて、パイロットと本番運用を分けている実務上の違いを具体的に整理します。</p>
+<h2>「導入した」の中身は、ほとんどがパイロット</h2>
+<p>建設現場での写真整理、店舗での投稿・口コミ返信、営業の議事録要約。2026年後半のAIエージェント活用事例を見ると、業種を問わず「何ができるか」から「何を任せるか」へ関心が移っています。ただし、多くは特定の担当者や1チームが試している段階で止まっており、部門をまたいで日常業務に組み込まれているケースはまだ少数派です。</p>
+<p>「導入した」と回答した企業の内訳を分解すると、実態は次のように分かれます。</p>
+<ul>
+<li>担当者が個人的に試している（社内共有なし）</li>
+<li>1チームでの試験運用（本番データの一部のみ）</li>
+<li>特定業務での限定的な本番運用</li>
+<li>複数部門をまたいだ継続的な本番運用</li>
+</ul>
+<p>ニュースやSNSで語られる「導入事例」の多くは上の2つに集中しており、下の2つまで進んでいる企業はごくわずかというのが実感です。この差を分けているのは、AIモデルの性能ではなく、その手前にある業務設計であることがほとんどです。</p>
+<h2>そもそも、最初に選ぶ業務を間違えている</h2>
+<p>パイロットが本番へ進めない理由を「壁」として語る前に、もっと手前の問題があります。最初に自動化・エージェント化する業務の選び方そのものです。私たちが自動化の相談を受けるとき、対象業務を次の5つの質問で確認します。</p>
+<ul>
+<li>週に何回発生する業務か（頻度）</li>
+<li>入力と出力を言葉で説明できるか（手順の明確さ）</li>
+<li>結果を人が短時間で確認できるか（検証コスト）</li>
+<li>例外パターンはどれくらいあるか（例外率）</li>
+<li>必要なデータは、すぐ使える状態にあるか（データの所在）</li>
+</ul>
+<p>目立つ業務や経営が期待する業務ほど、実は例外が多く、誤りの影響が大きく、最初の対象には向いていません。「AIエージェントに何を任せるか」を決める前に、この5項目で候補を並べ替えるだけで、パイロットが本番へ進む確率は大きく変わります。派手なデモになる業務と、地味でも本番化しやすい業務は、多くの場合一致しません。</p>
+<h2>パイロットで止まる、よくある5つの壁</h2>
+<h3>1. 現場の裁量でしか動かせない</h3>
+<p>担当者の判断で始められる範囲にとどまり、他部門のデータや業務に触れる権限がないまま試している状態です。効果が見えても、その先に進むための決裁ルートが用意されていません。</p>
+<h3>2. 既存システムと繋がっていない</h3>
+<p>チャット画面を別途開き、毎回情報を貼り付けて使う運用のままだと、便利さは実感できても日常業務には定着しません。基幹システムや業務ツールから直接呼び出せる導線がなければ、使う人はいずれ元のやり方に戻ります。</p>
+<p>私たちがDIFFsenseの契約書比較機能を作った際に重視したのも、この導線です。「AIの結果を確認してください」とだけ伝えても、利用者は元の長い契約書を読み直すことになり、AI導入前と負担が変わりません。そこで、元の条文・変更後・差分・AIによる要約・根拠となる参照箇所を同じ画面の同じ判断単位で並べ、読み直しなしで確認できる形にしています。エージェントを既存業務に接続するとは、API連携だけでなく、こうした「確認の導線」まで設計することを指します。</p>
+<h3>3. 誤った時に止める・戻す手順がない</h3>
+<p>AIエージェントは自律的に複数の作業をこなす分、誤った判断をした際の影響範囲も広がります。「おかしいと気づいたら誰がどう止めるか」が決まっていないと、責任者は本番投入の判断を先送りにします。この壁は特に深いため、次の章でまとめて扱います。</p>
+<h3>4. 効果を測る数字が決まっていない</h3>
+<p>「便利だった」「助かった」という感想だけでは、投資判断の材料になりません。作業時間の短縮、修正が必要だった割合、対応件数など、続ける・広げる・やめるを決めるための指標が最初から必要です。</p>
+<h3>5. トップダウンの意思決定がない</h3>
+<p>現場の工夫だけで進められる範囲には限界があります。どの業務にどこまで任せるかは、経営や部門責任者が判断すべき事項です。現場任せのまま放置すると、良い取り組みほど社内稟議に乗らず、担当者の異動とともに立ち消えになります。</p>
+<h2>誤りにすぐ気づき、すぐ止められる設計にする</h2>
+<p>「止める・戻す手順がない」という壁は、承認ボタンを1つ付ければ解決するものではありません。私たちがEU AI Actの人による監督要件や、経済産業省が2026年4月に公表したAI利活用の民事責任に関する手引きを踏まえて整理しているのは、確認画面に何を出すかという設計です。承認画面には、次の6項目を用意します。</p>
+<ul>
+<li><strong>依頼：</strong>誰が何を求めたか</li>
+<li><strong>根拠：</strong>AIが参照した情報と該当箇所</li>
+<li><strong>差分：</strong>現在の状態から何が変わるか</li>
+<li><strong>影響：</strong>送信先、件数、金額、関連データ</li>
+<li><strong>警告：</strong>欠損、矛盾、通常範囲外の値</li>
+<li><strong>操作：</strong>承認、修正、差し戻し、中止</li>
+</ul>
+<p>加えて、承認待ちの案件が埋もれないための例外キュー（期限・重要度・担当者・待機時間を一覧できる仕組み）と、承認後の処理が途中で失敗しても、メール送信や登録が二重に実行されないための重複防止も欠かせません。エージェントの処理速度が上がっても、承認待ちが渋滞すれば業務全体は速くなりません。導入直後は全件を人が確認し、影響が小さく同じ条件で連続して承認された処理だけを段階的に自動化する、という順番で確認率を下げていきます。</p>
+<h2>補助金があっても、溝は埋まらない</h2>
+<p>人手不足を背景に、AIエージェントの導入を後押しする補助金や支援策も増えています。ただし、これらはツールの導入費用を軽くする効果はあっても、既存システムとの接続や、ここまで述べたような社内の運用ルール作りまでは代わりにやってくれません。ツールを安く試せることと、それを本番で動かし続けられることは、別の課題です。</p>
+<h2>本番で動いているところは、何が違うのか</h2>
+<p>DIFFsenseの初期版は、構想から公開まで約3日でした。ただし、その3日で作ったのは契約書の差分比較機能だけです。通知、電子署名、権限管理、承認機能、チーム機能といった当初考えていた機能はすべて後回しにしました。そして公開後に実際に時間がかかったのは、AIによる比較そのものではなく、認証、決済、権限管理、データ管理、セキュリティといった「AI以外の基盤」でした。動くものを作る時間と、本番で任せ続けられる状態にする時間は、まったく別の投資だということです。</p>
+<p>本番運用に入ってからは、AIモデル特有の壊れ方にも備えています。生成AIは裏側のモデルがアップデートされるだけで、出力のフォーマットや判断の傾向が変わることがあります。DIFFsenseのバックエンドでは、呼び出すモデルをバージョンまで明記して固定し、「latest」のような自動追従のエイリアスは使いません。AIからの応答も、<code>changes</code>だけでなく<code>suggestions</code>や<code>materialChanges</code>など複数のキー名のいずれかを拾えるようにし、JSONの抽出も「そのままパース→軽微な崩れを正規化して再試行→正規表現で必要な項目だけ抽出」という3段階で立て直せるようにしています。御御御付の画像解析処理では、モデル名を環境変数で外出しして即座に切り替えられるようにし、混雑時のエラーには自動で再試行・別グレードへのフォールバックを行い、それでも収束しない場合に人がすぐ呼び出しを止められるキルスイッチも用意しています。</p>
+<p>さらに、自社サイトの機能をChatGPTから直接呼び出せるRemote MCPも、検証で終わらせず本番環境に実装し、実機で動作を確認したうえで公開しています。共通しているのは、最初から対象範囲を1つの業務・1つの機能に絞ったこと、そして「何を任せ、どこで人が確認し、崩れたときにどう戻すか」を作り込みの一部として設計段階から組み込んでいたことです。範囲を広げるのは、その後の話です。</p>
+<h2>中小企業がまず決めるべき、たった1つの問い</h2>
+<p>本番化を焦って全社展開から始める必要はありません。むしろ最初に決めるべきは、次の1つの問いです。</p>
+<p><strong>「このAIエージェントが間違えたとき、誰が・どうやって気づいて止めるか」</strong></p>
+<p>これが決まっていない施策は、たとえ精度が高くても、責任者が本番投入に踏み切れず、パイロットのまま止まり続けます。逆に、これさえ先に決めておけば、対象範囲を広げる判断はずっと軽くなります。具体的には、次の項目を最初に洗い出しておくと進めやすくなります。</p>
+<ul>
+<li>任せる業務の範囲と、任せない部分の線引き</li>
+<li>異常や誤りに気づく方法（誰が、どのタイミングで確認するか）</li>
+<li>止める・元に戻す手順と、その権限を持つ人</li>
+<li>継続判断に使う数字（時間削減、修正率、利用継続率など）</li>
+<li>3か月後にその数字を見て、拡大・維持・中止のどれを選ぶ責任者</li>
+</ul>
+<p>SPACE GLEAMでは、自社サービスを実際に本番運用しながら得た知見をもとに、対象業務の選定、権限・承認フローの設計、AIモデルの揺れに対する防御的な実装、そして本番投入後の運用体制まで一貫して対応しています。「まずは自社の業務でどこまで任せられそうか知りたい」という段階でもご相談いただけます。</p>
+</div>
+</article>
+<div class="article-cta">
+<div>
+<strong>AIエージェント導入、まず何から動かすべきか</strong>
+<p>現状の業務とツールを踏まえて、パイロットで終わらせない進め方をご提案します。</p>
+</div>
+<a href="../../contact.html">相談する</a>
+</div>
+<section class="related-section">
+<h2>関連記事</h2>
+<div class="related-grid" data-related-posts>
+</div>
+</section>
+<div class="article-nav">
+<a href="../index.html" class="article-nav-back">一覧に戻る</a>
+</div>
+</div>
+</main>
+<footer class="footer">
+<div class="container footer-bottom">
+<p class="copyright">&copy; 2026 SPACE GLEAM. All rights reserved.</p>
+</div>
+</footer>
+<script src="../../script.js">
+</script>
+<script src="../posts.js">
+</script>
+<script src="../blog.js">
+</script>
+</body>
+</html>
